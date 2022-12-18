@@ -2,10 +2,11 @@
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
-        $user_query = "SELECT first_name, last_name FROM users WHERE user_id = '$user_id'";
+        $user_query = "SELECT id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
         $user_con = $con->query($user_query) or die ($con->error);
         $row_user = $user_con->fetch_assoc();
     }
+
 ?>
 <!-- Start Welcome area -->
     <div class="all-content-wrapper" id="store-data" data-id="<?php echo $_SESSION['UserId'] ?>">
@@ -121,54 +122,111 @@
                                                             <h1>Notifications</h1>
                                                         </div>
                                                         <ul class="notification-menu">
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="educate-icon educate-checked edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>juan dela cruz</h2>
-                                                                        <p>You have an appointment with Juan dela cruz today</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-cloud edu-cloud-computing-down" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>Louie Ruiz</h2>
-                                                                        <p>Louie ruiz send you a new referral</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-eraser edu-shield" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>Victor jara</h2>
-                                                                        <p>Victor jara send you a new referral</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-line-chart edu-analytics-arrow" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>support</h2>
-                                                                        <p>Thank you for contacting us, we will fix the issue for a while.</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li> 
+                                                        <?php
+                                                        
+                                                                // CHECK ALL APPOINTMENT FIRST IF IS TODAY
+                                                                // $Appointment_query = "SELECT * FROM notifications WHERE Type = 'Appointments'";
+                                                                // $results = $con->query($Appointment_query) or die ($con->error);
+
+                                                                $currentDate = date('Y-m-d');
+                                                                // while ($Appointment = mysqli_fetch_assoc($results)) {
+                                                                //     if ($Appointment["notif_date"]->format('Y-m-d') == $currentDate) {
+                                                                //         $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
+                                                                //         mysqli_query($con, $update_query);
+                                                                //     }
+                                                                // }
+
+                                                                // ICONS
+                                                                $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
+                                                                $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
+                                                                $rejection_icon = "fa fa-eraser edu-shield";
+                                                                $offense_icon = "fa fa-line-chart edu-analytics-arrow";
+                                                                
+                                                                //QUERY
+                                                                $id = $row_user['id_number'];
+                                                                $query = "SELECT * FROM notifications WHERE to_user = '$id' ORDER BY isRead ASC"; //CREate join para makuha name ng user
+                                                                $connect_query = mysqli_query($con, $query);
+
+                                                                //show notification
+                                                                while ($notification = mysqli_fetch_assoc($connect_query)) {
+                                                                    $from = $notification["from_user"];
+                                                                    $DateTime = $notification["notif_date"];
+                                                                    $infoID = $notification["info_ID"];
+                                                                    $type = $notification["Type"];
+                                                                    $isRead = $notification["isRead"];
+
+                                                                    $DateTimeObj = new DateTime($DateTime);
+
+                                                                    $description = "You have new notification";
+                                                                    
+                                                                    // ICON TYPE
+                                                                    switch ($type) {
+                                                                        //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
+                                                                        case "Appointment":
+                                                                            $icon = $appointment_icon;
+                                                                            if ($DateTimeObj->format('Y-m-d') == $currentDate) {
+                                                                                $description = "You have new appointment setted by ".$from;
+                                                                            }else{
+                                                                                $description = "You have an appointment with ".$from." today";
+                                                                            }
+                                                                            break;
+
+                                                                        case "Referral":
+                                                                            $icon = $refferal_icon;
+                                                                            $description = $from." send you a new referral";
+                                                                            break;
+
+                                                                        case "Rejection":
+                                                                            $icon = $rejection_icon;
+                                                                            $description = $from." rejected your referral";
+                                                                            break;
+
+                                                                        case "Offense":
+                                                                            $icon = $offense_icon;
+                                                                            $description = "You have new offense given by".$from;
+                                                                            break;
+
+                                                                        default:
+                                                                            $icon = $appointment_icon;
+                                                                            $description = "You have new notification";
+                                                                            break;
+                                                                    }
+
+                                                                    // CALCULATE TIME
+                                                                    $now = new DateTime();
+                                                                    $notif_DT = new DateTime($DateTime);
+                                                                    $diff = $now->diff($notif_DT);
+
+                                                                    if($diff->i < 60){
+                                                                        $notifStrTime = "Just Now";
+                                                                    }elseif($diff->h < 24){
+                                                                        $notifStrTime = $diff->h." hours ago";
+                                                                    }else{
+                                                                        $notifStrTime = $diff->d." days ago";
+                                                                    }
+                                                                    
+                                                                    if($isRead == 0){
+                                                                        $style = 'style="font-weight: bold;"';
+                                                                    }else{
+                                                                        $style = '';
+                                                                    }
+
+                                                                    echo '<li>
+                                                                        <a href="">
+                                                                            <div class="notification-icon" '.$style.'>
+                                                                                <i class="'.$appointment_icon.'" aria-hidden="true"></i>
+                                                                            </div>
+                                                                            <div class="notification-content">
+                                                                                <span class="notification-date">'.$DateTime.'</span>
+                                                                                <h2>'.$from.'</h2>
+                                                                                <p>'.$description.'</p>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>';
+                                                                }
+                                                                // KAPAG PININDOT YUNG NOTIF DAPAT MAGSESEND NG QUERY NA IUPDATE YUNG ISREAD TO 1
+                                                            
+                                                            ?>
                                                         </ul>
                                                         <div class="notification-view">
                                                             <a href="#">View All Notification</a>
