@@ -90,15 +90,15 @@
                         <a title="Manages Articles" href="gc___manages_acticle.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Manages Article</span></a>
                     </li>
                     
-                    <!-- <li>
+                    <li>
                         <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">Utilities</span></a>
                         <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
                             <li><a title="Audit Trail" href="gc___audit-trail.php"><span class="mini-sub-pro">Audit Trail</span></a></li>
                             <li><a title="Backup and Restore" href="gc___backup-restore.php"><span class="mini-sub-pro">Back-up and Restore</span></a></li>
                         </ul>
-                    </li>  -->
+                    </li> 
 
-                    <li><a title="Audit Trail" href="gc___audit-trail.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Audit trail</span></a></li>
+                    <!-- <li><a title="Audit Trail" href="gc___audit-trail.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Audit trail</span></a></li> -->
                     
                     <!-- <li><a title="Audit Trail" href="gc___audit-trail.php"><span class="mini-sub-pro">Audit Trail</span></a></li> -->
 
