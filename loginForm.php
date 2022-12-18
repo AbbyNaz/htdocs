@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <!-- sample comment -->
+    
     <title>Guidance and Counseling Office - Login Form</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/sti_logo.png">
     <link rel="stylesheet" type="text/css" href="loginForm_css/style2.css">
