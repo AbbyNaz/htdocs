@@ -4,7 +4,7 @@ include_once("./../connections/connection.php");
 
 $con = connection();
 
-    if(isset($_SESSION['UserId'])){
+    if(isset($_SESSION['UserId'])){ 
         $user_id = $_SESSION['UserId'];
         $user_query = "SELECT first_name, last_name FROM users WHERE user_id = '$user_id'";
         $user_con = $con->query($user_query) or die ($con->error);
@@ -101,6 +101,258 @@ $con = connection();
                     </div>
                 </div>
             </div>
+
+ 
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE OFFENSE DETAILS MODAL--------------------------------------------->
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_OFFENSE" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Offense Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Offense Type</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Sanction</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REJECTED REFERRAL DETAILS MODAL --------------------------------------------->
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_REJECTED_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Referral Rejection Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" readonly class="form-control"
+                                            placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Date and Time</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" 
+                                            name="description" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Created Date/Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DITO YUNG NIREFER NYANG STUDENT OR STAFF NAME AND ID -->
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <!-- <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Appointment Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Appointment Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <!-- <button type="submit" name="Cancel_Appointment" class="btn btn-primary btn-md">Cancel Appointment</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div> 
 
 
 <style type="text/css">
