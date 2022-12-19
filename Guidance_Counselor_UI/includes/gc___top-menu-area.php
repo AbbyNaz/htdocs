@@ -143,12 +143,27 @@
                                                                 // ICONS
                                                                 $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
                                                                 $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
-                                                                $rejection_icon = "fa fa-eraser edu-shield";
-                                                                $offense_icon = "fa fa-line-chart edu-analytics-arrow";
                                                                 
                                                                 //QUERY
                                                                 $id = $row_user['id_number'];
-                                                                $query = "SELECT n.*, u.first_name, u.last_name FROM notifications n JOIN users u ON n.from_user = u.id_number WHERE n.to_user = '$id' ORDER BY isRead ASC"; //CREate join para makuha name ng user
+                                                                $query = "SELECT n.*, 
+                                                                        CASE 
+                                                                        WHEN n.to_user = '$id' THEN u1.first_name
+                                                                        ELSE u2.first_name
+                                                                        END as first_name, 
+                                                                        CASE 
+                                                                        WHEN n.to_user = '$id' THEN u1.last_name
+                                                                        ELSE u2.last_name
+                                                                        END as last_name
+
+                                                                        FROM notifications n 
+                                                                        LEFT JOIN users u1 ON n.from_user = u1.id_number 
+                                                                        LEFT JOIN users u2 ON n.to_user = u2.id_number 
+
+                                                                        WHERE (n.to_user = '$id' OR n.from_user = '$id') 
+                                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral')
+
+                                                                        ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                                                 $connect_query = mysqli_query($con, $query);
 
                                                                 //show notification
@@ -159,9 +174,7 @@
                                                                     $type = $notification["Type"];
                                                                     $isRead = $notification["isRead"];
                                                                     $name = $notification["first_name"]." ".$notification["last_name"];
-
                                                                     
-
                                                                     $description = "You have new notification";
                                                                     
                                                                     // ICON TYPE & DESCRIPTION
@@ -188,21 +201,6 @@
                                                                             $icon = $refferal_icon;
                                                                             $description = $name." send you a new referral";
                                                                             break;
-
-                                                                        case "Rejection":
-                                                                            $icon = $rejection_icon;
-                                                                            $description = $name." rejected your referral";
-                                                                            break;
-
-                                                                        case "Offense":
-                                                                            $icon = $offense_icon;
-                                                                            $description = "You have new offense given by ".$name;
-                                                                            break;
-
-                                                                        default:
-                                                                            $icon = $appointment_icon;
-                                                                            $description = "You have new notification";
-                                                                            break;
                                                                     }
 
                                                                     // CALCULATE TIME
@@ -226,7 +224,6 @@
                                                                     }
 
                                                                     echo '<li class ="notification-list" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
-                                                                        <a href="">
                                                                             <div class="notification-icon">
                                                                                 <i class="'.$icon.'" aria-hidden="true"></i>
                                                                             </div>
@@ -235,7 +232,6 @@
                                                                                 <h2>'.$name.'</h2>
                                                                                 <p>'.$description.'</p>
                                                                             </div>
-                                                                        </a>
                                                                     </li>';
                                                                 }
                                                                 // KAPAG PININDOT YUNG NOTIF DAPAT MAGSESEND NG QUERY NA IUPDATE YUNG ISREAD TO 1
@@ -472,6 +468,7 @@
 
     </div>
 
+    
 
 <style type="text/css">
 
@@ -1419,12 +1416,6 @@ $(document).ready(function() {
                 break;
             case 'Referral':
                 $('#NOTIF_REJECTED_REFERRAL').modal('show');
-                break;
-            case 'Rejection':
-                $('#NOTIF_REJECTED_REFERRAL').modal('show');
-                break;
-            case 'Offense':
-                $('#NOTIF_REFERRAL').modal('show');
                 break;
         }
         
