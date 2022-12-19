@@ -84,11 +84,17 @@
                         <a title="Offense Monitoring" href="gc___offense_monitoring.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Offense Monitoring</span></a>
                     </li>
 
-                    
-
                     <li>
+                        <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">Manage</span></a>
+                        <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
+                            <li><a title="Manages Articles" href="gc___manages_acticle.php"><span class="mini-sub-pro">Articles</span></a></li>
+                            <li><a title="Manages Announcements" href="gc___manages-announcements.php"><span class="mini-sub-pro">Announcements</span></a></li>
+                        </ul>
+                    </li> 
+
+                    <!-- <li>
                         <a title="Manages Articles" href="gc___manages_acticle.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Manages Article</span></a>
-                    </li>
+                    </li> -->
                     
                     <li>
                         <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">Utilities</span></a>
@@ -98,7 +104,7 @@
                         </ul>
                     </li> 
 
-                    <li><a title="Audit Trail" href="gc___notifications_table.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Notifications Table</span></a></li>
+                    <!-- <li><a title="Audit Trail" href="gc___notifications_table.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Notifications Table</span></a></li> -->
                     
                     <!-- <li><a title="Audit Trail" href="gc___audit-trail.php"><span class="mini-sub-pro">Audit Trail</span></a></li> -->
 

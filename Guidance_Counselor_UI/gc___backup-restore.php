@@ -117,6 +117,50 @@ if (!isset($_SESSION['UserEmail'])) {
     <!-- modernizr JS
     ============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <style>
+
+        .switchsss{
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin: 5px 10px;
+        }
+        .slidersss{
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .switchsss input{
+            display: none;
+        }
+        .slidersss::before{
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 5px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50px;
+        }
+
+        input:checked + .slidersss{
+            background-color: #31708E;
+        }
+
+        input:checked + .slidersss::before{
+            transform: translateX(30px);
+        }
+    </style>
 </head>
 
 <body>
@@ -149,7 +193,8 @@ if (!isset($_SESSION['UserEmail'])) {
         </div>
     </div>
     </div>
-<!-- SAMPLE BACKUP -->
+
+
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
         <div class="container-fluid">
@@ -158,7 +203,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="sparkline13-list">
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
-                                <h1>Back-up Data</h1>
+                                <h1>Back-up Database</h1>
                             </div>
                         </div>
 
@@ -187,8 +232,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <button type="submit" name="backupnow" class="btn btn-primary btn-md">Select
-                                                Backup Time</button>
+                                            <!-- <button type="submit" name="backupnow" class="btn btn-primary btn-md">Select
+                                                Backup Time</button> -->
+                                                <label class="switchsss">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slidersss"> </span>
+                                                </label>
+
                                         </div>
 
                                         <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -214,7 +264,60 @@ if (!isset($_SESSION['UserEmail'])) {
         </div>
     </div>
     <!-- Static Table End -->
+
+     <!-- Static Table Start -->
+     <div class="data-table-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline13-list">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <h1>Restore Database</h1>
+                            </div>
+                        </div>
+
+                        <form action="" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Back-Up Database Every:</label>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="import_file" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <button type="submit" name="backupnow" class="btn btn-primary btn-md">Restore</button>
+                                        </div>
+
+                                        <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">*Note:</label>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <label class="login2 pull-left">If you click the button Backup Now and that automatically download back-up data.</label>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <button type="submit" name="backupnow" class="btn btn-primary btn-md">Backup Now</button>
+                                    </div> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Static Table End -->
+
 
     <!-- jquery
     ============================================ -->
