@@ -124,17 +124,17 @@
                                                         <ul class="notification-menu">
                                                         <?php
                                                         
-                                                                // CHECK ALL APPOINTMENT FIRST IF IS TODAY
-                                                                // $Appointment_query = "SELECT * FROM notifications WHERE Type = 'Appointments'";
-                                                                // $results = $con->query($Appointment_query) or die ($con->error);
+                                                                // CHECK ALL APPOINTMENT FIRST IF IS TODAY -- make the appointment unread so that it can be seen by user
+                                                                $Appointment_query = "SELECT n.id, a.date FROM notifications n JOIN appointments a ON n.info_ID = a.id WHERE n.Type = 'Appointments'";
+                                                                $results = $con->query($Appointment_query) or die ($con->error);
 
                                                                 $currentDate = date('Y-m-d');
-                                                                // while ($Appointment = mysqli_fetch_assoc($results)) {
-                                                                //     if ($Appointment["notif_date"]->format('Y-m-d') == $currentDate) {
-                                                                //         $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
-                                                                //         mysqli_query($con, $update_query);
-                                                                //     }
-                                                                // }
+                                                                while ($Appointment = mysqli_fetch_assoc($results)) {
+                                                                    if ($Appointment["date"]->format('Y-m-d') == $currentDate) {
+                                                                        $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
+                                                                        mysqli_query($con, $update_query);
+                                                                    }
+                                                                }
 
                                                                 // ICONS
                                                                 $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
@@ -144,7 +144,7 @@
                                                                 
                                                                 //QUERY
                                                                 $id = $row_user['id_number'];
-                                                                $query = "SELECT * FROM notifications WHERE to_user = '$id' ORDER BY isRead ASC"; //CREate join para makuha name ng user
+                                                                $query = "SELECT n.*, u.first_name, u.last_name FROM notifications n JOIN users u ON n.from_user = u.id_number WHERE n.to_user = '$id' ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                                                 $connect_query = mysqli_query($con, $query);
 
                                                                 //show notification
@@ -154,36 +154,45 @@
                                                                     $infoID = $notification["info_ID"];
                                                                     $type = $notification["Type"];
                                                                     $isRead = $notification["isRead"];
+                                                                    $name = $notification["first_name"]." ".$notification["last_name"];
 
-                                                                    $DateTimeObj = new DateTime($DateTime);
+                                                                    
 
                                                                     $description = "You have new notification";
                                                                     
-                                                                    // ICON TYPE
+                                                                    // ICON TYPE & DESCRIPTION
                                                                     switch ($type) {
                                                                         //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
                                                                         case "Appointment":
                                                                             $icon = $appointment_icon;
-                                                                            if ($DateTimeObj->format('Y-m-d') == $currentDate) {
-                                                                                $description = "You have new appointment setted by ".$from;
+
+                                                                            // if appointment check the date first
+                                                                            $getDate_query = "SELECT date FROM appointments WHERE id = '$infoID'"; //CREate join para makuha name ng user
+                                                                            $dateResult = mysqli_query($con, $getDate_query);
+                                                                            $Appointment_date = mysqli_fetch_assoc($dateResult);
+
+                                                                            $AppDate = new DateTime($Appointment_date["date"]);
+                                                                            
+                                                                            if ($AppDate->format('Y-m-d') != $currentDate) {
+                                                                                $description = "You have new appointment setted by ".$name;
                                                                             }else{
-                                                                                $description = "You have an appointment with ".$from." today";
+                                                                                $description = "You have an appointment with ".$name." today";
                                                                             }
                                                                             break;
 
                                                                         case "Referral":
                                                                             $icon = $refferal_icon;
-                                                                            $description = $from." send you a new referral";
+                                                                            $description = $name." send you a new referral";
                                                                             break;
 
                                                                         case "Rejection":
                                                                             $icon = $rejection_icon;
-                                                                            $description = $from." rejected your referral";
+                                                                            $description = $name." rejected your referral";
                                                                             break;
 
                                                                         case "Offense":
                                                                             $icon = $offense_icon;
-                                                                            $description = "You have new offense given by".$from;
+                                                                            $description = "You have new offense given by ".$name;
                                                                             break;
 
                                                                         default:
@@ -197,12 +206,13 @@
                                                                     $notif_DT = new DateTime($DateTime);
                                                                     $diff = $now->diff($notif_DT);
 
-                                                                    if($diff->i < 60){
-                                                                        $notifStrTime = "Just Now";
-                                                                    }elseif($diff->h < 24){
+                                                                    if ($diff->d >= 1) {
+                                                                        $notifStrTime = $diff->d." days ago";
+                                                                    }
+                                                                    elseif ($diff->h > 1) {
                                                                         $notifStrTime = $diff->h." hours ago";
                                                                     }else{
-                                                                        $notifStrTime = $diff->d." days ago";
+                                                                        $notifStrTime = "Just now";
                                                                     }
                                                                     
                                                                     if($isRead == 0){
@@ -211,14 +221,14 @@
                                                                         $style = '';
                                                                     }
 
-                                                                    echo '<li>
+                                                                    echo '<li '.$style.'>
                                                                         <a href="">
-                                                                            <div class="notification-icon" '.$style.'>
-                                                                                <i class="'.$appointment_icon.'" aria-hidden="true"></i>
+                                                                            <div class="notification-icon">
+                                                                                <i class="'.$icon.'" aria-hidden="true"></i>
                                                                             </div>
                                                                             <div class="notification-content">
-                                                                                <span class="notification-date">'.$DateTime.'</span>
-                                                                                <h2>'.$from.'</h2>
+                                                                                <span class="notification-date">'.$notifStrTime.'</span>
+                                                                                <h2>'.$name.'</h2>
                                                                                 <p>'.$description.'</p>
                                                                             </div>
                                                                         </a>
@@ -1632,6 +1642,36 @@ $.ajax({
 
 });
 
+
+//HANDLES NOTIFICATION LIST DATA TO MODAL
+// $(document).ready(function() {
+//   // Add a click handler to the notification list
+//   $('#notification-list').on('click', 'li', function() {
+//     // Get the notification ID from the clicked element
+//     var id = $(this).data('id');
+
+//     // Send an AJAX request to the server with the ID
+//     $.ajax({
+//       url: 'notifications.php',
+//       data: {id: id},
+//       success: function(data) {
+//         // Extract the notification data from the JSON object
+//         var notification = JSON.parse(data);
+//         var name = notification.name;
+//         var description = notification.description;
+//         var actionType = notification.action_type;
+
+//         // Populate the modal form with the notification data
+//         $('#modal-name').text(name);
+//         $('#modal-description').text(description);
+//         $('#modal-action-type').text(actionType);
+
+//         // Show the modal form
+//         $('#modal').modal('show');
+//       }
+//     });
+//   });
+// });
 
 
 
