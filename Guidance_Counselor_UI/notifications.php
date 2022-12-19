@@ -7,6 +7,12 @@ $con = connection();
 // Check if an ID was passed in the AJAX request
 if (isset($_GET['id']) && isset($_GET['type'])) {
 
+    $notif_id = mysqli_real_escape_string($con, $_GET['notif_id']);
+    //SET NOTIFICATION AS READ
+    $readQuery = "UPDATE notifications SET isRead = 1 WHERE id = '$notif_id'";
+    mysqli_query($con, $readQuery);
+
+
     if($_GET['type'] == "Appointment"){
         $id = mysqli_real_escape_string($con, $_GET['id']);
 

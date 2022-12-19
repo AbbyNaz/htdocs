@@ -2,6 +2,8 @@
 
 session_start();
 
+include('RefRejectionForm.php');
+
 include_once("../connections/connection.php");
 
 if(!isset($_SESSION['UserEmail'])) {
@@ -150,7 +152,7 @@ if(!isset($_SESSION['UserEmail'])) {
     </div>
 
         <!----------------------------------------- THIS IS THE MODAL FORM FOR SEARCHING STUDENT ---------------------------------------------->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div id="REJECTION_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -184,7 +186,7 @@ if(!isset($_SESSION['UserEmail'])) {
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
         <!-- Add new Referral -->
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
