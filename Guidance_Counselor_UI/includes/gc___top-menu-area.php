@@ -1,5 +1,7 @@
 <?php
 
+include('RefRejectionForm.php');
+
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
         $user_query = "SELECT id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
@@ -165,6 +167,7 @@
 
                                                                 //show notification
                                                                 while ($notification = mysqli_fetch_assoc($connect_query)) {
+                                                                    $notif_id = $notification["id"];
                                                                     $from = $notification["from_user"];
                                                                     $DateTime = $notification["notif_date"];
                                                                     $infoID = $notification["info_ID"];
@@ -223,7 +226,7 @@
                                                                         $style = '';
                                                                     }
 
-                                                                    echo '<li onclick="showModal(this)" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
+                                                                    echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
                                                                             <div class="notification-icon">
                                                                                 <i class="'.$icon.'" aria-hidden="true"></i>
                                                                             </div>
@@ -364,10 +367,9 @@
                         </div>
 
                         <div class="modal-footer">
-                            <input type="hidden" name="studentid" id="stud_id">
-                            <button type="submit" name="view_refferal" class="btn btn-primary btn-md">View Referral Details</button>
-                            <button type="submit" name="reject_refferal" class="btn btn-danger btn-md">Reject</button>
-                            <button type="submit" name="set_refferal" class="btn btn-success btn-md">Set Appointment</button>
+                                <a href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-primary btn-md">View Referral Details</button>
+                                <a class="btn btn-danger btn-md" data-toggle="modal" data-target="#REJECTION_FORM">Reject</button>
+                                <a id="setAppointment" href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-success btn-md">Set Appointment</button>
                         </div>
                     </form>
                 </div>
@@ -458,9 +460,9 @@
                         </div>
 
                         <div class="modal-footer">
-                            <input type="hidden" name="studentid" id="stud_id">
-                            <button type="submit" name="View_Appointment" class="btn btn-primary btn-md">View Appointment</button>
-                            <button type="submit" name="Cancel_Appointment" class="btn btn-danger btn-md">Cancel Appointment</button>
+                            
+                            <a href="../Guidance_Counselor_UI/gc___all_appointment.php" class="btn btn-primary btn-md">View Appointment</a>
+                            <a id="CancelAppointment" href="" class="btn btn-danger btn-md">Cancel Appointment</a>
                         </div>
                     </form>
                 </div>
@@ -1384,19 +1386,26 @@ $.ajax({
 });
 
 
+// var cancelbtn = document.getElementById("CancelAppointment");
+// cancelbtn.addEventListener("click", cancelAppointment);
+
 
 function showModal(li){
     
     // Get the notification ID from the clicked element
     var id = $(li).data('id');
     var type = $(li).data('type');
+    var notif_id = $(li).data('notif');
+
+
     
     // Send an AJAX request to the server with the ID
     $.ajax({
         
         url: '../Guidance_Counselor_UI/notifications.php',
         data: {id: id,
-                type : type
+                type : type,
+                notif_id : notif_id
                 },
         success: function(data) {
             // Show the modal form
@@ -1408,6 +1417,9 @@ function showModal(li){
                     var user_type = Appointment.user_type;
                     var Appointment_time = Appointment.date +' ('+Appointment.timeslot+' - '+Appointment.timeslot_end+')';
                     var Appointment_type = Appointment.appointment_type;
+                    
+                    //Cancel button set link
+                    $('#CancelAppointment').attr("href", "../Guidance_Counselor_UI/gc___all_appointment.php?cancel_id="+id+"");
 
                     $('#User-Type').val(user_type);
                     $('#User-ID').val(id_number);
@@ -1422,6 +1434,10 @@ function showModal(li){
                     var stud_id = Referral.Student_ID;
                     var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
                     var reason = Referral.reason;
+
+                    
+                    $('#setAppointment').attr("href", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+Referral.ref_id+"");
+
                     $('#From-User').val(from);
                     $('#Stud-ID').val(stud_id);
                     $('#Stud-Name').val(stud_name);
