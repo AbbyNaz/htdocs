@@ -212,7 +212,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   <ul class="breadcome-menu">
                     <li><a href="#">Home</a> <span class="bread-slash">/</span>
                     </li>
-                    <li><span class="bread-blod">Articles</span>
+                    <li><span class="bread-blod">Announcements</span>
                     </li>
                   </ul>
                 </div>
@@ -229,7 +229,7 @@ if (!isset($_SESSION['UserEmail'])) {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Add New Article</h4>
+              <h4 class="modal-title">Add New Announcement</h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -240,7 +240,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 <div class="form-group-inner">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Title of Article</label>
+                      <label class="login2 pull-right">Title of Announcement</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <input type="text" class="form-control" placeholder="Enter Title" name="title" />
@@ -318,7 +318,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Articles Table</h1>
+                  <h1>Announcements Table</h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
@@ -331,7 +331,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="code">Article Code</th>
+                        <th data-field="code">Announcements Code</th>
                         <th data-field="title">Title</th>
                         <th data-field="description">Description</th>
                         <th data-field="picture">Picture</th>
@@ -343,28 +343,29 @@ if (!isset($_SESSION['UserEmail'])) {
                     <tbody>
                       <?php
 
-                      $query = "SELECT * FROM articles";
+                      $query = "SELECT * FROM announcements";
                       $query_run = mysqli_query($con, $query);
 
                       if (mysqli_num_rows($query_run) > 0) {
                         foreach ($query_run as $row) {
                       ?>
 
-                          <tr id="<?php echo $row['ARTICLECODE']; ?>">
-                            <td><?= $row['ARTICLECODE'] ?></td>
+                          <tr id="<?php echo $row['ANNOUNCEMENT_CODE']; ?>">
+                            <td><?= $row['ANNOUNCEMENT_CODE'] ?></td>
                             <td><?= $row['TITLE'] ?></td>
                             <td><?= $row['DESCRIPTION'] ?></td>
                             <td><?= $row['PICTURE'] ?></td>
                             <td><?= $row['DURATION'] ?></td>
-                            <td><?= $row['ART_STATUS'] ?></td>
+                            <td><?= $row['ANN_STATUS'] ?></td>
 
                             <td>
                               <div style="display: flex; justify-content: center;">
 
                                 <!-- <button id="showEditStaffModal" class="btn btn-warning" style="margin-left: 10px; margin-right: 20px; color: white;" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>">Edit</button> -->
-
+                                
                                 <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-
+                          
+                                <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#" data-id="<?= $row['ID'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
                               </div>
                             </td>
