@@ -205,7 +205,10 @@
                                                                     $notif_DT = new DateTime($DateTime);
                                                                     $diff = $now->diff($notif_DT);
 
-                                                                    if ($diff->d >= 1) {
+                                                                    if ($diff->d == 1) {
+                                                                        $notifStrTime = $diff->d." day ago";
+                                                                    }
+                                                                    elseif ($diff->d > 1) {
                                                                         $notifStrTime = $diff->d." days ago";
                                                                     }
                                                                     elseif ($diff->h > 1) {
@@ -220,7 +223,7 @@
                                                                         $style = '';
                                                                     }
 
-                                                                    echo '<li class ="notification-list" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
+                                                                    echo '<li onclick="showModal(this)" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
                                                                             <div class="notification-icon">
                                                                                 <i class="'.$icon.'" aria-hidden="true"></i>
                                                                             </div>
@@ -314,7 +317,7 @@
                                         <label class="login2 pull-right">Referral From</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="From-User" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -325,10 +328,10 @@
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right"> ID</label>
+                                        <label class="login2 pull-right">Student ID</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Stud-ID" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -340,7 +343,7 @@
                                         <label class="login2 pull-right"> Name</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Stud-Name" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -352,7 +355,7 @@
                                         <label class="login2 pull-right"> Reason for Referral</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Reason" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -397,7 +400,7 @@
                                         <label class="login2 pull-right">User Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="User-Type" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -409,7 +412,7 @@
                                         <label class="login2 pull-right">ID</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="User-ID" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -421,7 +424,7 @@
                                         <label class="login2 pull-right">Name</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="User-Name"  type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -433,7 +436,7 @@
                                         <label class="login2 pull-right">Appointment Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Appointment-Type" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -445,7 +448,7 @@
                                         <label class="login2 pull-right">Appointment Time</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Appointment-Time" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -1381,47 +1384,54 @@ $.ajax({
 });
 
 
-// HANDLES NOTIFICATION LIST DATA TO MODAL
-$(document).ready(function() {
-  // Add a click handler to the notification list
-  $('#notification-list').on('click', 'li', function() {
-    // Get the notification ID from the clicked element
-    var id = $(this).data('id');
-    var type = $(this).data('type');
 
+function showModal(li){
+    
+    // Get the notification ID from the clicked element
+    var id = $(li).data('id');
+    var type = $(li).data('type');
+    
     // Send an AJAX request to the server with the ID
     $.ajax({
-      url: 'notifications.php',
-      data: {id: id,
-             type : type
-            },
-      success: function(data) {
-        // Extract the notification data from the JSON object
-        var notification = JSON.parse(data);
-        var name = notification.name;
-        var description = notification.description;
-        var actionType = notification.action_type;
-
-        // Populate the modal form with the notification data
-        $('#modal-name').text(name);
-        $('#modal-description').text(description);
-        $('#modal-action-type').text(actionType);
-
-        // Show the modal form
-        switch (type) {
-            case 'Appointment':
-                $('#NOTIF_REFERRAL').modal('show');
-                break;
-            case 'Referral':
-                $('#NOTIF_REJECTED_REFERRAL').modal('show');
-                break;
-        }
         
-      }
+        url: '../Guidance_Counselor_UI/notifications.php',
+        data: {id: id,
+                type : type
+                },
+        success: function(data) {
+            // Show the modal form
+            switch (type) {
+                case 'Appointment':
+                    var Appointment = JSON.parse(data);
+                    var name = Appointment.name;
+                    var id_number = Appointment.id_number;
+                    var user_type = Appointment.user_type;
+                    var Appointment_time = Appointment.date +' ('+Appointment.timeslot+' - '+Appointment.timeslot_end+')';
+                    var Appointment_type = Appointment.appointment_type;
+
+                    $('#User-Type').val(user_type);
+                    $('#User-ID').val(id_number);
+                    $('#User-Name').val(name);
+                    $('#Appointment-Type').val(Appointment_type);
+                    $('#Appointment-Time').val(Appointment_time);
+                    $('#NOTIF_APPOINTMENT').modal('show');
+                    break;
+                case 'Referral':
+                    var Referral = JSON.parse(data);
+                    var from = Referral.referrer_fname+" "+Referral.referrer_lname;
+                    var stud_id = Referral.Student_ID;
+                    var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
+                    var reason = Referral.reason;
+                    $('#From-User').val(from);
+                    $('#Stud-ID').val(stud_id);
+                    $('#Stud-Name').val(stud_name);
+                    $('#Reason').val(reason);
+                    $('#NOTIF_REFERRAL').modal('show');
+                    break;
+            }
+            
+        }
     });
-  });
-});
-
-
+}
 
 </script>
