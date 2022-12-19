@@ -8,6 +8,10 @@
     }
 
 ?>
+
+
+
+
 <!-- Start Welcome area -->
     <div class="all-content-wrapper" id="store-data" data-id="<?php echo $_SESSION['UserId'] ?>">
         <div class="container-fluid">
@@ -239,7 +243,7 @@
                                                             ?>
                                                         </ul>
                                                         <div class="notification-view">
-                                                            <a href="#">View All Notification</a>
+                                                            <a href="gc___notifications_table.php">View All Notification</a>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -282,443 +286,7 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <!-- <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
-
-                                                    <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
-                                                        <ul class="nav nav-tabs custon-set-tab">
-                                                            <li class="active"><a data-toggle="tab" href="#Notes">Notes</a>
-                                                            </li>
-                                                            <li><a data-toggle="tab" href="#Projects">Projects</a>
-                                                            </li>
-                                                            <li><a data-toggle="tab" href="#Settings">Settings</a>
-                                                            </li>
-                                                        </ul>
-
-                                                        <div class="tab-content custom-bdr-nt">
-                                                            <div id="Notes" class="tab-pane fade in active">
-                                                                <div class="notes-area-wrap">
-                                                                    <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-comments-o"></i> Latest Notes</h2>
-                                                                        <p>You have 10 new message.</p>
-                                                                    </div>
-                                                                    <div class="notes-list-area notes-menu-scrollbar">
-                                                                        <ul class="notes-menu-list">
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p>You have an appointment with Juan dela cruz today </p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/2.png" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/2.png" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/2.png" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="notes-list-flow">
-                                                                                        <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
-                                                                                        </div>
-                                                                                        <div class="notes-content">
-                                                                                            <p> You have an appointment with Juan dela cruz today.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="Calendar" class="tab-pane fade">
-                                                                <div class="projects-settings-wrap">
-                                                                    <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-cube"></i> Latest projects</h2>
-                                                                        <p> You have 20 projects. 5 not completed.</p>
-                                                                    </div>
-                                                                    <div class="project-st-list-area project-st-menu-scrollbar">
-                                                                        <ul class="projects-st-menu-list">
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Web Development</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">1 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content">
-                                                                                            <p>Completion with: 28%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 28%;" class="progress-bar progress-bar-danger hd-tp-1"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Software Development</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">2 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content project-rating-cl">
-                                                                                            <p>Completion with: 68%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 68%;" class="progress-bar hd-tp-2"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Graphic Design</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">3 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content">
-                                                                                            <p>Completion with: 78%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 78%;" class="progress-bar hd-tp-3"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Web Design</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">4 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content project-rating-cl2">
-                                                                                            <p>Completion with: 38%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 38%;" class="progress-bar progress-bar-danger hd-tp-4"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Business Card</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">5 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content">
-                                                                                            <p>Completion with: 28%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 28%;" class="progress-bar progress-bar-danger hd-tp-5"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Ecommerce Business</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">6 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content project-rating-cl">
-                                                                                            <p>Completion with: 68%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 68%;" class="progress-bar hd-tp-6"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Woocommerce Plugin</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">7 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content">
-                                                                                            <p>Completion with: 78%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 78%;" class="progress-bar"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="#">
-                                                                                    <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Wordpress Theme</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">9 hours ago</span>
-                                                                                        </div>
-                                                                                        <div class="projects-st-content project-rating-cl2">
-                                                                                            <p>Completion with: 38%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 38%;" class="progress-bar progress-bar-danger"></div>
-                                                                                            </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="Settings" class="tab-pane fade">
-                                                                <div class="setting-panel-area">
-                                                                    <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-gears"></i> Settings Panel</h2>
-                                                                        <p> You have 20 Settings. 5 not completed.</p>
-                                                                    </div>
-                                                                    <ul class="setting-panel-list">
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Show notifications</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">
-                                                                                            <label class="onoffswitch-label" for="example">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Disable Chat</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example3">
-                                                                                            <label class="onoffswitch-label" for="example3">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Enable history</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example4">
-                                                                                            <label class="onoffswitch-label" for="example4">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Show charts</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example7">
-                                                                                            <label class="onoffswitch-label" for="example7">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Update everyday</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example2">
-                                                                                            <label class="onoffswitch-label" for="example2">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Global search</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example6">
-                                                                                            <label class="onoffswitch-label" for="example6">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Offline users</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example5">
-                                                                                            <label class="onoffswitch-label" for="example5">
-                                                                                                    <span class="onoffswitch-inner"></span>
-                                                                                                    <span class="onoffswitch-switch"></span>
-                                                                                                </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li> -->
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -728,6 +296,924 @@
                     </div>
                 </div>
             </div>
+
+            
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE REFERRAL DETAILS MODAL --------------------------------------------->
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Referral Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Referral From</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Program</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Nature</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Reason</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Action/s</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Remarks</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REJECTED REFERRAL DETAILS MODAL --------------------------------------------->
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_REJECTED_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Referral Rejection Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" readonly class="form-control"
+                                            placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Date and Time</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" 
+                                            name="description" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Created Date/Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Referral From</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Program</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Nature</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Reason</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Action/s</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Remarks</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_STUD_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Appointment Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Program </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Level</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Nature</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Time From</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Time To</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Reason</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right"> Type</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Information</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STAFF APPOINTMENT--------------------------------------------->
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_STAFF_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Appointment Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Staff ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Staff Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Department</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Position</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Nature</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Time From</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Time To</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Reason</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Type</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Information</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STAFF APPOINTMENT--------------------------------------------->
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_OFFENSE" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Offense Notification Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+
+                        <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Date and Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student ID</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Student Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Program </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Level</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STAFF_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Offense Type</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Sanction</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Sanction Info</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div id="Add_New_Offense" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+              <h4 class="modal-title">Add New Student with Offense</h4>
+              <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+              </div>
+            </div>
+
+            <form action="" method="post">
+              <div class="modal-body">
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">Search</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">Student ID</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Enter Student ID" name="id_number" id="id_number" readonly />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">Last Name</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Enter Student Last Name" name="l_name" id="l_name" readonly />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">First Name</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Enter Student First Name" name="f_name" id="f_name" readonly />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group-inner" id="MAJOR_OFFENSE">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right pull-right-pro">Offense Type</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="form-select-list">
+                        <select  id="SelectMajorOffense" class="form-control custom-select-value" name="offense_type">
+                          <option selected disabled>Choose Offense Type</option>
+                          <option value="Minor Offense">Minor Offense</option>
+                          <option value="Major Offense A">Major Offense A</option>
+                          <option value="Major Offense B">Major Offense B</option>
+                          <option value="Major Offense C">Major Offense C</option>
+                          <option value="Major Offense D">Major Offense D</option>
+
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">Description</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Enter Offense Description" name="description" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right">Sanction</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" name="sanction" placeholder="Enter Saction" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-inner data-custon-pick data-custom-mg" id="data_5">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right" style="font-weight: bold;">Sanction Info</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="input-daterange input-group" id="datepicker">
+                        <input type="text" class="form-control" name="start_date" id="start_date" value="<?= date("m-d-Y") ?>" />
+                        <span class="input-group-addon">to</span>
+                        <input type="text" class="form-control" name="end_date" id="end_date" value="<?= date("m-d-Y") ?>" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+           
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="add_offense" class="btn btn-primary btn-md">Submit</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
 
 
 <style type="text/css">
