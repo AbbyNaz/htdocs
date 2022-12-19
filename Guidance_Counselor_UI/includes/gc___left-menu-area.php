@@ -98,7 +98,7 @@
                         </ul>
                     </li> 
 
-                    <!-- <li><a title="Audit Trail" href="gc___audit-trail.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Audit trail</span></a></li> -->
+                    <li><a title="Audit Trail" href="gc___notifications_table.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Notifications Table</span></a></li>
                     
                     <!-- <li><a title="Audit Trail" href="gc___audit-trail.php"><span class="mini-sub-pro">Audit Trail</span></a></li> -->
 
