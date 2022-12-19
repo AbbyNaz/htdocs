@@ -1,24 +1,42 @@
 <?php
 
-// Connect to the database
-$conn = mysqli_connect('host', 'username', 'password', 'database');
+include_once("../connections/connection.php");
+
+$con = connection();
 
 // Check if an ID was passed in the AJAX request
-if (isset($_GET['id']) ) {
-  // Escape the ID to prevent SQL injection attacks
-  $id = mysqli_real_escape_string($conn, $_GET['id']);
+if (isset($_GET['id']) && isset($_GET['type'])) {
 
-  // Retrieve the notification data from the database
-  $query = "SELECT name, description, action_type FROM notifications WHERE id = '$id'";
-  $result = mysqli_query($conn, $query);
-  $notification = mysqli_fetch_assoc($result);
+    if($_GET['type'] == "Appointment"){
+        $id = mysqli_real_escape_string($con, $_GET['id']);
 
-  // Return the notification data as a JSON object
-  echo json_encode($notification);
+        $query = "SELECT * FROM appointments WHERE id = '$id'";
+        $result = mysqli_query($con, $query);
+        $Appointment = mysqli_fetch_assoc($result);
+      
+        echo json_encode($Appointment);
+        
+    }else if($_GET['type'] == "Referral"){
+        $id = mysqli_real_escape_string($con, $_GET['id']);
+        //get name of referrer from users tables using reffered_by_id from refferals table
+        //get the id and name of the student that is referred from users table using reffered_user_id from refferals table
+        $refer_query = "SELECT r.*, 
+                    referrer.first_name AS referrer_fname,
+                    referrer.last_name AS referrer_lname, 
+                    referred.id_number AS Student_ID, 
+                    referred.first_name AS Student_fname,
+                    referred.last_name AS Student_lname
+                    FROM refferals AS r
+                    LEFT JOIN users AS referrer ON r.reffered_by = referrer.user_id
+                    LEFT JOIN users AS referred ON r.reffered_user = referred.user_id
+                    WHERE r.ref_id = '$id'";
+        $result = mysqli_query($con, $refer_query);
+        $referral = mysqli_fetch_assoc($result);
+      
+        echo json_encode($referral);
+    }
 }
 
-// Close the database connection
-mysqli_close($conn);
 
 
 
