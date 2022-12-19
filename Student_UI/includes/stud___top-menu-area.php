@@ -120,10 +120,10 @@ $con = connection();
                     <form action="#" method="POST">
                         <div class="modal-body">
 
-                        <div class="form-group-inner" id="STUD_ID">
+                            <div class="form-group-inner" id="STAFF_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Date and Time</label>
+                                        <label class="login2 pull-right">Offense Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -132,10 +132,10 @@ $con = connection();
                                 </div>
                             </div>
 
-                            <div class="form-group-inner" id="STAFF_ID">
+                            <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Offense Type</label>
+                                        <label class="login2 pull-right">Description</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -156,11 +156,10 @@ $con = connection();
                                 </div>
                             </div>
 
-
                             <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description</label>
+                                        <label class="login2 pull-right">Sanction Date</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -169,12 +168,14 @@ $con = connection();
                                 </div>
                             </div>
 
+
+                           
                            
                         </div>
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">View Offense Details</button>
                         </div>
                     </form>
                 </div>
@@ -227,7 +228,7 @@ $con = connection();
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Created Date/Time</label>
+                                        <label class="login2 pull-right">Created Date</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -261,10 +262,10 @@ $con = connection();
                                 </div>
                             </div>
 
-                            <div class="form-group-inner">
+                            <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description</label>
+                                        <label class="login2 pull-right"> Reason for Referral</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -277,8 +278,8 @@ $con = connection();
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                            <!-- <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button> -->
+                            <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
+                            <button type="submit" name="view_refferal" class="btn btn-primary btn-md">View Referral Details</button>
                         </div>
                     </form>
                 </div>
@@ -304,18 +305,6 @@ $con = connection();
                     <form action="#" method="POST">
                         <div class="modal-body">
 
-                        <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Date and Time</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -331,7 +320,7 @@ $con = connection();
                             <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description</label>
+                                        <label class="login2 pull-right">Appointment Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -344,8 +333,8 @@ $con = connection();
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                            <!-- <button type="submit" name="Cancel_Appointment" class="btn btn-primary btn-md">Cancel Appointment</button> -->
+                            <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
+                            <button type="submit" name="View_Appointment" class="btn btn-primary btn-md">View Appointment Details</button>
                         </div>
                     </form>
                 </div>
