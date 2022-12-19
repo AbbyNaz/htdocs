@@ -9,9 +9,6 @@
 
 ?>
 
-
-
-
 <!-- Start Welcome area -->
     <div class="all-content-wrapper" id="store-data" data-id="<?php echo $_SESSION['UserId'] ?>">
         <div class="container-fluid">
@@ -310,19 +307,6 @@
                     <form action="#" method="POST">
                         <div class="modal-body">
 
-                        <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Date and Time</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-
                             <!---------------------- DITO NAME NUNG NAGREFER ------------------------->
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
@@ -362,13 +346,25 @@
                                 </div>
                             </div>
 
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right"> Reason for Referral</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                            <button type="submit" name="reject_refferal" class="btn btn-primary btn-md">Reject</button>
-                            <button type="submit" name="set_refferal" class="btn btn-primary btn-md">Set Appointment</button>
+                            <button type="submit" name="view_refferal" class="btn btn-primary btn-md">View Referral Details</button>
+                            <button type="submit" name="reject_refferal" class="btn btn-danger btn-md">Reject</button>
+                            <button type="submit" name="set_refferal" class="btn btn-success btn-md">Set Appointment</button>
                         </div>
                     </form>
                 </div>
@@ -394,10 +390,11 @@
                     <form action="#" method="POST">
                         <div class="modal-body">
 
-                        <div class="form-group-inner" id="STUD_ID">
+
+                            <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Date and Time</label>
+                                        <label class="login2 pull-right">User Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -433,7 +430,7 @@
                             <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Appointment Time</label>
+                                        <label class="login2 pull-right">Appointment Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -445,7 +442,7 @@
                             <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description</label>
+                                        <label class="login2 pull-right">Appointment Time</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input type="text" readonly class="form-control"
@@ -454,12 +451,13 @@
                                 </div>
                             </div>
 
+
                         </div>
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                            <button type="submit" name="Cancel_Appointment" class="btn btn-primary btn-md">Cancel Appointment</button>
+                            <button type="submit" name="View_Appointment" class="btn btn-primary btn-md">View Appointment</button>
+                            <button type="submit" name="Cancel_Appointment" class="btn btn-danger btn-md">Cancel Appointment</button>
                         </div>
                     </form>
                 </div>
