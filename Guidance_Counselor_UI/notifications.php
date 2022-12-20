@@ -13,7 +13,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
     mysqli_query($con, $readQuery);
 
 
-    if($_GET['type'] == "Appointment"){
+    if($_GET['type'] == "Appointment" || $_GET['type'] == "Reminder"){
         $id = mysqli_real_escape_string($con, $_GET['id']);
 
         $query = "SELECT * FROM appointments WHERE id = '$id'";
@@ -22,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
       
         echo json_encode($Appointment);
         
-    }else if($_GET['type'] == "Referral"){
+    }else if($_GET['type'] == "Referral" || $_GET['type'] == "Rejection"){
         $id = mysqli_real_escape_string($con, $_GET['id']);
         //get name of referrer from users tables using reffered_by_id from refferals table
         //get the id and name of the student that is referred from users table using reffered_user_id from refferals table
@@ -40,6 +40,16 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
         $referral = mysqli_fetch_assoc($result);
       
         echo json_encode($referral);
+    
+    }else if($_GET['type'] == "Offense"){
+        $id = mysqli_real_escape_string($con, $_GET['id']);
+
+        $offense_query = "SELECT * FROM offense_monitoring WHERE id = '$id'";
+
+        $result = mysqli_query($con, $offense_query);
+        $Offense = mysqli_fetch_assoc($result);
+
+        echo json_encode($Offense);
     }
 }
 

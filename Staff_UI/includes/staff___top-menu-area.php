@@ -6,9 +6,12 @@ $con = connection();
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
-        $user_query = "SELECT first_name, last_name FROM users WHERE user_id = '$user_id'";
+        $user_query = "SELECT id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
         $user_con = $con->query($user_query) or die ($con->error);
         $row_user = $user_con->fetch_assoc();
+
+        $id = $row_user['id_number'];
+        $_SESSION['id_number'] = $row_user['id_number'];
     }
 ?>
 <!-- Start Welcome area -->
@@ -65,60 +68,98 @@ $con = connection();
                                                         </div>
                                                     </div> -->
                                                 </li>
+<!--               NOTIFICATIONS -->
                                                 <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i><span class="indicator-nt"></span></a>
                                                     <div role="menu" class="notification-author dropdown-menu animated zoomIn">
                                                         <div class="notification-single-top">
                                                             <h1>Notifications</h1>
                                                         </div>
                                                         <ul class="notification-menu">
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="educate-icon educate-checked edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>juan dela cruz</h2>
-                                                                        <p>You have an appointment with Juan dela cruz today</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-cloud edu-cloud-computing-down" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>Louie Ruiz</h2>
-                                                                        <p>Louie ruiz send you a new referral</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-eraser edu-shield" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>Victor jara</h2>
-                                                                        <p>Victor jara send you a new referral</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa fa-line-chart edu-analytics-arrow" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <span class="notification-date">16 Sept</span>
-                                                                        <h2>support</h2>
-                                                                        <p>Thank you for contacting us, we will fix the issue for a while.</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li> 
+                                                        <?php
+
+                                                            // ICONS
+                                                            $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
+                                                            $rejection_icon = "fa fa-cloud edu-cloud-computing-down";
+                                                            
+                                                            //QUERY
+                                                            $query = "SELECT n.*, u.first_name, u.last_name
+                                                            FROM notifications n
+                                                            JOIN users u
+                                                            ON n.from_user = u.id_number
+                                                            WHERE n.to_user = '$id'
+                                                            AND (n.Type = 'Appointment' OR n.Type = 'Rejection' OR n.Type = 'Reminder')
+                                                            ORDER BY isRead ASC"; //CREate join para makuha name ng user
+                                                            $connect_query = mysqli_query($con, $query);
+                                                            
+                                                            //show notification
+                                                            while ($notification = mysqli_fetch_assoc($connect_query)) {
+                                                                $notif_id = $notification["id"];
+                                                                $from = $notification["from_user"];
+                                                                $DateTime = $notification["notif_date"];
+                                                                $infoID = $notification["info_ID"];
+                                                                $type = $notification["Type"];
+                                                                $isRead = $notification["isRead"];
+                                                                $name = $notification["first_name"]." ".$notification["last_name"];
+                                                                
+                                                                $description = "You have new notification";
+                                                                
+                                                                // ICON TYPE & DESCRIPTION
+                                                                switch ($type) {
+                                                                    //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
+                                                                    case "Reminder": //reminder for appointments
+                                                                        $icon = $appointment_icon;
+                                                                        $description = "You have an appointment with ".$name." today";
+                                                                        break;
+
+                                                                    case "Appointment":
+                                                                        $icon = $appointment_icon;
+                                                                        $description = "You have new appointment setted by ".$name;
+                                                                        break;
+
+                                                                    case "Rejection":
+                                                                        $icon = $rejection_icon;
+                                                                        $description = $name." rejected your referral";
+                                                                        break;
+                                                                }
+
+                                                                // CALCULATE TIME
+                                                                $now = new DateTime();
+                                                                $notif_DT = new DateTime($DateTime);
+                                                                $diff = $now->diff($notif_DT);
+
+                                                                if ($diff->d == 1) {
+                                                                    $notifStrTime = $diff->d." day ago";
+                                                                }
+                                                                elseif ($diff->d > 1) {
+                                                                    $notifStrTime = $diff->d." days ago";
+                                                                }
+                                                                elseif ($diff->h > 1) {
+                                                                    $notifStrTime = $diff->h." hours ago";
+                                                                }else{
+                                                                    $notifStrTime = "Just now";
+                                                                }
+                                                                
+                                                                if($isRead == 0){
+                                                                    $style = 'style="font-weight: bold;"';
+                                                                }else{
+                                                                    $style = '';
+                                                                }
+
+                                                                
+
+                                                                echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
+                                                                        <div class="notification-icon">
+                                                                            <i class="'.$icon.'" aria-hidden="true"></i>
+                                                                        </div>
+                                                                        <div class="notification-content">
+                                                                            <span class="notification-date">'.$notifStrTime.'</span>
+                                                                            <h2>'.$name.'</h2>
+                                                                            <p>'.$description.'</p>
+                                                                        </div>
+                                                                    </li>';
+                                                            }
+                                                        
+                                                        ?>
                                                         </ul>
                                                         <div class="notification-view">
                                                             <a href="#">View All Notification</a>
@@ -184,7 +225,7 @@ $con = connection();
                                             <label class="login2 pull-right">Rejection Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" readonly class="form-control"
+                                            <textarea id="RejReason" name="description" readonly class="form-control"
                                             placeholder="Description"></textarea>
                                         </div>
                                     </div>
@@ -196,7 +237,7 @@ $con = connection();
                                             <label class="login2 pull-right">Rejection Date and Time</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" 
+                                            <input id="RejDate" type="text" readonly class="form-control" 
                                             name="description" placeholder="Description"></textarea>
                                         </div>
                                     </div>
@@ -208,7 +249,7 @@ $con = connection();
                                         <label class="login2 pull-right">Created Date/Time</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="RefDate" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -218,10 +259,10 @@ $con = connection();
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">ID</label>
+                                        <label class="login2 pull-right">Student ID</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="StudID" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -230,10 +271,10 @@ $con = connection();
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Name</label>
+                                        <label class="login2 pull-right">Student Name</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="StudName" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -245,7 +286,7 @@ $con = connection();
                                         <label class="login2 pull-right"> Reason for Referral</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="RefReason" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -255,7 +296,7 @@ $con = connection();
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
                             <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
-                            <!-- <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Set Appointment</button> -->
+                            <a href="../Student_UI/staff___set_referral.php" class="btn btn-primary btn-md">View Referrals</a>
                         </div>
                     </form>
                 </div>
@@ -267,7 +308,7 @@ $con = connection();
 
 <!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
 
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div id="NOTIF_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -287,7 +328,7 @@ $con = connection();
                                         <label class="login2 pull-right">Appointment Time</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Appointment-Time" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -299,7 +340,7 @@ $con = connection();
                                         <label class="login2 pull-right">Appointment Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
+                                        <input id="Appointment-Type" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -322,467 +363,467 @@ $con = connection();
 
 <style type="text/css">
 
-#smith-container {
-  width: 0px;
-  height: 0px;
-  bottom: 0px;
-  right: 0px;
-  z-index: 99999999999999999999999999;
-}
+    #smith-container {
+    width: 0px;
+    height: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 99999999999999999999999999;
+    }
 
-#smith-chat-container {
-  overflow: hidden;
-}
+    #smith-chat-container {
+    overflow: hidden;
+    }
 
-.smith-chat-frame {
-  z-index: 99999999999999999999999999999 !important;
-  position: fixed !important;
-  bottom: 20px;
-  right: 20px;
-  height: calc(100% - 20px - 20px);
-  width: 400px !important;
-  min-height: 250px !important;
-  max-height: 480px !important;
-  box-shadow: 0px 1px 4px rgba(13, 22, 26, 0.08), 0px 4px 16px rgba(13, 22, 26, 0.12), 0px 2px 12px rgba(13, 22, 26, 0.08);
-  border-radius: 2px !important;
-  overflow: hidden !important;
-  opacity: 1 !important;
-}
+    .smith-chat-frame {
+    z-index: 99999999999999999999999999999 !important;
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+    height: calc(100% - 20px - 20px);
+    width: 400px !important;
+    min-height: 250px !important;
+    max-height: 480px !important;
+    box-shadow: 0px 1px 4px rgba(13, 22, 26, 0.08), 0px 4px 16px rgba(13, 22, 26, 0.12), 0px 2px 12px rgba(13, 22, 26, 0.08);
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    }
 
-.smith-chat-bar {
-  z-index: 999999 !important;
-  position: fixed !important;
-  bottom: 56px;
-  right: 20px;
-  height: 60px;
-  width: 400px !important;
-  box-shadow: 0px 1px 4px rgba(13, 22, 26, 0.08), 0px 4px 16px rgba(13, 22, 26, 0.12), 0px 2px 12px rgba(13, 22, 26, 0.08);
-  border-radius: 2px !important;
-  overflow: hidden !important;
-  opacity: 1 !important;
-  background: #fff;
-}
+    .smith-chat-bar {
+    z-index: 999999 !important;
+    position: fixed !important;
+    bottom: 56px;
+    right: 20px;
+    height: 60px;
+    width: 400px !important;
+    box-shadow: 0px 1px 4px rgba(13, 22, 26, 0.08), 0px 4px 16px rgba(13, 22, 26, 0.12), 0px 2px 12px rgba(13, 22, 26, 0.08);
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    background: #fff;
+    }
 
 
-#smith-container .smith-chat-frame {
-  height: 100%;
-  width: 100%;
-  height: calc(100% - 20px - 76px - 20px);
-  bottom: 126px;
-}
+    #smith-container .smith-chat-frame {
+    height: 100%;
+    width: 100%;
+    height: calc(100% - 20px - 76px - 20px);
+    bottom: 126px;
+    }
 
-#smith-container .smith-chat {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-}
-
-#smith-container .smith-chat-header {
-  background: #fff;
-
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  transition: height 0.16s ease-out;
-}
-
-#smith-container .smith-header-profile {
-  padding: 32px 48px 16px 48px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-#smith-container .smith-header-profile-name {
-  color: rgba(0, 18, 26, 0.93);
-  font-size: 20px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 4px;
-}
-
-#smith-container .smith-header-profile-intro {
-  color: rgba(0, 18, 26, 0.59);
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 4px;
-}
-
-#smith-container .smith-header-profile-cta a {
-  color: #1E9FD6;
-  font-size: 14px;
-  text-decoration: none;
-  opacity: 0.9;
-  transition: opacity 0.15s ease-in-out;
-}
-
-#smith-container .smith-team-profile-full-cta a:hover {
-  opacity: 1;
-}
-
-#smith-container .smith-chat-body {
-  position: relative;
-  flex: 1;
-  background-color: #fff;
-}
-
-#smith-container .smith-conversation-container {
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-#smith-container .smith-conversation-body-parts {
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-}
-
-#smith-container .smith-conversation-parts {
-    padding: 24px 20px 0;
+    #smith-container .smith-chat {
     display: flex;
-    flex-flow: row wrap;
-}
-
-#smith-container .smith-conversation-parts-wrapper {
-    display: flex;
-    min-height: 100%;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-#smith-container .smith-comment-container {
-  position: relative;
-  margin-bottom: 24px;
-}
-
-#smith-container .smith-comment-container-admin {
-    float: left;
-    padding-left: 40px;
-    width: calc(100% - 48px);
-}
-
-#smith-container .smith-comment-container-admin-right {
-    float: right;
-    padding-left: 40px;
-
-}
-
-#smith-container .smith-comment-container-admin-avatar {
     position: relative;
+    top: 0;
+    bottom: 0;
     left: 0;
-    bottom: 2px;
-}
-
-#smith-container .smith-comment-container-admin-avatar-right {
-    position: relative;
     right: 0;
-    bottom: 2px;
-}
+    background: #fff;
+    }
 
-#smith-container .smith-comment-container-admin-avatar-right .smith-avatar {
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    font-size: 14px;
-}
+    #smith-container .smith-chat-header {
+    background: #fff;
 
-#smith-container .smith-avatar {
-    margin: 0 auto;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#smith-container .smith-comment-container-admin-avatar .smith-avatar {
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    font-size: 14px;
-}
-
-#smith-container .smith-avatar img {
-    border-radius: 50%;
-}
-
-#smith-container .smith-comment-container-admin-avatar .smith-avatar img {
-    width: 28px;
-    height: 28px;
-}
-
-#smith-container .smith-comment:not(.smith-comment-with-body) {
-    padding: 12px 20px;
-    border-radius: 20px;
     position: relative;
-    display: inline-block;
-    width: auto;
-    max-width: 75%;
-}
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: height 0.16s ease-out;
+    }
 
-#smith-container .smith-comment-right:not(.smith-comment-with-body) {
-    padding: 12px 20px;
-    border-radius: 20px;
-    position: relative;
-    display: inline-block;
-    width: auto;
-    max-width: 75%;
-    left: 72px;
-    background-color: #c4d6f2;
-}
-
-#smith-container .smith-comment-container-admin .smith-comment-right:not(.smith-comment-with-body) {
-    color: rgba(0, 18, 26, 0.93);
-    background-color: #EDF1F2;
-}
-
-#smith-container .smith-comment-right .smith-block-paragraph {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-#smith-container .smith-comment-container-admin .smith-comment:not(.smith-comment-with-body) {
-    color: rgba(0, 18, 26, 0.93);
-    background-color: #EDF1F2;
-}
-
-#smith-container .smith-comment .smith-block-paragraph {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.smith-chat-bar-message {
-  padding: 12px;
-  display: flex;
-  align-items: center;
-}
-
-.smith-chat-bar-message textarea {
-  background-color: transparent;
-  border-radius: 0;
-  border: none;
-  font-size: 14px;
-  flex: 2;
-  line-height: 1.25rem;
-  max-height: 100px;
-  outline: none;
-  overflow-x: hidden;
-  resize: none;
-  padding: 0;
-  margin: 0px 8px;
-}
-
-.btn {
-    font-weight: 400;
+    #smith-container .smith-header-profile {
+    padding: 32px 48px 16px 48px;
+    box-sizing: border-box;
     text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 14px;
-    line-height: 1.5;
-    border-radius: 2px;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+    }
 
-.send-btn {
-    color: rgba(0, 18, 26, 0.59);
-    background-color: #EDF1F2;
-    border-color: #EDF1F2;
-    min-width: 72px;
-}
-
-.send-btn:hover {
-    cursor: pointer;
+    #smith-container .smith-header-profile-name {
     color: rgba(0, 18, 26, 0.93);
-    background-color: #D4DADD;
-    border-color: #D4DADD;
-}
+    font-size: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    }
 
-.smith-launcher-frame {
-    box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 2px 16px rgba(0, 18, 26, 0.16);
-    z-index: 2147482999 !important;
-    position: fixed !important;
-    bottom: 20px;
-    right: 20px;
-    height: 56px !important;
-    width: 56px !important;
-    border-radius: 100px !important;
-    overflow: hidden !important;
-    background: #1E9FD6 !important;
+    #smith-container .smith-header-profile-intro {
+    color: rgba(0, 18, 26, 0.59);
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 4px;
+    }
+
+    #smith-container .smith-header-profile-cta a {
+    color: #1E9FD6;
+    font-size: 14px;
+    text-decoration: none;
     opacity: 0.9;
-    transition: box-shadow 0.26s cubic-bezier(.38,0,.22,1), opacity 0.26s ease-in-out;
-}
+    transition: opacity 0.15s ease-in-out;
+    }
 
-.smith-launcher-frame-2 {
-    box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 2px 16px rgba(0, 18, 26, 0.16);
-    z-index: 2147482999 !important;
-    position: fixed !important;
-    bottom: 20px;
-    right: 20px;
-    height: 56px !important;
-    width: 56px !important;
-    border-radius: 100px !important;
-    overflow: hidden !important;
-    background: #1E9FD6 !important;
-    opacity: 0.9;
-    transition: box-shadow 0.26s cubic-bezier(.38,0,.22,1), opacity 0.26s ease-in-out;
-}
+    #smith-container .smith-team-profile-full-cta a:hover {
+    opacity: 1;
+    }
 
-.smith-launcher-frame:hover {
-  cursor: pointer;
-  box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 3px 12px rgba(0, 18, 26, 0.16), 0 2px 14px 0 rgba(0, 18, 26,.20);
-  opacity: 1;
-} 
+    #smith-container .smith-chat-body {
+    position: relative;
+    flex: 1;
+    background-color: #fff;
+    }
 
-.container{max-width:1170px; margin:revert;}
-img{ max-width:100%;}
-.inbox_people {
-  background: #f8f8f8 none repeat scroll 0 0;
-  float: left;
-  overflow: hidden;
-  width: 40%; border-right:1px solid #c4c4c4;
-}
-.inbox_msg {
-  border: 1px solid #c4c4c4;
-  clear: both;
-  overflow: hidden;
-}
-.top_spac{ margin: 20px 0 0;}
+    #smith-container .smith-conversation-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    #smith-container .smith-conversation-body-parts {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+    }
+
+    #smith-container .smith-conversation-parts {
+        padding: 24px 20px 0;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    #smith-container .smith-conversation-parts-wrapper {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #smith-container .smith-comment-container {
+    position: relative;
+    margin-bottom: 24px;
+    }
+
+    #smith-container .smith-comment-container-admin {
+        float: left;
+        padding-left: 40px;
+        width: calc(100% - 48px);
+    }
+
+    #smith-container .smith-comment-container-admin-right {
+        float: right;
+        padding-left: 40px;
+
+    }
+
+    #smith-container .smith-comment-container-admin-avatar {
+        position: relative;
+        left: 0;
+        bottom: 2px;
+    }
+
+    #smith-container .smith-comment-container-admin-avatar-right {
+        position: relative;
+        right: 0;
+        bottom: 2px;
+    }
+
+    #smith-container .smith-comment-container-admin-avatar-right .smith-avatar {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+    }
+
+    #smith-container .smith-avatar {
+        margin: 0 auto;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    #smith-container .smith-comment-container-admin-avatar .smith-avatar {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+    }
+
+    #smith-container .smith-avatar img {
+        border-radius: 50%;
+    }
+
+    #smith-container .smith-comment-container-admin-avatar .smith-avatar img {
+        width: 28px;
+        height: 28px;
+    }
+
+    #smith-container .smith-comment:not(.smith-comment-with-body) {
+        padding: 12px 20px;
+        border-radius: 20px;
+        position: relative;
+        display: inline-block;
+        width: auto;
+        max-width: 75%;
+    }
+
+    #smith-container .smith-comment-right:not(.smith-comment-with-body) {
+        padding: 12px 20px;
+        border-radius: 20px;
+        position: relative;
+        display: inline-block;
+        width: auto;
+        max-width: 75%;
+        left: 72px;
+        background-color: #c4d6f2;
+    }
+
+    #smith-container .smith-comment-container-admin .smith-comment-right:not(.smith-comment-with-body) {
+        color: rgba(0, 18, 26, 0.93);
+        background-color: #EDF1F2;
+    }
+
+    #smith-container .smith-comment-right .smith-block-paragraph {
+    font-size: 14px;
+    line-height: 20px;
+    }
+
+    #smith-container .smith-comment-container-admin .smith-comment:not(.smith-comment-with-body) {
+        color: rgba(0, 18, 26, 0.93);
+        background-color: #EDF1F2;
+    }
+
+    #smith-container .smith-comment .smith-block-paragraph {
+    font-size: 14px;
+    line-height: 20px;
+    }
+
+    .smith-chat-bar-message {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    }
+
+    .smith-chat-bar-message textarea {
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    font-size: 14px;
+    flex: 2;
+    line-height: 1.25rem;
+    max-height: 100px;
+    outline: none;
+    overflow-x: hidden;
+    resize: none;
+    padding: 0;
+    margin: 0px 8px;
+    }
+
+    .btn {
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .375rem .75rem;
+        font-size: 14px;
+        line-height: 1.5;
+        border-radius: 2px;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .send-btn {
+        color: rgba(0, 18, 26, 0.59);
+        background-color: #EDF1F2;
+        border-color: #EDF1F2;
+        min-width: 72px;
+    }
+
+    .send-btn:hover {
+        cursor: pointer;
+        color: rgba(0, 18, 26, 0.93);
+        background-color: #D4DADD;
+        border-color: #D4DADD;
+    }
+
+    .smith-launcher-frame {
+        box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 2px 16px rgba(0, 18, 26, 0.16);
+        z-index: 2147482999 !important;
+        position: fixed !important;
+        bottom: 20px;
+        right: 20px;
+        height: 56px !important;
+        width: 56px !important;
+        border-radius: 100px !important;
+        overflow: hidden !important;
+        background: #1E9FD6 !important;
+        opacity: 0.9;
+        transition: box-shadow 0.26s cubic-bezier(.38,0,.22,1), opacity 0.26s ease-in-out;
+    }
+
+    .smith-launcher-frame-2 {
+        box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 2px 16px rgba(0, 18, 26, 0.16);
+        z-index: 2147482999 !important;
+        position: fixed !important;
+        bottom: 20px;
+        right: 20px;
+        height: 56px !important;
+        width: 56px !important;
+        border-radius: 100px !important;
+        overflow: hidden !important;
+        background: #1E9FD6 !important;
+        opacity: 0.9;
+        transition: box-shadow 0.26s cubic-bezier(.38,0,.22,1), opacity 0.26s ease-in-out;
+    }
+
+    .smith-launcher-frame:hover {
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 18, 26, 0.08), 0px 3px 12px rgba(0, 18, 26, 0.16), 0 2px 14px 0 rgba(0, 18, 26,.20);
+    opacity: 1;
+    } 
+
+    .container{max-width:1170px; margin:revert;}
+    img{ max-width:100%;}
+    .inbox_people {
+    background: #f8f8f8 none repeat scroll 0 0;
+    float: left;
+    overflow: hidden;
+    width: 40%; border-right:1px solid #c4c4c4;
+    }
+    .inbox_msg {
+    border: 1px solid #c4c4c4;
+    clear: both;
+    overflow: hidden;
+    }
+    .top_spac{ margin: 20px 0 0;}
 
 
-.recent_heading {float: left; width:40%;}
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%;
-}
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+    .recent_heading {float: left; width:40%;}
+    .srch_bar {
+    display: inline-block;
+    text-align: right;
+    width: 60%;
+    }
+    .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
-.recent_heading h4 {
-  color: #05728f;
-  font-size: 21px;
-  margin: auto;
-}
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
-}
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+    .recent_heading h4 {
+    color: #05728f;
+    font-size: 21px;
+    margin: auto;
+    }
+    .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+    .srch_bar .input-group-addon button {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    padding: 0;
+    color: #707070;
+    font-size: 18px;
+    }
+    .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
-.chat_img {
-  float: left;
-  width: 11%;
-}
-.chat_ib {
-  float: left;
-  padding: 0 0 0 15px;
-  width: 88%;
-}
+    .chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+    .chat_ib h5 span{ font-size:13px; float:right;}
+    .chat_ib p{ font-size:14px; color:#989898; margin:auto}
+    .chat_img {
+    float: left;
+    width: 11%;
+    }
+    .chat_ib {
+    float: left;
+    padding: 0 0 0 15px;
+    width: 88%;
+    }
 
-.chat_people{ overflow:hidden; clear:both;}
-.chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
-.inbox_chat { height: 550px; overflow-y: scroll;}
+    .chat_people{ overflow:hidden; clear:both;}
+    .chat_list {
+    border-bottom: 1px solid #c4c4c4;
+    margin: 0;
+    padding: 18px 16px 10px;
+    }
+    .inbox_chat { height: 550px; overflow-y: scroll;}
 
-.active_chat{ background:#ebebeb;}
+    .active_chat{ background:#ebebeb;}
 
-.incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
-.received_msg {
-  display: inline-block;
-  padding: 0 0 0 10px;
-  vertical-align: top;
-  width: 92%;
- }
- .received_withd_msg p {
-  background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
-  color: #646464;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
-}
-.time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
-.received_withd_msg { width: 57%;}
+    .incoming_msg_img {
+    display: inline-block;
+    width: 6%;
+    }
+    .received_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
+    }
+    .received_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    }
+    .time_date {
+    color: #747474;
+    display: block;
+    font-size: 12px;
+    margin: 8px 0 0;
+    }
+    .received_withd_msg { width: 57%;}
 
-.mesgs-1 {
-  float: left;
-  padding: 30px 15px 0 25px;
-  width: 100% !important;
-}
+    .mesgs-1 {
+    float: left;
+    padding: 30px 15px 0 25px;
+    width: 100% !important;
+    }
 
- .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
-  margin: 0; color:#fff;
-  padding: 5px 10px 5px 12px;
-  width:100%;
-}
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
-.sent_msg {
-  float: right;
-  width: 46%;
-}
-.input_msg_write input {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  color: #4c4c4c;
-  font-size: 15px;
-  min-height: 48px;
-  width: 100%;
-}
+    .sent_msg p {
+    background: #05728f none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0; color:#fff;
+    padding: 5px 10px 5px 12px;
+    width:100%;
+    }
+    .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+    .sent_msg {
+    float: right;
+    width: 46%;
+    }
+    .input_msg_write input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #4c4c4c;
+    font-size: 15px;
+    min-height: 48px;
+    width: 100%;
+    }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
-.msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  font-size: 17px;
-  height: 33px;
-  position: absolute;
-  right: 0;
-  top: 11px;
-  width: 33px;
-}
-.messaging { padding: 0 0 50px 0;}
-.msg_history_1 {
-  height: 410px;
-  overflow-y: auto;
-}
+    .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+    .msg_send_btn {
+    background: #05728f none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    height: 33px;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    width: 33px;
+    }
+    .messaging { padding: 0 0 50px 0;}
+    .msg_history_1 {
+    height: 410px;
+    overflow-y: auto;
+    }
 </style>
 
 
@@ -1215,5 +1256,61 @@ $(document).on("click", "#delete-sms", (e)=>{
 
 
 });
+
+
+function showModal(li){
+    
+    // Get the notification ID from the clicked element
+    var id = $(li).data('id');
+    var type = $(li).data('type');
+    var notif_id = $(li).data('notif');
+
+    // Send an AJAX request to the server with the ID
+    $.ajax({
+        
+        url: '../Guidance_Counselor_UI/notifications.php',
+        data: {id: id,
+                type : type,
+                notif_id : notif_id
+                },
+        success: function(data) {
+            // Show the modal form
+            switch (type) {
+                case 'Appointment':
+                case 'Reminder':
+                    var Appointment = JSON.parse(data);
+                    var Appointment_time = Appointment.date +' ('+Appointment.timeslot+' - '+Appointment.timeslot_end+')';
+                    var Appointment_type = Appointment.appointment_type;
+
+                    $('#Appointment-Type').val(Appointment_type);
+                    $('#Appointment-Time').val(Appointment_time);
+                    $('#NOTIF_APPOINTMENT').modal('show');
+                    break;
+
+                case 'Rejection':
+                    var Referral = JSON.parse(data);
+                    var stud_id = Referral.Student_ID;
+                    var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
+                    var reason = Referral.reason;
+
+                    var RefDate = Referral.reffered_date;
+                    var RejDate = Referral.Cancel_Date;
+                    var RejReason = Cancel_Reason;
+
+                    $('#StudID').val(stud_id);
+                    $('#StudName').val(stud_name);
+                    $('#RefReason').val(reason);
+
+                    $('#RefDate').val(RefDate);
+                    $('#RejDate').val(RejDate);
+                    $('#RejReason').val(RejReason);
+
+                    $('#NOTIF_REJECTED_REFERRAL').modal('show');
+                    break;
+            }
+            
+        }
+    });
+}
 
 </script>

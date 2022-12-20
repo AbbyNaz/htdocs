@@ -131,18 +131,18 @@
                                                         <?php
                                                         
                                                                 // CHECK ALL APPOINTMENT FIRST IF IS TODAY -- make the appointment unread so that it can be seen by user
-                                                                $Appointment_query = "SELECT n.id, a.date FROM notifications n JOIN appointments a ON n.info_ID = a.id WHERE n.Type = 'Appointments'";
-                                                                $results = $con->query($Appointment_query) or die ($con->error);
+                                                                // $Appointment_query = "SELECT n.id, a.date FROM notifications n JOIN appointments a ON n.info_ID = a.id WHERE n.Type = 'Appointments'";
+                                                                // $results = $con->query($Appointment_query) or die ($con->error);
 
-                                                                $currentDate = date('Y-m-d');
-                                                                while ($Appointment = mysqli_fetch_assoc($results)) {
-                                                                    if ($Appointment["date"]->format('Y-m-d') == $currentDate) {
-                                                                        $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
-                                                                        mysqli_query($con, $update_query);
-                                                                    }
-                                                                }
+                                                                // $currentDate = date('Y-m-d');
+                                                                // while ($Appointment = mysqli_fetch_assoc($results)) {
+                                                                //     if ($Appointment["date"]->format('Y-m-d') == $currentDate) {
+                                                                //         $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
+                                                                //         mysqli_query($con, $update_query);
+                                                                //     }
+                                                                // }
 
-                                                                // ICONS
+                                                                // ICONS -- Change the icons
                                                                 $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
                                                                 $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
                                                                 
@@ -153,7 +153,7 @@
                                                                         JOIN users u
                                                                         ON n.from_user = u.id_number
                                                                         WHERE n.to_user = '$id'
-                                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral')
+                                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral' OR n.Type = 'Reminder')
                                                                         ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                                                 $connect_query = mysqli_query($con, $query);
 
@@ -172,22 +172,14 @@
                                                                     // ICON TYPE & DESCRIPTION
                                                                     switch ($type) {
                                                                         //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
+                                                                        case "Reminder": //reminder for appointments
+                                                                            $icon = $appointment_icon;
+                                                                            $description = "You have an appointment with ".$name." today";
+                                                                            break;
+
                                                                         case "Appointment":
                                                                             $icon = $appointment_icon;
-
-                                                                            // if appointment check the date first
-                                                                            $getDate_query = "SELECT date FROM appointments WHERE id = '$infoID'"; //CREate join para makuha name ng user
-                                                                            $dateResult = mysqli_query($con, $getDate_query);
-                                                                            $Appointment_date = mysqli_fetch_assoc($dateResult);
-
-                                                                            $AppDate = new DateTime($Appointment_date["date"]);
-                                                                            
-                                                                            if ($AppDate->format('Y-m-d') != $currentDate) {
-                                                                                $description = "You have new appointment setted by ".$name;
-                                                                            }else{ //do this if not from
-                                                                                $description = "You have an appointment with ".$name." today";
-                                                                            }
-
+                                                                            $description = "You have new appointment setted by ".$name;
                                                                             break;
 
                                                                         case "Referral":
@@ -1416,6 +1408,7 @@ function showModal(li){
             // Show the modal form
             switch (type) {
                 case 'Appointment':
+                case 'Reminder':
                     var Appointment = JSON.parse(data);
                     var name = Appointment.name;
                     var id_number = Appointment.id_number;
