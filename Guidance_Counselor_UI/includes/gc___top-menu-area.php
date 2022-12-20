@@ -7,6 +7,9 @@
         $user_query = "SELECT id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
         $user_con = $con->query($user_query) or die ($con->error);
         $row_user = $user_con->fetch_assoc();
+
+        $id = $row_user['id_number'];
+        $_SESSION['id_number'] = $row_user['id_number'];
     }
 
 ?>
@@ -144,24 +147,13 @@
                                                                 $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
                                                                 
                                                                 //QUERY
-                                                                $id = $row_user['id_number'];
-                                                                $query = "SELECT n.*, 
-                                                                        CASE 
-                                                                        WHEN n.to_user = '$id' THEN u1.first_name
-                                                                        ELSE u2.first_name
-                                                                        END as first_name, 
-                                                                        CASE 
-                                                                        WHEN n.to_user = '$id' THEN u1.last_name
-                                                                        ELSE u2.last_name
-                                                                        END as last_name
-
-                                                                        FROM notifications n 
-                                                                        LEFT JOIN users u1 ON n.from_user = u1.id_number 
-                                                                        LEFT JOIN users u2 ON n.to_user = u2.id_number 
-
-                                                                        WHERE (n.to_user = '$id' OR n.from_user = '$id') 
+                                                                
+                                                                $query = "SELECT n.*, u.first_name, u.last_name
+                                                                        FROM notifications n
+                                                                        JOIN users u
+                                                                        ON n.from_user = u.id_number
+                                                                        WHERE n.to_user = '$id'
                                                                         AND (n.Type = 'Appointment' OR n.Type = 'Referral')
-
                                                                         ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                                                 $connect_query = mysqli_query($con, $query);
 
@@ -192,9 +184,10 @@
                                                                             
                                                                             if ($AppDate->format('Y-m-d') != $currentDate) {
                                                                                 $description = "You have new appointment setted by ".$name;
-                                                                            }else{
+                                                                            }else{ //do this if not from
                                                                                 $description = "You have an appointment with ".$name." today";
                                                                             }
+
                                                                             break;
 
                                                                         case "Referral":
@@ -226,6 +219,7 @@
                                                                         $style = '';
                                                                     }
 
+
                                                                     echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
                                                                             <div class="notification-icon">
                                                                                 <i class="'.$icon.'" aria-hidden="true"></i>
@@ -235,7 +229,10 @@
                                                                                 <h2>'.$name.'</h2>
                                                                                 <p>'.$description.'</p>
                                                                             </div>
-                                                                    </li>';
+                                                                        </li>';
+
+                                                                        //GAWA NG QUERY EVERYTIME MAGRELOAD AND PAGE CHECK
+                                                                    // IF MY APPOINTMENTS TODAY AND INSERT NOTIF FROM DATABASE IF MERON
                                                                 }
                                                                 // KAPAG PININDOT YUNG NOTIF DAPAT MAGSESEND NG QUERY NA IUPDATE YUNG ISREAD TO 1
                                                             
@@ -296,7 +293,10 @@
                 </div>
             </div>
 
-            
+   
+<?php 
+    include('RefRejectionForm.php');
+?>
 <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REFERRAL DETAILS MODAL --------------------------------------------->
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -378,9 +378,7 @@
 
     </div>
 
-<?php 
-    include('RefRejectionForm.php');
-?>
+
 
 
 <!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
@@ -465,7 +463,7 @@
 
                         <div class="modal-footer">
                             
-                            <a href="../Guidance_Counselor_UI/gc___all_appointment.php" class="btn btn-primary btn-md">View Appointment</a>
+                            <a href="../Guidance_Counselor_UI/gc___all_appointment.php" class="btn btn-primary btn-md">View Appointments</a>
                             <a id="CancelAppointment" href="" class="btn btn-danger btn-md">Cancel Appointment</a>
                         </div>
                     </form>
@@ -1390,8 +1388,6 @@ $.ajax({
 });
 
 
-// var cancelbtn = document.getElementById("CancelAppointment");
-// cancelbtn.addEventListener("click", cancelAppointment);
 
 function showRefModal(a){
     var refID = $(a).data('ref-id');
@@ -1408,8 +1404,6 @@ function showModal(li){
     var type = $(li).data('type');
     var notif_id = $(li).data('notif');
 
-
-    
     // Send an AJAX request to the server with the ID
     $.ajax({
         
