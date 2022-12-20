@@ -1,6 +1,6 @@
 <?php
 
-include('RefRejectionForm.php');
+
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
@@ -368,7 +368,7 @@ include('RefRejectionForm.php');
 
                         <div class="modal-footer">
                                 <a href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-primary btn-md">View Referral Details</button>
-                                <a class="btn btn-danger btn-md" data-toggle="modal" data-target="#REJECTION_FORM">Reject</button>
+                                <a id="RejectButton" class="btn btn-danger btn-md" onclick="showRefModal(this)" data-toggle="modal" >Reject</button>
                                 <a id="setAppointment" href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-success btn-md">Set Appointment</button>
                         </div>
                     </form>
@@ -377,6 +377,10 @@ include('RefRejectionForm.php');
         </div>
 
     </div>
+
+<?php 
+    include('RefRejectionForm.php');
+?>
 
 
 <!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
@@ -1389,6 +1393,13 @@ $.ajax({
 // var cancelbtn = document.getElementById("CancelAppointment");
 // cancelbtn.addEventListener("click", cancelAppointment);
 
+function showRefModal(a){
+    var refID = $(a).data('ref-id');
+
+    $('#RejectForm').attr("action", "RefRejectQuery.php?ref_id="+refID+"");
+
+    $('#REJECTION_FORM').modal('show');
+}
 
 function showModal(li){
     
@@ -1437,6 +1448,7 @@ function showModal(li){
 
                     
                     $('#setAppointment').attr("href", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+Referral.ref_id+"");
+                    $('#RejectButton').data('ref-id', id);
 
                     $('#From-User').val(from);
                     $('#Stud-ID').val(stud_id);
