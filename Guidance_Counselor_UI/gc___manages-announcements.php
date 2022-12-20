@@ -12,98 +12,6 @@ if (!isset($_SESSION['UserEmail'])) {
   $con = connection();
 
 
-  if (isset($_POST['add_article'])) {
-
-    date_default_timezone_set('Asia/Manila');
-    $dateon = strtotime(date("Y-m-d h:i:sa"));
-    $articlecode = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-    $duration = trim($_POST['duration']);
-    $status = "Active";
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        $query = "INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES('$articlecode','$title','$description','$pathimage','$duration','$status')";
-        if (mysqli_query($con, $query)) {
-          move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-          $count = $count + 1;
-        }
-
-        $_SESSION['status'] = "Article Added";
-        $_SESSION['status_code'] = "success";
-        header('Location: gc___manages_acticle.php');
-      }
-    } else {
-      $_SESSION['status'] = "Article Not Added";
-      $_SESSION['status_code'] = "error";
-      header('Location: gc___manages_acticle.php');
-    }
-  } elseif (isset($_POST['update_article'])) {
-
-    $articlecode = trim($_POST['articlecode']);
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $duration = trim($_POST['duration']);
-    $status = trim($_POST['art_status']);
-    $picturepath = trim($_POST['picturepath']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        if ($path == "../uploads/") {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (!mysqli_query($con, $query)) {
-            die('Error:' . mysqli_error($conn));
-          }
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        } else {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', PICTURE = '$pathimage', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (mysqli_query($con, $query)) {
-            move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-            $count = $count + 1;
-          }
-          unlink("../" . $picturepath);
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        }
-      }
-    }
-  }
-
 
 ?>
 
@@ -267,39 +175,22 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
                         <select class="form-control custom-select-value" name="duration">
-                          <option value="" disabled>Select Duration Month</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
+                          <option value="" disabled>Select Duration</option>
+                          <option>1 weeks</option>
+                          <option>2 weeks</option>
+                          <option>3 weeks</option>
+                          <option>4 weeks</option>
                         </select>
                       </div>
                     </div>
                   </div><br>
 
-                  <div class="form-group-inner">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <label class="login2 pull-right">Image</label>
-                      </div>
-                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="file" name="files[]" class="form-control" accept="image/*" style="margin-bottom: 30px;" required />
-                      </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="add_article" class="btn btn-primary btn-md">Save</button>
+                <button type="submit" name="add_announcement" class="btn btn-primary btn-md">Save</button>
               </div>
             </form>
 
@@ -334,7 +225,6 @@ if (!isset($_SESSION['UserEmail'])) {
                         <th data-field="code">Announcements Code</th>
                         <th data-field="title">Title</th>
                         <th data-field="description">Description</th>
-                        <th data-field="picture">Picture</th>
                         <th data-field="duration">Duration</th>
                         <th data-field="status">Status</th>
                         <th data-field="action">Action</th>
@@ -360,8 +250,6 @@ if (!isset($_SESSION['UserEmail'])) {
 
                             <td>
                               <div style="display: flex; justify-content: center;">
-
-                                <!-- <button id="showEditStaffModal" class="btn btn-warning" style="margin-left: 10px; margin-right: 20px; color: white;" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>">Edit</button> -->
                                 
                                 <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                           
@@ -399,11 +287,11 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="Edit_New_Article" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+      <div id="Edit_Announcement" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Edit Article</h4>
+              <h4 class="modal-title">Edit Announcement</h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -414,7 +302,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 <div class="form-group-inner">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Title of Article</label>
+                      <label class="login2 pull-right">Title of Announcement</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <input type="text" class="form-control" placeholder="Enter Title" name="title" id="title" />
@@ -433,18 +321,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                 </div>
 
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Image</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="file" name="files[]" class="form-control" accept="image/*" style="margin-bottom: 10px;" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
+                <!-- <div class="form-group-inner">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right pull-right-pro">Duration</label>
@@ -452,24 +329,16 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
                         <select class="form-control custom-select-value" name="duration" id="duration">
-                          <option value="" disabled>Select Duration Month</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
+                          <option value="" disabled>Select Duration</option>
+                          <option>1 week</option>
+                          <option>2 weeks</option>
+                          <option>3 weeks</option>
+                          <option>4 weeks</option>
                         </select>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="form-group-inner">
                   <div class="row">
@@ -491,10 +360,9 @@ if (!isset($_SESSION['UserEmail'])) {
               </div>
 
               <div class="modal-footer">
-                <input type="hidden" name="articlecode" id="articlecode">
-                <input type="hidden" name="picturepath" id="picturepath">
+                <input type="hidden" name="announcementcode" id="announcementcode">
                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="update_article" class="btn btn-primary btn-md">Update</button>
+                <button type="submit" name="update_announcement" class="btn btn-primary btn-md">Update</button>
               </div>
             </form>
 
@@ -507,7 +375,7 @@ if (!isset($_SESSION['UserEmail'])) {
     ?>
 
     <script>
-      $(document).on('show.bs.modal', '#Edit_New_Article', function(e) {
+      $(document).on('show.bs.modal', '#Edit_Announcement', function(e) {
         var userID = $(e.relatedTarget).data('id');
         var userData;
 
@@ -521,16 +389,14 @@ if (!isset($_SESSION['UserEmail'])) {
           success: function(response) {
             console.log(response);
             userData = jQuery.parseJSON(response)
-            $('#articlecode').val(userData[0].articlecode);
+            $('#announcementcode').val(userData[0].articlecode);
             $('#title').val(userData[0].title);
             $('#description').val(userData[0].description);
-            $('#picturepath').val(userData[0].picture);
-            $('#duration').val(userData[0].duration);
-            $('#articlestatus').val(userData[0].status);
+            // $('#duration').val(userData[0].duration);
+            $('#announcementstatus').val(userData[0].status);
           } 
 
         });
-        // window.location.href = "get_specific_user.php?userID=" + userID; 
       });
     </script>
 

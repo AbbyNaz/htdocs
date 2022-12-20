@@ -284,25 +284,15 @@ if (!isset($_SESSION['UserEmail'])) {
                                     <div class="row">
 
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Back-Up Database Every:</label>
+                                            <label class="login2 pull-right">Restore Database</label>
                                         </div>
 
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="import_file" class="form-control">
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <button type="submit" name="backupnow" class="btn btn-primary btn-md">Restore</button>
+                                            <button type="submit" name="restore" class="btn btn-primary btn-md">Restore</button>
                                         </div>
-
-                                        <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">*Note:</label>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <label class="login2 pull-left">If you click the button Backup Now and that automatically download back-up data.</label>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <button type="submit" name="backupnow" class="btn btn-primary btn-md">Backup Now</button>
-                                    </div> -->
                                     </div>
                                 </div>
 
