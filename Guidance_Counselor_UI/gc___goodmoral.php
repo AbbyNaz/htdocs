@@ -1,5 +1,4 @@
 <?php
-
   session_start();
 
     include_once("../connections/connection.php");
@@ -19,8 +18,6 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
     if ($con->connect_error) { 
         die("Connection failed: " . $con->connect_error); 
     } 
-
-
         
 ?>
 
@@ -110,17 +107,7 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://kit.fontawesome.com/9bdab6475a.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <style>  
-      .card-body{
-        background: #fff;
-        
-      }
-      a{
-        display: flex !important;
-        position: relative;
-        padding-left: 20px !important;
-      }
-        </style>  
+ 
 </head>
 
 <body>
@@ -154,42 +141,66 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
     </div>
   </div>
   </div>
+
 <!--doria CODE STARTS HERE -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 m-auto">
-            <div class="content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">Search Student For Goodmoral</h2>
-                    </div>
+<div class="mailbox-area mg-b-15">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-md-3 col-sm-3 col-xs-12">
+          <div class="hpanel responsive-mg-b-30">
+            <div class="panel-body">
+
+              <div class="panel-heading hbuilt mailbox-hd">
+                <div class="text-center p-xs font-normal">
+
+                  <div class="input-group">
+                    <form method="POST">
+
+                      <input type="text" id="search" class="form-control" placeholder="Search Students..." />
+
+                      <button type="button" id="btn_search" class="btn btn-primary"> Search </button>
+
+                    </form>
+                  </div>
+
+
+                  
+                  <div class="card">
                     <div class="card-body">
-                      <form method="POST">
-                      
-                        <input type="text" id="search" class="form-control" placeholder="Enter User Name" />  
-                           
-                        <button type="button" id="btn_search" class="btn btn-primary"> SEARCH </button>  
-                        
-                      </form>
-                    </div>
-                    <div class="card">
-                      <div class="card-body">
-                          <div class="list-group list-group-item-action" id="content">
-                            <!-- CALL content id to AJAX FOR DISPLAY-->
-                          </div>
+                      <div class="list-group list-group-item-action" id="content">
+                        <!-- CALL content id to AJAX FOR DISPLAY-->
                       </div>
                     </div>
+                  </div>
+
                 </div>
+              </div>
+
             </div>
           </div>
-       <div class="panel-body">
-          <iframe src="GM_Certs/picture.PDF" width="560px" height="500px"></iframe>
-       </div>
+        </div>
+
+
+
+        <div class="col-md-9 col-md-9 col-sm-9 col-xs-12">
+          <div class="hpanel">
+            <div class="panel-heading hbuilt mailbox-hd">
+
+              <div class="panel-body">
+                <iframe src="GM_Certs/Picture.PDF" frameborder="0" width="100%" height="947px">
+                </iframe>
+
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
   <script>
-    let reload = document.querySelector("#btn_search");
+    let reload = document.querySelector("#btn_search"); 
       reload.addEventListener("click",function(){
         window.location.reload();
       })
