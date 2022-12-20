@@ -33,7 +33,8 @@ if(!isset($_SESSION['UserEmail'])){
 		$remarks = $_POST['remarks'];
 		$status = "Pending";
 
-			$mynature = '';
+		$mynature = '';
+		
 		foreach($nature as $item){
 				// echo $item;
 				$mynature = "$mynature $item,";

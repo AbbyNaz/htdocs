@@ -1,6 +1,6 @@
 <?php
 
-
+    include("../Guidance_Counselor_UI/Notify.php");
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
@@ -131,16 +131,15 @@
                                                         <?php
                                                         
                                                                 // CHECK ALL APPOINTMENT FIRST IF IS TODAY -- make the appointment unread so that it can be seen by user
-                                                                // $Appointment_query = "SELECT n.id, a.date FROM notifications n JOIN appointments a ON n.info_ID = a.id WHERE n.Type = 'Appointments'";
-                                                                // $results = $con->query($Appointment_query) or die ($con->error);
+                                                                $Appointment_query = "SELECT * FROM appointments";
+                                                                $results = $con->query($Appointment_query) or die ($con->error);
 
-                                                                // $currentDate = date('Y-m-d');
-                                                                // while ($Appointment = mysqli_fetch_assoc($results)) {
-                                                                //     if ($Appointment["date"]->format('Y-m-d') == $currentDate) {
-                                                                //         $update_query = 'UPDATE notifications SET isRead = 0 WHERE id = $Appointment["id"]';
-                                                                //         mysqli_query($con, $update_query);
-                                                                //     }
-                                                                // }
+                                                                $currentDate = date('Y-m-d');
+                                                                while ($Appointment = mysqli_fetch_assoc($results)) {
+                                                                    if ($Appointment["date"] == $currentDate) {
+                                                                        Reminder( $Appointment["id"], $Appointment["id_number"], $id);
+                                                                    }
+                                                                }
 
                                                                 // ICONS -- Change the icons
                                                                 $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
@@ -189,7 +188,7 @@
                                                                     }
 
                                                                     // CALCULATE TIME
-                                                                    $now = new DateTime();
+                                                                    $now = new DateTime(); //sometimes return late time
                                                                     $notif_DT = new DateTime($DateTime);
                                                                     $diff = $now->diff($notif_DT);
 
