@@ -9,7 +9,7 @@
                             </div>
                         </div>
 
-                        <form action="#" method="POST">
+                        <form id="RejectForm" action="" method="POST">
                             <div class="modal-body">
                                 <div class="form-group-inner">
                                     <div class="row">

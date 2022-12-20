@@ -34,6 +34,7 @@
           $level = $row_user['level'];
           $position = $row_user['position'];
         }
+        
         if (isset($_POST['subit-req-ref'])) {
           
           $refid = $_POST['refid'];
