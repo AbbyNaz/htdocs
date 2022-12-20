@@ -44,8 +44,58 @@ function Notify($Type, $id) {
             return $notified;
 
 
-            break
+            break;
+            case 'Offense':
+                $from = $_SESSION['id_number'];
+                $type = $Type;
+                $infoID = $id;
+                $isRead = 0;
+                $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
+    
+                $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+                        VALUES ('$from',
+                                (SELECT student_id FROM offense_monitoring WHERE id = '$infoID'),
+                                '$type',
+                                '$infoID',
+                                '$isRead',
+                                '$notif_date')";
+                $notified = mysqli_query($con, $notify);
+    
+                return $notified;
+    
+    
+                break;
+            
     }
-
         
+}
+
+function Reminder( $id, $user1, $user2) {
+    // Remind USER1
+    $type = 'Reminder';
+    $infoID = $id;
+    $isRead = 0;
+    $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
+
+    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+            VALUES ('$user1',
+                    '$user2',
+                    '$type',
+                    '$infoID',
+                    '$isRead',
+                    '$notif_date')";
+    $notified = mysqli_query($con, $notify);
+
+    // Remind USER2
+    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+            VALUES ('$user2',
+                    '$user1',
+                    '$type',
+                    '$infoID',
+                    '$isRead',
+                    '$notif_date')";
+    $notified = mysqli_query($con, $notify);
+
+    return $notified;
+
 }

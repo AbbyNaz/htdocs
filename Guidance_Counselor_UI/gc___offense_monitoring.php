@@ -4,6 +4,8 @@ session_start();
 
 include_once("../connections/connection.php");
 
+include_once("Notify.php");
+
 if (!isset($_SESSION['UserEmail'])) {
 
   echo "<script>window.open('../loginForm.php','_self')</script>";
@@ -24,34 +26,37 @@ if (!isset($_SESSION['UserEmail'])) {
           }
 
   // Sanction Days left
-  $off_id = $row['id'];
-  $startDate = $row['start_date'];
-  $endDate = $row['end_date'];
-  $currentDate = date("d-m-Y");
+  if(!empty($row)){
+    $off_id = $row['id'];
+    $startDate = $row['start_date'];
+    $endDate = $row['end_date'];
+  
+    $currentDate = date("d-m-Y");
 
-  $date_start_end_diff = startEndDaysDiff($startDate, $endDate);
-  // echo("Difference between two dates: " . $date_start_end_diff . " Days ");
+    $date_start_end_diff = startEndDaysDiff($startDate, $endDate);
+    // echo("Difference between two dates: " . $date_start_end_diff . " Days ");
 
-  if ($startDate >= $currentDate) {
-    $sanction_info = ($date_start_end_diff + 1) . " days";
-    $stat = "Active";
-    $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-    $stat_con = $con->query($update_status_query) or die($con->error);
-  } 
-  elseif ($startDate < $currentDate) {
-    $sanction_info = "Sanction ended";
-    $stat = "Inactive";
-    $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-    $stat_con = $con->query($update_status_query) or die($con->error);
-  } 
-  else {
-    $sanction_info = ($date_start_end_diff + 1) . " days";;
-  }
+    if ($startDate >= $currentDate) {
+      $sanction_info = ($date_start_end_diff + 1) . " days";
+      $stat = "Active";
+      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
+      $stat_con = $con->query($update_status_query) or die($con->error);
+    } 
+    elseif ($startDate < $currentDate) {
+      $sanction_info = "Sanction ended";
+      $stat = "Inactive";
+      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
+      $stat_con = $con->query($update_status_query) or die($con->error);
+    } 
+    else {
+      $sanction_info = ($date_start_end_diff + 1) . " days";;
+    }
 
-  if ($sanction_info == "Sanction Ended") {
-    $stat = "Inactive";
-    $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-    $stat_con = $con->query($update_status_query) or die($con->error);
+    if ($sanction_info == "Sanction Ended") {
+      $stat = "Inactive";
+      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
+      $stat_con = $con->query($update_status_query) or die($con->error);
+    }
   }
 
   if (isset($_POST['add_offense'])) {
@@ -89,10 +94,8 @@ if (!isset($_SESSION['UserEmail'])) {
       $start_date = date("Y-m-d", $date_start);
       $end_date = date("Y-m-d", $date_end);
 
-      $status = $_POST['status'];
-
-      $offense_query = "INSERT INTO `offense_monitoring` (`student_id`,`stud_name`, `offense_type`, `description`, `date_created`, `sanction`, `start_date`, `end_date`, `status`) " .
-        "VALUES ('$stud_id','$stud_name','$offense_type','$description','$dateToday','$sanction','$start_date','$end_date','$status')";
+      $offense_query = "INSERT INTO `offense_monitoring` (`student_id`,`stud_name`, `offense_type`, `description`, `date_created`, `sanction`, `start_date`, `end_date`) " .
+        "VALUES ('$stud_id','$stud_name','$offense_type','$description','$dateToday','$sanction','$start_date','$end_date')";
       $query_run = $con->query($offense_query) or die($con->error);
 
       if ($query_run) {
@@ -101,12 +104,20 @@ if (!isset($_SESSION['UserEmail'])) {
         $_SESSION['status_code'] = "success";
         header('Location: gc___offense_monitoring.php');
 
+        //Notify_user
+        $getOffenseID = "SELECT id FROM offense_monitoring WHERE student_id = '$stud_id' AND end_date = '$end_date'";
+        $QueryID = mysqli_query($con, $getOffenseID);
+        $OffenseID = mysqli_fetch_assoc($QueryID);
+        Notify('Offense', $OffenseID['id']);
+
         $current_date_time = date("Y-m-d H:i:s");
         $action_made = "Added a new offense on [ ID = " . $stud_id . "] " . $f_name . " " . $l_name . " to the offense list";
         $IDNUMBER = "1001";
-            $user_position = "Admin";
-            $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
-            $query_runs = $con->query($add_logs) or die($con->error);
+        $user_position = "Admin";
+        $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
+        $query_runs = $con->query($add_logs) or die($con->error);
+
+        
 
       } else {
         // echo "Not saved";
@@ -140,9 +151,9 @@ if (!isset($_SESSION['UserEmail'])) {
     $start_date = date("Y-m-d", $date_start);
     $end_date = date("Y-m-d", $date_end);
 
-    $status = $_POST['status'];
+    
 
-    $offense_query = "UPDATE offense_monitoring SET offense_type = '$offense_type', description = '$description', sanction = '$sanction', start_date = '$start_date', end_date = '$end_date', status = '$status' WHERE id ='$id'";
+    $offense_query = "UPDATE offense_monitoring SET offense_type = '$offense_type', description = '$description', sanction = '$sanction', start_date = '$start_date', end_date = '$end_date' WHERE id ='$id'";
     $query_run = $con->query($offense_query) or die($con->error);
 
     if ($query_run) {
