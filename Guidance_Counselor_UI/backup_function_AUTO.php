@@ -2,11 +2,13 @@
 
 include_once('backup_function.php');
 
+include_once("../connections/connection.php");
+
 //Called on codeLogin.php on guidance
 
 function AutoBackUpDB($num_days){
 
-    define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'Users'.DIRECTORY_SEPARATOR.'Nick'.DIRECTORY_SEPARATOR.'Documents'.DIRECTORY_SEPARATOR.'Database Backup');
+    define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'Users'.DIRECTORY_SEPARATOR.$GLOBALS['computerUsername'].DIRECTORY_SEPARATOR.'Documents'.DIRECTORY_SEPARATOR.'Database Backup');
 
     if (!is_dir(BACKUP_FOLDER)) {
         mkdir(BACKUP_FOLDER, 0775, true);
