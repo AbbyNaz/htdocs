@@ -66,6 +66,98 @@ if (!isset($_SESSION['UserEmail'])) {
     $picturepath = trim($_POST['picturepath']);
     $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
 
+  if (isset($_POST['add_article'])) {
+
+    date_default_timezone_set('Asia/Manila');
+    $dateon = strtotime(date("Y-m-d h:i:sa"));
+    $articlecode = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
+    $duration = trim($_POST['duration']);
+    $status = "Active";
+
+    if (isset($_FILES['files'])) {
+      $desired_dir = "../uploads/";
+
+      $count = 0;
+
+      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+        $file_name = $_FILES['files']['name'][$key];
+        $size = $_FILES['files']['size'][$key];
+        $file_f = $size / 1024;
+        $file_size = round($file_f);
+        $file_tmp = $_FILES['files']['tmp_name'][$key];
+        $file_type = $_FILES['files']['type'][$key];
+        $path = "../uploads/$file_name";
+        $pathimage = "uploads/$file_name";
+
+        $query = "INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES('$articlecode','$title','$description','$pathimage','$duration','$status')";
+        if (mysqli_query($con, $query)) {
+          move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
+
+          $count = $count + 1;
+        }
+
+        $_SESSION['status'] = "Article Added";
+        $_SESSION['status_code'] = "success";
+        header('Location: gc___manages_acticle.php');
+      }
+    } else {
+      $_SESSION['status'] = "Article Not Added";
+      $_SESSION['status_code'] = "error";
+      header('Location: gc___manages_acticle.php');
+    }
+  } elseif (isset($_POST['update_article'])) {
+
+    $articlecode = trim($_POST['articlecode']);
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    $duration = trim($_POST['duration']);
+    $status = trim($_POST['art_status']);
+    $picturepath = trim($_POST['picturepath']);
+    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
+
+
+    if (isset($_FILES['files'])) {
+      $desired_dir = "../uploads/";
+
+      $count = 0;
+
+      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+        $file_name = $_FILES['files']['name'][$key];
+        $size = $_FILES['files']['size'][$key];
+        $file_f = $size / 1024;
+        $file_size = round($file_f);
+        $file_tmp = $_FILES['files']['tmp_name'][$key];
+        $file_type = $_FILES['files']['type'][$key];
+        $path = "../uploads/$file_name";
+        $pathimage = "uploads/$file_name";
+
+        if ($path == "../uploads/") {
+          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
+          if (!mysqli_query($con, $query)) {
+            die('Error:' . mysqli_error($conn));
+          }
+          $_SESSION['status'] = "Article Updated";
+          $_SESSION['status_code'] = "success";
+          header('Location: gc___manages_acticle.php');
+        } else {
+          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', PICTURE = '$pathimage', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
+          if (mysqli_query($con, $query)) {
+            move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
+
+            $count = $count + 1;
+          }
+          unlink("../" . $picturepath);
+          $_SESSION['status'] = "Article Updated";
+          $_SESSION['status_code'] = "success";
+          header('Location: gc___manages_acticle.php');
+        }
+      }
+    }
+  }
+
 
     if (isset($_FILES['files'])) {
       $desired_dir = "../uploads/";
@@ -760,6 +852,9 @@ if (!isset($_SESSION['UserEmail'])) {
 
         });
         // window.location.href = "get_specific_user.php?userID=" + userID; 
+<<<<<<< HEAD
+>>>>>>> parent of 81c3dcd (backup and announcements)
+=======
 >>>>>>> parent of 81c3dcd (backup and announcements)
       });
     });
