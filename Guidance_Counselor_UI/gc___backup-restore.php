@@ -272,7 +272,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                         </div>
 
-                        <form action="" method="POST">
+                        <form action="RestoreDatabase.php" method="POST" enctype="multipart/form-data">
                             <div class="modal-body">
 
                                 <div class="form-group-inner">
@@ -286,18 +286,8 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <input type="file" name="import_file" class="form-control">
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <button type="submit" name="backupnow" class="btn btn-primary btn-md">Restore</button>
+                                            <button type="submit" name="restorenow" class="btn btn-primary btn-md">Restore</button>
                                         </div>
-
-                                        <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">*Note:</label>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <label class="login2 pull-left">If you click the button Backup Now and that automatically download back-up data.</label>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <button type="submit" name="backupnow" class="btn btn-primary btn-md">Backup Now</button>
-                                    </div> -->
                                     </div>
                                 </div>
 
@@ -351,8 +341,6 @@ if (!isset($_SESSION['UserEmail'])) {
         });
 
 
-
-
         window.addEventListener('load', function() {
             //Set the AutoBackup According to the Database
             $.ajax({
@@ -375,6 +363,15 @@ if (!isset($_SESSION['UserEmail'])) {
 
         });
 
+    <?php 
+
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'Users'.DIRECTORY_SEPARATOR.$GLOBALS['computerUsername'].DIRECTORY_SEPARATOR.'Documents'.DIRECTORY_SEPARATOR.'Database Backup');
+    ?>
+    
+    // RESTORE SCRIPT
+    // $('#import_file').click(function() {
+    //     $(this).val('C:\Users\Nick\Documents\Database Backup');
+    // });
         
     </script>
 

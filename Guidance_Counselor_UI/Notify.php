@@ -2,8 +2,11 @@
 
 include_once("../connections/connection.php");
 
+global $con;
+$con = connection();
+
 function Notify($Type, $id) {
-    $con = connection();
+    
 
     switch ($Type) {
         case 'Rejection':
@@ -20,7 +23,7 @@ function Notify($Type, $id) {
                             '$infoID',
                             '$isRead',
                             '$notif_date')";
-            $notified = mysqli_query($con, $notify);
+            $notified = mysqli_query($GLOBALS['con'], $notify);
 
             return $notified;
 
@@ -39,7 +42,7 @@ function Notify($Type, $id) {
                             '$infoID',
                             '$isRead',
                             '$notif_date')";
-            $notified = mysqli_query($con, $notify);
+            $notified = mysqli_query($GLOBALS['con'], $notify);
 
             return $notified;
 
@@ -59,7 +62,7 @@ function Notify($Type, $id) {
                                 '$infoID',
                                 '$isRead',
                                 '$notif_date')";
-                $notified = mysqli_query($con, $notify);
+                $notified = mysqli_query($GLOBALS['con'], $notify);
     
                 return $notified;
     
@@ -84,7 +87,7 @@ function Reminder( $id, $user1, $user2) {
                     '$infoID',
                     '$isRead',
                     '$notif_date')";
-    $notified = mysqli_query($con, $notify);
+    $notified = mysqli_query($GLOBALS['con'], $notify);
 
     // Remind USER2
     $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
@@ -94,7 +97,7 @@ function Reminder( $id, $user1, $user2) {
                     '$infoID',
                     '$isRead',
                     '$notif_date')";
-    $notified = mysqli_query($con, $notify);
+    $notified = mysqli_query($GLOBALS['con'], $notify);
 
     return $notified;
 
