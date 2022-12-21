@@ -77,7 +77,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
 
-<div class="product-sales-area mg-tb-30">
+      <div class="product-sales-area mg-tb-30">
             <div class="container-fluid">
                 <div class="row">
                    
@@ -96,7 +96,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
 
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="white-box">
                   <h3 class="box-title">Offense Monitoring</h3>
                     <ul class="basic-list">
@@ -133,87 +133,15 @@ if (!isset($_SESSION['UserEmail'])) {
                 ?> 
                   </ul> 
                 </div>
-
-
-                                                            <!-- <?php
-                                      $con = connection();
-
-                                      if (isset($_SESSION['UserId'])) {
-
-                                        $id = $_SESSION['UserId'];
-                                        $query = "SELECT * FROM users WHERE user_id = '$id'";
-                                        $get_user = $con->query($query) or die($con->error);
-                                        $row = $get_user->fetch_assoc();
-
-                                        $om = "SELECT * FROM inventory WHERE STUDNUMBER = '" . $row['id_number'] . "'";
-                                        $getdata = $con->query($om) or die($con->error);
-                                        $offense = $getdata->fetch_assoc();
-
-                                        if ($offense == 0) {
-                                                    ?>
-                                            <div class="white-box">
-                                              <h3 class="box-title">Individual Inventory Form</h3>
-                                              <ul class="basic-list">
-                                                <p>Please fill-up the form of individual inventory for student.<br><br><a href="student_profile.php">Click
-                                                    here to fill-up form</a></p>
-                                              </ul>
-                                            </div>
-                                            <?php
-                                        }
-                                      }
-                                                          ?> -->
-
-
-
-
+<br>
 <!--------------------------------------------------- DI PAKO TAPOS DITO -------------------------------------------------------->
 
-                        <!-- <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
+                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
                             <h3 class="box-title">Announcements</h3>
                             <ul class="list-inline two-part-sp">
-                            <?php
-                                  $con = connection();
-
-                                  if (isset($_SESSION['UserId'])) {
-
-                                    $id = $_SESSION['UserId'];
-                                    $query = "SELECT * FROM users WHERE user_id = '$id'";
-                                    $get_user = $con->query($query) or die($con->error);
-                                    $row = $get_user->fetch_assoc();
-
-                                    $om = "SELECT * FROM offense_monitoring WHERE student_id = '" . $row['id_number'] . "' ORDER BY id DESC LIMIT 5";
-                                    $getdata = $con->query($om) or die($con->error);
-                                    $offense = $getdata->fetch_assoc();
-
-                                    if ($offense == 0) {
-                                              ?>
-                                            <p>There was no announcements at this time!</p>
-                                            <?php
-                                    } else {
-                                      do {
-                                                      ?>
-
-                                            <li><b>
-                                                <?php echo $offense['offense_type']; ?>
-                                              </b><br>
-                                              <?php echo $offense['description']; ?> <span class="pull-right label-danger label-1 label">Sanction:
-                                                <?php echo $offense['sanction']; ?>
-                                              </span>
-                                            </li>
-
-                                            <?php
-
-                                      } while ($offense = $getdata->fetch_assoc());
-                                    }
-                                  }
-                                                          ?>
-
-
-
-
-
+                          <p> There was no announcements this time! </p>
                             </ul>
-                        </div> -->
+                        </div>
                         
                         
                     </div>
