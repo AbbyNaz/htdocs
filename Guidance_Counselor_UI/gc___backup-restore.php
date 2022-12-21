@@ -19,18 +19,16 @@ if (!isset($_SESSION['UserEmail'])) {
 
     if (isset($_POST['backupnow'])) {
 
-        //eto gamit na servername dun sa cpanel na di naman namin gamit 
+        //GAMITIN YUNG VARIABLES SA CONNECTION.PHP
 
-        $servername = "sql204.byethost13.com";
-        $username = "b13_33158234";
-        $password = "ITprogrammer18";
-        $dbname = "b13_33158234_gc";
-
-        backDb($servername, $username, $password, $dbname);
+        backDb();
 
         exit();
 
     }
+
+
+    
 }
 
 ?>
@@ -214,20 +212,18 @@ if (!isset($_SESSION['UserEmail'])) {
                                     <div class="row">
 
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Back-Up Database Every:</label>
+                                            <label class="login2 pull-right">Automatic Back-Up:</label>
                                         </div>
 
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-select-list">
-                                                <select id="stud_select_usertype"
-                                                    class="form-control custom-select-value" name="stud_program">
-                                                    <option disabled selected></option>
-                                                    <option value="Every 1 hr">Every 1 hr</option>
-                                                    <option value="Everyday">Everyday</option>
-                                                    <option value="Every 1 Week">Every 1 Week</option>
-                                                    <option value="Every 2 Weeks">Every 2 Weeks</option>
-                                                    <option value="Every 1 Month">Every 1 Month</option>
-                                                    <option value="Every 6 Months">Every 6 Months</option>
+                                                <select id="SelectDays" class="form-control custom-select-value" name="stud_program">
+                                                    <option disabled selected>Back-Up Database Every</option>
+                                                    <option value="1">Everyday</option>
+                                                    <option value="7">Every 1 Week</option>
+                                                    <option value="14">Every 2 Weeks</option>
+                                                    <option value="30">Every 1 Month</option>
+                                                    <option value="180">Every 6 Months</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -235,21 +231,20 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <!-- <button type="submit" name="backupnow" class="btn btn-primary btn-md">Select
                                                 Backup Time</button> -->
                                                 <label class="switchsss">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slidersss"> </span>
+                                                    <input id='ToggleBackUp' type="checkbox">
+                                                    <span class="slidersss"></span>
                                                 </label>
 
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Manual Back-Up:</label>
+                                        </div>
 
-                                        <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">*Note:</label>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <label class="login2 pull-left">If you click the button Backup Now and that automatically download back-up data.</label>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <button type="submit" name="backupnow" class="btn btn-primary btn-md">Backup Now</button>
-                                    </div> -->
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <button type="submit" name="backupnow" class="btn btn-primary btn-md">Back-up</button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -284,7 +279,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                     <div class="row">
 
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Back-Up Database Every:</label>
+                                            <label class="login2 pull-right">Choose Database:</label>
                                         </div>
 
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -317,7 +312,71 @@ if (!isset($_SESSION['UserEmail'])) {
         </div>
     </div>
     <!-- Static Table End -->
+    
+    <!-- Autobackup toggle -->
+    <script>
+        $("#ToggleBackUp").on("change", function() {
+            var selectedDays = $('#SelectDays').val();
+            var Checked = $(this).prop('checked');
 
+            console.log(Checked);
+
+            $.ajax({
+                type: "POST",
+                url: "BackUpdate.php",
+                data:{ isChecked : Checked,
+                        Days : "'"+selectedDays+"'"
+                    },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+        $("#SelectDays").on("change", function() {
+            var selectedDays = $(this).val();
+            var Checked = $("#ToggleBackUp").prop('checked');
+
+            console.log(Checked);
+            $.ajax({
+                type: "POST",
+                url: "BackUpdate.php",
+                data:{ isChecked : Checked,
+                        Days : "'"+selectedDays+"'"
+                    },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+
+
+
+        window.addEventListener('load', function() {
+            //Set the AutoBackup According to the Database
+            $.ajax({
+                url: 'AutoBackupDataGET.php',
+                type: 'POST',
+                success: function(data) {
+                    var backupData = JSON.parse(data);
+
+                    $('#SelectDays').val(backupData.Days);
+
+                    if(backupData.UseAuto == '1'){
+                        $('#ToggleBackUp').prop('checked', true);
+                    }else{
+                        $('#ToggleBackUp').prop('checked', false);
+                    }
+                    
+                    
+                }
+            });
+
+        });
+
+        
+    </script>
 
     <!-- jquery
     ============================================ -->
