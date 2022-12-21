@@ -43,12 +43,12 @@ if (!isset($_SESSION['UserEmail'])) {
              $upd = "UPDATE `refferals` SET `ref_status`='Cancelled referral' WHERE ref_id='$ref_id'";
              $con->query($upd) or die($con->error);
  
-             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`) VALUES ('$cancel_id','$reason','$app_status','$Date_accomplished')";
+             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`,`id_number`) VALUES ('$cancel_id','$reason','$app_status','$date_accomplished','$userid')";
              $con->query($query) or die($con->error);
  
              }
          else{
-             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`) VALUES ('$cancel_id','$reason','$app_status','$Date_accomplished')";
+             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`,`id_number`) VALUES ('$cancel_id','$reason','$app_status','$date_accomplished','$userid')";
              $con->query($query) or die($con->error);
  
                         }

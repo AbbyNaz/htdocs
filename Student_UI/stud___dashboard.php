@@ -10,7 +10,25 @@ if (!isset($_SESSION['UserEmail'])) {
 
 } else {
 
-  // $con = connection();
+  $con = connection();
+
+
+    
+        $user_id = $_SESSION['UserId'];
+
+        $user_query = "SELECT * FROM users WHERE user_id = '$user_id'";
+        $get_user = $con->query($user_query) or die($con->error);
+        $row_user = $get_user->fetch_assoc();
+
+        
+          $id_number = $row_user['id_number'];
+        
+
+        $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number'";
+        $get_app = $con->query($app_query) or die($con->error);
+        $row_app = $get_app->fetch_assoc();
+
+         $appby = $row_app['app_by'];
 
   include('includes/stud___header.php');
   include('includes/stud___left-menu-area.php');
@@ -313,8 +331,23 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
         <div class="modal-footer">
-          <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
-          <button type="button" id="done-app" class="btn btn-info btn-md">Done</button>
+        <?php
+            if($appby == 1){
+            ?>
+            <?php 
+            }else{
+              ?>
+               <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
+              <?php } ?>
+            
+            <?php
+            if($appby == 1){
+            ?>
+            <?php 
+            }else{
+              ?>
+               <button type="button" id="done-app" class="btn btn-info btn-md">Done Appointment</button>
+              <?php } ?>
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
         </div>
       </div>

@@ -15,10 +15,11 @@ if (!isset($_SESSION['UserEmail'])) {
 
         $announcement_title = $_POST['announcement_title'];
         $announcement_description = $_POST['announcement_description'];
+        $announcement_duration = $_POST['announcement_duration'];
         $datetime = date("Y-m-d H:i:s");
         $announcement_status = "Active";
    
-        $add_announcement = "INSERT INTO announcements ( `TITLE`, `DESCRIPTION`,`TIME`, `ANN_STATUS`) VALUES ('$announcement_title','$announcement_description','$datetime','$announcement_status')";
+        $add_announcement = "INSERT INTO announcements ( `TITLE`, `DESCRIPTION`,`DURATION`,`TIME`, `ANN_STATUS`) VALUES ('$announcement_title','$announcement_description', '$announcement_duration', '$datetime','$announcement_status')";
         $query_run = $con->query($add_announcement) or die($con->error);
 
 
@@ -55,9 +56,10 @@ if (!isset($_SESSION['UserEmail'])) {
 
         $announcement_title = $_POST['edit_title'];
         $announcement_description = $_POST['edit_description'];
+        $announcement_duration = $_POST['edit_duration'];
         $announcement_status = $_POST['edit_status'];
    
-        $update_announcement = "UPDATE announcements SET TITLE = '$announcement_title' , DESCRIPTION = '$announcement_description'";
+        $update_announcement = "UPDATE announcements SET TITLE = '$announcement_title' , DESCRIPTION = '$announcement_description', DURATION = '$announcement_duration'";
         $query_runs = $con->query($update_announcement) or die($con->error);
 
 

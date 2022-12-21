@@ -52,7 +52,8 @@ $upd =DB::query("UPDATE refferals SET ref_status='For Appointment' WHERE ref_id=
       'info' => $information,
       'app_status' => 'for appointment',
       'meeting_link' => $meeting,
-      'ref_id' => $ref
+      'ref_id' => $ref,
+      'app_by' => 1
     ]);
 
     }else if ($status == 0) {
@@ -69,7 +70,8 @@ $upd =DB::query("UPDATE refferals SET ref_status='For Appointment' WHERE ref_id=
       'info' => $information,
       'app_status' => 'for appointment',
       'meeting_link' => 'no link',
-      'ref_id' => $ref
+      'ref_id' => $ref,
+      'app_by' => 1
     ]);
 
     }

@@ -47,7 +47,8 @@ DB::query("UPDATE users SET limit_app=%i WHERE user_id=%i", 1, $my_userid);
       'appointment_type' => $type,
       'info' => $information,
       'app_status' => 'for appointment',
-      'meeting_link' => $meeting  
+      'meeting_link' => $meeting  ,
+      'app_by' => 1
     ]);
 
     }else if ($status == 0) {
@@ -63,7 +64,8 @@ DB::query("UPDATE users SET limit_app=%i WHERE user_id=%i", 1, $my_userid);
       'appointment_type' => $type,
       'info' => $information,
       'app_status' => 'for appointment',
-      'meeting_link' => 'no link' 
+      'meeting_link' => 'no link',
+      'app_by' => 1 
     ]);
 
     }
