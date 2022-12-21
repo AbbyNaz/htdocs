@@ -477,56 +477,6 @@ if (!isset($_SESSION['UserEmail'])) {
   include('includes/gc___scripts.php');
     ?>
 
-    <script>
-      $(document).on('show.bs.modal', '#Edit_Announcement', function(e) {
-        var userID = $(e.relatedTarget).data('ID');
-        var userData;
-
-      jQuery.ajax({
-        type: "POST",
-        url: 'get_specific_announcement.php',
-        data: {
-          userID: userID,
-        },
-
-        success: function (response) {
-          console.log(response);
-          userData = jQuery.parseJSON(response)
-          $('#edit_title').val(userData[0].title);
-          $('#edit_description').val(userData[0].description);
-          $('#edit_duration').val(userData[0].duration);
-          $('#edit_status').val(userData[0].status);
-        }
-
-        });
-      });
-    
-  </script>
-
-  <script>
-    $(document).on('show.bs.modal', '#Delete_Announcement', function (e) {
-      var userID = $(e.relatedTarget).data('ID');
-      var userData;
-
-      jQuery.ajax({
-        type: "POST",
-        url: 'get_specific_announcement.php',
-        data: {
-          userID: userID,
-        },
-
-        success: function (response) {
-          console.log(response);
-          userData = jQuery.parseJSON(response)
-          $('#delete_title').val(userData[0].title);
-          $('#delete_description').val(userData[0].description);
-          $('#delete_duration').val(userData[0].duration);
-          $('#delete_status').val(userData[0].status);
-        }
-
-      });
-    });
-  </script>
 
   <!-- scrollUp JS
 		============================================ -->
