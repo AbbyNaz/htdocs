@@ -25,6 +25,8 @@ if (!isset($_SESSION['UserEmail'])) {
   $get_app = $con->query($app_query) or die($con->error);
   $row_app = $get_app->fetch_assoc();
 
+  $appby = $row_app['app_by'];
+
 ?>
 
 
@@ -343,7 +345,15 @@ if (!isset($_SESSION['UserEmail'])) {
                               } else { ?>
                                 <form action="thecode.php" method="post">
                                   <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
-                                  <button type="submit" name="delete_btn" class="btn btn-danger">Cancel</button>
+                                  <?php
+                              if($appby == 1){
+                              ?>
+                             
+                              <?php 
+                              }else{
+                                ?>
+                                <button type="submit" id="delete_btn" class="btn btn-danger btn-md">cancel</button>
+                                <?php } ?>
                                 </form>
                               <?php } ?>
                             </td>
