@@ -78,52 +78,43 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
 
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
-                            <h3 class="box-title">Offense Monitoring </h3>
-                            <ul class="list-inline two-part-sp">
-                                                              
-                                            <?php
-                                  $con = connection();
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="white-box">
+                  <h3 class="box-title">Offense Monitoring</h3>
+                    <ul class="basic-list">
 
-                                  if (isset($_SESSION['UserId'])) {
+              <?php
+                $con = connection();
 
-                                    $id = $_SESSION['UserId'];
-                                    $query = "SELECT * FROM users WHERE user_id = '$id'";
-                                    $get_user = $con->query($query) or die($con->error);
-                                    $row = $get_user->fetch_assoc();
+                if (isset($_SESSION['UserId'])) {
 
-                                    $om = "SELECT * FROM offense_monitoring WHERE student_id = '" . $row['id_number'] . "' ORDER BY id DESC LIMIT 5";
-                                    $getdata = $con->query($om) or die($con->error);
-                                    $offense = $getdata->fetch_assoc();
+                  $id = $_SESSION['UserId'];
+                  $query = "SELECT * FROM users WHERE user_id = '$id'";
+                  $get_user = $con->query($query) or die($con->error);
+                  $row = $get_user->fetch_assoc();
 
-                                    if ($offense == 0) {
-                                              ?>
-                                            <p>There was no offense at this time!</p>
-                                            <?php
-                                    } else {
-                                      do {
-                                                      ?>
+                  $om = "SELECT * FROM offense_monitoring WHERE student_id = '".$row['id_number']."' ORDER BY id DESC LIMIT 5";
+                  $getdata = $con->query($om) or die($con->error);
+                  $offense = $getdata->fetch_assoc();
 
-                                            <li><b>
-                                                <?php echo $offense['offense_type']; ?>
-                                              </b><br>
-                                              <?php echo $offense['description']; ?> <span class="pull-right label-danger label-1 label">Sanction:
-                                                <?php echo $offense['sanction']; ?>
-                                              </span>
-                                            </li>
+                  if ($offense == 0) {
+                      ?>
+                          <p>There was no offense at this time!</p>
+                      <?php
+                  } else {
+                      do {
+                          ?>
+                                              
+                          <li><b><?php echo $offense['offense_type']; ?></b><br><?php echo $offense['description']; ?> <span class="pull-right label-danger label-1 label">Sanction: <?php echo $offense['sanction']; ?></span></li>
 
-                                            <?php
+                          <?php
 
-                                      } while ($offense = $getdata->fetch_assoc());
-                                    }
-                                  }
-                                                          ?>
-  
-                                
-                            </ul>
-                        </div>
-
+                      } while ($offense = $getdata->fetch_assoc());
+                  }
+                }
+                ?> 
+                  </ul> 
+                </div>
 
 
                                                             <!-- <?php
@@ -159,7 +150,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 <!--------------------------------------------------- DI PAKO TAPOS DITO -------------------------------------------------------->
 
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
+                        <!-- <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
                             <h3 class="box-title">Announcements</h3>
                             <ul class="list-inline two-part-sp">
                             <?php
@@ -204,7 +195,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
                             </ul>
-                        </div>
+                        </div> -->
                         
                         
                     </div>
@@ -323,6 +314,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
         <div class="modal-footer">
           <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
+          <button type="button" id="done-app" class="btn btn-info btn-md">Done</button>
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -739,7 +731,7 @@ if (!isset($_SESSION['UserEmail'])) {
               success: (data) => {
 
                 $("#VIEW_APPOINTMENT").modal("show");
-
+ 
                 $("#view-information").val(data[0].info);
                 $("#view-type").val(data[0].appointment_type);
                 $("#view-date").val(data[0].date);
@@ -760,6 +752,34 @@ if (!isset($_SESSION['UserEmail'])) {
                 data: {
                   appid: events.event._def.publicId,
                   userid: $("#store-data").data("id"),
+          
+                  date: $("#view-date").val(),
+                reason: $("#view-reason").val(),
+                },
+                xhrFields: {
+                  withCredentials: true,
+                },
+                crossDomain: true,
+                success: (data) => {
+
+                  $("#VIEW_APPOINTMENT").modal("hide");
+                  location.reload();
+
+                }
+              });
+            });
+
+            $(document).on("click", "#done-app", () => {
+              $.ajax({
+                url: "done_req.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                  appid: events.event._def.publicId,
+                  userid: $("#store-data").data("id"),
+          
+                  date: $("#view-date").val(),
+                reason: $("#view-reason").val(),
                 },
                 xhrFields: {
                   withCredentials: true,

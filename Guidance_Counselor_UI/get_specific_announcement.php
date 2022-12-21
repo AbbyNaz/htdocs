@@ -25,10 +25,9 @@ foreach ($fetchData as $row) {
    $data[] = array(
 
     'id' => $row['ID'] ,
-    'articlecode' => $row['ANNOUNCEMENT_CODE'],
     'title' => $row['TITLE'],
     'description' => $row['DESCRIPTION'],
-    'duration' => $row['DURATION'],
+    // 'duration' => $row['DURATION'],
     'status' => $row['STATUS'],
 
     );
