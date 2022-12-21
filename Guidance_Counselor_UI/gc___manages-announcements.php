@@ -11,195 +11,6 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
-<<<<<<< HEAD
-=======
-
-  if (isset($_POST['add_article'])) {
-
-    date_default_timezone_set('Asia/Manila');
-    $dateon = strtotime(date("Y-m-d h:i:sa"));
-    $articlecode = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-    $duration = trim($_POST['duration']);
-    $status = "Active";
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        $query = "INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES('$articlecode','$title','$description','$pathimage','$duration','$status')";
-        if (mysqli_query($con, $query)) {
-          move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-          $count = $count + 1;
-        }
-
-        $_SESSION['status'] = "Article Added";
-        $_SESSION['status_code'] = "success";
-        header('Location: gc___manages_acticle.php');
-      }
-    } else {
-      $_SESSION['status'] = "Article Not Added";
-      $_SESSION['status_code'] = "error";
-      header('Location: gc___manages_acticle.php');
-    }
-  } elseif (isset($_POST['update_article'])) {
-
-    $articlecode = trim($_POST['articlecode']);
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $duration = trim($_POST['duration']);
-    $status = trim($_POST['art_status']);
-    $picturepath = trim($_POST['picturepath']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-
-  if (isset($_POST['add_article'])) {
-
-    date_default_timezone_set('Asia/Manila');
-    $dateon = strtotime(date("Y-m-d h:i:sa"));
-    $articlecode = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-    $duration = trim($_POST['duration']);
-    $status = "Active";
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        $query = "INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES('$articlecode','$title','$description','$pathimage','$duration','$status')";
-        if (mysqli_query($con, $query)) {
-          move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-          $count = $count + 1;
-        }
-
-        $_SESSION['status'] = "Article Added";
-        $_SESSION['status_code'] = "success";
-        header('Location: gc___manages_acticle.php');
-      }
-    } else {
-      $_SESSION['status'] = "Article Not Added";
-      $_SESSION['status_code'] = "error";
-      header('Location: gc___manages_acticle.php');
-    }
-  } elseif (isset($_POST['update_article'])) {
-
-    $articlecode = trim($_POST['articlecode']);
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $duration = trim($_POST['duration']);
-    $status = trim($_POST['art_status']);
-    $picturepath = trim($_POST['picturepath']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
-
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        if ($path == "../uploads/") {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (!mysqli_query($con, $query)) {
-            die('Error:' . mysqli_error($conn));
-          }
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        } else {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', PICTURE = '$pathimage', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (mysqli_query($con, $query)) {
-            move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-            $count = $count + 1;
-          }
-          unlink("../" . $picturepath);
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        }
-      }
-    }
-  }
-
-
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
-
-      $count = 0;
-
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
-
-        if ($path == "../uploads/") {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (!mysqli_query($con, $query)) {
-            die('Error:' . mysqli_error($conn));
-          }
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        } else {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', PICTURE = '$pathimage', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (mysqli_query($con, $query)) {
-            move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
-
-            $count = $count + 1;
-          }
-          unlink("../" . $picturepath);
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        }
-      }
-    }
-  }
-
-
->>>>>>> parent of 81c3dcd (backup and announcements)
 ?>
 
 
@@ -320,7 +131,7 @@ if (!isset($_SESSION['UserEmail'])) {
   </div>
 
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-    <div id="Add_New_Article" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div id="Add_Announcement" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header header-color-modal bg-color-1">
@@ -328,78 +139,6 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="modal-close-area modal-close-df">
               <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
             </div>
-<<<<<<< HEAD
-=======
-
-            <form action="" method="post" enctype="multipart/form-data">
-              <div class="modal-body">
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Title of Announcement</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Title" name="title" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Description</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="5" name="description" style="margin-bottom: 10px;" maxlength="500" placeholder="Enter Article Description" required></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Duration</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="duration">
-                          <option value="" disabled>Select Duration Month</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div><br>
-
-                  <div class="form-group-inner">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <label class="login2 pull-right">Image</label>
-                      </div>
-                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="file" name="files[]" class="form-control" accept="image/*" style="margin-bottom: 30px;" required />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="add_article" class="btn btn-primary btn-md">Save</button>
-              </div>
-            </form>
-
->>>>>>> parent of 81c3dcd (backup and announcements)
           </div>
 
           <form action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
@@ -428,6 +167,32 @@ if (!isset($_SESSION['UserEmail'])) {
                 </div>
               </div>
 
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right pull-right-pro">Duration</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="form-select-list">
+                      <select class="form-control custom-select-value" name="announcement_duration" id="announcement_duration">
+                      <option value="" disabled>Select Announcement Duration</option>
+                        <option value="1 day">1 day</option>
+                        <option value="2 days">2 days</option>
+                        <option value="3 days">3 days</option>
+                        <option value="4 days">4 days</option>
+                        <option value="5 days">5 days</option>
+                        <option value="6 days">6 days</option>
+                        <option value="1 week">1 weeks</option>
+                        <option value="2 weeks">2 weeks</option>
+                        <option value="3 weeks">3 weeks</option>
+                        <option value="4 weeks">4 weeks</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
@@ -452,45 +217,18 @@ if (!isset($_SESSION['UserEmail'])) {
               <div class="main-sparkline13-hd">
                 <h1>Announcements Table</h1>
               </div>
-<<<<<<< HEAD
-            </div>
-            <div class="sparkline13-graph">
-              <div class="datatable-dashv1-list custom-datatable-overright">
-                <div id="toolbar">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_New_Article">
-                    Add New
-                  </button>
-                </div>
-                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
-                  data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true"
-                  data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                  data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
-                  
-                  <thead>
-                    <tr>
-                      <th data-field="title">Title</th>
-                      <th data-field="description">Description</th>
-                      <th data-field="status">Status</th>
-                      <th data-field="action">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-=======
               <div class="sparkline13-graph">
                 <div class="datatable-dashv1-list custom-datatable-overright">
                   <div id="toolbar">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_New_Article">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_Announcement">
                       Add New
                     </button>
                   </div>
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="code">Announcements Code</th>
                         <th data-field="title">Title</th>
                         <th data-field="description">Description</th>
-                        <th data-field="picture">Picture</th>
                         <th data-field="duration">Duration</th>
                         <th data-field="status">Status</th>
                         <th data-field="action">Action</th>
@@ -498,7 +236,6 @@ if (!isset($_SESSION['UserEmail'])) {
                     </thead>
                     <tbody>
                       <?php
->>>>>>> parent of 81c3dcd (backup and announcements)
 
                         $query = "SELECT * FROM announcements";
                         $query_run = mysqli_query($con, $query);
@@ -507,23 +244,13 @@ if (!isset($_SESSION['UserEmail'])) {
                           foreach ($query_run as $row) {
                       ?>
 
-                    <td><?= $row['TITLE'] ?></td>
-                    <td><?= $row['DESCRIPTION'] ?></td>
-                    <td><?= $row['ANN_STATUS'] ?></td>
+                        <td><?= $row['TITLE'] ?></td>
+                        <td><?= $row['DESCRIPTION'] ?></td>
+                        <td><?= $row['DURATION'] ?></td>
+                        <td><?= $row['ANN_STATUS'] ?></td>
 
-<<<<<<< HEAD
-                    <td>
-                      <div style="display: flex; justify-content: center;">
-=======
                             <td>
                               <div style="display: flex; justify-content: center;">
-
-                                <!-- <button id="showEditStaffModal" class="btn btn-warning" style="margin-left: 10px; margin-right: 20px; color: white;" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>">Edit</button> -->
-                                
-                                <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_New_Article" data-id="<?= $row['ID'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                          
-                                <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#" data-id="<?= $row['ID'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
->>>>>>> parent of 81c3dcd (backup and announcements)
 
                         <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_Announcement" data-id="<?= $row['ID'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
@@ -571,7 +298,6 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
           </div>
 
-<<<<<<< HEAD
           <form action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group-inner">
@@ -580,20 +306,9 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Title of Announcement</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Title" name="edit_title"
-                      id="edit_title" />
+                    <input type="text" class="form-control" placeholder="Enter Title" name="edit_title" id="edit_title" required/>
                   </div>
                 </div>
-=======
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="Edit_New_Article" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Edit Article</h4>
-              <div class="modal-close-area modal-close-df">
-                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
->>>>>>> parent of 81c3dcd (backup and announcements)
               </div>
 
               <div class="form-group-inner">
@@ -602,8 +317,32 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Description</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;"
-                      maxlength="500" placeholder="Enter Article Description" id="edit_description" required></textarea>
+                    <textarea class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;" maxlength="500" id="edit_description" required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right pull-right-pro">Duration</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="form-select-list">
+                      <select class="form-control custom-select-value" name="edit_duration" id="edit_duration" required>
+                      <option value="" disabled>Select Announcement Duration</option>
+                        <option value="1 day">1 day</option>
+                        <option value="2 days">2 days</option>
+                        <option value="3 days">3 days</option>
+                        <option value="4 days">4 days</option>
+                        <option value="5 days">5 days</option>
+                        <option value="6 days">6 days</option>
+                        <option value="1 week">1 weeks</option>
+                        <option value="2 weeks">2 weeks</option>
+                        <option value="3 weeks">3 weeks</option>
+                        <option value="4 weeks">4 weeks</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -615,7 +354,8 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="edit_status" id="edit_announcementstatus">
+                      <select class="form-control custom-select-value" name="edit_status"
+                        id="edit_status" required>
                         <option value="" disabled>Select Status</option>
                         <option>Active</option>
                         <option>Deactive</option>
@@ -624,109 +364,14 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                 </div>
               </div>
-
             </div>
 
-<<<<<<< HEAD
             <div class="modal-footer">
-              <input type="hidden" name="announcementcode" id="announcementcode">
               <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-              <button type="submit" name="update_announcement" class="btn btn-primary btn-md">Update</button>
+              <button type="submit" name="edit_announcement" class="btn btn-primary btn-md">Update</button>
             </div>
           </form>
 
-=======
-            <form action="" method="post" enctype="multipart/form-data">
-              <div class="modal-body">
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Title of Article</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Title" name="title" id="title" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Description</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="5" name="description" style="margin-bottom: 10px;" maxlength="500" placeholder="Enter Article Description" id="description" required></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Image</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="file" name="files[]" class="form-control" accept="image/*" style="margin-bottom: 10px;" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Duration</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="duration" id="duration">
-                          <option value="" disabled>Select Duration Month</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Status</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="status" id="articlestatus">
-                          <option value="" disabled>Select Status</option>
-                          <option>Active</option>
-                          <option>Deactive</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="modal-footer">
-                <input type="hidden" name="articlecode" id="articlecode">
-                <input type="hidden" name="picturepath" id="picturepath">
-                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="update_article" class="btn btn-primary btn-md">Update</button>
-              </div>
-            </form>
-
-          </div>
->>>>>>> parent of 81c3dcd (backup and announcements)
         </div>
       </div>
     </div>
@@ -756,7 +401,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Title of Announcement</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Title" name="delete_title" id="delete_title" />
+                    <input type="text" class="form-control" placeholder="Enter Title" name="delete_title" id="delete_title" readonly/>
                   </div>
                 </div>
               </div>
@@ -767,7 +412,32 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Description</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea class="form-control" rows="5" name="delete_description" style="margin-bottom: 10px;" maxlength="500" placeholder="Enter Article Description" id="delete_description" required></textarea>
+                    <textarea class="form-control" rows="5" name="delete_description" style="margin-bottom: 10px;" maxlength="500" id="delete_description" readonly></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right pull-right-pro">Duration</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="form-select-list">
+                      <select class="form-control custom-select-value" name="delete_duration" id="delete_duration" readonly>
+                      <option value="" disabled>Select Announcement Duration</option>
+                        <option value="1 day">1 day</option>
+                        <option value="2 days">2 days</option>
+                        <option value="3 days">3 days</option>
+                        <option value="4 days">4 days</option>
+                        <option value="5 days">5 days</option>
+                        <option value="6 days">6 days</option>
+                        <option value="1 week">1 weeks</option>
+                        <option value="2 weeks">2 weeks</option>
+                        <option value="3 weeks">3 weeks</option>
+                        <option value="4 weeks">4 weeks</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -780,7 +450,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
                       <select class="form-control custom-select-value" name="delete_status"
-                        id="delete_announcementstatus">
+                        id="delete_status" readonly>
                         <option value="" disabled>Select Status</option>
                         <option>Active</option>
                         <option>Deactive</option>
@@ -792,7 +462,6 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
 
             <div class="modal-footer">
-              <input type="hidden" name="announcementcode" id="announcementcode">
               <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
               <button type="submit" name="delete_announcement" class="btn btn-primary btn-md">Delete</button>
             </div>
@@ -808,17 +477,10 @@ if (!isset($_SESSION['UserEmail'])) {
   include('includes/gc___scripts.php');
     ?>
 
-<<<<<<< HEAD
-  <script>
-    $(document).on('show.bs.modal', '#Edit_Announcement', function (e) {
-      var userID = $(e.relatedTarget).data('id');
-      var userData;
-=======
     <script>
-      $(document).on('show.bs.modal', '#Edit_New_Article', function(e) {
-        var userID = $(e.relatedTarget).data('id');
+      $(document).on('show.bs.modal', '#Edit_Announcement', function(e) {
+        var userID = $(e.relatedTarget).data('ID');
         var userData;
->>>>>>> parent of 81c3dcd (backup and announcements)
 
       jQuery.ajax({
         type: "POST",
@@ -827,42 +489,23 @@ if (!isset($_SESSION['UserEmail'])) {
           userID: userID,
         },
 
-<<<<<<< HEAD
         success: function (response) {
           console.log(response);
           userData = jQuery.parseJSON(response)
-          // $('#announcementcode').val(userData[0].articlecode);
           $('#edit_title').val(userData[0].title);
           $('#edit_description').val(userData[0].description);
-          // $('#duration').val(userData[0].duration);
-          $('#edit_announcementstatus').val(userData[0].status);
+          $('#edit_duration').val(userData[0].duration);
+          $('#edit_status').val(userData[0].status);
         }
 
-=======
-          success: function(response) {
-            console.log(response);
-            userData = jQuery.parseJSON(response)
-            $('#articlecode').val(userData[0].articlecode);
-            $('#title').val(userData[0].title);
-            $('#description').val(userData[0].description);
-            $('#picturepath').val(userData[0].picture);
-            $('#duration').val(userData[0].duration);
-            $('#articlestatus').val(userData[0].status);
-          } 
-
         });
-        // window.location.href = "get_specific_user.php?userID=" + userID; 
-<<<<<<< HEAD
->>>>>>> parent of 81c3dcd (backup and announcements)
-=======
->>>>>>> parent of 81c3dcd (backup and announcements)
       });
-    });
+    
   </script>
 
   <script>
     $(document).on('show.bs.modal', '#Delete_Announcement', function (e) {
-      var userID = $(e.relatedTarget).data('id');
+      var userID = $(e.relatedTarget).data('ID');
       var userData;
 
       jQuery.ajax({
@@ -875,11 +518,10 @@ if (!isset($_SESSION['UserEmail'])) {
         success: function (response) {
           console.log(response);
           userData = jQuery.parseJSON(response)
-          // $('#announcementcode').val(userData[0].articlecode);
           $('#delete_title').val(userData[0].title);
           $('#delete_description').val(userData[0].description);
-          // $('#duration').val(userData[0].duration);
-          $('#delete_announcementstatus').val(userData[0].status);
+          $('#delete_duration').val(userData[0].duration);
+          $('#delete_status').val(userData[0].status);
         }
 
       });
