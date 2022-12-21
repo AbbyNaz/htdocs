@@ -35,21 +35,21 @@ if (!isset($_SESSION['UserEmail'])) {
     //     $stud_id = $find_id->fetch_assoc();
 
     //     if ($stud_id > 0) {
-    //     // print_r($result = mysql_query($query));
-    //     $reffered_user = $stud_id['user_id'];
-    //     $source = $_POST['source'];
-    //     $reffered_by = $_POST['reffered_by'];
-    //     $reffered_date = $_POST['reffered_date'];
-    //     $nature = $_POST['nature'];
-    //     $reason = $_POST['reason'];
-    //     $actions = $_POST['actions'];
-    //     $remarks = $_POST['remarks'];
-    //     $status = "Pending";
+    //         // print_r($result = mysql_query($query));
+    //         $reffered_user = $stud_id['user_id'];
+    //         $source = $_POST['source'];
+    //         $reffered_by = $_POST['reffered_by'];
+    //         $reffered_date = $_POST['reffered_date'];
+    //         $nature = $_POST['nature'];
+    //         $reason = $_POST['reason'];
+    //         $actions = $_POST['actions'];
+    //         $remarks = $_POST['remarks'];
+    //         $status = "Pending";
 
-    //     $add_query = "INSERT INTO `refferals` (`reffered_user`,`user`,`source`, `reffered_by`, `reffered_date`, `nature`, `reason`, `actions`, `remarks`, `ref_status`) ".
-    //             "VALUES ('$reffered_user','$UserId','$source','$reffered_by','$reffered_date','$nature','$reason','$actions','$remarks','$status')";
-    //     echo $con->query($add_query) or die ($con->error);
-    //     echo header("Location: staff___set_referral.php");
+    //         $add_query = "INSERT INTO `refferals` (`reffered_user`,`user`,`source`, `reffered_by`, `reffered_date`, `nature`, `reason`, `actions`, `remarks`, `ref_status`) ".
+    //                 "VALUES ('$reffered_user','$UserId','$source','$reffered_by','$reffered_date','$nature','$reason','$actions','$remarks','$status')";
+    //         echo $con->query($add_query) or die ($con->error);
+    //         echo header("Location: staff___set_referral.php");
 
     //     } else {
     //         echo "Student is not existed.";

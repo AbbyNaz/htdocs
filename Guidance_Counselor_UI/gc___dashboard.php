@@ -34,35 +34,36 @@
           $level = $row_user['level'];
           $position = $row_user['position'];
         }
-        // if (isset($_POST['subit-req-ref'])) {
+        
+        if (isset($_POST['subit-req-ref'])) {
           
-        //   $refid = $_POST['refid'];
+          $refid = $_POST['refid'];
           
-        //   $status = "For Appointment";
+          $status = "For Appointment";
 
-        //   $queryupdate = "INSERT INTO `appointments`(`timeslot`, `date`, `user_type`, `ref_id`, `id_number`, `subject`, `appointment_type`, `info`, `app_status`) " .
-        //     "VALUES ('$app_timeslot','$date','$app_type','$ref_id','$student_id','$app_subject','$type','$app_info','$status')";
-        //   $get_app = $con->query($queryupdate) or die($con->error);
-        //   // $row_get_app = $get_app->fetch_assoc();
+          $queryupdate = "INSERT INTO `appointments`(`timeslot`, `date`, `user_type`, `ref_id`, `id_number`, `subject`, `appointment_type`, `info`, `app_status`) " .
+            "VALUES ('$app_timeslot','$date','$app_type','$ref_id','$student_id','$app_subject','$type','$app_info','$status')";
+          $get_app = $con->query($queryupdate) or die($con->error);
+          // $row_get_app = $get_app->fetch_assoc();
 
-        //   if ($get_app) {
-        //     $update_ref_status_query = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
-        //     $update_con = $con->query($update_ref_status_query) or die($con->error);
-        //     // $update_row = $update_con->fetch_assoc();
-        //   }
+          if ($get_app) {
+            $update_ref_status_query = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
+            $update_con = $con->query($update_ref_status_query) or die($con->error);
+            // $update_row = $update_con->fetch_assoc();
+          }
 
-        //   if ($update_con) {
-        //     // echo "Saved";
-        //     $_SESSION['status'] = "Appointment Added";
-        //     $_SESSION['status_code'] = "success";
-        //     header("Location: gc___all_appointment.php");
-        //   } else {
-        //     // echo "Not saved";
-        //     $_SESSION['status'] = "Appointment Not Added";
-        //     $_SESSION['status_code'] = "error";
-        //     header("Location: gc___all_appointment.php");
-        //   }
-        // }
+          if ($update_con) {
+            // echo "Saved";
+            $_SESSION['status'] = "Appointment Added";
+            $_SESSION['status_code'] = "success";
+            header("Location: gc___all_appointment.php");
+          } else {
+            // echo "Not saved";
+            $_SESSION['status'] = "Appointment Not Added";
+            $_SESSION['status_code'] = "error";
+            header("Location: gc___all_appointment.php");
+          }
+        }
 
         function build_calendar($month, $year)
         {
@@ -983,8 +984,8 @@
 
 
         <div class="modal-footer">
-                                <button href="gc___appointment_history.php" type="button" id="cancel-app" class="btn btn-danger btn-md" >Cancel Appointment</button>
-                                <button href="gc___appointment_history.php" type="button" id="done-app" class="btn btn-primary btn-md" >Done</button>
+                                <button href="gc___appointment_history.php" type="button" id="cancel-app" class="btn btn-danger btn-md" data-dismiss="modal">Cancel Appointment</button>
+                                <button href="gc___appointment_history.php" type="button" id="done-app" class="btn btn-primary btn-md" data-dismiss="modal">Done</button>
 
           <!-- <a href="gc___appointment_history.php" 
           <button type="button" id="done-app" class="btn btn-info btn-md">Done</button> </a> -->
@@ -1040,12 +1041,6 @@
             center: "title",
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
-          validRange: function (nowDate) {
-          return {
-            start: nowDate
-          }
-          },
-
           events: mergedObject,
           dateClick: function(info) {
 

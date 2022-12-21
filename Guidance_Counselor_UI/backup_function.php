@@ -1,9 +1,11 @@
 <?php
+
+include_once("../connections/connection.php");
     
     error_reporting(0);
-	function backDb($host, $user, $pass, $dbname, $tables = '*'){
+	function backDb($tables = '*'){
 	
-		$conn = new mysqli($host, $user, $pass, $dbname);
+		$conn = connection();
 		if ($conn->connect_error) {
 		    die("Connection failed: " . $conn->connect_error);
 		}
@@ -59,9 +61,16 @@
 		    
 		    $outsql .= "\n"; 
 		}
+		$currentDateTime = date('Y-m-d');
 
-	
-	    $backup_file_name = $dbname . '_database.sql';
+		define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'Users'.DIRECTORY_SEPARATOR.$GLOBALS['computerUsername'].DIRECTORY_SEPARATOR.'Documents'.DIRECTORY_SEPARATOR.'Database Backup');
+		
+		if (!is_dir(BACKUP_FOLDER)) {
+			mkdir(BACKUP_FOLDER, 0775, true);
+		}
+
+	    $backup_file_name = BACKUP_FOLDER.DIRECTORY_SEPARATOR.$GLOBALS['database'].'_database_'.$currentDateTime.'.sql';
+
 	    $fileHandler = fopen($backup_file_name, 'w+');
 	    fwrite($fileHandler, $outsql);
 	    fclose($fileHandler);

@@ -6,6 +6,9 @@ if (!isset($_SESSION)) {
  
 include_once("connections/connection.php");
 
+//for AutoBackUp
+include_once("./Guidance_Counselor_UI/backup_function_AUTO.php");
+
 $con = connection();
 
 if (isset($_POST['login_btn'])) {
@@ -32,7 +35,16 @@ if (isset($_POST['login_btn'])) {
         $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER','$USERPOSITION', '$action_made', '$current_date_time')";
         $query_run = $con->query($add_logs) or die($con->error);
 
-        }elseif($row["role"] == 2){
+        // CheckAutoBackup
+        $BackupQuery = "SELECT * FROM autobackupdetails";
+        $QueryNow = $con->query($BackupQuery) or die ($con->error);
+        $rowBackup = $QueryNow->fetch_assoc();
+
+        if($rowBackup['UseAuto'] == 1){
+            AutoBackUpDB($rowBackup['Days']);
+        }
+
+    }elseif($row["role"] == 2){
         $_SESSION['UserEmail'] = $row['email'];
         $_SESSION['UserId'] = $row['user_id'];
         $_SESSION['UserRole'] = $row['role'];

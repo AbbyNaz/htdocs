@@ -2,6 +2,8 @@
 
 session_start();
 
+include('RefRejectionForm.php');
+
 include_once("../connections/connection.php");
 
 if(!isset($_SESSION['UserEmail'])) {
@@ -17,15 +19,15 @@ if(!isset($_SESSION['UserEmail'])) {
     
     
 
-
-    // For Cancelled button
-    if (isset($_GET['id'])) {
-        $ref_id = $_GET['id'];
-        $status = "Cancelled";
-        $cancel_refferal = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
-        $con->query($cancel_refferal) or die($con->error);
-        header("Location: gc___referral.php");
-    }
+    //Change to JavaScript
+    // // For Cancelled button 
+    // if (isset($_GET['id'])) {
+    //     $ref_id = $_GET['id'];
+    //     $status = "Cancelled";
+    //     $cancel_refferal = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
+    //     $con->query($cancel_refferal) or die($con->error);
+    //     header("Location: gc___referral.php");
+    // }
 
 ?>
 
@@ -150,7 +152,7 @@ if(!isset($_SESSION['UserEmail'])) {
     </div>
 
         <!----------------------------------------- THIS IS THE MODAL FORM FOR SEARCHING STUDENT ---------------------------------------------->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div id="REJECTION_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -184,7 +186,7 @@ if(!isset($_SESSION['UserEmail'])) {
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
         <!-- Add new Referral -->
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -436,7 +438,7 @@ if(!isset($_SESSION['UserEmail'])) {
                                                                 <!-- <a class="btn btn-primary" style="color: white; padding: 5px 8px; border: 1px solid #337ab7; margin: auto;" href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><i class="fa fa-pencil"></i></a> -->
                                                                 <!-- <a class="btn btn-danger" style="color: white;" href="gc___referral.php?id=<?= $row['ref_id'] ?>">Reject</a> -->
 
-                                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#REJECTION_FORM">Reject</button>
+                                                                <button onclick="showRefModal(this)" class="btn btn-danger" data-toggle="modal" data-ref-id ="<?= $row['ref_id'] ?>">Reject</button>
 
                                                                 <a class="btn btn-success" style="margin-left: 10px; color: white;" href="gc___dashboard.php?ref_id=<?= $row['ref_id'] ?>">Set Appointment</a>
                                                             <?php "</div>";
@@ -466,6 +468,17 @@ if(!isset($_SESSION['UserEmail'])) {
         </div>
 
         <script type="text/javascript">
+
+            function showRefModal(button){
+                var refID = $(button).data('ref-id');
+
+                $('#RejectForm').attr("action", "RefRejectQuery.php?ref_id="+refID+"");
+
+                $('#REJECTION_FORM').modal('show');
+            }
+
+            
+
             // $(document).on("click", "#set_app", () => {
             //   $.ajax({
             //     url: "ref_update_status.php",
