@@ -8,32 +8,48 @@ DB::$encoding = 'utf8';
 
 $appid = $_POST['appid'];
 $myid = $_POST['myid'];
-$ref = $_POST['ref'];
-$date = $_POST['date'];
-$reason = $_POST['reason'];
+
 
 DB::query("UPDATE users SET limit_app=%i WHERE id_number=%i", 0, $myid);
 
-$updstat = DB:: query("UPDATE refferals SET ref_status='Cancelled' WHERE ref_id='$ref'");
 
-if($updstat == 'Cancelled'){
-  
-DB::delete('appointments', 'id=%i', $appid);
+$check = DB::query("SELECT *FROM appointments WHERE id='$appid'");
+
+
+foreach ($check as $row){
+
+    
+    $date = $_POST['date'];
+    $reason = $_POST['reason'];
+    $ref = $_POST['ref'];
+
+        if ( $row['ref_id'] > 0) {
+                $upd =DB::query("UPDATE refferals SET ref_status='Cancelled referral' WHERE ref_id='$ref'");
+
+                if ($upd) {
+                    DB::delete('appointments', 'id=%i', $appid);
+
+                    DB::insert('appointment_history', [
+                        'app_id'=> $appid,
+                        'reason' => $reason,
+                        'date_accomplished' => $date,
+                        'status' => 'Cancelled referral',
+                        'id_number' => $myid          
+                    ]);
+                    }
+            }
+        else {
+                    DB::delete('appointments', 'id=%i', $appid);
+
+                    DB::insert('appointment_history', [
+                        'app_id'=> $appid,
+                        'reason' => $reason,
+                        'date_accomplished' => $date,
+                        'status' => 'Cancelled',
+                        'id_number' => $myid 
+                    ]);
+            }
 }
-else{
-    DB::delete('appointments', 'id=%i', $appid);
-}
-
-
-
-DB::insert('appointment_history', [
-    'app_id'=> $appid,
-    'reason' => $reason,
-    'date_accomplished' => $date,
-    'id_number' => $myid
-        
-          
-]);
 
 echo json_encode(["response" => "success"]);
 
