@@ -1,6 +1,6 @@
 <?php
 
-    include("../Guidance_Counselor_UI/Notify.php");
+    include_once("../Guidance_Counselor_UI/Notify.php");
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];

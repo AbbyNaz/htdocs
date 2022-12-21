@@ -4,6 +4,8 @@ session_start();
 
 include_once("../connections/connection.php");
 
+include_once("../Guidance_Counselor_UI/Notify.php");
+
 if(!isset($_SESSION['UserEmail'])){
         
     echo "<script>window.open('../loginForm.php','_self')</script>";
@@ -71,7 +73,11 @@ if(!isset($_SESSION['UserEmail'])){
 			$add_logs = "INSERT INTO logs (`user_id`,`user`, `action_made`, `date_created`) VALUES ('$IDNUMBER','$user_position', '$action_made', '$current_date_time')";
 			$query_runs = $con->query($add_logs) or die($con->error);
 
-
+//NOTIFY USER-------------->>
+				// $getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reffered_by = '$UserId'";
+				// $QueryID = mysqli_query($con, $getRefID);
+				// $RefID = mysqli_fetch_assoc($QueryID);
+				// Notify('Referrral', $RefID);
 
 		} else {
 			$_SESSION['status'] = "Error in Referring a Student or Staff";

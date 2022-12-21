@@ -1,6 +1,8 @@
 <?php 
 include 'vendor/autoload.php';
 
+// include_once("../Guidance_Counselor_UI/Notify.php"); //NOTIFICATION NEED INCLUDE
+
 DB::$user = 'root';
 DB::$password = '';
 DB::$dbName = 'guidance_and_counseling';
@@ -89,9 +91,10 @@ $data[] = [
     'end' =>  date('Y-m-d H:i:s',strtotime($row["date"].$row['timeslot_end']))
     // 'end' => $row["end_event"],
 ];
-
-
 }
+
+//----------NOTIFY USER-------------->>
+	// Notify('Appointment', $req_id);
 
 echo json_encode(["events" => $data, "status" => 1]);
 
