@@ -23,7 +23,7 @@ foreach ($selectuser as $row) {
         'app_id'=> $appid,
         'reason' => $reason,
         'date_accomplished' => $date,
-        'status' => 'Cancelled',
+        'status' => 'Completed',
         'id_number' => $idnum     
     ]);
     

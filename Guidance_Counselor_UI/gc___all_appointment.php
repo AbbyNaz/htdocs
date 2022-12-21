@@ -15,13 +15,48 @@ if (!isset($_SESSION['UserEmail'])) {
     $row = $get_app->fetch_assoc();
 
     // For Cancel button
+    // if (isset($_GET['cancel_id'])) {
+    //     $cancel_id = $_GET['cancel_id'];
+    //     $app_status = "Cancelled";
+    //     $cancel_appointment = "UPDATE `appointments` SET `app_status`='$app_status' WHERE id = '$cancel_id'";
+    //     $con->query($cancel_appointment) or die($con->error);
+    //     header("Location: cancel_appointment.php?app_id=$cancel_id");
+    // }
+
     if (isset($_GET['cancel_id'])) {
         $cancel_id = $_GET['cancel_id'];
-        $app_status = "Cancelled";
-        $cancel_appointment = "UPDATE `appointments` SET `app_status`='$app_status' WHERE id = '$cancel_id'";
-        $con->query($cancel_appointment) or die($con->error);
-        header("Location: cancel_appointment.php?app_id=$cancel_id");
-    }
+          $getappdata = "SELECT * FROM `appointments` where `id` ='$cancel_id'";
+         $get_info = $con->query($getappdata) or die($con->error);
+         $app_row =  $get_info->fetch_assoc();
+ 
+         $ref_id = $app_row['ref_id'];
+         $userid =  $app_row['id_number'];
+         $reason =  $app_row['reason'];
+         $app_status =  "Cancelled";
+         $date_accomplished = date("Y-m-d");
+ 
+         $updlimit = "UPDATE `users` SET `limit_app`=0 WHERE id_number='$userid'" ;
+         $con->query($updlimit) or die($con->error);
+ 
+         if ($ref_id > 0){
+ 
+             $upd = "UPDATE `refferals` SET `ref_status`='Cancelled referral' WHERE ref_id='$ref_id'";
+             $con->query($upd) or die($con->error);
+ 
+             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`) VALUES ('$cancel_id','$reason','$app_status','$Date_accomplished')";
+             $con->query($query) or die($con->error);
+ 
+             }
+         else{
+             $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`) VALUES ('$cancel_id','$reason','$app_status','$Date_accomplished')";
+             $con->query($query) or die($con->error);
+ 
+                        }
+ 
+              header("Location: cancel_appointment.php?app_id=$cancel_id");
+ 
+         
+         }
 
     if (isset($_GET['appointment_id'])) {
         $cancel_id = $_GET['appointment_id'];

@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
+// use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 
     require('fpdf.php');
         $connect = mysqli_connect("localhost", "root", "", "guidance_and_counseling");  
@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
         if($_SERVER['REQUEST_METHOD']=='POST'){
 
             $Search = $_POST['query']; // from AJAX
-            $sql = "SELECT * FROM users WHERE first_name LIKE '%".$Search."%'";  
+            $sql = "SELECT * FROM users WHERE first_name || last_name || id_number LIKE '%".$Search."%'";  
             $result = mysqli_query($connect, $sql); 
                 //DECLARING FOR HTML INNER
             $output = '<table class="table table-striped" border="3">
@@ -44,9 +44,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
                 imagettftext($image,35,0,1090,1852,$color,$font,$year);
                 
                 imagejpeg($image, "GM_Certs/Picture.jpg" ); 
-                $pdf = new FPDF ("portrait", 'in', [11.03, 15.57]);
+                $pdf = new FPDF ('P', 'in', [11.03, 15.57]);
                 $pdf->AddPage();
-                $pdf->Image("GM_Certs/Picture.jpg",0,0,11.7,8.27);
+                $pdf->Image("GM_Certs/Picture.jpg",0,0,11.03,15.57);
                 $pdf->Output("GM_Certs/Picture.pdf","F");
                 imagedestroy($image);
              

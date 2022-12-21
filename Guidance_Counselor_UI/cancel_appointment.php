@@ -23,8 +23,14 @@ if(!isset($_SESSION['UserEmail'])){
       $reason = $_POST['reason'];
       $app_status = "Cancelled";
       $date_cancelled = date("Y-m-d");
-      $query = "INSERT INTO `appointment_history`(`app_id`, `reason`, `status`, `date_accomplished`) VALUES ('$app_id','$reason','$app_status','$date_cancelled')";
+      $query = "UPDATE `appointment_history` SET `cancel_reason` = '$reason' where app_id = '$app_id'";
       $con->query($query) or die ($con->error);
+
+      $delapp ="DELETE FROM `appointments` where id = '$app_id'";
+        $con->query($delapp) or die ($con->error);
+
+
+
       header("Location: gc___all_appointment.php");
     
       } else {

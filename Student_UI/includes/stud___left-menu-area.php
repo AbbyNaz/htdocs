@@ -37,7 +37,7 @@
                         <a class="has-arrow" href="all-courses.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Appointment</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
                             <li><a title="All Library" href="stud___set_appointment.php"><span class="mini-sub-pro">Appointment Table</span></a></li>
-                            <!-- <li><a title="Edit Library" href="stud___appointment_history.php"><span class="mini-sub-pro">Appointment History</span></a></li> -->
+                            <li><a title="Edit Library" href="stud___appointment_history.php"><span class="mini-sub-pro">Appointment History</span></a></li>
                             <!-- <li><a title="Edit Library" href="stud___calendar.php"><span class="mini-sub-pro">Calendar</span></a></li> -->
 
                         </ul>
