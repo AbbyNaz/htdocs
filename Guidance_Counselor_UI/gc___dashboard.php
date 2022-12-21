@@ -295,9 +295,9 @@
 
             <?php
             $current_date = date("Y-m-d");
-            // $query = "SELECT id FROM appointments WHERE '$current_date' == app_date ORDER BY id";
+            $result = "SELECT id FROM appointments WHERE '$current_date' <= date ORDER BY id";
             // $result = "SELECT COUNT(date) AS num_appointments FROM appointments WHERE '$current_date' <= date";
-            $result = "SELECT * FROM appointments WHERE date >= CURDATE()";
+            // $result = "SELECT COUNT(date) AS num_appointments FROM appointments WHERE date < '$current_date'";
             $query_run = mysqli_query($con, $result);
             $row = mysqli_num_rows($query_run);
 
