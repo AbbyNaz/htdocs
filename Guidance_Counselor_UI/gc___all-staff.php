@@ -454,7 +454,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">First Name</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_first_name" id="edit_staff_first_name" class="form-control" placeholder="Enter First Name" required />
+                      <input type="text" name="edit_staff_first_name" id="edit_staff_first_name" class="form-control" placeholder="Enter First Name" />
                     </div>
                   </div>
                 </div>
@@ -476,7 +476,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Last Name</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_last_name" id="edit_staff_last_name" class="form-control" placeholder="Enter Last Name" required />
+                      <input type="text" name="edit_staff_last_name" id="edit_staff_last_name" class="form-control" placeholder="Enter Last Name"  />
                     </div>
                   </div>
                 </div>
@@ -487,7 +487,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Address</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_address" id="edit_staff_address" class="form-control" placeholder="Enter Address" required />
+                      <input type="text" name="edit_staff_address" id="edit_staff_address" class="form-control" placeholder="Enter Address"  />
                     </div>
                   </div>
                 </div>
@@ -510,7 +510,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="Select_Department" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" required>
+                        <select id="Select_Department" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" >
                           <option disabled selected value>Select Department</option>
                           <option value="Academics">Academics</option>
                           <option value="Administrative">Administrative</option>
