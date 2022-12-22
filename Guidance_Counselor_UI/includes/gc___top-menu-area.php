@@ -178,7 +178,7 @@
 
                                                                         case "Appointment":
                                                                             $icon = $appointment_icon;
-                                                                            $description = "You have new appointment setted by ".$name;
+                                                                            $description = $name." request an appointment";
                                                                             break;
 
                                                                         case "Referral":

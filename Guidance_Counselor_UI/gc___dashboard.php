@@ -1612,6 +1612,7 @@
               type: "POST",
               dataType: "json",
               data: {
+                useridnumber: <?php echo $_SESSION['UserNumber'];?>,
                 userid: $("#store-data").data("id"),
                 information: $("#information").val(),
                 type: $("#type").val(),
@@ -1655,6 +1656,7 @@
               type: "POST",
               dataType: "json",
               data: {
+                useridnumber: <?php echo $_SESSION['UserNumber'];?>,
                 userid: $("#store-data").data("id"),
                 information: $("#information").val(),
                 type: $("#type").val(),
@@ -1708,6 +1710,7 @@
               type: "POST",
               dataType: "json",
               data: {
+                useridnumber: <?php echo $_SESSION['UserNumber'];?>,
                 userid: $("#store-data").data("id"),
                 information: $("#information").val(),
                 type: $("#type").val(),
@@ -1752,6 +1755,7 @@
               type: "POST",
               dataType: "json",
               data: {
+                useridnumber: <?php echo $_SESSION['UserNumber'];?>,
                 userid: $("#store-data").data("id"),
                 information: $("#information").val(),
                 type: $("#type").val(),

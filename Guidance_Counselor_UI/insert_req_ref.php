@@ -1,7 +1,6 @@
 <?php 
 include 'vendor/autoload.php';
 
-// include_once("../Guidance_Counselor_UI/Notify.php"); //NOTIFICATION NEED INCLUDE
 
 DB::$user = 'root';
 DB::$password = '';
@@ -77,6 +76,21 @@ $upd =DB::query("UPDATE refferals SET ref_status='For Appointment' WHERE ref_id=
     }
 
 $req_id = DB::insertId();
+
+// NOTIFICATION PURPOSES
+$from = $_POST['useridnumber'];
+$type = 'Appointment';
+$infoID = $req_id;
+$isRead = 0;
+// $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
+DB::insert('notifications', [
+  'from_user' => $from,
+  'to_user' => $myid,
+  'Type' => $type,
+  'info_ID' => $infoID,
+  'isRead' => $isRead
+]);
+//////////////////////////////////////////
 
 $events = DB::query("SELECT * FROM appointments WHERE id='$req_id'");
 
