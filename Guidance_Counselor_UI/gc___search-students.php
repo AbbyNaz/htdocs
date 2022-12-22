@@ -682,17 +682,17 @@ if (!isset($_SESSION['UserEmail'])) {
         if (isset($_POST['filter'])) {
             $level = $_POST['level'];
 
-            $query = mysqli_query($connection, "SELECT * FROM `users` WHERE `level`='$level'") or die(mysqli_error());
+            $query = mysqli_query($connection, "SELECT * FROM `users` WHERE `level`='$level'") or die(mysqli_error($connection));
             while ($fetch = mysqli_fetch_array($query)) {
                 echo "<tr><td>" . $fetch['last_name'] . "</td><td>" . $fetch['level'] . "</td></tr>";
             }
         } else if (isset($_POST['reset'])) {
-            $query = mysqli_query($connection, "SELECT * FROM `users`") or die(mysqli_error());
+            $query = mysqli_query($connection, "SELECT * FROM `users`") or die(mysqli_error($connection));
             while ($fetch = mysqli_fetch_array($query)) {
                 echo "<tr><td>" . $fetch['last_name'] . "</td><td>" . $fetch['level'] . "</td></tr>";
             }
         } else {
-            $query = mysqli_query($connection, "SELECT * FROM `users`") or die(mysqli_error());
+            $query = mysqli_query($connection, "SELECT * FROM `users`") or die(mysqli_error($connection));
             while ($fetch = mysqli_fetch_array($query)) {
                 echo "<tr><td>" . $fetch['last_name'] . "</td><td>" . $fetch['level'] . "</td></tr>";
             }

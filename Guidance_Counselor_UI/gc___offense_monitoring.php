@@ -491,7 +491,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <th data-field="phone">Offense Type</th>
                         <th data-field="complete">Offense Description</th>
                         <th data-field="task">Start Date</th>
-                        <th data-field="taska">Start End</th>
+                        <th data-field="taska">End Date</th>
                         <th data-field="date">Sanction</th>
                         <!-- <th data-field="price">Sanction Info</th> -->
                         <th data-field="status">Status</th>

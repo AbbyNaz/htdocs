@@ -28,7 +28,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $get_app = $con->query($app_query) or die($con->error);
         $row_app = $get_app->fetch_assoc();
 
-         $appby = $row_app['app_by'];
+        $appby = $row_app['app_by'];
 
   include('includes/stud___header.php');
   include('includes/stud___left-menu-area.php');
@@ -138,8 +138,15 @@ if (!isset($_SESSION['UserEmail'])) {
 
                         <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
                             <h3 class="box-title">Announcements</h3>
-                            <ul class="list-inline two-part-sp">
-                          <p> There was no announcements this time! </p>
+                            <ul >
+                              <?php 
+                                $Announcementquery = "SELECT * FROM announcements WHERE status = 'Active'";
+                                $query_run = mysqli_query($con, $Announcementquery);
+                                while ($Announcements = mysqli_fetch_assoc($query_run)){
+                                  echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "'.$Announcements['id'].'" class="list-inline two-part-sp">'.$Announcements['title'].'</li>';
+                                }
+                              ?>
+                          
                             </ul>
                         </div>
                         
@@ -285,7 +292,7 @@ if (!isset($_SESSION['UserEmail'])) {
 </div>
 
 
-
+<!-- ADD APPOINTMENT -->
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
   <div id="ADD_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
     <div class="modal-dialog">
@@ -453,6 +460,56 @@ if (!isset($_SESSION['UserEmail'])) {
 
 </div>
 
+
+<!-- ANNOUNCEMENT -->
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="AnnouncementModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Announcement</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+                    <form action="#" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label id="dtitle" class="pull-left">Title: Hello World</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description:</label>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <p id="ddescription">sasdasaddsasdasdasdasdadsadsadsasdadsadsas
+                                          dasdadsasdasdasdasda
+                                          sdasdasdasdasdsdasdasdadsasdasdasdadsadas
+                                          sdadsadsa:</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label>Link: </label>
+                                        <a href="#">Web.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
   integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
@@ -768,6 +825,29 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
 
+</script>
+
+<script>
+function viewAnnouncement(li){
+  // Get the notification ID from the clicked element
+  var id = $(li).data('id');
+   
+  $.ajax({
+        
+        url: '../Guidance_Counselor_UI/thecodeannouncementGET.php',
+        data: {id: id},
+        success: function(data) {
+            var Announcement = JSON.parse(data);
+            var title = "Title: "+Announcement.title;
+            var description = Announcement.description;
+
+            $('#dtitle').text(title);
+            $('#ddescription').text(description);
+          
+            $('#AnnouncementModal').modal('show');
+        }
+    });
+}
 </script>
 
 
