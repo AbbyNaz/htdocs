@@ -510,7 +510,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="Select_Department" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" onchange="changeDropdown(this.value);" required>
+                        <select id="Select_Department" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" required>
                           <option disabled selected value>Select Department</option>
                           <option value="Academics">Academics</option>
                           <option value="Administrative">Administrative</option>
@@ -520,14 +520,14 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                 </div>
 
-                <div class="form-group-inner" id="ACADEMIC_POSITIONS" style="display: none">
+                <div class="form-group-inner" id="ACADEMIC_POSITIONS">
                   <div class=" row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right">Academic Position</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="mySelect" class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_position" onchange="changeDropdown(this.value);">
+                        <select id="mySelect" class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_position">
                           <option value="Lab Custodian">Lab Custodian</option>
                           <option value="Kitchen Custodian">Kitchen Custodian</option>
                           <option value="Instructor">Instructor</option>

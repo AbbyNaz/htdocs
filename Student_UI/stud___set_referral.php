@@ -483,6 +483,8 @@ if (!isset($_SESSION['UserEmail'])) {
 
         </div>
 
+        <?php include('includes/stud___scripts.php') ?>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#searchstudent').keyup(function() {
