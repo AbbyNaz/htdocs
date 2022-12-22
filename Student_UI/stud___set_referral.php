@@ -163,7 +163,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                         </div>
 
-                        <form action="add_referral.php" method="POST">
+                        <form id="ReferralForm" action="add_referral.php" method="POST">
                             <div class="modal-body">
                                 <div class="form-group-inner">
                                     <div class="row">
@@ -498,13 +498,19 @@ if (!isset($_SESSION['UserEmail'])) {
                             },
 
                             success: function(response) {
-                                console.log(response);
-                                userData = jQuery.parseJSON(response)
+                                userData = jQuery.parseJSON(response);
+                                
+                                $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
+                                
                                 $('#stud_id').val(userData[0].id);
                                 $('#stud_name').val(userData[0].first_name + " " + userData[0].last_name);
                                 $('#stud_program').val(userData[0].program);
                                 $('#stud_level').val(userData[0].level);
+                                
+                                
+                                
                             }
+                            
 
                         });
                     }

@@ -4,6 +4,8 @@ session_start();
 
 include_once("../connections/connection.php");
 
+include_once("../Guidance_Counselor_UI/Notify.php");
+
 if(!isset($_SESSION['UserEmail'])){
         
     echo "<script>window.open('../loginForm.php','_self')</script>";
@@ -12,10 +14,10 @@ if(!isset($_SESSION['UserEmail'])){
 
   	$con = connection();
 
-	if (isset($_POST['add_refferal'])) {
+	if (isset($_POST['add_refferal']) && !empty($_GET['id'])) {
 
 		$UserId = $_SESSION['UserId'];
-		$uid = $_POST['studentid']; 
+		$uid = $_GET['id']; 
 
 		$get_student = "SELECT * FROM users WHERE user_id = '$uid'";
 		$find_id = $con->query($get_student) or die ($con->error);
@@ -51,7 +53,7 @@ if(!isset($_SESSION['UserEmail'])){
 			$con->query($add_query) or die ($con->error);
 			$_SESSION['status'] = "Inserted Successfully";
 			$_SESSION['status_code'] = "success";
-			header("Location: stud___set_referral.php");
+			header("Location: stud___set_referral.php?refID='$RefID'");
 
 			$user_query = "SELECT id_number FROM users WHERE user_id = '$uid'";
 			$query_run = mysqli_query($con, $user_query);
@@ -69,6 +71,16 @@ if(!isset($_SESSION['UserEmail'])){
 			$add_logs = "INSERT INTO logs (`user_id`,`user`, `action_made`, `date_created`) VALUES ('$IDNUMBER','$user_position' , '$action_made', '$current_date_time')";
 			$query_runs = $con->query($add_logs) or die($con->error);
 
+//NOTIFY USER-------------->>
+			$getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reffered_by = '$UserId'";
+			$QueryID = mysqli_query($con, $getRefID);
+			$Ref = mysqli_fetch_assoc($QueryID);
+			$RefID = $Ref['ref_id'];
+			Notify('Referral', $RefID);
+
+
+			
+
 		} else {
 		    // echo "Student/Staff is not existed.";
 
@@ -77,6 +89,8 @@ if(!isset($_SESSION['UserEmail'])){
 				header("Location: stud___set_referral.php");
 		}
 
+	}else{
+		header("Location: stud___set_referral.php?EmptyID=true");
 	}
 
 }

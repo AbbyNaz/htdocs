@@ -14,10 +14,10 @@ if(!isset($_SESSION['UserEmail'])){
 
   	$con = connection();
 
-	if (isset($_POST['add_refferal'])) {
+	if (isset($_POST['add_refferal']) && !empty($_GET['id'])) {
 
 		$UserId = $_SESSION['UserId'];
-		$uid = $_POST['studentid'];
+		$uid = $_GET['id'];
 
 		$get_student = "SELECT * FROM users WHERE user_id = '$uid'";
 		$find_id = $con->query($get_student) or die ($con->error);
@@ -57,9 +57,9 @@ if(!isset($_SESSION['UserEmail'])){
 			$first_name = $_POST['first_name'];
 			$last_name = $_POST['last_name'] ;
 
-			$user_query = "SELECT id_number FROM users WHERE user_id = '$user_id'";
-			$query_run = mysqli_query($con, $user_query);
-			$row = mysqli_fetch_array($query_run);
+			// $user_query = "SELECT id_number FROM users WHERE user_id = '$user_id'";
+			// $query_run = mysqli_query($con, $user_query);
+			// $row = mysqli_fetch_array($query_run);
 		
 			$current_date_time = date("Y-m-d H:i:s");
 			$action_made = "Added a new referral [ ID = " . $reffered_user. "] " . $first_name ." " . $last_name . " to the referral list";
@@ -74,10 +74,11 @@ if(!isset($_SESSION['UserEmail'])){
 			$query_runs = $con->query($add_logs) or die($con->error);
 
 //NOTIFY USER-------------->>
-				// $getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reffered_by = '$UserId'";
-				// $QueryID = mysqli_query($con, $getRefID);
-				// $RefID = mysqli_fetch_assoc($QueryID);
-				// Notify('Referrral', $RefID);
+			$getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reffered_by = '$UserId'";
+			$QueryID = mysqli_query($con, $getRefID);
+			$Ref = mysqli_fetch_assoc($QueryID);
+			$RefID = $Ref['ref_id'];
+			Notify('Referral', $RefID);
 
 		} else {
 			$_SESSION['status'] = "Error in Referring a Student or Staff";
@@ -92,6 +93,8 @@ if(!isset($_SESSION['UserEmail'])){
 			$query_runs = $con->query($add_logs) or die($con->error);
 		}
 
+	}else{
+		header("Location: staff___set_referral.php?EmptyID=true");
 	}
 
 }

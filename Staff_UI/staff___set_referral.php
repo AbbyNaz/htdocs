@@ -23,38 +23,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $row_referred_user = $get_referred_user->fetch_assoc();
     }
 
-    // if (isset($_POST['add_refferal'])) {
-
-    //     $UserId = $_SESSION['UserId'];
-    //     $last_name = $_POST['last_name'];
-    //     $first_name = $_POST['first_name'];
-    //     $level = $_POST['level'];
-
-    //     $get_student = "SELECT * from users WHERE last_name LIKE '$last_name' AND first_name LIKE '$first_name' AND level LIKE '$level'";
-    //     $find_id = $con->query($get_student) or die ($con->error);
-    //     $stud_id = $find_id->fetch_assoc();
-
-    //     if ($stud_id > 0) {
-    //         // print_r($result = mysql_query($query));
-    //         $reffered_user = $stud_id['user_id'];
-    //         $source = $_POST['source'];
-    //         $reffered_by = $_POST['reffered_by'];
-    //         $reffered_date = $_POST['reffered_date'];
-    //         $nature = $_POST['nature'];
-    //         $reason = $_POST['reason'];
-    //         $actions = $_POST['actions'];
-    //         $remarks = $_POST['remarks'];
-    //         $status = "Pending";
-
-    //         $add_query = "INSERT INTO `refferals` (`reffered_user`,`user`,`source`, `reffered_by`, `reffered_date`, `nature`, `reason`, `actions`, `remarks`, `ref_status`) ".
-    //                 "VALUES ('$reffered_user','$UserId','$source','$reffered_by','$reffered_date','$nature','$reason','$actions','$remarks','$status')";
-    //         echo $con->query($add_query) or die ($con->error);
-    //         echo header("Location: staff___set_referral.php");
-
-    //     } else {
-    //         echo "Student is not existed.";
-    //     }
-    // }
+    
 
     // For Cancelled button
     if (isset($_GET['id'])) {
@@ -197,7 +166,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         </div>
                     </div>
 
-                    <form action="add_referral.php" method="POST">
+                    <form id="ReferralForm" action="add_referral.php" method="POST">
                         <div class="modal-body">
                             <div class="form-group-inner">
                                 <div class="row">
@@ -614,7 +583,10 @@ if (!isset($_SESSION['UserEmail'])) {
 
                         success: function (response) {
                             console.log(response);
-                            userData = jQuery.parseJSON(response)
+                            userData = jQuery.parseJSON(response);
+
+                            $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
+
                             $('#stud_id').val(userData[0].id);
                             $('#stud_name').val(userData[0].first_name + " " + userData[0].last_name);
                             $('#stud_program').val(userData[0].program);
