@@ -560,8 +560,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select id="edit_select_program" class="form-control custom-select-value"
-                        name="edit_select_program" onchange="changeDropdown(this.value);">
+                      <select id="edit_select_program" class="form-control custom-select-value" name="edit_select_program">
                         <option disabled selected>Select Program</option>
                         <option value="BSIT">BSIT</option>
                         <option value="CCTECH">CCTECH</option>
@@ -584,8 +583,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select id="edit_select_level" class="form-control custom-select-value" name="edit_select_level"
-                        onchange="changeDropdown(this.value);">
+                      <select id="edit_select_level" class="form-control custom-select-value" name="edit_select_level">
                         <option disabled selected>Select Level</option>
                         <option value="Grade 11">Grade 11</option>
                         <option value="Grade 12">Grade 12</option>

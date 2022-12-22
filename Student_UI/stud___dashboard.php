@@ -12,23 +12,19 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  $user_id = $_SESSION['UserId'];
 
-    
-        $user_id = $_SESSION['UserId'];
+  $user_query = "SELECT * FROM users WHERE user_id = '$user_id'";
+  $get_user = $con->query($user_query) or die($con->error);
+  $row_user = $get_user->fetch_assoc();
 
-        $user_query = "SELECT * FROM users WHERE user_id = '$user_id'";
-        $get_user = $con->query($user_query) or die($con->error);
-        $row_user = $get_user->fetch_assoc();
+  $id_number = $row_user['id_number'];
 
-        
-          $id_number = $row_user['id_number'];
-        
+  $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number'";
+  $get_app = $con->query($app_query) or die($con->error);
+  $row_app = $get_app->fetch_assoc();
 
-        $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number'";
-        $get_app = $con->query($app_query) or die($con->error);
-        $row_app = $get_app->fetch_assoc();
-
-        $appby = $row_app['app_by'];
+  $appby = $row_app['app_by'];
 
   include('includes/stud___header.php');
   include('includes/stud___left-menu-area.php');
@@ -77,16 +73,16 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
 
-      <div class="product-sales-area mg-tb-30">
-            <div class="container-fluid">
-                <div class="row">
-                   
-                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-              <div class="product-sales-chart">
-                <div class="portlet-title">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div id='calendar'></div>
+<div class="product-sales-area mg-tb-30">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <div class="product-sales-chart">
+          <div class="portlet-title">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id='calendar'></div>
 
               </div>
             </div>
@@ -95,66 +91,68 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
 
 
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div
+          class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
+          <h3 class="box-title">Offense Monitoring</h3> <br>
+          <ul class="list-inline two-part-sp">
+            <?php
+  $con = connection();
 
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <div class="white-box">
-                  <h3 class="box-title">Offense Monitoring</h3>
-                    <ul class="basic-list">
+  if (isset($_SESSION['UserId'])) {
 
-              <?php
-                $con = connection();
+    $id = $_SESSION['UserId'];
+    $query = "SELECT * FROM users WHERE user_id = '$id'";
+    $get_user = $con->query($query) or die($con->error);
+    $row = $get_user->fetch_assoc();
 
-                if (isset($_SESSION['UserId'])) {
+    $om = "SELECT * FROM offense_monitoring WHERE student_id = '" . $row['id_number'] . "' ORDER BY id DESC LIMIT 5";
+    $getdata = $con->query($om) or die($con->error);
+    $offense = $getdata->fetch_assoc();
 
-                  $id = $_SESSION['UserId'];
-                  $query = "SELECT * FROM users WHERE user_id = '$id'";
-                  $get_user = $con->query($query) or die($con->error);
-                  $row = $get_user->fetch_assoc();
+    if ($offense == 0) {
+                            ?>
+            <p>There was no offense at this time!</p>
+            <?php
+    } else {
+      do {
+                                      ?>
 
-                  $om = "SELECT * FROM offense_monitoring WHERE student_id = '".$row['id_number']."' ORDER BY id DESC LIMIT 5";
-                  $getdata = $con->query($om) or die($con->error);
-                  $offense = $getdata->fetch_assoc();
+            <li><b><?php echo $offense['offense_type']; ?></b><br><?php echo $offense['description']; ?> <span
+                class="pull-right label-danger label-1 label">Sanction: <?php echo $offense['sanction']; ?></span></li>
+            <hr>
 
-                  if ($offense == 0) {
-                      ?>
-                          <p>There was no offense at this time!</p>
-                      <?php
-                  } else {
-                      do {
-                          ?>
-                                              
-                          <li><b><?php echo $offense['offense_type']; ?></b><br><?php echo $offense['description']; ?> <span class="pull-right label-danger label-1 label">Sanction: <?php echo $offense['sanction']; ?></span></li>
+            <?php
 
-                          <?php
+      } while ($offense = $getdata->fetch_assoc());
+    }
+  }
+                                          ?>
+          </ul>
+        </div>
+        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
+          <h3 class="box-title">Announcements</h3><br>
+          <ul style="cursor: pointer; text-align: left;">
+            <?php
+  $Announcementquery = "SELECT * FROM announcements WHERE status = 'Active'";
+  $query_run = mysqli_query($con, $Announcementquery);
+  while ($Announcements = mysqli_fetch_assoc($query_run)) {
+    echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "' . $Announcements['id'] . '" class="list-inline">' . $Announcements['title'] . '</li><hr>';
+  }
+                            ?>
 
-                      } while ($offense = $getdata->fetch_assoc());
-                  }
-                }
-                ?> 
-                  </ul> 
-                </div>
-<br>
-<!--------------------------------------------------- DI PAKO TAPOS DITO -------------------------------------------------------->
+          </ul>
+        </div>
 
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
-                            <h3 class="box-title">Announcements</h3>
-                            <ul >
-                              <?php 
-                                $Announcementquery = "SELECT * FROM announcements WHERE status = 'Active'";
-                                $query_run = mysqli_query($con, $Announcementquery);
-                                while ($Announcements = mysqli_fetch_assoc($query_run)){
-                                  echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "'.$Announcements['id'].'" class="list-inline two-part-sp">'.$Announcements['title'].'</li>';
-                                }
-                              ?>
-                          
-                            </ul>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-            </div>
- </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+</div>
 
 
 
@@ -266,23 +264,23 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
         <div class="modal-footer">
-        <?php
-            if($appby == 1){
+          <?php
+  if ($appby == 1) {
+        ?>
+          <?php
+  } else {
             ?>
-            <?php 
-            }else{
-              ?>
-               <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
-              <?php } ?>
-            
-            <?php
-            if($appby == 1){
+          <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
+          <?php } ?>
+
+          <?php
+  if ($appby == 1) {
             ?>
-            <?php 
-            }else{
-              ?>
-               <button type="button" id="done-app" class="btn btn-info btn-md">Done Appointment</button>
-              <?php } ?>
+          <?php
+  } else {
+            ?>
+          <button type="button" id="done-app" class="btn btn-info btn-md">Done Appointment</button>
+          <?php } ?>
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -461,55 +459,68 @@ if (!isset($_SESSION['UserEmail'])) {
 </div>
 
 
-<!-- ANNOUNCEMENT -->
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div id="AnnouncementModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header header-color-modal bg-color-1">
-                        <h4 class="modal-title">Announcement</h4>
-                        <div class="modal-close-area modal-close-df">
-                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                        </div>
-                    </div>
-                    <form action="#" method="POST">
-                        <div class="modal-body">
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label id="dtitle" class="pull-left">Title: Hello World</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description:</label>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <p id="ddescription">sasdasaddsasdasdasdasdadsadsadsasdadsadsas
-                                          dasdadsasdasdasdasda
-                                          sdasdasdasdasdsdasdasdadsasdasdasdadsadas
-                                          sdadsadsa:</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label>Link: </label>
-                                        <a href="#">Web.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<!----------------------------------- ANNOUNCEMENT -------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div id="AnnouncementModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header header-color-modal bg-color-1">
+          <h4 class="modal-title">Announcement</h4>
+          <div class="modal-close-area modal-close-df">
+            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+          </div>
         </div>
+        <form action="#" method="POST">
+          <div class="modal-body">
+            <!-- <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label id="dtitle" class="pull-left">Title: Hello Worldczscsc</label>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="modal-body">
+                                        <h2 id="dtitle"></h2>
+                                        <br>
+                                        <p id="ddescription"></p>
+                                    </div> -->
+
+
+            <div class="form-group-inner">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                  <label class="login2 pull-right">Title </label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                  <p id="dtitle"></p>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="form-group-inner">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                  <label class="login2 pull-right">Description</label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                  <p id="ddescription"></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
+
+
+                          
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
   integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
@@ -749,7 +760,7 @@ if (!isset($_SESSION['UserEmail'])) {
               success: (data) => {
 
                 $("#VIEW_APPOINTMENT").modal("show");
- 
+
                 $("#view-information").val(data[0].info);
                 $("#view-type").val(data[0].appointment_type);
                 $("#view-date").val(data[0].date);
@@ -770,9 +781,9 @@ if (!isset($_SESSION['UserEmail'])) {
                 data: {
                   appid: events.event._def.publicId,
                   userid: $("#store-data").data("id"),
-          
+
                   date: $("#view-date").val(),
-                reason: $("#view-reason").val(),
+                  reason: $("#view-reason").val(),
                 },
                 xhrFields: {
                   withCredentials: true,
@@ -795,9 +806,9 @@ if (!isset($_SESSION['UserEmail'])) {
                 data: {
                   appid: events.event._def.publicId,
                   userid: $("#store-data").data("id"),
-          
+
                   date: $("#view-date").val(),
-                reason: $("#view-reason").val(),
+                  reason: $("#view-reason").val(),
                 },
                 xhrFields: {
                   withCredentials: true,
@@ -828,34 +839,30 @@ if (!isset($_SESSION['UserEmail'])) {
 </script>
 
 <script>
-function viewAnnouncement(li){
-  // Get the notification ID from the clicked element
-  var id = $(li).data('id');
-   
-  $.ajax({
-        
-        url: '../Guidance_Counselor_UI/thecodeannouncementGET.php',
-        data: {id: id},
-        success: function(data) {
-            var Announcement = JSON.parse(data);
-            var title = "Title: "+Announcement.title;
-            var description = Announcement.description;
+  function viewAnnouncement(li) {
+    // Get the notification ID from the clicked element
+    var id = $(li).data('id');
 
-            $('#dtitle').text(title);
-            $('#ddescription').text(description);
-          
-            $('#AnnouncementModal').modal('show');
-        }
+    $.ajax({
+
+      url: '../Guidance_Counselor_UI/thecodeannouncementGET.php',
+      data: { id: id },
+      success: function (data) {
+        var Announcement = JSON.parse(data);
+        var title = Announcement.title;
+        var description = Announcement.description;
+
+        $('#dtitle').text(title);
+        $('#ddescription').text(description);
+        $('#AnnouncementModal').modal('show');
+      }
     });
-}
+  }
 </script>
 
 
 <?php
   include('includes/stud___scripts.php');
 ?>
-
-
-
 
 <?php } ?>
