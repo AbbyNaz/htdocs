@@ -36,6 +36,21 @@ DB::insert('appointments', [
 
 $req_id = DB::insertId();
 
+// NOTIFICATION PURPOSES
+$from = $_POST['useridnumber']; //GUIDANCE ID NUMBER
+$type = 'Appointment';
+$infoID = $req_id;
+$isRead = 0;
+// $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
+DB::insert('notifications', [
+  'from_user' => $myid,
+  'to_user' => $from,
+  'Type' => $type,
+  'info_ID' => $infoID,
+  'isRead' => $isRead
+]);
+//////////////////////////////////////////
+
 $events = DB::query("SELECT * FROM appointments WHERE id='$req_id'");
 
 $data = [];

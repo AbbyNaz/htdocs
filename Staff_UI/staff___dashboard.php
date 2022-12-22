@@ -549,6 +549,13 @@ include('includes/staff___mobile_menu.php');
                 type: "POST",
                 dataType: "json",
                 data: {
+                  useridnumber: //FOR NOTIFICATION
+                  <?php
+                    $guidanceQuery = "SELECT id_number FROM users WHERE position = 'Guidance'";
+                    $Guidance = mysqli_query($con, $guidanceQuery);
+                    $GuidanceID = $Guidance->fetch_assoc();
+                    echo $GuidanceID['id_number'];
+                  ?>,
                   userid: $("#store-data").data("id"),
                   information: $("#information").val(),
                   type: $("#type").val(),
