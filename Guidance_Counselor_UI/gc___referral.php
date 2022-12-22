@@ -7,7 +7,7 @@ include('RefRejectionForm.php');
 include_once("../connections/connection.php");
 
 if(!isset($_SESSION['UserEmail'])) {
- 
+
     echo "<script>window.open('../loginForm.php','_self')</script>";
 } else {
 

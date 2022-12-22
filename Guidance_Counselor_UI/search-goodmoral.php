@@ -3,7 +3,7 @@
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $Search = $_POST['search'];
-        $sql = "SELECT * FROM users WHERE position = 'Student' AND first_name LIKE '%".$Search."%'";  
+        $sql = "SELECT * FROM users WHERE first_name LIKE '%".$Search."%'";  
         $result = mysqli_query($connect, $sql); 
 
         if(mysqli_num_rows($result) > 0){
