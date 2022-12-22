@@ -362,16 +362,6 @@ if (!isset($_SESSION['UserEmail'])) {
             });
 
         });
-
-    <?php 
-
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'Users'.DIRECTORY_SEPARATOR.$GLOBALS['computerUsername'].DIRECTORY_SEPARATOR.'Documents'.DIRECTORY_SEPARATOR.'Database Backup');
-    ?>
-    
-    // RESTORE SCRIPT
-    // $('#import_file').click(function() {
-    //     $(this).val('C:\Users\Nick\Documents\Database Backup');
-    // });
         
     </script>
 

@@ -11,6 +11,32 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  // CHECK AND UPDATE ANNOUNCEMENT IF MUST BE ACTIVE OR INACTIVE
+  $getAnnouncements = "SELECT * FROM announcements WHERE status = 'Active'";
+  $Announcements = mysqli_query($con, $getAnnouncements);
+
+  $currentDate = date('Y-m-d');
+  if (mysqli_num_rows($Announcements) > 0) {
+     
+
+    foreach ($Announcements as $Announcement) {
+      $AnnouncementID = $Announcement['id'];
+      $creationDate = $Announcement['creation_date'];
+      $durationDays = $Announcement['duration'];
+
+      $currentTimestamp = strtotime($currentDate);
+      $creationTimestamp = strtotime($creationDate);
+
+      $differenceInSeconds = $currentTimestamp - $creationTimestamp;
+      $differenceInDays = floor($differenceInSeconds / 86400);
+
+      if ($differenceInDays > $durationDays) { 
+        $updateAnnouncements = "UPDATE announcements SET status = 'Inactive' WHERE id = '$AnnouncementID'";
+        mysqli_query($con, $updateAnnouncements);
+      }
+    }
+  }
+
 ?>
 
 
@@ -129,7 +155,7 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
   </div>
   </div>
-
+<!--                          ADD NEW ANNOUNCEMENT                  -->
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div id="Add_Announcement" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
       <div class="modal-dialog">
@@ -141,7 +167,7 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
           </div>
 
-          <form action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
+          <form action="thecodeannouncement.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group-inner">
                 <div class="row">
@@ -176,23 +202,21 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="form-select-list">
                       <select class="form-control custom-select-value" name="announcement_duration" id="announcement_duration">
                       <option value="" disabled>Select Announcement Duration</option>
-                        <option value="1 day">1 day</option>
-                        <option value="2 days">2 days</option>
-                        <option value="3 days">3 days</option>
-                        <option value="4 days">4 days</option>
-                        <option value="5 days">5 days</option>
-                        <option value="6 days">6 days</option>
-                        <option value="1 week">1 weeks</option>
-                        <option value="2 weeks">2 weeks</option>
-                        <option value="3 weeks">3 weeks</option>
-                        <option value="4 weeks">4 weeks</option>
+                        <option value="1">1 day</option>
+                        <option value="2">2 days</option>
+                        <option value="3">3 days</option>
+                        <option value="4">4 days</option>
+                        <option value="5">5 days</option>
+                        <option value="6">6 days</option>
+                        <option value="7">1 weeks</option>
+                        <option value="14">2 weeks</option>
+                        <option value="21">3 weeks</option>
+                        <option value="28">4 weeks</option>
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
-
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
@@ -207,7 +231,7 @@ if (!isset($_SESSION['UserEmail'])) {
   </div>
 
 
-  <!-- Static Table Start -->
+  <!--                 ANNOUNCEMENT TABLE             -->
   <div class="data-table-area mg-b-15">
     <div class="container-fluid">
       <div class="row">
@@ -237,24 +261,60 @@ if (!isset($_SESSION['UserEmail'])) {
                     <tbody>
                       <?php
 
-                        $query = "SELECT * FROM announcements";
+                        $query = "SELECT * FROM announcements ORDER BY status";
                         $query_run = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($query_run) > 0) {
                           foreach ($query_run as $row) {
+                          
+                            switch ($row['duration']) { // CONVERT NUMBER OF DAYS TO STRING
+                              case 1:
+                                $duration = '1 day';
+                                break;
+                              case 2:
+                                $duration = '2 days';
+                                break;
+                              case 3:
+                                $duration = '3 days';
+                                break;
+                              case 4:
+                                $duration = '4 days';
+                                break;
+                              case 5:
+                                $duration = '5 days';
+                                break;
+                              case 6:
+                                $duration = '6 days';
+                                break;
+                              case 7:
+                                $duration = '1 week';
+                                break;
+                              case 14:
+                                $duration = '2 weeks';
+                                break;
+                              case 21:
+                                $duration = '3 weeks';
+                                break;
+                              case 28:
+                                $duration = '4 weeks';
+                                break;
+                              default:
+                                $duration = 'error';
+                                break;
+                            }
                       ?>
 
-                        <td><?= $row['TITLE'] ?></td>
-                        <td><?= $row['DESCRIPTION'] ?></td>
-                        <td><?= $row['DURATION'] ?></td>
-                        <td><?= $row['ANN_STATUS'] ?></td>
+                        <td><?= $row['title'] ?></td>
+                        <td><?= $row['description'] ?></td>
+                        <td><?= $duration ?></td>
+                        <td><?= $row['status'] ?></td>
 
                             <td>
                               <div style="display: flex; justify-content: center;">
 
-                        <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_Announcement" data-id="<?= $row['ID'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                        <button onclick="ShowModal(this)" title="Edit" class="pd-setting-ed" data-type="edit" data-id="<?= $row['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
-                        <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#Delete_Announcement" data-id="<?= $row['ID'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button onclick="ShowModal(this)" title="Delete" class="pd-setting-ed" data-type="delete" data-id="<?= $row['id'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
                       </div>
                     </td>
@@ -298,7 +358,7 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
           </div>
 
-          <form action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
+          <form id="editForm" action="thecodeannouncement.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group-inner">
                 <div class="row">
@@ -306,7 +366,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Title of Announcement</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Title" name="edit_title" id="edit_title" required/>
+                    <input id="etitle" type="text" class="form-control" placeholder="Enter Title" name="edit_title" required/>
                   </div>
                 </div>
               </div>
@@ -317,7 +377,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Description</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;" maxlength="500" id="edit_description" required></textarea>
+                    <textarea id="edescription" class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;" maxlength="500" required></textarea>
                   </div>
                 </div>
               </div>
@@ -329,18 +389,18 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="edit_duration" id="edit_duration" required>
-                      <option value="" disabled>Select Announcement Duration</option>
-                        <option value="1 day">1 day</option>
-                        <option value="2 days">2 days</option>
-                        <option value="3 days">3 days</option>
-                        <option value="4 days">4 days</option>
-                        <option value="5 days">5 days</option>
-                        <option value="6 days">6 days</option>
-                        <option value="1 week">1 weeks</option>
-                        <option value="2 weeks">2 weeks</option>
-                        <option value="3 weeks">3 weeks</option>
-                        <option value="4 weeks">4 weeks</option>
+                      <select id="eduration" class="form-control custom-select-value" name="edit_duration"  required>
+                        <option value="" disabled>Select Announcement Duration</option>
+                        <option value="1">1 day</option>
+                        <option value="2">2 days</option>
+                        <option value="3">3 days</option>
+                        <option value="4">4 days</option>
+                        <option value="5">5 days</option>
+                        <option value="6">6 days</option>
+                        <option value="7">1 weeks</option>
+                        <option value="14">2 weeks</option>
+                        <option value="21">3 weeks</option>
+                        <option value="28">4 weeks</option>
                       </select>
                     </div>
                   </div>
@@ -354,11 +414,10 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="edit_status"
-                        id="edit_status" required>
+                      <select id="estatus" class="form-control custom-select-value" name="edit_status" required>
                         <option value="" disabled>Select Status</option>
-                        <option>Active</option>
-                        <option>Deactive</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
                       </select>
                     </div>
                   </div>
@@ -393,7 +452,7 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
           </div>
 
-          <form action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
+          <form id="deleteForm" action="thecodeannouncement.php" method="post" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group-inner">
                 <div class="row">
@@ -401,7 +460,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Title of Announcement</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Title" name="delete_title" id="delete_title" readonly/>
+                    <input type="text" class="form-control" placeholder="Enter Title" name="delete_title" id="dtitle" readonly/>
                   </div>
                 </div>
               </div>
@@ -412,7 +471,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Description</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea class="form-control" rows="5" name="delete_description" style="margin-bottom: 10px;" maxlength="500" id="delete_description" readonly></textarea>
+                    <textarea class="form-control" rows="5" name="delete_description" style="margin-bottom: 10px;" maxlength="500" id="ddescription" readonly></textarea>
                   </div>
                 </div>
               </div>
@@ -424,18 +483,18 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="delete_duration" id="delete_duration" readonly>
-                      <option value="" disabled>Select Announcement Duration</option>
-                        <option value="1 day">1 day</option>
-                        <option value="2 days">2 days</option>
-                        <option value="3 days">3 days</option>
-                        <option value="4 days">4 days</option>
-                        <option value="5 days">5 days</option>
-                        <option value="6 days">6 days</option>
-                        <option value="1 week">1 weeks</option>
-                        <option value="2 weeks">2 weeks</option>
-                        <option value="3 weeks">3 weeks</option>
-                        <option value="4 weeks">4 weeks</option>
+                      <select class="form-control custom-select-value" name="delete_duration" id="dduration" readonly>
+                        <option value="" disabled>Select Announcement Duration</option>
+                        <option value="1">1 day</option>
+                        <option value="2">2 days</option>
+                        <option value="3">3 days</option>
+                        <option value="4">4 days</option>
+                        <option value="5">5 days</option>
+                        <option value="6">6 days</option>
+                        <option value="7">1 weeks</option>
+                        <option value="14">2 weeks</option>
+                        <option value="21">3 weeks</option>
+                        <option value="28">4 weeks</option>
                       </select>
                     </div>
                   </div>
@@ -450,10 +509,10 @@ if (!isset($_SESSION['UserEmail'])) {
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
                       <select class="form-control custom-select-value" name="delete_status"
-                        id="delete_status" readonly>
+                        id="dstatus" readonly>
                         <option value="" disabled>Select Status</option>
-                        <option>Active</option>
-                        <option>Deactive</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
                       </select>
                     </div>
                   </div>
@@ -478,6 +537,50 @@ if (!isset($_SESSION['UserEmail'])) {
     ?>
 
 
+  <!-- UPDATE AND DELETE -->
+  <script>
+  function ShowModal(button) {
+    var id = $(button).data('id');
+    var type = $(button).data('type');
+
+    $.ajax({
+        
+        url: 'thecodeannouncementGET.php',
+        data: {id: id},
+        success: function(data) {
+            var Announcement = JSON.parse(data);
+            var title = Announcement.title;
+            var description = Announcement.description;
+            var duration = Announcement.duration;
+            var status = Announcement.status;
+          
+          if(type == 'edit'){
+            $('#etitle').val(title);
+            $('#edescription').val(description);
+            $('#eduration').val(duration);
+            $('#estatus').val(status);
+
+            $('#editForm').attr("action", "thecodeannouncement.php?id="+id+"");
+          
+            $('#Edit_Announcement').modal('show');
+          }else{
+            $('#dtitle').val(title);
+            $('#ddescription').val(description);
+            $('#dduration').val(duration);
+            $('#dstatus').val(status);
+
+            $('#deleteForm').attr("action", "thecodeannouncement.php?id="+id+"");
+          
+            $('#Delete_Announcement').modal('show');
+          }
+
+
+            
+        }
+    });
+  }
+
+  </script>
   <!-- scrollUp JS
 		============================================ -->
   <script src="js/jquery.scrollUp.min.js"></script>

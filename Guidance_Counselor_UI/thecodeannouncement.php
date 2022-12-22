@@ -16,10 +16,9 @@ if (!isset($_SESSION['UserEmail'])) {
         $announcement_title = $_POST['announcement_title'];
         $announcement_description = $_POST['announcement_description'];
         $announcement_duration = $_POST['announcement_duration'];
-        $datetime = date("Y-m-d H:i:s");
         $announcement_status = "Active";
    
-        $add_announcement = "INSERT INTO announcements ( `TITLE`, `DESCRIPTION`,`DURATION`,`TIME`, `ANN_STATUS`) VALUES ('$announcement_title','$announcement_description', '$announcement_duration', '$datetime','$announcement_status')";
+        $add_announcement = "INSERT INTO announcements ( `title`, `description`,`duration`, `status`) VALUES ('$announcement_title','$announcement_description', '$announcement_duration','$announcement_status')";
         $query_run = $con->query($add_announcement) or die($con->error);
 
 
@@ -52,16 +51,37 @@ if (!isset($_SESSION['UserEmail'])) {
             $query_runs = $con->query($add_logs) or die($con->error);
         }
 
-    }else if (isset($_POST['update_announcement'])) {
-
+    }else if (isset($_POST['edit_announcement']) && isset($_GET['id'])) {
+        $announcement_id = $_GET['id'];
         $announcement_title = $_POST['edit_title'];
         $announcement_description = $_POST['edit_description'];
         $announcement_duration = $_POST['edit_duration'];
         $announcement_status = $_POST['edit_status'];
-   
-        $update_announcement = "UPDATE announcements SET TITLE = '$announcement_title' , DESCRIPTION = '$announcement_description', DURATION = '$announcement_duration'";
-        $query_runs = $con->query($update_announcement) or die($con->error);
 
+        // if inactive change to active the start time will change to the active date
+        if ($announcement_status == 'Active') {
+            $current_date = date("Y-m-d");
+            $getAnnouncement = "SELECT * FROM announcements WHERE id = '$announcement_id'";
+            $results =  mysqli_query($con, $getAnnouncement);
+            $Announcement = mysqli_fetch_assoc($results);
+
+            if(strcmp($Announcement['status'], 'Inactive') == 0){
+                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+                                duration = '$announcement_duration', status = '$announcement_status', creation_date = '$current_date' WHERE id = '$announcement_id'";
+                $query_runs = $con->query($update_announcement) or die($con->error);
+
+            }else{
+                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+                                duration = '$announcement_duration', status = '$announcement_status' WHERE id = '$announcement_id'";
+                $query_runs = $con->query($update_announcement) or die($con->error);
+            }
+        }else{
+            $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+                                duration = '$announcement_duration', status = '$announcement_status' WHERE id = '$announcement_id'";
+            $query_runs = $con->query($update_announcement) or die($con->error);
+        }
+        
+        
 
         if ($query_runs) {
             // echo "Saved";
@@ -95,7 +115,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
     }else if (isset($_POST['delete_announcement'])) {
 
-        $announcement_id = $_SESSION['ID'];
+        $announcement_id = $_GET['id'];
         $announcement_title = $_POST['delete_title'];
         $announcement_description = $_POST['delete_description'];
         $announcement_status = $_POST['delete_status'];
@@ -104,7 +124,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $query_run = $con->query($delete_announcement) or die($con->error);
 
 
-        if ($query_runs) {
+        if ($query_run) {
             // echo "Saved";
             $_SESSION['status'] = "Announcement Deleted";
             $_SESSION['status_code'] = "success";
