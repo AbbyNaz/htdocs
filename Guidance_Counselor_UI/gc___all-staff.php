@@ -229,7 +229,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="mySelect" class="form-control custom-select-value" name="staff_dep_position" onchange="changeDropdown(this.value);">
+                        <select id="mySelect" class="form-control custom-select-value" name="staff_dep_position1" onchange="changeDropdown(this.value);">
                           <option value="Lab Custodian">Lab Custodian</option>
                           <option value="Kitchen Custodian">Kitchen Custodian</option>
                           <option value="Instructor">Instructor</option>
@@ -247,7 +247,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="mySelect" class="form-control custom-select-value" name="staff_dep_position" onchange="changeDropdown(this.value);">
+                        <select id="mySelect" class="form-control custom-select-value" name="staff_dep_position2" onchange="changeDropdown(this.value);">
                           <option value="Registrar">Registrar</option>
                           <option value="Record">Record</option>
                           <option value="Administrative Officer">Administrative Officer</option>
@@ -510,7 +510,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="Select_Department" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" required>
+                        <select onchange="changeEditDropdown(this)" class="form-control custom-select-value" name="edit_staff_department" id="edit_staff_department" required>
                           <option disabled selected value>Select Department</option>
                           <option value="Academics">Academics</option>
                           <option value="Administrative">Administrative</option>
@@ -520,32 +520,31 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                 </div>
 
-                <div class="form-group-inner" id="ACADEMIC_POSITIONS">
+                <div class="form-group-inner" id="ACA_POS">
                   <div class=" row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right">Academic Position</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="mySelect" class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_position">
+                        <select class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_positionAC">
                           <option value="Lab Custodian">Lab Custodian</option>
                           <option value="Kitchen Custodian">Kitchen Custodian</option>
                           <option value="Instructor">Instructor</option>
                           <option value="Academic Head">Academic Head</option>
-
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group-inner" id="ADMINISTRATIVE_POSITIONS" style="display: none">
+                <div class="form-group-inner" id="AD_POS">
                   <div class=" row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right">Administrative Position</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select id="mySelect" class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_position" onchange="changeDropdown(this.value);">
+                        <select class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_positionAD">  
                           <option value="Registrar">Registrar</option>
                           <option value="Record">Record</option>
                           <option value="Administrative Officer">Administrative Officer</option>
@@ -668,6 +667,24 @@ if (!isset($_SESSION['UserEmail'])) {
           document.getElementById("ADMINISTRATIVE_POSITIONS").style.display = "none";
         }
       }
+
+
+      function changeEditDropdown(select) {
+        
+        var value = $(select).val();
+        // alert(state);
+        if (value == "Academics") {
+          document.getElementById("ACA_POS").style.display = "block";
+          document.getElementById("AD_POS").style.display = "none";
+
+        } else if (value == "Administrative") {
+          document.getElementById("AD_POS").style.display = "block";
+          document.getElementById("ACA_POS").style.display = "none";
+        } else {
+          document.getElementById("ACA_POS").style.display = "none";
+          document.getElementById("AD_POS").style.display = "none";
+        }
+      }
     </script>
 
     <script>
@@ -683,8 +700,8 @@ if (!isset($_SESSION['UserEmail'])) {
           },
 
           success: function(response) {
-            console.log(response);
-            userData = jQuery.parseJSON(response)
+            userData = jQuery.parseJSON(response);
+
             $('#edit_staff_id').val(userData[0].id_number);
             $('#edit_staff_first_name').val(userData[0].first_name);
             $('#edit_staff_middle_name').val(userData[0].middle_name);
@@ -692,7 +709,16 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#edit_staff_address').val(userData[0].address);
             $('#edit_staff_contact').val(userData[0].contact);
             $('#edit_staff_department').val(userData[0].department);
-            $('#edit_staff_position').val(userData[0].dep_position);
+            changeEditDropdown($('#edit_staff_department'));
+
+            if(userData[0].department == "Academics"){
+              $('#edit_staff_positionAC').val(userData[0].dep_position);
+              console.log("AC "+ userData[0].department);
+            }else if(userData[0].department == "Administrative"){
+              $('#edit_staff_positionAD').val(userData[0].dep_position);
+              console.log("AC "+ userData[0].department);
+            }
+            
           }
 
         });

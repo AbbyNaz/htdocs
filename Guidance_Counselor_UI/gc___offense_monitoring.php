@@ -823,7 +823,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#id').val(userData[0].id);
             $('#student_id').val(userData[0].student_id);
             $('#stud_name').val(userData[0].stud_name);
-            $('#edit_offense_type').val(userData[0].offense_type);
+            $('#edit_offense_type').val(userData[0].offensetype);
             $('#edit_offensedescription').val(userData[0].offensedescription);
             $('#edit_sanction').val(userData[0].sanction);
             $('#edit_start_date').val(userData[0].start_date);
