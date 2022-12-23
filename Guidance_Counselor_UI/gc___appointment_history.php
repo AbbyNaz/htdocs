@@ -10,7 +10,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
     $con = connection();
     // AND appointments.app_status NOT LIKE 'Cancelled%'
-    $query = "SELECT * FROM users LEFT JOIN appointment_history ON appointment_history.id_number = users.id_number WHERE appointment_history.id IS NOT NULL ";
+    $query = "SELECT * FROM users LEFT JOIN appointment_history ON appointment_history.id_number = users.id_number WHERE appointment_history.id IS NOT NULL ORDER BY appointment_history.date_accomplished DESC";
     $get_app = $con->query($query) or die($con->error);
     $row = $get_app->fetch_assoc();
 

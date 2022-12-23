@@ -274,7 +274,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <tbody>
                       <?php
 
-                        $query = "SELECT * FROM announcements ORDER BY status";
+                        $query = "SELECT * FROM announcements ORDER BY status ASC";
                         $query_run = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($query_run) > 0) {
