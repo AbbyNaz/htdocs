@@ -4,7 +4,7 @@
 
     if(isset($_SESSION['UserId'])){
         $user_id = $_SESSION['UserId'];
-        $user_query = "SELECT id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
+        $user_query = "SELECT profile_picture,id_number, first_name, last_name FROM users WHERE user_id = '$user_id'";
         $user_con = $con->query($user_query) or die ($con->error);
         $row_user = $user_con->fetch_assoc();
 
@@ -238,7 +238,13 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                                            <img src="img/profile/1.jpg" alt="" />
+                                                            <?php if ($row_user['profile_picture'] != null) { ?>
+                                                                <img src="../Guidance_Counselor_UI/show_profile_picture.php" alt="" />
+                                                            <?php } else { ?>
+                                                                <img src="img/users/1.jpg" alt="profile_picture" />
+                                                            <?php } ?>
+                                                            
+                                                    
                                                             <span class="admin-name">
                                                                 
                                                                 <?php echo $row_user['first_name']?> <?php echo $row_user['last_name']?>
