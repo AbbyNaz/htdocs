@@ -224,7 +224,7 @@ $con = connection();
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="../Student_UI/stud___offense_monitoring.php" method="POST">
                         <div class="modal-body">
 
                             <div class="form-group-inner" id="STAFF_ID">
@@ -282,7 +282,7 @@ $con = connection();
 
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
-                            <a href="../Student_UI/stud___offense_monitoring.php" class="btn btn-secondary btn-md" >View Offenses</a>
+                            <button type="submit" class="btn btn-secondary btn-md" >View Offenses</button>
                         </div>
                     </form>
                 </div>
@@ -305,7 +305,7 @@ $con = connection();
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="../Student_UI/stud___set_referral.php" method="POST">
                         <div class="modal-body">
 
                                 <div class="form-group-inner">
@@ -385,7 +385,7 @@ $con = connection();
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
                             <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
-                            <a href="../Student_UI/stud___set_referral.php" class="btn btn-primary btn-md">View Referrals</a>
+                            <button type="submit" class="btn btn-primary btn-md">View Referrals</button>
                         </div>
                     </form>
                 </div>
@@ -408,7 +408,7 @@ $con = connection();
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="../Student_UI/stud___set_appointment.php" method="POST">
                         <div class="modal-body">
                        
                         <div class="form-group-inner">
@@ -439,7 +439,7 @@ $con = connection();
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
                             <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
-                            <a href="../Student_UI/stud___set_appointment.php" class="btn btn-primary btn-md">View Appointments</a>
+                            <button type="submit" class="btn btn-primary btn-md">View Appointments</button>
                         </div>
                     </form>
                 </div>

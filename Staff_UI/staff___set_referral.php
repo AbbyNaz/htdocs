@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_SESSION['UserId'])) {
         $UserId = $_SESSION['UserId'];
         $UserEmail = $_SESSION['UserEmail'];
-        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE 'Cancelled%'";
+        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE 'Cancelled%'  ORDER BY users.last_name ASC";
         $get_referral = $con->query($refferal) or die($con->error);
         $row = $get_referral->fetch_assoc();
 

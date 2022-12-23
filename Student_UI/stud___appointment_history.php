@@ -21,7 +21,7 @@ if (!isset($_SESSION['UserEmail'])) {
     // AND appointments.app_status NOT LIKE 'Cancelled%'
 
   
-    $query = "SELECT * FROM appointment_history WHERE id_number = $userid ";
+    $query = "SELECT * FROM appointment_history WHERE id_number = $userid ORDER BY date_accomplished DESC";
     $get_app = $con->query($query) or die($con->error);
     $row = $get_app->fetch_assoc();
 
