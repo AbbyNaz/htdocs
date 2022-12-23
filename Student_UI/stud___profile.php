@@ -710,8 +710,9 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                 </div>
 
                                                                                 <div class="input-field">
-                                                                                    <label>Picture</label><br>
-                                                                                    <input type="file" id="profile" name="profile"></select>
+                                                                                    <label>Picture</label>
+                                                                                    <input type="file" style="padding-top: 8px;" name="files[]" class="form-control" accept="image/*"
+                                                                                             required />
                                                                                 </div>
 
                                                                                 <!-- <div class="input-field">
