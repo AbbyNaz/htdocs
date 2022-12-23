@@ -311,7 +311,7 @@ span.deleteicon input {
                   <ul class="breadcome-menu">
                     <li><a href="gc___dashboard.php">Home</a> <span class="bread-slash">/</span>
                     </li>
-                    <li><span class="bread-blod">SMS</span>
+                    <li><span class="bread-blod">Inbox</span>
                     </li>
                   </ul>
                 </div>

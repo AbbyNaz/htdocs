@@ -196,6 +196,18 @@ if (!isset($_SESSION['UserEmail'])) {
               <div class="form-group-inner">
                 <div class="row">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right">Link</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" placeholder="Enter Link" name="announcement_link"
+                      required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <label class="login2 pull-right pull-right-pro">Duration</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -253,6 +265,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <tr>
                         <th data-field="title">Title</th>
                         <th data-field="description">Description</th>
+                        <th data-field="link">Link</th>
                         <th data-field="duration">Duration</th>
                         <th data-field="status">Status</th>
                         <th data-field="action">Action</th>
@@ -306,6 +319,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                         <td><?= $row['title'] ?></td>
                         <td><?= $row['description'] ?></td>
+                        <td><?= $row['link'] ?></td>
                         <td><?= $duration ?></td>
                         <td><?= $row['status'] ?></td>
 
@@ -378,6 +392,18 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <textarea id="edescription" class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;" maxlength="500" required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right">Link</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  <input id="elink"type="text" class="form-control" placeholder="Enter Link" name="edit_link"
+                      required />
                   </div>
                 </div>
               </div>
@@ -479,6 +505,18 @@ if (!isset($_SESSION['UserEmail'])) {
               <div class="form-group-inner">
                 <div class="row">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right">Link</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" placeholder="Enter Link" name="delete_link" id="dlink"
+                      required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <label class="login2 pull-right pull-right-pro">Duration</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -558,6 +596,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#etitle').val(title);
             $('#edescription').val(description);
             $('#eduration').val(duration);
+            $('#elink').val(duration);
             $('#estatus').val(status);
 
             $('#editForm').attr("action", "thecodeannouncement.php?id="+id+"");
@@ -567,6 +606,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#dtitle').val(title);
             $('#ddescription').val(description);
             $('#dduration').val(duration);
+            $('#dlink').val(link);
             $('#dstatus').val(status);
 
             $('#deleteForm').attr("action", "thecodeannouncement.php?id="+id+"");

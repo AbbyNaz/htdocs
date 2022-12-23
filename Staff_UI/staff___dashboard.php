@@ -214,13 +214,18 @@ include('includes/staff___mobile_menu.php');
 
         <div class="modal-body">
 
-          <div class="form-group-inner data-custon-pick" id="data_2">
+        <input type="hidden" id="myid" class="form-control" disabled />
+        <input type="hidden" id="fullname" class="form-control" disabled />
+        <input type="hidden" id="pos" class="form-control" disabled />
+
+
+          <!-- <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
                 <label class="login2 pull-right" style="font-weight: bold;">ID</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="myid" class="form-control" disabled />
+                <input type="hidden" id="myid" class="form-control"  />
               </div>
             </div>
           </div>
@@ -245,7 +250,7 @@ include('includes/staff___mobile_menu.php');
                 <input type="text" id="pos" class="form-control" disabled />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group-inner">
             <div class="row">
@@ -302,7 +307,8 @@ include('includes/staff___mobile_menu.php');
               </div>
             </div>
           </div>
-          <div class="form-group-inner">
+          
+          <!-- <div class="form-group-inner">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <label class="login2 pull-right">Concern</label>
@@ -315,7 +321,7 @@ include('includes/staff___mobile_menu.php');
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
