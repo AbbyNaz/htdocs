@@ -13,51 +13,30 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  
+  $Active_offense = "UPDATE offense_monitoring
+                      SET status = 'Active', sanction_info = 
+                                CASE
+                                    WHEN DATEDIFF(end_date, CURDATE()) > 1 THEN CONCAT(DATEDIFF(end_date, CURDATE()), ' days')
+                                    WHEN DATEDIFF(end_date, CURDATE()) = 1 THEN CONCAT(DATEDIFF(end_date, CURDATE()), ' day')
+                                END
+                      WHERE start_date <= CURDATE() AND end_date >= CURDATE()";
+  $con->query($Active_offense) or die($con->error);
+                    
+  $Inactive_offense = "UPDATE offense_monitoring
+                        SET status = 'Inactive',
+                            sanction_info =
+                                CASE
+                                    WHEN start_date > CURDATE() THEN 'Not Started'
+                                    WHEN end_date < CURDATE() THEN 'Sanction Ended'
+                                END
+                        WHERE start_date > CURDATE() OR end_date < CURDATE();";
+  $con->query($Inactive_offense) or die($con->error);
+
+
   $offense = "SELECT * FROM offense_monitoring";
   $get_offense = $con->query($offense) or die($con->error);
   $row = $get_offense->fetch_assoc();
-
-
-          function startEndDaysDiff($startDate, $endDate)
-          {
-            // Calculating the difference in timestamps
-            $diff = strtotime($endDate) - strtotime($startDate);
-            return abs(round($diff / 86400));
-          }
-
-  // Sanction Days left
-  if(!empty($row)){
-    $off_id = $row['id'];
-    $startDate = $row['start_date'];
-    $endDate = $row['end_date'];
-  
-    $currentDate = date("d-m-Y");
-
-    $date_start_end_diff = startEndDaysDiff($startDate, $endDate);
-    // echo("Difference between two dates: " . $date_start_end_diff . " Days ");
-
-    if ($startDate >= $currentDate) {
-      $sanction_info = ($date_start_end_diff + 1) . " days";
-      $stat = "Active";
-      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-      $stat_con = $con->query($update_status_query) or die($con->error);
-    } 
-    elseif ($startDate < $currentDate) {
-      $sanction_info = "Sanction ended";
-      $stat = "Inactive";
-      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-      $stat_con = $con->query($update_status_query) or die($con->error);
-    } 
-    else {
-      $sanction_info = ($date_start_end_diff + 1) . " days";;
-    }
-
-    if ($sanction_info == "Sanction Ended") {
-      $stat = "Inactive";
-      $update_status_query = "UPDATE offense_monitoring SET status='$stat' WHERE id = '$off_id'";
-      $stat_con = $con->query($update_status_query) or die($con->error);
-    }
-  }
 
   if (isset($_POST['add_offense'])) {
 
@@ -493,8 +472,8 @@ if (!isset($_SESSION['UserEmail'])) {
                         <th data-field="task">Start Date</th>
                         <th data-field="taska">End Date</th>
                         <th data-field="date">Sanction</th>
-                        <!-- <th data-field="price">Sanction Info</th> -->
-                        <!-- <th data-field="status">Statlus</th> -->
+                        <th data-field="price">Sanction Info</th>
+                        <th data-field="status">Status</th>
                         <th data-field="action">Action</th>
                       </tr>
                     </thead>
@@ -511,8 +490,8 @@ if (!isset($_SESSION['UserEmail'])) {
                             <td><?php echo date("F d, Y", strtotime($row['start_date'])) ?></td>
                             <td><?php echo date("F d, Y", strtotime($row['end_date'])) ?></td>
                             <td><?php echo $row['sanction'] ?></td>
-                            <!-- <td><?php echo $sanction_info ?></td> -->
-                            <!-- <td><?php echo $stat ?></td> -->
+                            <td><?php echo $row['sanction_info'] ?></td>
+                            <td><?php echo $row['status'] ?></td>
                             <td>
                               <div style="display: flex; justify-content: center;">
 
@@ -679,7 +658,7 @@ if (!isset($_SESSION['UserEmail'])) {
               </div>
             </div>
 
-            <form action="offense_monitoring_code.php" method="post">
+            <form id="OffDeleteForm" action="offense_monitoring_code.php" method="post">
 
               <div class="modal-body">
                 <div class="form-group-inner">
@@ -859,6 +838,8 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#delete_start_date').val(userData[0].start_date);
             $('#delete_end_date').val(userData[0].end_date);
             $('#delete_offensestatus').val(userData[0].offensestatus);
+
+            $('#OffDeleteForm').attr("action", "offense_monitoring_code.php?info="+userID+"");
           }
 
         });
