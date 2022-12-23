@@ -132,18 +132,17 @@
                                                         <ul class="notification-menu">
                                                         <?php
                                                         
-                                                                  // CHECK ALL APPOINTMENT FIRST IF IS TODAY
-                                                                  $query = "SELECT a.*
-                                                                  FROM appointments a
-                                                                  LEFT JOIN notifications n ON n.Type = 'Reminder' AND n.info_ID = a.id
-                                                                  WHERE n.id IS NULL AND a.date = CURRENT_DATE";
+                                                                $query = "SELECT a.*
+                                                                            FROM appointments a
+                                                                            LEFT JOIN notifications n ON n.Type = 'Reminder' AND n.info_ID = a.id
+                                                                            WHERE n.id IS NULL AND a.date = CURRENT_DATE";
+                                                                
+                                                                $result = $con->query($query) or die ($con->error);
+                                                                
+                                                                while ($Appointment = $result->fetch_assoc()) {
+                                                                    Reminder($Appointment["id"], $Appointment["id_number"], $id);
+                                                                }
 
-                                                                    $result = $con->query($query) or die ($con->error);
-
-                                                                    while ($Appointment = $result->fetch_assoc()) {
-                                                                        Reminder($Appointment["id"], $Appointment["id_number"], $id);
-                                                                    }
-                                                                    
                                                                 // ICONS -- Change the icons
                                                                 $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
                                                                 $refferal_icon = "fa fa-cloud edu-cloud-computing-down";

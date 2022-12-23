@@ -157,8 +157,9 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
                     <form method="POST">
 
                       <input type="text" id="search" class="form-control" placeholder="Search Students..." />
+
                       <button type="button" id="btn_search" class="btn btn-primary"> Search </button>
-                      <button type="button" id="btn_reload" class="btn btn-primary"> Generate </button>
+
                     </form>
                   </div>
 
@@ -186,7 +187,7 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
             <div class="panel-heading hbuilt mailbox-hd">
 
               <div class="panel-body">
-                <iframe src="GM_Certs/picture.PDF" frameborder="0" width="100%" height="947px">
+                <iframe src="GM_Certs/Picture.PDF" frameborder="0" width="100%" height="947px">
                 </iframe>
 
               </div>
@@ -199,7 +200,7 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
   </div>
 
   <script>
-    let reload = document.querySelector("#btn_reload");
+    let reload = document.querySelector("#btn_search"); 
       reload.addEventListener("click",function(){
         window.location.reload();
       })
