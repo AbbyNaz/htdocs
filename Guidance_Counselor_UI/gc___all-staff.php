@@ -368,7 +368,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                       // $connection = mysqli_connect('localhost', 'root', '', 'guidance_and_counseling');
 
-                      $query = "SELECT * FROM users WHERE role = 2";
+                      $query = "SELECT * FROM users WHERE role = 2 ORDER BY last_name ASC";
                       $query_run = mysqli_query($con, $query);
 
                       if (mysqli_num_rows($query_run) > 0) {

@@ -185,7 +185,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                       <?php
 
-                      $query = "SELECT * FROM logs";
+                      $query = "SELECT * FROM logs  ORDER BY date_created DESC";
                       $query_run = mysqli_query($con, $query);
                       if (mysqli_num_rows($query_run) > 0) {
                         foreach ($query_run as $row) {

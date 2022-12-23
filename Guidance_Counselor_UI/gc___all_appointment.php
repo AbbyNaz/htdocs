@@ -104,7 +104,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_GET['feedback_id'])) {
         $app_id = $_GET['feedback_id'];
 
-        $app_query = "SELECT * FROM users LEFT JOIN appointments ON appointments.id_number = users.id_number WHERE appointments.id = '$app_id'";
+        $app_query = "SELECT * FROM users LEFT JOIN appointments ON appointments.id_number = users.id_number WHERE appointments.id = '$app_id' ORDER BY appointments.date DESC";
         $app_details = $con->query($app_query) or die($con->error);
         $app_row =  $app_details->fetch_assoc();
 
