@@ -132,15 +132,15 @@
                                                         <ul class="notification-menu">
                                                         <?php
                                                         
-                                                                // CHECK ALL APPOINTMENT FIRST IF IS TODAY -- make the appointment unread so that it can be seen by user
-                                                                $Appointment_query = "SELECT * FROM appointments";
-                                                                $results = $con->query($Appointment_query) or die ($con->error);
-
-                                                                $currentDate = date('Y-m-d');
-                                                                while ($Appointment = mysqli_fetch_assoc($results)) {
-                                                                    if ($Appointment["date"] == $currentDate) {
-                                                                        Reminder( $Appointment["id"], $Appointment["id_number"], $id);
-                                                                    }
+                                                                $query = "SELECT a.*
+                                                                            FROM appointments a
+                                                                            LEFT JOIN notifications n ON n.Type = 'Reminder' AND n.info_ID = a.id
+                                                                            WHERE n.id IS NULL AND a.date = CURRENT_DATE";
+                                                                
+                                                                $result = $con->query($query) or die ($con->error);
+                                                                
+                                                                while ($Appointment = $result->fetch_assoc()) {
+                                                                    Reminder($Appointment["id"], $Appointment["id_number"], $id);
                                                                 }
 
                                                                 // ICONS -- Change the icons
