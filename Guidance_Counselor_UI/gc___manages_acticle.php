@@ -57,9 +57,9 @@ if (!isset($_SESSION['UserEmail'])) {
   } elseif (isset($_POST['update_article'])) {
 
     $articlecode = trim($_POST['articlecode']);
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $duration = trim($_POST['duration']);
+    $title = trim($_POST['edit_title']);
+    $description = trim($_POST['edit_description']);
+    $duration = trim($_POST['edit_duration']);
     $status = trim($_POST['art_status']);
     $picturepath = trim($_POST['picturepath']);
     $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
@@ -348,11 +348,11 @@ if (!isset($_SESSION['UserEmail'])) {
                   <tbody>
                     <?php
 
-  $query = "SELECT * FROM articles";
-  $query_run = mysqli_query($con, $query);
+                      $query = "SELECT * FROM articles";
+                      $query_run = mysqli_query($con, $query);
 
-  if (mysqli_num_rows($query_run) > 0) {
-    foreach ($query_run as $row) {
+                      if (mysqli_num_rows($query_run) > 0) {
+                        foreach ($query_run as $row) {
                       ?>
 
                     <tr id="<?php echo $row['ARTICLECODE']; ?>">
@@ -379,15 +379,15 @@ if (!isset($_SESSION['UserEmail'])) {
 
                     <?php
 
-    }
-  } else {
+                          }
+                        } else {
                         ?>
                     <tr>
                       <td colspan="4">No Record Found</td>
                     </tr>
 
                     <?php
-  }
+                           }
                       ?>
 
                   </tbody>
@@ -423,7 +423,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Title of Article</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Title" name="title" id="title" />
+                    <input type="text" class="form-control" placeholder="Enter Title" name="edit_title" id="edit_title" />
                   </div>
                 </div>
               </div>
@@ -434,8 +434,8 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Description</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea class="form-control" rows="5" name="description" style="margin-bottom: 10px;"
-                      maxlength="500" placeholder="Enter Article Description" id="description" required></textarea>
+                    <textarea class="form-control" rows="5" name="edit_description" style="margin-bottom: 10px;"
+                      maxlength="500" placeholder="Enter Article Description" id="edit_description" required></textarea>
                   </div>
                 </div>
               </div>
@@ -459,7 +459,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="duration" id="duration">
+                      <select class="form-control custom-select-value" name="edit_duration" id="edit_duration">
                         <option value="" disabled>Select Duration Month</option>
                         <option>January</option>
                         <option>February</option>
@@ -530,10 +530,10 @@ if (!isset($_SESSION['UserEmail'])) {
           console.log(response);
           userData = jQuery.parseJSON(response)
           $('#articlecode').val(userData[0].articlecode);
-          $('#title').val(userData[0].title);
-          $('#description').val(userData[0].description);
+          $('#edit_title').val(userData[0].title);
+          $('#edit_description').val(userData[0].description);
           $('#picturepath').val(userData[0].picture);
-          $('#duration').val(userData[0].duration);
+          $('#edit_duration').val(userData[0].duration);
           $('#articlestatus').val(userData[0].status);
         }
 
