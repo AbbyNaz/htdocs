@@ -207,7 +207,6 @@ if(!isset($_SESSION['UserEmail'])){
         </div>
     </div>
     <!-- Static Table End -->
-    <?php include('includes/gc___footer.php')   ?>
     </div>
 
     <!-- jquery

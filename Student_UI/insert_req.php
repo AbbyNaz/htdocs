@@ -16,7 +16,7 @@ $selectTimeslotto = $_POST['selectTimeslotto'];
 $pos = $_POST['pos'];
 $myid = $_POST['myid'];
 
-$check = DB::query("SELECT limit_app FROM users WHERE user_id='$userid'");
+$check = DB::query("SELECT limit_app, first_name, last_name FROM users WHERE user_id='$userid'");
 
 if ($check[0]['limit_app'] == 0) {
 
@@ -28,6 +28,7 @@ DB::insert('appointments', [
   'date' => $date,
   'user_type' => $pos,
   'id_number' => $myid,
+  'name' => $check[0]['first_name']." ".$check[0]['last_name'],
   'subject' => $reason,
   'appointment_type' => $type,
   'info' => $information,

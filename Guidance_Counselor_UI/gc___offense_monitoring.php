@@ -137,7 +137,7 @@ if (!isset($_SESSION['UserEmail'])) {
   } elseif (isset($_POST['update_offense'])) {
     $id = $_POST['id'];
     $offense_type = $_POST['edit_offense_type'];
-    $description = $_POST['description'];
+    $description = $_POST['edit_offensedescription'];
     $dateToday = date("Y-m-d");
     $sanction = $_POST['sanction'];
 
@@ -494,7 +494,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <th data-field="taska">End Date</th>
                         <th data-field="date">Sanction</th>
                         <!-- <th data-field="price">Sanction Info</th> -->
-                        <th data-field="status">Status</th>
+                        <!-- <th data-field="status">Statlus</th> -->
                         <th data-field="action">Action</th>
                       </tr>
                     </thead>
@@ -512,7 +512,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             <td><?php echo date("F d, Y", strtotime($row['end_date'])) ?></td>
                             <td><?php echo $row['sanction'] ?></td>
                             <!-- <td><?php echo $sanction_info ?></td> -->
-                            <td><?php echo $stat ?></td>
+                            <!-- <td><?php echo $stat ?></td> -->
                             <td>
                               <div style="display: flex; justify-content: center;">
 
@@ -575,14 +575,14 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                   </div>
                 </div>
-                <div class="form-group-inner" id="MAJOR_OFFENSE">
+                <div class="form-group-inner">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right pull-right-pro">Offense Type</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select  id="edit_SelectMajorOffense" class="form-control custom-select-value" name="edit_offense_type">
+                        <select class="form-control custom-select-value" name="edit_offense_type" id="edit_offense_type">
                           <option selected disabled>Choose Offense Type</option>
                           <option value="Minor Offense">Minor Offense</option>
                           <option value="Major Offense A">Major Offense A</option>
@@ -823,11 +823,11 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#id').val(userData[0].id);
             $('#student_id').val(userData[0].student_id);
             $('#stud_name').val(userData[0].stud_name);
-            $('#offense_type').val(userData[0].offense_type);
-            $('#offensedescription').val(userData[0].offensedescription);
-            $('#sanction').val(userData[0].sanction);
-            $('#start_date').val(userData[0].start_date);
-            $('#end_date').val(userData[0].end_date);
+            $('#edit_offense_type').val(userData[0].offense_type);
+            $('#edit_offensedescription').val(userData[0].offensedescription);
+            $('#edit_sanction').val(userData[0].sanction);
+            $('#edit_start_date').val(userData[0].start_date);
+            $('#edit_end_date').val(userData[0].end_date);
             $('#offensestatus').val(userData[0].offensestatus);
           }
 
@@ -854,7 +854,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $('#delete_student_id').val(userData[0].student_id);
             $('#delete_stud_name').val(userData[0].stud_name);
             $('#delete_offensetype').val(userData[0].offense_type);
-            $('#delete_offensedescription').val(userData[0].offensedescription);
+            $('#delete_offense_description').val(userData[0].offensedescription);
             $('#delete_sanction').val(userData[0].sanction);
             $('#delete_start_date').val(userData[0].start_date);
             $('#delete_end_date').val(userData[0].end_date);
