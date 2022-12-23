@@ -216,7 +216,7 @@ $con = connection();
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="../Student_UI/staff___set_referral.php" method="POST">
                         <div class="modal-body">
 
                                 <div class="form-group-inner">
@@ -296,7 +296,7 @@ $con = connection();
                         <div class="modal-footer">
                             <input type="hidden" name="studentid" id="stud_id">
                             <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
-                            <a href="../Student_UI/staff___set_referral.php" class="btn btn-primary btn-md">View Referrals</a>
+                            <button type="submit" class="btn btn-primary btn-md">View Referrals</button>
                         </div>
                     </form>
                 </div>
@@ -319,7 +319,7 @@ $con = connection();
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="../Staff_UI/staff___set_appointment.php" method="POST">
                         <div class="modal-body">
                        
                         <div class="form-group-inner">
@@ -351,6 +351,7 @@ $con = connection();
                             <input type="hidden" name="studentid" id="stud_id">
                             <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
                             <!-- <button type="submit" name="Cancel_Appointment" class="btn btn-primary btn-md">Cancel Appointment</button> -->
+                            <button type="submit" class="btn btn-primary btn-md">View Appointments</button>
                         </div>
                     </form>
                 </div>

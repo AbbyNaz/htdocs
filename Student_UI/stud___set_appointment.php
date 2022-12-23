@@ -21,7 +21,7 @@ if (!isset($_SESSION['UserEmail'])) {
     $id_number = $row_user['id_number'];
   }
 
-  $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number'";
+  $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number' ORDER BY date DESC";
   $get_app = $con->query($app_query) or die($con->error);
   $row_app = $get_app->fetch_assoc();
 

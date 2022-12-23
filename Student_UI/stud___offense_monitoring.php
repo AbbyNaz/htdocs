@@ -21,7 +21,7 @@ if(!isset($_SESSION['UserEmail'])) {
     $id_number = $row_user['id_number'];
   }
 
-    $off_query = "SELECT * FROM offense_monitoring WHERE student_id = '$id_number'";
+    $off_query = "SELECT * FROM offense_monitoring WHERE student_id = '$id_number'  ORDER BY status ASC";
     $get_off = $con->query($off_query) or die($con->error);
     $row_off = $get_off->fetch_assoc();
 
