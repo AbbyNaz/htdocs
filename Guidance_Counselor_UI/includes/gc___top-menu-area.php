@@ -14,6 +14,8 @@
 
 ?>
 
+
+
 <!-- Start Welcome area -->
     <div class="all-content-wrapper" id="store-data" data-id="<?php echo $_SESSION['UserId'] ?>">
         <div class="container-fluid">
@@ -284,10 +286,44 @@
                 </div>
             </div>
 
-   
-<?php 
-    include('RefRejectionForm.php');
-?>
+
+<!-- REJECTION FORM -->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="REJECTION_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Rejection Form </h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REFERRAL DETAILS MODAL --------------------------------------------->
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -301,7 +337,7 @@
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form id="ReferralForm" action="../Guidance_Counselor_UI/gc___referral.php" method="POST">
                         <div class="modal-body">
 
                             <!---------------------- DITO NAME NUNG NAGREFER ------------------------->
@@ -358,9 +394,9 @@
                         </div>
 
                         <div class="modal-footer">
-                                <a href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-primary btn-md">View Referral Details</button>
-                                <a id="RejectButton" class="btn btn-danger btn-md" onclick="showRefModal(this)" data-toggle="modal" >Reject</button>
-                                <a id="setAppointment" href="../Guidance_Counselor_UI/gc___referral.php" class="btn btn-success btn-md">Set Appointment</button>
+                                <button type="submit" class="btn btn-primary btn-md">View Referral Details</button>
+                                <button type="button" id="RejectButton" onclick="showRefModal(this)" class="btn btn-danger btn-md" data-ref-id="" >Reject</button>
+                                <button id="setAppBtn" onclick="setRefAppointment(this)" data-ref-id="" class="btn btn-success btn-md">Set Appointment</button>
                         </div>
                     </form>
                 </div>
@@ -385,7 +421,7 @@
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form id="AppNotificationForm" action="../Guidance_Counselor_UI/gc___all_appointment.php" method="POST">
                         <div class="modal-body">
 
 
@@ -454,8 +490,8 @@
 
                         <div class="modal-footer">
                             
-                            <a href="../Guidance_Counselor_UI/gc___all_appointment.php" class="btn btn-primary btn-md">View Appointments</a>
-                            <a id="CancelAppointment" href="" class="btn btn-danger btn-md">Cancel Appointment</a>
+                            <button type="submit" class="btn btn-primary btn-md">View Appointments</button>
+                            <button id="CancelAppointment" onclick="cancelAppointment(this)" data-AppID="" class="btn btn-success btn-md">Cancel Appointment</button>
                         </div>
                     </form>
                 </div>
@@ -1378,9 +1414,20 @@ $.ajax({
 });
 
 
+function setRefAppointment(button){
+    var refID = $(button).data('ref-id');
 
-function showRefModal(a){
-    var refID = $(a).data('ref-id');
+    $('#ReferralForm').attr("action", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+refID+"");
+}
+
+function cancelAppointment(button){
+    var AppID = $(button).data('AppID');
+    
+    $('#AppNotificationForm').attr("action", "../Guidance_Counselor_UI/gc___all_appointment.php?cancel_id="+AppID+"");
+}
+
+function showRefModal(button){
+    var refID = $(button).data('ref-id');
 
     $('#RejectForm').attr("action", "RefRejectQuery.php?ref_id="+refID+"");
 
@@ -1414,8 +1461,8 @@ function showModal(li){
                     var Appointment_time = Appointment.date +' ('+Appointment.timeslot+' - '+Appointment.timeslot_end+')';
                     var Appointment_type = Appointment.appointment_type;
                     
-                    //Cancel button set link
-                    $('#CancelAppointment').attr("href", "../Guidance_Counselor_UI/gc___all_appointment.php?cancel_id="+id+"");
+                    $('#CancelAppointment').data('AppID', id);
+                    
 
                     $('#User-Type').val(user_type);
                     $('#User-ID').val(id_number);
@@ -1434,6 +1481,7 @@ function showModal(li){
                     
                     $('#setAppointment').attr("href", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+Referral.ref_id+"");
                     $('#RejectButton').data('ref-id', id);
+                    $('#setAppBtn').data('ref-id', id);
 
                     $('#From-User').val(from);
                     $('#Stud-ID').val(stud_id);
