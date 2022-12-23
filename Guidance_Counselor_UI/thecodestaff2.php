@@ -19,7 +19,13 @@ if (!isset($_SESSION['UserEmail'])) {
         $address = $_POST['staff_address'];
         $contact = $_POST['staff_contact'];
         $department = $_POST['staff_department'];
-        $dep_position = $_POST['staff_dep_position'];
+
+        if($department == "Academics"){
+            $dep_position = $_POST['staff_dep_position1'];
+        }else if($department == "Administrative"){
+            $dep_position = $_POST['staff_dep_position2'];
+        }
+        
 
         // $gender = $_POST['gender'];
         // $department = $_POST['department'];
