@@ -143,7 +143,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 $Announcementquery = "SELECT * FROM announcements WHERE status = 'Active'";
                                 $query_run = mysqli_query($con, $Announcementquery);
                                 while ($Announcements = mysqli_fetch_assoc($query_run)){
-                                  echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "'.$Announcements['id'].'" class="list-inline two-part-sp">'.$Announcements['title'].'</li>';
+                                  echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "'.$Announcements['id'].'" class="list-inline two-part-sp">'.$Announcements['title'].'</li><hr>';
                                 }
                               ?>
                           
@@ -307,13 +307,18 @@ if (!isset($_SESSION['UserEmail'])) {
 
         <div class="modal-body">
 
-          <div class="form-group-inner data-custon-pick" id="data_2">
+        <input type="hidden" id="myid" class="form-control" />
+        <input type="hidden" id="fullname" class="form-control"  />
+        <input type="hidden" id="pos" class="form-control"  />
+
+
+          <!-- <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
                 <label class="login2 pull-right" style="font-weight: bold;">ID</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="myid" class="form-control" disabled />
+                <input type="hidden" id="myid" class="form-control" />
               </div>
             </div>
           </div>
@@ -324,7 +329,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 <label class="login2 pull-right" style="font-weight: bold;">Name</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="fullname" class="form-control" disabled />
+                <input type="hidden" id="fullname" class="form-control"  />
               </div>
             </div>
           </div>
@@ -335,10 +340,10 @@ if (!isset($_SESSION['UserEmail'])) {
                 <label class="login2 pull-right" style="font-weight: bold;">Position</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="pos" class="form-control" disabled />
+                <input type="text" id="pos" class="form-control"  />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group-inner">
             <div class="row">
@@ -395,7 +400,7 @@ if (!isset($_SESSION['UserEmail'])) {
               </div>
             </div>
           </div>
-          <div class="form-group-inner">
+          <!-- <div class="form-group-inner">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <label class="login2 pull-right">Concern</label>
@@ -408,7 +413,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
@@ -474,36 +479,44 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <form action="#" method="POST">
                         <div class="modal-body">
-                            <div class="form-group-inner" id="STUD_ID">
+                            <!-- <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label id="dtitle" class="pull-left">Title: Hello World</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="form-group-inner" id="STUD_ID">
+                            <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Description:</label>
+                                        <label class="login2 pull-right">Title:</label>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <p id="ddescription">sasdasaddsasdasdasdasdadsadsadsasdadsadsas
-                                          dasdadsasdasdasdasda
-                                          sdasdasdasdasdsdasdasdadsasdasdasdadsadas
-                                          sdadsadsa:</p>
+                                    <div class="col-lg-9 col-md-3 col-sm-3 col-xs-12">
+                                        <p id="dtitle" style="text-align: left"></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group-inner" id="STUD_ID">
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description:</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-3 col-sm-3 col-xs-12">
+                                        <p id="ddescription" style="text-align: left"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label>Link: </label>
                                         <a href="#">Web.com</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -845,7 +858,7 @@ function viewAnnouncement(li){
         data: {id: id},
         success: function(data) {
             var Announcement = JSON.parse(data);
-            var title = "Title: "+Announcement.title;
+            var title = Announcement.title;
             var description = Announcement.description;
 
             $('#dtitle').text(title);

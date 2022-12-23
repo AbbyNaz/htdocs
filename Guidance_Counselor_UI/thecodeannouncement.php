@@ -15,10 +15,11 @@ if (!isset($_SESSION['UserEmail'])) {
 
         $announcement_title = $_POST['announcement_title'];
         $announcement_description = $_POST['announcement_description'];
+        $announcement_link = $_POST['announcement_link'];
         $announcement_duration = $_POST['announcement_duration'];
         $announcement_status = "Active";
    
-        $add_announcement = "INSERT INTO announcements ( `title`, `description`,`duration`, `status`) VALUES ('$announcement_title','$announcement_description', '$announcement_duration','$announcement_status')";
+        $add_announcement = "INSERT INTO announcements ( `title`, `description`,`link`,`duration`, `status`) VALUES ('$announcement_title','$announcement_description', '$announcement_link', '$announcement_duration','$announcement_status')";
         $query_run = $con->query($add_announcement) or die($con->error);
 
 
@@ -55,6 +56,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $announcement_id = $_GET['id'];
         $announcement_title = $_POST['edit_title'];
         $announcement_description = $_POST['edit_description'];
+        $announcement_link = $_POST['edit_link'];
         $announcement_duration = $_POST['edit_duration'];
         $announcement_status = $_POST['edit_status'];
 
@@ -66,17 +68,17 @@ if (!isset($_SESSION['UserEmail'])) {
             $Announcement = mysqli_fetch_assoc($results);
 
             if(strcmp($Announcement['status'], 'Inactive') == 0){
-                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', link = '$announcement_link', 
                                 duration = '$announcement_duration', status = '$announcement_status', creation_date = '$current_date' WHERE id = '$announcement_id'";
                 $query_runs = $con->query($update_announcement) or die($con->error);
 
             }else{
-                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+                $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description',  link = '$announcement_link', 
                                 duration = '$announcement_duration', status = '$announcement_status' WHERE id = '$announcement_id'";
                 $query_runs = $con->query($update_announcement) or die($con->error);
             }
         }else{
-            $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description', 
+            $update_announcement = "UPDATE announcements SET title = '$announcement_title' , description = '$announcement_description',  link = '$announcement_link', 
                                 duration = '$announcement_duration', status = '$announcement_status' WHERE id = '$announcement_id'";
             $query_runs = $con->query($update_announcement) or die($con->error);
         }
@@ -118,6 +120,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $announcement_id = $_GET['id'];
         $announcement_title = $_POST['delete_title'];
         $announcement_description = $_POST['delete_description'];
+        $announcement_link = $_POST['delete_link'];
         $announcement_status = $_POST['delete_status'];
    
         $delete_announcement = "DELETE FROM announcements WHERE ID = $announcement_id";
