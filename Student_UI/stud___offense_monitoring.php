@@ -13,49 +13,14 @@ if(!isset($_SESSION['UserEmail'])) {
 
   $user_id = $_SESSION['UserId'];
 
-  $user_query = "SELECT * FROM users WHERE user_id = '$user_id'";
-  $get_user = $con->query($user_query) or die($con->error);
-  $row_user = $get_user->fetch_assoc();
-
-  if($row_user) {
-    $id_number = $row_user['id_number'];
-  }
-
-    $off_query = "SELECT * FROM offense_monitoring WHERE student_id = '$id_number'  ORDER BY status ASC";
+  $off_query = "SELECT * 
+                FROM offense_monitoring 
+                WHERE student_id = (SELECT id_number FROM users WHERE user_id = '$user_id') 
+                AND status = 'Active' 
+                ORDER BY date_created DESC";
     $get_off = $con->query($off_query) or die($con->error);
     $row_off = $get_off->fetch_assoc();
 
-    if($row_off) {
-      $date_created = $row_off['date_created'];
-      $newDateCreated = date("F d, Y", strtotime($date_created));  
-  
-      // Sanction Days left
-      $startDate = $row_off['start_date'];
-      $endDate = $row_off['end_date'];
-      $currentDate = date("Y-m-d");
-    
-    // End date + 1 day
-    $endDate_original = strtotime($endDate);
-    $date_add      = $endDate_original + (3600*24);
-    $date_plus_one = date("Y-m-d", $date_add);
-
-    if($startDate > $currentDate) {
-      $diff = abs(strtotime($endDate) - strtotime($startDate));
-      $years = floor($diff / (365*60*60*24));
-      $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-      $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-      $sanction_info = ($days + 1) . " days left";
-    } elseif($date_plus_one > $endDate) {
-      // $sanction_info = "0 days left";
-      $sanction_info = "Sanction Ended";
-    } else {
-      $diff = abs(strtotime($endDate) - strtotime($currentDate));
-      $years = floor($diff / (365*60*60*24));
-      $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-      $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-      $sanction_info = ($days + 1) . " days left";
-    }
-  }
 
 ?>
 
@@ -190,11 +155,6 @@ if(!isset($_SESSION['UserEmail'])) {
                         </div>
                         <div class="sparkline13-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-                                <!-- <div id="toolbar">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_New_Offense">
-                                        Add New
-                                    </button>
-                                </div> -->
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
@@ -221,40 +181,12 @@ if(!isset($_SESSION['UserEmail'])) {
                                             <td><?= $row_off['description'] ?></td>
                                             <td><?= $row_off['date_created'] ?></td>
                                             <td><?= $row_off['sanction'] ?></td>
-                                            <td><?= $sanction_info ?></td>
-                                            <td>
-                                              <?= $row_off['status'] ?>
-                                                <!-- <button class="btn btn-xs btn-success"><?= $row_off['status'] ?></button> -->
-                                            </td>
+                                            <td><?= $row_off['sanction_info'] ?></td>
+                                            <td><?= $row_off['status'] ?></td>
                                         </tr>
 
                                         <?php } while ($row_off = $get_off->fetch_assoc());
                                         } ?>
-                                        <!-- <tr>
-                                            <td>12121212</td>
-                                            <td>Abigail Nazal</td>
-                                            <td>Offense A</td>
-                                            <td>Bullying a student</td>
-                                            <td>September 16, 2022</td>
-                                            <td>Clean toilet for 3 days</td>
-                                            <td>2 days left</td>
-                                            <td>
-                                                <button class="btn btn-xs btn-primary">Completed</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>12121212</td>
-                                            <td>Abigail Nazal</td>
-                                            <td>Offense A</td>
-                                            <td>Bullying a student</td>
-                                            <td>September 16, 2022</td>
-                                            <td>Clean toilet for 3 days</td>
-                                            <td>2 days left</td>
-                                            <td>
-                                                <button class="btn btn-xs btn-danger">Cancelled</button>
-                                            </td>
-                                        </tr> -->
-
                                     </tbody>
                                 </table>
                             </div>

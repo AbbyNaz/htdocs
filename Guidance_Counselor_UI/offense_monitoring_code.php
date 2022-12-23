@@ -11,17 +11,10 @@ else {
 
     $con = connection();
 
-    if (isset($_POST['delete_offense'])) {
-        $student_id = $_POST['delete_student_id'];
-        $stud_name = $_POST['delete_stud_name'];
-        $offensetype = $_POST['delete_offense_type'];
-        $offensedescription = $_POST['delete_offense_description'];
-        $sanction = $_POST['delete_sanction'];
-        $start_date = $_POST['delete_start_date'];
-        $end_date = $_POST['delete_end_date'];
-        $offensestatus = $_POST['delete_offense_status'];
+    if (isset($_POST['delete_offense']) && !empty($_GET['info'])) {
 
-        $delete_offense = "DELETE FROM offense_monitoring WHERE student_id = $student_id";
+        $offenseID = $_GET['info'];
+        $delete_offense = "DELETE FROM offense_monitoring WHERE id = $offenseID";
         $query_run = $con->query($delete_offense) or die($con->error);
 
         if ($query_run) {
