@@ -123,6 +123,7 @@ $con = connection();
                                                                 }
 
                                                                 // CALCULATE TIME
+                                                                date_default_timezone_set('Asia/Manila');
                                                                 $now = new DateTime();
                                                                 $notif_DT = new DateTime($DateTime);
                                                                 $diff = $now->diff($notif_DT);
@@ -135,7 +136,11 @@ $con = connection();
                                                                 }
                                                                 elseif ($diff->h > 1) {
                                                                     $notifStrTime = $diff->h." hours ago";
-                                                                }else{
+                                                                }
+                                                                elseif ($diff->i > 5) {
+                                                                    $notifStrTime = $diff->i." minutes ago";
+                                                                }
+                                                                else{
                                                                     $notifStrTime = "Just now";
                                                                 }
                                                                 
@@ -1300,7 +1305,7 @@ function showModal(li){
 
                     var RefDate = Referral.reffered_date;
                     var RejDate = Referral.Cancel_Date;
-                    var RejReason = Cancel_Reason;
+                    var RejReason = Referral.Cancel_Reason;
 
                     $('#StudID').val(stud_id);
                     $('#StudName').val(stud_name);

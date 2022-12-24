@@ -190,6 +190,7 @@
                                                                     }
 
                                                                     // CALCULATE TIME
+                                                                    date_default_timezone_set('Asia/Manila');
                                                                     $now = new DateTime(); //sometimes return late time
                                                                     $notif_DT = new DateTime($DateTime);
                                                                     $diff = $now->diff($notif_DT);
@@ -202,7 +203,11 @@
                                                                     }
                                                                     elseif ($diff->h > 1) {
                                                                         $notifStrTime = $diff->h." hours ago";
-                                                                    }else{
+                                                                    }
+                                                                    elseif ($diff->i > 5) {
+                                                                        $notifStrTime = $diff->i." minutes ago";
+                                                                    }
+                                                                    else{
                                                                         $notifStrTime = "Just now";
                                                                     }
                                                                     
@@ -218,8 +223,8 @@
                                                                                 <i class="'.$icon.'" aria-hidden="true"></i>
                                                                             </div>
                                                                             <div class="notification-content">
-                                                                                <span class="notification-date">'.$notifStrTime.'</span>
-                                                                                <h2>'.$name.'</h2>
+                                                                                <span class="notification-date" >'.$notifStrTime.'</span>
+                                                                                <h2 style="margin-right : 20px">'.$name.'</h2>
                                                                                 <p>'.$description.'</p>
                                                                             </div>
                                                                         </li>';
