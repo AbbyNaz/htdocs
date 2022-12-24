@@ -47,7 +47,7 @@ if (!isset($_SESSION['UserEmail'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- logo angeles_sti
         ============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/sti_angeles_logo.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="img/sti_logo.png">
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
