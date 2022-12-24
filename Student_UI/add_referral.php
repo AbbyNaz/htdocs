@@ -38,7 +38,12 @@ if(!isset($_SESSION['UserEmail'])){
 			$mynature = '';
 		foreach($nature as $item){
 				// echo $item;
-				$mynature = "$mynature $item,";
+				if (end($nature) === $item) {
+					$mynature = "$mynature $item";
+				} else {
+					$mynature = "$mynature $item,";
+				}
+				
 
 				$add_query2 = "INSERT INTO `refferals_nature` (`reffered_user2`,`source2`, `reffered_by2`, `reffered_date2`, `nature2`, `reason2`, `actions2`, `remarks2`, `ref_status2`) ".
 				"VALUES ('$reffered_user','$source','$UserId','$reffered_date','$item','$reason','$actions','$remarks','$status')";
