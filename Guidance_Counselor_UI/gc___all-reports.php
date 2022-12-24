@@ -192,8 +192,8 @@ if (!isset($_SESSION['UserEmail'])) {
                     <tbody>
                   
                       <tr>
-
-                        <td>Counseling</td>
+                        
+                        <td><a href="counseling-reports.php">Counseling</a></td>
                       </tr>
 
                       <?php
@@ -320,7 +320,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         
                             ?>
                       <tr>
-                        <td>Individual Inventory</td>
+                        <td><a href="individual-inventory-reports.php">Individual Inventory</a></td>
                       </tr>
                       <tr>
                         <td>
@@ -391,7 +391,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
                       <tr>
-                        <td> Referral</td>
+                        <td><a href="referral-reports.php">Referral</a></td>
                       </tr>
                       <tr>
                         <?php
@@ -410,6 +410,38 @@ if (!isset($_SESSION['UserEmail'])) {
                             ?>
                         <td>
                           <li>Internal</li>
+                        </td>
+                        <td><?= $row[8]['row_count']?></td>
+                        <td><?= $row[9]['row_count']?> </td>
+                        <td><?= $row[10]['row_count']?></td>
+                        <td><?= $row[11]['row_count']?></td>
+                        <td><?= $row[0]['row_count']?></td>
+                        <!-- <td><?= $row[1]['row_count']?></td> -->
+
+                      </tr>
+
+
+
+                      <tr>
+                        <td><a href="offense-reports.php">Offense Monitoring</a></td>
+                      </tr>
+                      <tr>
+                        <?php
+                            $row = array();
+
+                            for ($i=1; $i <= 13; $i++) { 
+                              $query = "SELECT COUNT(date_created) AS row_count FROM offense_monitoring WHERE status='Inactive' AND MONTH(date_created) = $i";
+
+                              // Execute the query and retrieve the results
+                              $result = mysqli_query($con, $query);
+
+                              // Fetch the first row of the result set as an associative array
+                              $row[] = mysqli_fetch_assoc($result);
+                            }
+                        
+                            ?>
+                        <td>
+                          <li>Offenses Records Done</li>
                         </td>
                         <td><?= $row[8]['row_count']?></td>
                         <td><?= $row[9]['row_count']?> </td>
