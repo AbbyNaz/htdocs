@@ -4,7 +4,7 @@ global $database;
 $database = "guidance_and_counseling";
 
 global $computerUsername;
-$computerUsername = 'Nick'; // for folder directory
+$computerUsername = 'Abigail Nazal'; // for folder directory
 
 function connection() {
 

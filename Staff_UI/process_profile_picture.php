@@ -5,7 +5,7 @@ include_once("../connections/connection.php");
 
 $con = connection();
 
-define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'profiles');
+define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'profiles');
 
 if(isset($_FILES['profile_picture'])){
     // Save the uploaded image file to a designated folder on the server
