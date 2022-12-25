@@ -14,15 +14,13 @@ function Notify($Type, $id) {
             $type = $Type;
             $infoID = $id;
             $isRead = 0;
-            $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
 
-            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
                     VALUES ('$from',
                             (SELECT id_number FROM users WHERE position = 'Guidance'),
                             '$type',
                             '$infoID',
-                            '$isRead',
-                            '$notif_date')";
+                            '$isRead')";
             $notified = mysqli_query($GLOBALS['con'], $notify);
 
             return $notified;
@@ -33,15 +31,13 @@ function Notify($Type, $id) {
             $type = $Type;
             $infoID = $id;
             $isRead = 0;
-            $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
 
-            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
                     VALUES ('$from',
                             (SELECT u.id_number FROM refferals r JOIN users u ON r.reffered_by = u.user_id WHERE r.ref_id = '$infoID'),
                             '$type',
                             '$infoID',
-                            '$isRead',
-                            '$notif_date')";
+                            '$isRead')";
             $notified = mysqli_query($GLOBALS['con'], $notify);
 
             return $notified;
@@ -52,15 +48,13 @@ function Notify($Type, $id) {
             $type = $Type;
             $infoID = $id;
             $isRead = 0;
-            $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
 
-            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
                     VALUES ('$from',
                             (SELECT id_number FROM appointments WHERE id = '$infoID'),
                             '$type',
                             '$infoID',
-                            '$isRead',
-                            '$notif_date')";
+                            '$isRead')";
             $notified = mysqli_query($GLOBALS['con'], $notify);
 
             return $notified;
@@ -72,15 +66,13 @@ function Notify($Type, $id) {
                 $type = $Type;
                 $infoID = $id;
                 $isRead = 0;
-                $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
     
-                $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+                $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
                         VALUES ('$from',
                                 (SELECT student_id FROM offense_monitoring WHERE id = '$infoID'),
                                 '$type',
                                 '$infoID',
-                                '$isRead',
-                                '$notif_date')";
+                                '$isRead')";
                 $notified = mysqli_query($GLOBALS['con'], $notify);
     
                 return $notified;
@@ -97,25 +89,21 @@ function Reminder( $id, $user1, $user2) {
     $type = 'Reminder';
     $infoID = $id;
     $isRead = 0;
-    $notif_date = date_format(new DateTime(), 'Y-m-d H:i:s');
 
-    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
             VALUES ('$user1',
                     '$user2',
                     '$type',
                     '$infoID',
-                    '$isRead',
-                    '$notif_date')";
-    $notified = mysqli_query($GLOBALS['con'], $notify);
+                    '$isRead')";
 
     // Remind USER2
-    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`, `notif_date`)
+    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
             VALUES ('$user2',
                     '$user1',
                     '$type',
                     '$infoID',
-                    '$isRead',
-                    '$notif_date')";
+                    '$isRead')";
     $notified = mysqli_query($GLOBALS['con'], $notify);
 
     return $notified;

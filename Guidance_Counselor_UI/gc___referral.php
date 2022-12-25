@@ -12,7 +12,7 @@ if(!isset($_SESSION['UserEmail'])) {
 } else {
 
     $con = connection();
-    $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.ref_id IS NOT NULL ORDER BY reffered_date DESC";
+    $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.ref_id IS NOT NULL ORDER BY refferals.reffered_date DESC";
     $get_referral = $con->query($refferal) or die($con->error);
     $row = $get_referral->fetch_assoc();
 

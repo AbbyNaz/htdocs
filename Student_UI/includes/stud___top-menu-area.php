@@ -127,6 +127,7 @@ $con = connection();
                                                                 }
 
                                                                 // CALCULATE TIME
+                                                                date_default_timezone_set('Asia/Manila');
                                                                 $now = new DateTime();
                                                                 $notif_DT = new DateTime($DateTime);
                                                                 $diff = $now->diff($notif_DT);
@@ -139,7 +140,11 @@ $con = connection();
                                                                 }
                                                                 elseif ($diff->h > 1) {
                                                                     $notifStrTime = $diff->h." hours ago";
-                                                                }else{
+                                                                }
+                                                                elseif ($diff->i > 5) {
+                                                                    $notifStrTime = $diff->i." minutes ago";
+                                                                }
+                                                                else{
                                                                     $notifStrTime = "Just now";
                                                                 }
                                                                 
@@ -1362,6 +1367,10 @@ function showModal(li){
     var id = $(li).data('id');
     var type = $(li).data('type');
     var notif_id = $(li).data('notif');
+    
+    
+    
+    
 
     // Send an AJAX request to the server with the ID
     $.ajax({
@@ -1386,6 +1395,7 @@ function showModal(li){
                     break;
 
                 case 'Rejection':
+                    
                     var Referral = JSON.parse(data);
                     var stud_id = Referral.Student_ID;
                     var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
@@ -1393,7 +1403,7 @@ function showModal(li){
 
                     var RefDate = Referral.reffered_date;
                     var RejDate = Referral.Cancel_Date;
-                    var RejReason = Cancel_Reason;
+                    var RejReason = Referral.Cancel_Reason;
 
                     $('#StudID').val(stud_id);
                     $('#StudName').val(stud_name);

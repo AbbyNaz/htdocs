@@ -341,19 +341,18 @@ if (!isset($_SESSION['UserEmail'])) {
 
                             <td>
                               <?php if ($row_app['app_status'] == "completed" || $row_app['app_status'] == "Completed") {
-                                echo null;
-                              } else { ?>
-                                <form action="thecode.php" method="post">
-                                  <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
-                                  <?php
-                              if($appby == 1){
+                                      echo null;
+                                    } else { ?>
+                                      <form action="thecode.php" method="post">
+                                        <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
+                                        <?php
+                                    if($appby == 1){
                               ?>
-                             
                               <?php 
-                              }else{
-                                ?>
-                                <button type="submit" id="delete_btn" class="btn btn-danger btn-md">cancel</button>
-                                <?php } ?>
+                                    }else{
+                              ?>
+                                    <button type="submit" id="delete_btn" class="btn btn-danger btn-md">cancel</button>
+                              <?php } ?>
                                 </form>
                               <?php } ?>
                             </td>
