@@ -18,7 +18,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
 <head>
 
-  <meta charset="utf-8">
+  <meta charset="utf-8"> 
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Guidance and Counseling - STI College Angeles</title>
   <meta name="description" content="">
@@ -177,9 +177,9 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th>Student Name</th>
                                             <th>Program</th>
                                             <th>Level</th>
-                                            <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Type</th>
+                                            <th>Classification</th>
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
