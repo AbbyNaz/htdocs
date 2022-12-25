@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 include_once("../connections/connection.php");
@@ -12,14 +11,10 @@ if (!isset($_SESSION['UserEmail'])) {
   $con = connection();
 
 ?>
-
-
-
   <!doctype html>
   <html class="no-js" lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Guidance and Counseling - STI College Angeles</title>
@@ -71,9 +66,6 @@ if (!isset($_SESSION['UserEmail'])) {
 		============================================ -->
     <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
     <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
-    <!-- datapicker CSS
-		============================================ -->
-    <link rel="stylesheet" href="./css/datapicker/datepicker3.css">
     <!-- x-editor CSS
 		============================================ -->
     <link rel="stylesheet" href="css/editor/select2.css">
@@ -87,9 +79,6 @@ if (!isset($_SESSION['UserEmail'])) {
     <!-- modals CSS
 		============================================ -->
     <link rel="stylesheet" href="./css/modals.css">
-    <!-- forms CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/form/all-type-forms.css">
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="style.css">
@@ -99,11 +88,6 @@ if (!isset($_SESSION['UserEmail'])) {
     <!-- modernizr JS
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <style>
-      input[type="radio"] {
-        margin-left: 10px 0;
-      }
-    </style>
   </head>
 
   <body>
@@ -117,18 +101,18 @@ if (!isset($_SESSION['UserEmail'])) {
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="breadcome-list single-page-breadcome">
+            <div class="breadcome-list">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="breadcome-heading">
-
+                    
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <ul class="breadcome-menu">
                     <li><a href="gc___dashboard.php">Home</a> <span class="bread-slash">/</span>
                     </li>
-                    <li><span class="bread-blod">Audit Trail</span>
+                    <li><span class="bread-blod">Offense Data Reports</span>
                     </li>
                   </ul>
                 </div>
@@ -138,8 +122,10 @@ if (!isset($_SESSION['UserEmail'])) {
         </div>
       </div>
     </div>
+    </div>
 
     <!-- Static Table Start -->
+
     <div class="data-table-area mg-b-15">
       <div class="container-fluid">
         <div class="row">
@@ -147,81 +133,37 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Audit<span class="table-project-n"> Trail</span> </h1>
+                  <h1>Offense /<span class="table-project-n"> </span> Sample Month</h1>
                 </div>
-
               </div>
               <div class="sparkline13-graph">
+
                 <div class="datatable-dashv1-list custom-datatable-overright">
-                  <div id="toolbar">
-                    <!-- <select class="form-control dt-tb">
-                                        <option value="">Export Basic</option>
-                                        <option value="all">Export All</option>
-                                        <option value="selected">Export Selected</option>
-                                    </select> -->
 
-                    <div class="card-header py-3">
-                      <h5 class="m-0 font-weight-bold text-primary">
-                        <!-- Guidance Counselor -->
-
-
-                      </h5>
-                    </div>
-                  </div>
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="appoint_stud_name">#</th>
-                        <th data-field="appoint_radeason">Date and Time</th>
-                        <th data-field="appoint_reason">User</th>
-                        <th data-field="appoint_concern">User ID</th>
-                        <th data-field="appoint_date">Action Made</th>
-
-
-
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Program</th>
+                        <th>Level</th>
+                        <th>Type</th>
+                        <th>Classification</th>
+                        <th>Date and Time</th>
                       </tr>
                     </thead>
+
                     <tbody>
 
-                      <?php
-
-                      $query = "SELECT * FROM logs  ORDER BY date_created DESC";
-                      $query_run = mysqli_query($con, $query);
-                      if (mysqli_num_rows($query_run) > 0) {
-                        foreach ($query_run as $row) {
-                      ?>
                           <tr>
-
-                            <td>
-                              <?= $row['id'] ?>
-                            </td>
-                            <td>
-                              <?= $row['date_created'] ?>
-                            </td>
-                            <td>
-                              <?= $row['user'] ?>
-                            </td>
-                            <td>
-                              <?= $row['user_id'] ?>
-                            </td>
-                            <td>
-                              <?= $row['action_made'] ?>
-                            </td>
-
+                            <td>as</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
-
-                        <?php
-
-                        }
-                      } else {
-                        ?>
-                        <tr>
-                          <td colspan="4">No Record Found</td>
-                        </tr>
-
-                      <?php
-                      }
-                      ?>
 
                     </tbody>
                   </table>
@@ -234,44 +176,12 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     <!-- Static Table End -->
 
-    </div>
 
-    <!-- jquery
-		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- sticky JS
-		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-    <!-- datapicker JS
-		============================================ -->
-    <script src="js/datapicker/bootstrap-datepicker.js"></script>
-    <script src="js/datapicker/datepicker-active.js"></script>
+    <?php
+    include('includes/gc___scripts.php');
+    ?>
+
+
     <!-- data table JS
 		============================================ -->
     <script src="js/data-table/bootstrap-table.js"></script>
@@ -295,22 +205,12 @@ if (!isset($_SESSION['UserEmail'])) {
 		============================================ -->
     <script src="js/chart/jquery.peity.min.js"></script>
     <script src="js/peity/peity-active.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="js/tab.js"></script>
     <!-- icheck JS
 		============================================ -->
     <script src="js/icheck/icheck.min.js"></script>
     <script src="js/icheck/icheck-active.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <!-- <script src="js/tawk-chat.js"></script> -->
+
+
   </body>
 
   </html>

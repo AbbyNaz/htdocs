@@ -13,7 +13,7 @@ if (!isset($_SESSION['UserEmail'])) {
 ?>
 
 
-<!doctype html>
+<!doctype html> 
 <html class="no-js" lang="en">
 
 <head>
@@ -176,7 +176,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th>Student Name</th>
                                             <th>Program</th>
                                             <th>Level</th>
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
@@ -471,7 +471,7 @@ if (!isset($_SESSION['UserEmail'])) {
   <script src="js/main.js"></script>
   <!-- tawk chat JS
 		============================================ -->
-  <script src="js/tawk-chat.js"></script>
+  <!-- <script src="js/tawk-chat.js"></script> -->
 </body>
 
 </html>

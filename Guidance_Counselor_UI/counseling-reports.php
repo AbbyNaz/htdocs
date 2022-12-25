@@ -13,7 +13,7 @@ if (!isset($_SESSION['UserEmail'])) {
 ?>
 
 
-<!doctype html>
+<!doctype html> 
 <html class="no-js" lang="en">
 
 <head>
@@ -179,7 +179,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th>Level</th>
                                             <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
                                             <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
@@ -492,7 +492,7 @@ if (!isset($_SESSION['UserEmail'])) {
   <script src="js/main.js"></script>
   <!-- tawk chat JS
 		============================================ -->
-  <script src="js/tawk-chat.js"></script>
+  <!-- <script src="js/tawk-chat.js"></script> -->
 </body>
 
 </html>
