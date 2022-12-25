@@ -1,0 +1,3 @@
+ErrorDocument 404 http://localhost/Student_UI/404.php
+
+ErrorDocument 500 http://localhost/Student_UI/500.php
