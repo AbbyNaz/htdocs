@@ -11,98 +11,114 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  
 
+  // ADD ARTICLE
   if (isset($_POST['add_article'])) {
 
     date_default_timezone_set('Asia/Manila');
-    $dateon = strtotime(date("Y-m-d h:i:sa"));
     $articlecode = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
     $duration = trim($_POST['duration']);
-    $status = "Active";
 
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
+    if($duration == date("F")){
+      $status = "Active";
+    }else{
+      $status = "Inactive";
+    }
 
-      $count = 0;
+    if (isset($_FILES['Article_picture'])) {
 
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
+        // IMAGE DIRECTORY
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
 
-        $query = "INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES('$articlecode','$title','$description','$pathimage','$duration','$status')";
-        if (mysqli_query($con, $query)) {
-          move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
+        // Save the uploaded image file to a designated folder on the server
+        $target_dir = BACKUP_FOLDER;
+        $target_file = $target_dir . basename($_FILES['Article_picture']["name"]);
+        move_uploaded_file($_FILES['Article_picture']["tmp_name"], $target_file);
+    
+        // Validate the uploaded file
+        $image_info = getimagesize($target_file);
+        
+        if (!$image_info) {
+            // Not an image file, delete the uploaded file and show an error message
+            unlink($target_file);
+    
+            $_SESSION['status'] = "Article Not Added";
+            $_SESSION['status_code'] = "error";
+            header('Location: gc___manages_acticle.php');
+        }else{
+            $stmt = $con->prepare("INSERT INTO articles(ARTICLECODE, TITLE, DESCRIPTION, PICTURE, DURATION, ART_STATUS) VALUES(?,?,?,?,?,?)");
+            $stmt->bind_param("ssssss", $articlecode, $title, $description, $target_file, $duration, $status);
+            $stmt->execute();
 
-          $count = $count + 1;
+            $_SESSION['status'] = "Article Added";
+            $_SESSION['status_code'] = "success";
+            header('Location: gc___manages_acticle.php');
         }
 
-        $_SESSION['status'] = "Article Added";
-        $_SESSION['status_code'] = "success";
-        header('Location: gc___manages_acticle.php');
-      }
     } else {
       $_SESSION['status'] = "Article Not Added";
       $_SESSION['status_code'] = "error";
       header('Location: gc___manages_acticle.php');
     }
-  } elseif (isset($_POST['update_article'])) {
+
+  }
+
+
+  // UPDATE ARTICLE
+  elseif (isset($_POST['update_article'])) {
 
     $articlecode = trim($_POST['articlecode']);
     $title = trim($_POST['edit_title']);
     $description = trim($_POST['edit_description']);
     $duration = trim($_POST['edit_duration']);
-    $status = trim($_POST['art_status']);
-    $picturepath = trim($_POST['picturepath']);
-    $imagename = date('ymd-His') . "-" . intval("0" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)) . "-";
+    $status = trim($_POST['status']);
 
 
-    if (isset($_FILES['files'])) {
-      $desired_dir = "../uploads/";
+    if (isset($_FILES['update_image']) && !empty($_FILES['update_image']['name'])) {
+          // IMAGE DIRECTORY
+          define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
 
-      $count = 0;
+          // Save the uploaded image file to a designated folder on the server
+          $target_dir = BACKUP_FOLDER;
+          $target_file = $target_dir . basename($_FILES['update_image']["name"]);
+          move_uploaded_file($_FILES['update_image']["tmp_name"], $target_file);
+      
+          // Validate the uploaded file
+          $image_info = getimagesize($target_file);
+          
+          if (!$image_info) {
+              // Not an image file, delete the uploaded file and show an error message
+              unlink($target_file);
+      
+              $_SESSION['status'] = "Article Not Updated";
+              $_SESSION['status_code'] = "error";
+              header('Location: gc___manages_acticle.php?'.$target_file.'');
 
-      foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = $_FILES['files']['name'][$key];
-        $size = $_FILES['files']['size'][$key];
-        $file_f = $size / 1024;
-        $file_size = round($file_f);
-        $file_tmp = $_FILES['files']['tmp_name'][$key];
-        $file_type = $_FILES['files']['type'][$key];
-        $path = "../uploads/$file_name";
-        $pathimage = "uploads/$file_name";
+          }else{
+              $stmt = $con->prepare("UPDATE articles SET TITLE = ?, DESCRIPTION = ?, PICTURE = ?, DURATION = ?, ART_STATUS = ? WHERE ARTICLECODE = ?");
+              $stmt->bind_param("ssssss", $title, $description, $target_file, $duration, $status, $articlecode);
+              $stmt->execute();
 
-        if ($path == "../uploads/") {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (!mysqli_query($con, $query)) {
-            die('Error:' . mysqli_error($conn));
+              $_SESSION['status'] = "Article Updated";
+              $_SESSION['status_code'] = "success";
+              header('Location: gc___manages_acticle.php');
           }
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        } else {
-          $query = "UPDATE articles SET TITLE = '$title', DESCRIPTION = '$description', PICTURE = '$pathimage', DURATION = '$duration', ART_STATUS = '$status' WHERE ARTICLECODE ='$articlecode'";
-          if (mysqli_query($con, $query)) {
-            move_uploaded_file($file_tmp, "$desired_dir" . $file_name);
+        
+    } else {
+              $stmt = $con->prepare("UPDATE articles SET TITLE = ?, DESCRIPTION = ?, DURATION = ?, ART_STATUS = ? WHERE ARTICLECODE = ?");
+              $stmt->bind_param("sssss", $title, $description, $duration, $status, $articlecode);
+              $stmt->execute();
 
-            $count = $count + 1;
-          }
-          unlink("../" . $picturepath);
-          $_SESSION['status'] = "Article Updated";
-          $_SESSION['status_code'] = "success";
-          header('Location: gc___manages_acticle.php');
-        }
-      }
+              $_SESSION['status'] = "Article Updated";
+              $_SESSION['status_code'] = "success";
+              header('Location: gc___manages_acticle.php');
     }
   }
+
+
 
 
 ?>
@@ -292,8 +308,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Image</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="file" name="files[]" class="form-control" accept="image/*"
-                        style="margin-bottom: 30px;" required />
+                      <input type="file" name="Article_picture" class="form-control" style="margin-bottom: 30px;" required />
                     </div>
                   </div>
                 </div>
@@ -359,7 +374,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <td><?= $row['ARTICLECODE'] ?></td>
                       <td><?= $row['TITLE'] ?></td>
                       <td><?= $row['DESCRIPTION'] ?></td>
-                      <td><?= $row['PICTURE'] ?></td>
+                      <td><img src="show_article_image.php?AID=<?= $row['ID']?>" style="width: 100%; margin-top: 5px; margin-bottom: 5px;" alt="Article Image"></td>
                       <td><?= $row['DURATION'] ?></td>
                       <td><?= $row['ART_STATUS'] ?></td>
 
@@ -403,7 +418,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
   </div>
 
-
+<!-- EDIT ARTICLE -->
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div id="Edit_New_Article" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
       <div class="modal-dialog">
@@ -442,12 +457,19 @@ if (!isset($_SESSION['UserEmail'])) {
 
               <div class="form-group-inner">
                 <div class="row">
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" >
+                    <img id="art_picture" src="show_article_image.php" style="width: 100%; margin: auto;" alt="Article Image">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                <div class="row">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <label class="login2 pull-right">Image</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="file" name="files[]" class="form-control" accept="image/*"
-                      style="margin-bottom: 10px;" />
+                    <input type="file" name="update_image" class="form-control" style="margin-bottom: 10px;" />
                   </div>
                 </div>
               </div>
@@ -488,8 +510,8 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="form-select-list">
                       <select class="form-control custom-select-value" name="status" id="articlestatus">
                         <option value="" disabled>Select Status</option>
-                        <option>Active</option>
-                        <option>Deactive</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
                       </select>
                     </div>
                   </div>
@@ -532,9 +554,14 @@ if (!isset($_SESSION['UserEmail'])) {
           $('#articlecode').val(userData[0].articlecode);
           $('#edit_title').val(userData[0].title);
           $('#edit_description').val(userData[0].description);
+
           $('#picturepath').val(userData[0].picture);
           $('#edit_duration').val(userData[0].duration);
           $('#articlestatus').val(userData[0].status);
+
+          $('#art_picture').prop('src', 'show_article_image.php?AID='+userID);
+
+          console.log(userID);
         }
 
       });

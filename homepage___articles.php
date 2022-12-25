@@ -17,7 +17,7 @@
         
         date_default_timezone_set('Asia/Manila');
         $month = date("F");
-        $query = "SELECT * FROM articles WHERE DURATION = '$month' AND ART_STATUS = 'ACTIVE' LIMIT 9";
+        $query = "SELECT * FROM articles WHERE DURATION = '$month' AND ART_STATUS = 'Active' LIMIT 9";
         $query_run = mysqli_query($con, $query);
 
         if (mysqli_num_rows($query_run) > 0) {
@@ -26,7 +26,7 @@
 
           <article class="article">
             <div class="article__image">
-                <img src="<?php echo $row['PICTURE']; ?>" style="width:100%; margin-top: 20px; margin-bottom: 20px;">
+                <img src="../Guidance_Counselor_UI/show_article_image.php?AID=<?= $row['ID']?>" style="width:100%; margin-top: 20px; margin-bottom: 20px;">
             </div>
             <div class="article__info">
                 <h4><?= $row['TITLE'] ?></h4>
