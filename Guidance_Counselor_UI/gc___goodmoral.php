@@ -323,7 +323,7 @@ $con = mysqli_connect("localhost", "root", "", "guidance_and_counseling");
   <script src="js/main.js"></script>
   <!-- tawk chat JS
     ============================================ -->
-  <script src="js/tawk-chat.js"></script>
+  <!-- <script src="js/tawk-chat.js"></script> -->
 </body>
 
 </html>

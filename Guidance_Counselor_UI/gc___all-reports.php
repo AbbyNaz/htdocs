@@ -540,7 +540,7 @@ if (!isset($_SESSION['UserEmail'])) {
     <script src="js/main.js"></script>
     <!-- tawk chat JS
 		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    <!-- <script src="js/tawk-chat.js"></script> -->
   </body>
 
   </html>
