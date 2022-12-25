@@ -30,7 +30,7 @@ foreach ($fetchData as $row) {
     'description' => $row['DESCRIPTION'],
     'picture' => $row['PICTURE'],
     'duration' => $row['DURATION'],
-    'status' => $row['STATUS'],
+    'status' => $row['ART_STATUS'],
 
     );
 }
