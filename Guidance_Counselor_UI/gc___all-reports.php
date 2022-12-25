@@ -241,11 +241,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Career</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row3[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row3[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row3[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row3[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row3[0]['row_count']?></a></td>
                         <!-- <td></td> -->
                       </tr>
 
@@ -268,11 +268,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Personal</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row4[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row4[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row4[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row4[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row4[0]['row_count']?></a></td>
                         <!-- <td></td> -->
 
                       </tr>
@@ -296,11 +296,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Psychological First Aid / Crisis Intervention</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row5[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row5[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row5[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row5[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php"><?= $row5[0]['row_count']?></a></td>
                         <!-- <td></td> -->
 
                       </tr>
@@ -326,11 +326,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Cumulative Record</li>
                         </td>
-                        <td><a href="specific_report_individual.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php"><?= $row1[8]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php"><?= $row1[9]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php"><?= $row1[10]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php"><?= $row1[11]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php"><?= $row1[0]['row_count']?></a></td>
                         <!-- <td><?= $row1[1]['row_count']?></td> -->
                         <!-- <td></td> -->
 
@@ -443,11 +443,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Offenses Records Done</li>
                         </td>
-                        <td><a href="specific_report_offense.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php"><?= $row[8]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php"><?= $row[9]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php"><?= $row[10]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php"><?= $row[11]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php"><?= $row[0]['row_count']?></a></td>
                         <!-- <td><?= $row[1]['row_count']?></td> -->
 
                       </tr>
