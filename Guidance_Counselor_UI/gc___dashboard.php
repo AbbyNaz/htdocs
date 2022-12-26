@@ -639,10 +639,11 @@
           <?php } ?>
 
           <?php if (!isset($_GET['ref_id'])) { ?>
-            <div class="form-group-inner">
+
+            <!-- <div class="form-group-inner">
               <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                  <label class="login2 pull-right">Subject</label>
+                  <label class="login2 pull-right">Nature</label>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                   <div class="form-select-list">
@@ -655,13 +656,60 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+            <div class="form-group-inner">
+              <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                      <label class="login2 pull-right pull-right-pro">Nature </label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                      <div class="bt-df-checkbox pull-left">
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                  </div>
+                              </div>
+                            </div>
+                          <div class="row"> 
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
             
           <?php } else { ?>
-            <div class="form-group-inner">
+            
+            <!-- <div class="form-group-inner">
               <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                  <label class="login2 pull-right">Subject</label>
+                  <label class="login2 pull-right">Nature</label>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                   <div class="form-select-list">
@@ -674,7 +722,54 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+            <div class="form-group-inner">
+              <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                      <label class="login2 pull-right pull-right-pro">Nature </label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                      <div class="bt-df-checkbox pull-left">
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                  </div>
+                              </div>
+                            </div>
+                          <div class="row"> 
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
           <?php } ?>
           <div class="form-group-inner">
             <div class="row">

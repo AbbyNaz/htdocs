@@ -124,6 +124,112 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     </div>
 
+    <!----------------------------------------- view all data for specific counseling---------------------------------------------->
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div id="SPEC_COUNSELING" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+              <h4 class="modal-title"> Counseling Info of (NAME NG STUDENT) </h4>
+              <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+              </div>
+            </div>
+
+            <form action="#" method="POST">
+              <div class="modal-body">
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student ID</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student Name</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Nature</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Information</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Type</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Meeting Link</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Date and Time</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="add_staff_data" class="btn btn-primary btn-md">Upload</button>
+
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- Static Table Start -->
 
     <div class="data-table-area mg-b-15">
@@ -145,10 +251,10 @@ if (!isset($_SESSION['UserEmail'])) {
                       <tr>
                         <th>Student ID</th>
                         <th>Student Name</th>
-                        <th>Program</th>
-                        <th>Level</th>
+                        <!-- <th>Program</th> -->
+                        <th>Level and Program</th>
                         <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                        <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                        <th>Description</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
                         <th>Date and Time</th>
                       </tr>
                     </thead>
