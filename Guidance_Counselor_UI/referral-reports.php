@@ -192,7 +192,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             
                                             
                                           ?>
-                                            <tr>
+                                            <tr data-id="<?= $Referrals['ref_id'] ?>" data-studid="<?= $Referrals['id_number'] ?>" >
                                               <td><?= $Referrals['id_number'] ?></td>
                                               <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
                                               <td><?= $Referrals['program'] ?></td>
@@ -252,7 +252,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             
                                             
                                           ?>
-                                            <tr>
+                                            <tr data-id="<?= $Referrals['ref_id'] ?>" data-studid="<?= $Referrals['id_number'] ?>" >
                                               <td><?= $Referrals['id_number'] ?></td>
                                               <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
                                               <td><?= $Referrals['program'] ?></td>
@@ -312,7 +312,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             
                                             
                                           ?>
-                                            <tr>
+                                            <tr data-id="<?= $Referrals['ref_id'] ?>" data-studid="<?= $Referrals['id_number'] ?>" >
                                               <td><?= $Referrals['id_number'] ?></td>
                                               <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
                                               <td><?= $Referrals['program'] ?></td>
@@ -373,7 +373,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             
                                             
                                           ?>
-                                            <tr>
+                                            <tr data-id="<?= $Referrals['ref_id'] ?>" data-studid="<?= $Referrals['id_number'] ?>" >
                                               <td><?= $Referrals['id_number'] ?></td>
                                               <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
                                               <td><?= $Referrals['program'] ?></td>
@@ -434,7 +434,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             
                                             
                                           ?>
-                                            <tr>
+                                            <tr data-id="<?= $Referrals['ref_id'] ?>" data-studid="<?= $Referrals['id_number'] ?>" >
                                               <td><?= $Referrals['id_number'] ?></td>
                                               <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
                                               <td><?= $Referrals['program'] ?></td>
@@ -466,6 +466,29 @@ if (!isset($_SESSION['UserEmail'])) {
   <!-- Static Table End -->
 
   </div>
+
+  <script>
+      $(document).ready(function() {
+        $('#table tr').click(function() {
+          var studid = $(this).data('studid');
+          var id = $(this).data('id');
+
+          if(id == undefined || studid == undefined) return;
+
+          alert("id: " + id + " student id: " + studid);
+
+          // $.ajax({
+          //   url: 'specific_report_referral.php',
+          //   data: {id: id
+          //         },
+          //   success: function(data) {
+          //     var Details = JSON.parse(data);
+                
+          //   }
+          // });
+        });
+      });
+  </script>
 
   <!-- jquery
 		============================================ -->

@@ -183,22 +183,22 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                         <tbody>
                                           <?php 
-                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 9 ORDER BY DATE_INCREATED DESC";
+                                            $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 9 ORDER BY DATE_INCREATED DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
               
-                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            while ($Inventory = mysqli_fetch_assoc($result)) {
                                               
                                             
                                             
                                           ?>
-                                            <tr>
-                                              <td><?= $Referrals['id_number'] ?></td>
-                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
-                                              <td><?= $Referrals['program'] ?></td>
-                                              <td><?= $Referrals['level'] ?></td>
-                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
+                                            <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                                              <td><?= $Inventory['id_number'] ?></td>
+                                              <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                                              <td><?= $Inventory['program'] ?></td>
+                                              <td><?= $Inventory['level'] ?></td>
+                                              <td><?= $Inventory['DATE_INCREATED'] ?></td>
                                             </tr>
                                           <?php 
                                             }
@@ -243,22 +243,22 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                         <tbody>
                                           <?php 
-                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 10 ORDER BY DATE_INCREATED DESC";
+                                            $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 10 ORDER BY DATE_INCREATED DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
               
-                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            while ($Inventory = mysqli_fetch_assoc($result)) {
                                               
                                             
                                             
                                           ?>
-                                            <tr>
-                                              <td><?= $Referrals['id_number'] ?></td>
-                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
-                                              <td><?= $Referrals['program'] ?></td>
-                                              <td><?= $Referrals['level'] ?></td>
-                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
+                                            <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                                              <td><?= $Inventory['id_number'] ?></td>
+                                              <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                                              <td><?= $Inventory['program'] ?></td>
+                                              <td><?= $Inventory['level'] ?></td>
+                                              <td><?= $Inventory['DATE_INCREATED'] ?></td>
                                             </tr>
                                           <?php 
                                             }
@@ -303,22 +303,22 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                         <tbody>
                                           <?php 
-                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 11 ORDER BY DATE_INCREATED DESC";
+                                            $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 11 ORDER BY DATE_INCREATED DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
               
-                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            while ($Inventory = mysqli_fetch_assoc($result)) {
                                               
                                             
                                             
                                           ?>
-                                            <tr>
-                                              <td><?= $Referrals['id_number'] ?></td>
-                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
-                                              <td><?= $Referrals['program'] ?></td>
-                                              <td><?= $Referrals['level'] ?></td>
-                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
+                                            <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                                              <td><?= $Inventory['id_number'] ?></td>
+                                              <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                                              <td><?= $Inventory['program'] ?></td>
+                                              <td><?= $Inventory['level'] ?></td>
+                                              <td><?= $Inventory['DATE_INCREATED'] ?></td>
                                             </tr>
                                           <?php 
                                             }
@@ -364,20 +364,20 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                         <tbody>
                                           <?php 
-                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 12 ORDER BY DATE_INCREATED DESC";
+                                            $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 12 ORDER BY DATE_INCREATED DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
               
-                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            while ($Inventory = mysqli_fetch_assoc($result)) {
                                             
                                           ?>
-                                            <tr>
-                                              <td><?= $Referrals['id_number'] ?></td>
-                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
-                                              <td><?= $Referrals['program'] ?></td>
-                                              <td><?= $Referrals['level'] ?></td>
-                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
+                                            <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                                              <td><?= $Inventory['id_number'] ?></td>
+                                              <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                                              <td><?= $Inventory['program'] ?></td>
+                                              <td><?= $Inventory['level'] ?></td>
+                                              <td><?= $Inventory['DATE_INCREATED'] ?></td>
                                             </tr>
                                           <?php 
                                             }
@@ -423,22 +423,22 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                         <tbody>
                                           <?php 
-                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 1 ORDER BY DATE_INCREATED DESC";
+                                            $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 1 ORDER BY DATE_INCREATED DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
               
-                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            while ($Inventory = mysqli_fetch_assoc($result)) {
                                               
                                             
                                             
                                           ?>
-                                            <tr>
-                                              <td><?= $Referrals['id_number'] ?></td>
-                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
-                                              <td><?= $Referrals['program'] ?></td>
-                                              <td><?= $Referrals['level'] ?></td>
-                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
+                                            <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                                              <td><?= $Inventory['id_number'] ?></td>
+                                              <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                                              <td><?= $Inventory['program'] ?></td>
+                                              <td><?= $Inventory['level'] ?></td>
+                                              <td><?= $Inventory['DATE_INCREATED'] ?></td>
                                             </tr>
                                           <?php 
                                             }
@@ -465,6 +465,30 @@ if (!isset($_SESSION['UserEmail'])) {
   <!-- Static Table End -->
 
   </div>
+
+  <script>
+
+    $(document).ready(function() {
+      $('#table tr').click(function() {
+        var studid = $(this).data('studid');
+        var id = $(this).data('id');
+
+        if(id == undefined || studid == undefined) return;
+
+        alert("id: " + id + " student id: " + studid);
+
+        // $.ajax({
+        //   url: 'get_inventory_full_datails.php',
+        //   data: {id: id
+        //         },
+        //   success: function(data) {
+        //     var Details = JSON.parse(data);
+              
+        //   }
+        // });
+      });
+    });
+  </script>
 
   <!-- jquery
 		============================================ -->

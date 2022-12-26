@@ -197,14 +197,14 @@ if (!isset($_SESSION['UserEmail'])) {
 
                     <tbody>
                     <?php 
-                      $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = $monthnum ORDER BY DATE_INCREATED DESC";
+                      $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = $monthnum ORDER BY DATE_INCREATED DESC";
 
                       $result = mysqli_query($con, $query);
               
                       while ($Inventory = mysqli_fetch_assoc($result)) {
                                           
                     ?>
-                      <tr>
+                      <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
                         <td><?= $Inventory['id_number'] ?></td>
                         <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
                         <td><?= $Inventory['program'] ?></td>
@@ -224,12 +224,34 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
     </div>
     <!-- Static Table End -->
+    <script>
+      $(document).ready(function() {
+        $('#table tr').click(function() {
+          var studid = $(this).data('studid');
+          var id = $(this).data('id');
 
+          if(id == undefined || studid == undefined) return;
+
+          alert("id: " + id + " student id: " + studid);
+
+          // $.ajax({
+          //   url: 'get_inventory_full_datails.php',
+          //   data: {id: id
+          //         },
+          //   success: function(data) {
+          //     var Details = JSON.parse(data);
+                
+          //   }
+          // });
+        });
+      });
+    </script>
 
     <?php
     include('includes/gc___scripts.php');
     ?>
 
+    
 
     <!-- data table JS
 		============================================ -->

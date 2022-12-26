@@ -199,7 +199,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                     <tbody>
                       <?php
-                        $query = "SELECT o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = $monthnum ORDER BY date_created DESC";
+                        $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = $monthnum ORDER BY date_created DESC";
 
                         $result = mysqli_query($con, $query);
               
@@ -207,7 +207,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       
                       ?>
 
-                          <tr>
+                          <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
                             <td><?= $Offense['id_number'] ?></td>
                             <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
                             <td><?= $Offense['program'] ?></td>
@@ -231,7 +231,29 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     <!-- Static Table End -->
 
+    <script>
 
+    $(document).ready(function() {
+      $('#table tr').click(function() {
+        var studid = $(this).data('studid');
+        var id = $(this).data('id');
+
+        if(id == undefined || studid == undefined) return;
+
+        alert("id: " + id + " student id: " + studid);
+
+        // $.ajax({
+        //   url: 'get_offense_full_details.php',
+        //   data: {id: id
+        //         },
+        //   success: function(data) {
+        //     var Details = JSON.parse(data);
+              
+        //   }
+        // });
+      });
+    });
+  </script>
     <?php
     include('includes/gc___scripts.php');
     ?>
