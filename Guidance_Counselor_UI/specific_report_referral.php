@@ -10,6 +10,50 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  $monthnum = $_GET['month'];
+
+  switch ($monthnum) {
+    case 1:
+      $month = 'January';
+      break;
+    case 2:
+      $month = 'February';
+      break;
+    case 3:
+      $month = 'March';
+      break;
+    case 4:
+      $month = 'April';
+      break;
+    case 5:
+      $month = 'May';
+      break;
+    case 6:
+      $month = 'June';
+      break;
+    case 7:
+      $month = 'July';
+      break;
+    case 8:
+      $month = 'August';
+      break;
+    case 9:
+      $month = 'September';
+      break;
+    case 10:
+      $month = 'October';
+      break;
+    case 11:
+      $month = 'November';
+      break;
+    case 12:
+      $month = 'December';
+      break;
+    default:
+      $month = 'January';
+      break;
+  }
+
 ?>
   <!doctype html>
   <html class="no-js" lang="en">
@@ -133,7 +177,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Reports /<span class="table-project-n"> </span> Sample Month</h1>
+                  <h1>Referral Reports /<span class="table-project-n"> </span> Month of <?= $month ?></h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
@@ -153,14 +197,25 @@ if (!isset($_SESSION['UserEmail'])) {
 
                     <tbody>
 
-                          <tr>
-                            <td>as</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
+                    <?php 
+                        $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = $monthnum ORDER BY reffered_date DESC";
 
+                        // Execute the query and retrieve the results
+                        $result = mysqli_query($con, $query);
+              
+                        while ($Referrals = mysqli_fetch_assoc($result)) {
+                                             
+                    ?>
+                      <tr>
+                        <td><?= $Referrals['id_number'] ?></td>
+                        <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                        <td><?= $Referrals['program'] ?></td>
+                        <td><?= $Referrals['level'] ?></td>
+                        <td><?= $Referrals['reffered_date'] ?></td>
+                        </tr>
+                    <?php 
+                        }
+                    ?>
                     </tbody>
                   </table>
                 </div>

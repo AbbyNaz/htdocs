@@ -147,11 +147,12 @@ if (!isset($_SESSION['UserEmail'])) {
               <h1>Individual Inventory <span class="table-project-n"> Reports</span> </h1>
             </div> <br>
             <ul id="myTabedu1" class="tab-review-design">
-              <li class="active"><a href="#Individual_Sept">September</a></li>
-              <li><a href="#Individual_Oct">October</a></li>
-              <li><a href="#Individual_Nov">November</a></li>
-              <li><a href="#Individual_Dec">December</a></li>
-              <li><a href="#Individual_Jan">January</a></li>
+
+            <li class="active"><a href="#Individual_Sept">September</a></li>
+            <li><a href="#Individual_Oct">October</a></li>
+            <li><a href="#Individual_Nov">November</a></li>
+            <li><a href="#Individual_Dec">December</a></li>
+            <li><a href="#Individual_Jan">January</a></li>
 
             </ul>
             <div id="myTabContent" class="tab-content custom-product-edit">
@@ -181,13 +182,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 9 ORDER BY DATE_INCREATED DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -227,13 +242,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 10 ORDER BY DATE_INCREATED DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -273,13 +302,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 11 ORDER BY DATE_INCREATED DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -320,13 +363,25 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 12 ORDER BY DATE_INCREATED DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -367,13 +422,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = 1 ORDER BY DATE_INCREATED DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['DATE_INCREATED'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>

@@ -199,7 +199,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                             $row2 = array();
 
-                            for ($b=1; $b <= 13; $b++) { 
+                            for ($b=1; $b <= 12; $b++) { 
                               $query2 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $b AND nature2 = 'Academics'";
 
                               // Execute the query and retrieve the results
@@ -214,11 +214,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Academic</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academics&month=8"><?= $row2[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academics&month=9"><?= $row2[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academics&month=11"><?= $row2[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academics&month=12"><?= $row2[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academics&month=1"><?= $row2[0]['row_count']?></a></td>
                         <!-- <td></td> -->
                       </tr>
 
@@ -227,7 +227,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                             $row3 = array();
 
-                            for ($c=1; $c <= 13; $c++) { 
+                            for ($c=1; $c <= 12; $c++) { 
                               $query3 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $c AND nature2 = 'Career'";
 
                               // Execute the query and retrieve the results
@@ -241,11 +241,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Career</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row3[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row3[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row3[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row3[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row3[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Career&month=9"><?= $row3[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Career&month=10"><?= $row3[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Career&month=11"><?= $row3[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Career&month=12"><?= $row3[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Career&month=1"><?= $row3[0]['row_count']?></a></td>
                         <!-- <td></td> -->
                       </tr>
 
@@ -254,7 +254,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                             $row4 = array();
 
-                            for ($d=1; $d <= 13; $d++) { 
+                            for ($d=1; $d <= 12; $d++) { 
                               $query4 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $d AND nature2 = 'Personal'";
 
                               // Execute the query and retrieve the results
@@ -268,11 +268,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Personal</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row4[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row4[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row4[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row4[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row4[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Personal&month=9"><?= $row4[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Personal&month=10"><?= $row4[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Personal&month=11"><?= $row4[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Personal&month=12"><?= $row4[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Personal&month=1"><?= $row4[0]['row_count']?></a></td>
                         <!-- <td></td> -->
 
                       </tr>
@@ -282,7 +282,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                             $row5 = array();
 
-                            for ($e=1; $e <= 13; $e++) { 
+                            for ($e=1; $e <= 12; $e++) { 
                               $query5 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $e AND nature2 = 'Crisis'";
 
                               // Execute the query and retrieve the results
@@ -296,11 +296,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Psychological First Aid / Crisis Intervention</li>
                         </td>
-                        <td><a href="specific_report_counseling.php"><?= $row5[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row5[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row5[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row5[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php"><?= $row5[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Crisis&month=9"><?= $row5[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Crisis&month=10"><?= $row5[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Crisis&month=11"><?= $row5[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Crisis&month=12"><?= $row5[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Crisis&month=1"><?= $row5[0]['row_count']?></a></td>
                         <!-- <td></td> -->
 
                       </tr>
@@ -308,7 +308,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php
                             $row1 = array();
 
-                            for ($a=1; $a <= 13; $a++) { 
+                            for ($a=1; $a <= 12; $a++) { 
                               $query1 = "SELECT COUNT(DATE_INCREATED) AS row_count FROM inventory WHERE MONTH(DATE_INCREATED) = $a";
 
                               // Execute the query and retrieve the results
@@ -326,11 +326,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Cumulative Record</li>
                         </td>
-                        <td><a href="specific_report_individual.php"><?= $row1[8]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row1[9]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row1[10]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row1[11]['row_count']?></a></td>
-                        <td><a href="specific_report_individual.php"><?= $row1[0]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php?month=9"><?= $row1[8]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php?month=10"><?= $row1[9]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php?month=11"><?= $row1[10]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php?month=12"><?= $row1[11]['row_count']?></a></td>
+                        <td><a href="specific_report_individual.php?month=1"><?= $row1[0]['row_count']?></a></td>
                         <!-- <td><?= $row1[1]['row_count']?></td> -->
                         <!-- <td></td> -->
 
@@ -397,31 +397,27 @@ if (!isset($_SESSION['UserEmail'])) {
                         <?php
                             $row = array();
 
-                            for ($i=1; $i <= 13; $i++) { 
-                              $query = "SELECT COUNT(reffered_date) AS row_count FROM refferals WHERE MONTH(reffered_date) = $i";
+                            for ($i=1; $i <= 12; $i++) { 
+                              $queryRef = "SELECT COUNT(ref_id) AS row_count FROM refferals WHERE MONTH(reffered_date) = $i";
 
                               // Execute the query and retrieve the results
-                              $result = mysqli_query($con, $query);
+                              $resultRef = mysqli_query($con, $queryRef);
 
                               // Fetch the first row of the result set as an associative array
-                              $row[] = mysqli_fetch_assoc($result);
+                              $Refrow[] = mysqli_fetch_assoc($resultRef);
                             }
                         
                             ?>
                         <td>
                           <li>Internal</li>
                         </td>
-                        <td><a href="specific_report_referral.php"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_referral.php"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_referral.php"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_referral.php"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_referral.php"><?= $row2[0]['row_count']?></a></td>
-                        <!-- <td><?= $row[1]['row_count']?></td> -->
+                        <td><a href="specific_report_referral.php?month=9"><?= $Refrow[8]['row_count']?></a></td>
+                        <td><a href="specific_report_referral.php?month=10"><?= $Refrow[9]['row_count']?></a></td>
+                        <td><a href="specific_report_referral.php?month=11"><?= $Refrow[10]['row_count']?></a></td>
+                        <td><a href="specific_report_referral.php?month=12"><?= $Refrow[11]['row_count']?></a></td>
+                        <td><a href="specific_report_referral.php?month=1"><?= $Refrow[0]['row_count']?></a></td>
 
                       </tr>
-
-
-
                       <tr>
                         <td><a href="offense-reports.php">Offense Monitoring</a></td>
                       </tr>
@@ -429,8 +425,8 @@ if (!isset($_SESSION['UserEmail'])) {
                         <?php
                             $row = array();
 
-                            for ($i=1; $i <= 13; $i++) { 
-                              $query = "SELECT COUNT(date_created) AS row_count FROM offense_monitoring WHERE status='Inactive' AND MONTH(date_created) = $i";
+                            for ($i=1; $i <= 12; $i++) { 
+                              $query = "SELECT COUNT(date_created) AS row_count FROM offense_monitoring WHERE sanction_info ='Sanction Ended' AND MONTH(date_created) = $i";
 
                               // Execute the query and retrieve the results
                               $result = mysqli_query($con, $query);
@@ -443,13 +439,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Offenses Records Done</li>
                         </td>
-                        <td><a href="specific_report_offense.php"><?= $row[8]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row[9]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row[10]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row[11]['row_count']?></a></td>
-                        <td><a href="specific_report_offense.php"><?= $row[0]['row_count']?></a></td>
-                        <!-- <td><?= $row[1]['row_count']?></td> -->
-
+                        <td><a href="specific_report_offense.php?month=9"><?= $row[8]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php?month=10"><?= $row[9]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php?month=11"><?= $row[10]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php?month=12"><?= $row[11]['row_count']?></a></td>
+                        <td><a href="specific_report_offense.php?month=1"><?= $row[0]['row_count']?></a></td>
                       </tr>
 
                     </tbody>

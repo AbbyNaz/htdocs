@@ -181,13 +181,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                          <?php 
+                                            $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = 9 ORDER BY reffered_date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['reffered_date'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -227,13 +241,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                        <?php 
+                                            $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = 10 ORDER BY reffered_date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['reffered_date'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -273,13 +301,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                        <?php 
+                                            $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = 11 ORDER BY reffered_date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['reffered_date'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -320,13 +362,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                        <?php 
+                                            $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = 12 ORDER BY reffered_date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['reffered_date'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -367,13 +423,27 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
+                                        <?php 
+                                            $query = "SELECT r.*, u.id_number, u.first_name, u.last_name, u.program, u.level FROM refferals r JOIN users u ON r.reffered_user = u.user_id WHERE Month(reffered_date) = 1 ORDER BY reffered_date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Referrals = mysqli_fetch_assoc($result)) {
+                                              
+                                            
+                                            
+                                          ?>
                                             <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                              <td><?= $Referrals['id_number'] ?></td>
+                                              <td><?= $Referrals['first_name']." ".$Referrals['last_name'] ?></td>
+                                              <td><?= $Referrals['program'] ?></td>
+                                              <td><?= $Referrals['level'] ?></td>
+                                              <td><?= $Referrals['reffered_date'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
