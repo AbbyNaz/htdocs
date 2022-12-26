@@ -184,15 +184,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                          <?php 
+                                            $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = 9 ORDER BY date_created DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Offense = mysqli_fetch_assoc($result)) {
+                                              
+
+                                            
+                                          ?>
+                                            <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                                              <td><?= $Offense['id_number'] ?></td>
+                                              <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                                              <td><?= $Offense['program'] ?></td>
+                                              <td><?= $Offense['level'] ?></td>
+                                              <td><?= $Offense['offense_type'] ?></td>
+                                              <td><?= $Offense['description'] ?></td>
+                                              <td><?= $Offense['date_created'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -234,15 +248,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                          <?php 
+                                            $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = 10 ORDER BY date_created DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Offense = mysqli_fetch_assoc($result)) {
+                                              
+
+                                            
+                                          ?>
+                                            <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                                              <td><?= $Offense['id_number'] ?></td>
+                                              <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                                              <td><?= $Offense['program'] ?></td>
+                                              <td><?= $Offense['level'] ?></td>
+                                              <td><?= $Offense['offense_type'] ?></td>
+                                              <td><?= $Offense['description'] ?></td>
+                                              <td><?= $Offense['date_created'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -284,15 +312,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                          <?php 
+                                            $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = 11 ORDER BY date_created DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Offense = mysqli_fetch_assoc($result)) {
+                                              
+
+                                            
+                                          ?>
+                                            <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                                              <td><?= $Offense['id_number'] ?></td>
+                                              <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                                              <td><?= $Offense['program'] ?></td>
+                                              <td><?= $Offense['level'] ?></td>
+                                              <td><?= $Offense['offense_type'] ?></td>
+                                              <td><?= $Offense['description'] ?></td>
+                                              <td><?= $Offense['date_created'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -335,15 +377,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                          <?php 
+                                            $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = 12 ORDER BY date_created DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Offense = mysqli_fetch_assoc($result)) {
+                                              
+
+                                            
+                                          ?>
+                                            <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                                              <td><?= $Offense['id_number'] ?></td>
+                                              <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                                              <td><?= $Offense['program'] ?></td>
+                                              <td><?= $Offense['level'] ?></td>
+                                              <td><?= $Offense['offense_type'] ?></td>
+                                              <td><?= $Offense['description'] ?></td>
+                                              <td><?= $Offense['date_created'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -386,15 +442,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                          <?php 
+                                            $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = 1 ORDER BY date_created DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+              
+                                            while ($Offense = mysqli_fetch_assoc($result)) {
+                                              
+
+                                            
+                                          ?>
+                                            <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                                              <td><?= $Offense['id_number'] ?></td>
+                                              <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                                              <td><?= $Offense['program'] ?></td>
+                                              <td><?= $Offense['level'] ?></td>
+                                              <td><?= $Offense['offense_type'] ?></td>
+                                              <td><?= $Offense['description'] ?></td>
+                                              <td><?= $Offense['date_created'] ?></td>
                                             </tr>
+                                          <?php 
+                                            }
+                                          ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -418,6 +488,30 @@ if (!isset($_SESSION['UserEmail'])) {
 
   </div>
 
+  <script>
+
+    $(document).ready(function() {
+      $('#table tr').click(function() {
+        var studid = $(this).data('studid');
+        var id = $(this).data('id');
+
+        if(id == undefined || studid == undefined) return;
+
+        alert("id: " + id + " student id: " + studid);
+
+        // $.ajax({
+        //   url: 'get_offense_full_details.php',
+        //   data: {id: id
+        //         },
+        //   success: function(data) {
+        //     var Details = JSON.parse(data);
+              
+        //   }
+        // });
+      });
+    });
+  </script>
+  
   <!-- jquery
 		============================================ -->
   <script src="js/vendor/jquery-1.12.4.min.js"></script>

@@ -10,6 +10,50 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  $monthnum = $_GET['month'];
+
+  switch ($monthnum) {
+    case 1:
+      $month = 'January';
+      break;
+    case 2:
+      $month = 'February';
+      break;
+    case 3:
+      $month = 'March';
+      break;
+    case 4:
+      $month = 'April';
+      break;
+    case 5:
+      $month = 'May';
+      break;
+    case 6:
+      $month = 'June';
+      break;
+    case 7:
+      $month = 'July';
+      break;
+    case 8:
+      $month = 'August';
+      break;
+    case 9:
+      $month = 'September';
+      break;
+    case 10:
+      $month = 'October';
+      break;
+    case 11:
+      $month = 'November';
+      break;
+    case 12:
+      $month = 'December';
+      break;
+    default:
+      $month = 'January';
+      break;
+  }
+
 ?>
   <!doctype html>
   <html class="no-js" lang="en">
@@ -133,7 +177,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Offense /<span class="table-project-n"> </span> Sample Month</h1>
+                  <h1>Offense Reports /<span class="table-project-n"> </span> Month of <?= $month ?></h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
@@ -154,17 +198,28 @@ if (!isset($_SESSION['UserEmail'])) {
                     </thead>
 
                     <tbody>
+                      <?php
+                        $query = "SELECT o.id, o.date_created, o.offense_type, o.description, u.id_number, u.first_name, u.last_name, u.program, u.level FROM offense_monitoring o JOIN users u ON o.student_id = u.id_number WHERE Month(date_created) = $monthnum ORDER BY date_created DESC";
 
-                          <tr>
-                            <td>as</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        $result = mysqli_query($con, $query);
+              
+                        while ($Offense = mysqli_fetch_assoc($result)) {
+                      
+                      ?>
+
+                          <tr data-id="<?= $Offense['id'] ?>" data-studid="<?= $Offense['id_number'] ?>" >
+                            <td><?= $Offense['id_number'] ?></td>
+                            <td><?= $Offense['first_name']." ".$Offense['last_name'] ?></td>
+                            <td><?= $Offense['program'] ?></td>
+                            <td><?= $Offense['level'] ?></td>
+                            <td><?= $Offense['offense_type'] ?></td>
+                            <td><?= $Offense['description'] ?></td>
+                            <td><?= $Offense['date_created'] ?></td>
                           </tr>
 
+                      <?php 
+                        }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -176,7 +231,29 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     <!-- Static Table End -->
 
+    <script>
 
+    $(document).ready(function() {
+      $('#table tr').click(function() {
+        var studid = $(this).data('studid');
+        var id = $(this).data('id');
+
+        if(id == undefined || studid == undefined) return;
+
+        alert("id: " + id + " student id: " + studid);
+
+        // $.ajax({
+        //   url: 'get_offense_full_details.php',
+        //   data: {id: id
+        //         },
+        //   success: function(data) {
+        //     var Details = JSON.parse(data);
+              
+        //   }
+        // });
+      });
+    });
+  </script>
     <?php
     include('includes/gc___scripts.php');
     ?>

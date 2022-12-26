@@ -10,6 +10,50 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  $monthnum = $_GET['month'];
+
+  switch ($monthnum) {
+    case 1:
+      $month = 'January';
+      break;
+    case 2:
+      $month = 'February';
+      break;
+    case 3:
+      $month = 'March';
+      break;
+    case 4:
+      $month = 'April';
+      break;
+    case 5:
+      $month = 'May';
+      break;
+    case 6:
+      $month = 'June';
+      break;
+    case 7:
+      $month = 'July';
+      break;
+    case 8:
+      $month = 'August';
+      break;
+    case 9:
+      $month = 'September';
+      break;
+    case 10:
+      $month = 'October';
+      break;
+    case 11:
+      $month = 'November';
+      break;
+    case 12:
+      $month = 'December';
+      break;
+    default:
+      $month = 'January';
+      break;
+  }
+
 ?>
   <!doctype html>
   <html class="no-js" lang="en">
@@ -133,7 +177,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Individual Inventory /<span class="table-project-n"> </span> Sample Month</h1>
+                  <h1>Individual Inventory /<span class="table-project-n"> </span> Month of <?= $month ?></h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
@@ -152,15 +196,24 @@ if (!isset($_SESSION['UserEmail'])) {
                     </thead>
 
                     <tbody>
+                    <?php 
+                      $query = "SELECT i.ID, i.DATE_INCREATED, u.id_number, u.first_name, u.last_name, u.program, u.level FROM inventory i JOIN users u ON i.STUDNUMBER = u.id_number WHERE Month(DATE_INCREATED) = $monthnum ORDER BY DATE_INCREATED DESC";
 
-                          <tr>
-                            <td>as</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-
+                      $result = mysqli_query($con, $query);
+              
+                      while ($Inventory = mysqli_fetch_assoc($result)) {
+                                          
+                    ?>
+                      <tr data-id="<?= $Inventory['ID'] ?>" data-studid="<?= $Inventory['id_number'] ?>" >
+                        <td><?= $Inventory['id_number'] ?></td>
+                        <td><?= $Inventory['first_name']." ".$Inventory['last_name'] ?></td>
+                        <td><?= $Inventory['program'] ?></td>
+                        <td><?= $Inventory['level'] ?></td>
+                        <td><?= $Inventory['DATE_INCREATED'] ?></td>
+                        </tr>
+                    <?php 
+                      }
+                    ?>
                     </tbody>
                   </table>
                 </div>
@@ -171,12 +224,34 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
     </div>
     <!-- Static Table End -->
+    <script>
+      $(document).ready(function() {
+        $('#table tr').click(function() {
+          var studid = $(this).data('studid');
+          var id = $(this).data('id');
 
+          if(id == undefined || studid == undefined) return;
+
+          alert("id: " + id + " student id: " + studid);
+
+          // $.ajax({
+          //   url: 'get_inventory_full_datails.php',
+          //   data: {id: id
+          //         },
+          //   success: function(data) {
+          //     var Details = JSON.parse(data);
+                
+          //   }
+          // });
+        });
+      });
+    </script>
 
     <?php
     include('includes/gc___scripts.php');
     ?>
 
+    
 
     <!-- data table JS
 		============================================ -->

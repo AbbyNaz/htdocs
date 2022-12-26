@@ -69,7 +69,17 @@ $con = connection();
                                                     </div> -->
                                                 </li>
 <!--               NOTIFICATIONS -->
-                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i></a>
+                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                    <i class="educate-icon educate-bell" aria-hidden="true"></i>
+                                                    <?php
+                                                            $Checkquery = "SELECT COUNT(id) as unread from notifications where to_user = '$id' and isRead = 0"; 
+                                                            $getCount = mysqli_query($con, $Checkquery);
+                                                            $Unread = mysqli_fetch_assoc($getCount);
+                                                            if($Unread['unread'] > 0){
+                                                                echo '<span class="indicator-nt"></span>';
+                                                            }
+                                                    ?>
+                                                    </a>
                                                     <div role="menu" class="notification-author dropdown-menu animated zoomIn">
                                                         <div class="notification-single-top">
                                                             <h1>Notifications</h1>
