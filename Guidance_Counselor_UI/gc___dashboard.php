@@ -22,6 +22,30 @@
           $ref_actions = $row_ref['actions'];
           $ref_remarks = $row_ref['remarks'];
 
+          $ref_natures = $row_ref['nature'];
+
+          if(strpos($ref_natures ,'Academic') !== false){
+            $Academic = 'checked';
+          }else{
+            $Academic = '';
+          }
+          if(strpos($ref_natures ,'Career') !== false){
+            $Career = 'checked';
+          }else{
+            $Career = '';
+          }
+          if(strpos($ref_natures ,'Personal') !== false){
+            $Personal = 'checked';
+          }else{
+            $Personal = '';
+          }
+          if(strpos($ref_natures ,'Crisis') !== false){
+            $Crisis = 'checked';
+          }else{
+            $Crisis = '';
+          }
+          
+
           $user_query = "SELECT * FROM users WHERE user_id = '$ref_user'";
           $user_con = $con->query($user_query) or die($con->error);
           $row_user = $user_con->fetch_assoc();
@@ -35,35 +59,35 @@
           $position = $row_user['position'];
         }
         
-        if (isset($_POST['subit-req-ref'])) {
+        // if (isset($_POST['subit-req-ref'])) {
           
-          $refid = $_POST['refid'];
+        //   $refid = $_POST['refid'];
           
-          $status = "For Appointment";
+        //   $status = "For Appointment";
 
-          $queryupdate = "INSERT INTO `appointments`(`timeslot`, `date`, `user_type`, `ref_id`, `id_number`, `subject`, `appointment_type`, `info`, `app_status`) " .
-            "VALUES ('$app_timeslot','$date','$app_type','$ref_id','$student_id','$app_subject','$type','$app_info','$status')";
-          $get_app = $con->query($queryupdate) or die($con->error);
-          // $row_get_app = $get_app->fetch_assoc();
+        //   $queryupdate = "INSERT INTO `appointments`(`timeslot`, `date`, `user_type`, `ref_id`, `id_number`, `subject`, `appointment_type`, `info`, `app_status`) " .
+        //     "VALUES ('$app_timeslot','$date','$app_type','$ref_id','$student_id','$app_subject','$type','$app_info','$status')";
+        //   $get_app = $con->query($queryupdate) or die($con->error);
+        //   // $row_get_app = $get_app->fetch_assoc();
 
-          if ($get_app) {
-            $update_ref_status_query = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
-            $update_con = $con->query($update_ref_status_query) or die($con->error);
-            // $update_row = $update_con->fetch_assoc();
-          }
+        //   if ($get_app) {
+        //     $update_ref_status_query = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
+        //     $update_con = $con->query($update_ref_status_query) or die($con->error);
+        //     // $update_row = $update_con->fetch_assoc();
+        //   }
 
-          if ($update_con) {
-            // echo "Saved";
-            $_SESSION['status'] = "Appointment Added";
-            $_SESSION['status_code'] = "success";
-            header("Location: gc___all_appointment.php");
-          } else {
-            // echo "Not saved";
-            $_SESSION['status'] = "Appointment Not Added";
-            $_SESSION['status_code'] = "error";
-            header("Location: gc___all_appointment.php");
-          }
-        }
+        //   if ($update_con) {
+        //     // echo "Saved";
+        //     $_SESSION['status'] = "Appointment Added";
+        //     $_SESSION['status_code'] = "success";
+        //     header("Location: gc___all_appointment.php");
+        //   } else {
+        //     // echo "Not saved";
+        //     $_SESSION['status'] = "Appointment Not Added";
+        //     $_SESSION['status_code'] = "error";
+        //     header("Location: gc___all_appointment.php");
+        //   }
+        // }
 
         function build_calendar($month, $year)
         {
@@ -669,7 +693,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
                                   </div>
                               </div>
                           </div>
@@ -677,7 +701,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
                                   </div>
                               </div>
                             </div>
@@ -685,7 +709,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
                                   </div>
                               </div>
                           </div>
@@ -693,7 +717,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
                                   </div>
                               </div>
                           </div>
@@ -735,7 +759,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Academic" disabled <?= $Academic ?>> <i></i> Academic </label>
                                   </div>
                               </div>
                           </div>
@@ -743,7 +767,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Career" disabled <?= $Career ?>> <i></i> Career </label>
                                   </div>
                               </div>
                             </div>
@@ -751,7 +775,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Personal" disabled <?= $Personal ?>> <i></i> Personal </label>
                                   </div>
                               </div>
                           </div>
@@ -759,7 +783,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                   <div class="i-checks pull-left">
                                       <label>
-                                          <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Crisis" disabled <?= $Crisis ?>> <i></i> Crisis </label>
                                   </div>
                               </div>
                           </div>
@@ -885,7 +909,7 @@
           </div>
 
         </div>
-
+<!-- ADD APPOINTMENT -->
         <?php if (!isset($_GET['ref_id'])) { ?>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
@@ -1701,6 +1725,13 @@
 
           document.getElementById("submit-req").setAttribute("disabled", "");
 
+          var natureArr = $('#nature:checked').map(function() {
+            return this.value;
+          }).get();
+
+          var nature = JSON.stringify(natureArr);
+          
+
           if (e.target.dataset.status == 0) {
             $.ajax({
               url: "insert_req.php",
@@ -1715,7 +1746,9 @@
                 reason: $("#reason").val(),
                 selectTimeslot: $("#selectTimeslot").val(),
                 selectTimeslotto: $("#selectTimeslot-to").val(),
-                subject: $("#subject").val(),
+                // subject: $("#subject").val(),
+                nature: nature,
+
                 pos: $("#pos").val(),
                 myid: $("#myid").val(),
                 myname:$("#student_name").val(),
@@ -1759,7 +1792,9 @@
                 reason: $("#reason").val(),
                 selectTimeslot: $("#selectTimeslot").val(),
                 selectTimeslotto: $("#selectTimeslot-to").val(),
-                subject: $("#subject").val(),
+                // subject: $("#subject").val(),
+                nature: nature,
+
                 pos: $("#pos").val(),
                 myid: $("#myid").val(),
                 myname:$("#student_name").val(),
@@ -1798,6 +1833,12 @@
         document.getElementById("submit-req-ref").setAttribute("disabled", "");
         var ref=$("#refid").val();
         
+        var natureArr = $('#nature:checked').map(function() {
+          return this.value;
+        }).get();
+
+        var nature = JSON.stringify(natureArr);
+          
 
           if (e.target.dataset.status == 0) {
             $.ajax({
@@ -1813,7 +1854,9 @@
                 reason: $("#reason").val(),
                 selectTimeslot: $("#selectTimeslot").val(),
                 selectTimeslotto: $("#selectTimeslot-to").val(),
-                subject: $("#subject").val(),
+                // subject: $("#subject").val(),
+                nature: nature,
+
                 pos: $("#pos").val(),
                 myid: $("#myid").val(),
                 myname:$("#student_name").val(),
@@ -1858,7 +1901,9 @@
                 reason: $("#reason").val(),
                 selectTimeslot: $("#selectTimeslot").val(),
                 selectTimeslotto: $("#selectTimeslot-to").val(),
-                subject: $("#subject").val(),
+                // subject: $("#subject").val(),
+                nature: nature,
+
                 pos: $("#pos").val(),
                 myid: $("#myid").val(),
                 myname:$("#student_name").val(),

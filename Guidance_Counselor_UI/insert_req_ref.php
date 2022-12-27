@@ -21,6 +21,11 @@ $myname = $_POST['myname'];
 $ref = $_POST['ref'];
 $status = $_POST['status'];
 
+
+$natureArr = json_decode($_POST['nature'], true);
+  // Join the elements of the array into a single string
+$nature = implode(',', $natureArr);
+
 $getid = DB::query("SELECT user_id FROM users WHERE id_number='$myid'");
 
 $my_userid = $getid[0]['user_id'];
@@ -46,6 +51,7 @@ $upd =DB::query("UPDATE refferals SET ref_status='For Appointment' WHERE ref_id=
       'user_type' => $pos,
       'id_number' => $myid,
       'name' => $myname,
+      'nature' => $nature,
       'subject' => $reason,
       'appointment_type' => $type,
       'info' => $information,
@@ -64,6 +70,7 @@ $upd =DB::query("UPDATE refferals SET ref_status='For Appointment' WHERE ref_id=
       'user_type' => $pos,
       'id_number' => $myid,
       'name' => $myname,
+      'nature' => $nature,
       'subject' => $reason,
       'appointment_type' => $type,
       'info' => $information,
