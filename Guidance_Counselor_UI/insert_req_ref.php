@@ -24,7 +24,7 @@ $status = $_POST['status'];
 
 $natureArr = json_decode($_POST['nature'], true);
   // Join the elements of the array into a single string
-$nature = implode(',', $natureArr);
+$nature = implode(', ', $natureArr);
 
 $getid = DB::query("SELECT user_id FROM users WHERE id_number='$myid'");
 

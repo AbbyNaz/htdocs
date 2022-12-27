@@ -113,7 +113,7 @@ if (!isset($_SESSION['UserEmail'])) {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title"> Counseling Info of (NAME NG STUDENT) </h4>
+              <h4 id="header" class="modal-title"> Counseling Info of (NAME NG STUDENT) </h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -128,7 +128,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student ID</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="id_number" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student Name</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="name" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Level</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="level" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Program</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="program" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Nature</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="nature" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Information</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="info" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -194,7 +194,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Type</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="appointment_type" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Meeting Link</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="meeting_link" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Date and Time</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="datetime" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -310,13 +310,29 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
+                                        <?php 
+                                            
+                                            $query = "SELECT *
+                                            FROM appointments
+                                            WHERE Month(date) = 9
+                                            ORDER BY date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+                                  
+                                            while ($Appointments = mysqli_fetch_assoc($result)) {
+                                                                
+                                        ?>
+                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                                <td><?= $Appointments['id_number'] ?></td>
+                                                <td><?= $Appointments['name'] ?></td>
+                                                <td><?= $Appointments['nature'] ?></td>
+                                                <td><?= $Appointments['appointment_type'] ?></td>
+                                                <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
+                                              </tr>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -349,24 +365,36 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Program</th>
-                                            <th>Level</th>
-                                            <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Nature</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                                            <th>Type</th><!--Dito if walk in or online-->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
+                                        <?php 
+                                            
+                                            $query = "SELECT *
+                                            FROM appointments
+                                            WHERE Month(date) = 10
+                                            ORDER BY date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+                                  
+                                            while ($Appointments = mysqli_fetch_assoc($result)) {
+                                                                
+                                        ?>
+                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                                <td><?= $Appointments['id_number'] ?></td>
+                                                <td><?= $Appointments['name'] ?></td>
+                                                <td><?= $Appointments['nature'] ?></td>
+                                                <td><?= $Appointments['appointment_type'] ?></td>
+                                                <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
+                                              </tr>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -399,24 +427,36 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Program</th>
-                                            <th>Level</th>
-                                            <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Nature</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                                            <th>Type</th><!--Dito if walk in or online-->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
+                                        <?php 
+                                            
+                                            $query = "SELECT *
+                                            FROM appointments
+                                            WHERE Month(date) = 11
+                                            ORDER BY date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+                                  
+                                            while ($Appointments = mysqli_fetch_assoc($result)) {
+                                                                
+                                        ?>
+                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                                <td><?= $Appointments['id_number'] ?></td>
+                                                <td><?= $Appointments['name'] ?></td>
+                                                <td><?= $Appointments['nature'] ?></td>
+                                                <td><?= $Appointments['appointment_type'] ?></td>
+                                                <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
+                                              </tr>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -450,24 +490,36 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Program</th>
-                                            <th>Level</th>
-                                            <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Nature</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                                            <th>Type</th><!--Dito if walk in or online-->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
+                                        <?php 
+                                            
+                                            $query = "SELECT *
+                                            FROM appointments
+                                            WHERE Month(date) = 12
+                                            ORDER BY date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+                                  
+                                            while ($Appointments = mysqli_fetch_assoc($result)) {
+                                                                
+                                        ?>
+                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                                <td><?= $Appointments['id_number'] ?></td>
+                                                <td><?= $Appointments['name'] ?></td>
+                                                <td><?= $Appointments['nature'] ?></td>
+                                                <td><?= $Appointments['appointment_type'] ?></td>
+                                                <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
+                                              </tr>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -501,24 +553,36 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Program</th>
-                                            <th>Level</th>
-                                            <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Classification</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                                            <th>Date and Time</th><!--DITO KUNG KELAN FINILLUPAN  YUNG INDIVIDUAL INVENTORY FORM -->
+                                            <th>Nature</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                                            <th>Type</th><!--Dito if walk in or online-->
+                                            <th>Date and Time</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                            <td>adw</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
+                                        <?php 
+                                            
+                                            $query = "SELECT *
+                                            FROM appointments
+                                            WHERE Month(date) = 1
+                                            ORDER BY date DESC";
+
+                                            // Execute the query and retrieve the results
+                                            $result = mysqli_query($con, $query);
+                                  
+                                            while ($Appointments = mysqli_fetch_assoc($result)) {
+                                                                
+                                        ?>
+                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                                <td><?= $Appointments['id_number'] ?></td>
+                                                <td><?= $Appointments['name'] ?></td>
+                                                <td><?= $Appointments['nature'] ?></td>
+                                                <td><?= $Appointments['appointment_type'] ?></td>
+                                                <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
+                                              </tr>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                   </div>
@@ -541,6 +605,48 @@ if (!isset($_SESSION['UserEmail'])) {
   <!-- Static Table End -->
 
   </div>
+
+  <script>
+      $(document).ready(function() {
+        $('#table tr').click(function() {
+          var studid = $(this).data('studid');
+          var id = $(this).data('id');
+
+          if(id == undefined || studid == undefined) return;
+
+          $.ajax({
+            url: 'get_counseling_full_details.php',
+            data: {id: id},
+            success: function(data) {
+              var dt = JSON.parse(data);
+              var id_number = dt.id_number;
+              var name = dt.name;
+              var level = dt.level;
+              var program = dt.program;
+              var nature = dt.nature;
+              var info = dt.info;
+              var appointment_type = dt.appointment_type;
+              var meeting_link = dt.meeting_link;
+              var datetime = dt.date+' (' + dt.timeslot + ' - ' + dt.timeslot_end + ')';
+              
+              $('#id_number').val(id_number);
+              $('#name').val(name);
+              $('#level').val(level);
+              $('#program').val(program);
+              $('#nature').val(nature);
+              $('#info').val(info);
+              $('#appointment_type').val(appointment_type);
+              $('#meeting_link').val(meeting_link);
+              $('#datetime').val(datetime);
+
+              $('#header').text("Counseling Info of "+name);
+
+              $('#SPEC_COUNSELING').modal('show');
+            }
+          });
+        });
+      });
+    </script>
 
   <!-- jquery
 		============================================ -->
