@@ -200,7 +200,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             $row2 = array();
 
                             for ($b=1; $b <= 12; $b++) { 
-                              $query2 = "SELECT COUNT(id) AS row_count FROM appointments WHERE MONTH(reffered_date2) = $b AND nature2 = 'Academics'";
+                              $query2 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $b AND nature2 = 'Academics'";
 
                               // Execute the query and retrieve the results
                               $result2 = mysqli_query($con, $query2);
