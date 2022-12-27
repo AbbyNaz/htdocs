@@ -55,13 +55,24 @@
                     <li>
                         <a title="Goodmoral" href="gc___goodmoral.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Good Moral</span></a>
                     </li>
+
                     <li>
-                        <a title="Referral" href="gc___referral.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Referral</span></a>
+                        <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Referral</span></a>
+                        <ul class="submenu-angle" aria-expanded="false">
+                            <li><a title="All Library" href="gc___referral.php"><span class="mini-sub-pro">View Referrals</span></a></li>
+                            <li><a title="Add Library" href="gc___referral_history.php"><span class="mini-sub-pro">Referrals History</span></a></li>
+                            <!-- <li><a title="Edit Library" href="gc___calendar.php"><span class="mini-sub-pro">Calendar</span></a></li> -->
+                        </ul>
                     </li>
+
+                    <!-- <li>
+                        <a title="Referral" href="gc___referral.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Referral</span></a>
+                    </li> -->
+                    
                     <li>
                         <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Appointment</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                            <li><a title="All Library" href="gc___all_appointment.php"><span class="mini-sub-pro">View all appointment</span></a></li>
+                            <li><a title="All Library" href="gc___all_appointment.php"><span class="mini-sub-pro">View Appointments</span></a></li>
                             <li><a title="Add Library" href="gc___appointment_history.php"><span class="mini-sub-pro">Appointment History</span></a></li>
                             <!-- <li><a title="Edit Library" href="gc___calendar.php"><span class="mini-sub-pro">Calendar</span></a></li> -->
                         </ul>

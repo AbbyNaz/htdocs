@@ -110,8 +110,10 @@ if (!isset($_SESSION['UserEmail'])) {
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <ul class="breadcome-menu">
-                    <li><a href="gc___dashboard.php">Home</a> <span class="bread-slash">/</span>
-                    </li>
+                  <li><a href="gc___dashboard.php">Home</a> <span class="bread-slash">/</span>
+                  </li>
+                  <li><a href="gc___all-reports.php">Semestral Reports</a> <span class="bread-slash">/</span>
+                  </li>
                     <li><span class="bread-blod">Counseling Data Reports</span>
                     </li>
                   </ul>
@@ -154,6 +156,28 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="row">
                       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <label class="login2 pull-right">Student Name</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Level</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Program</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         <input type="text" class="form-control" readonly />
@@ -249,13 +273,11 @@ if (!isset($_SESSION['UserEmail'])) {
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <!-- <th>Program</th> -->
-                        <th>Level and Program</th>
-                        <th>Type</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                        <th>Description</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
-                        <th>Date and Time</th>
+                      <th>Student ID</th>
+                      <th>Student Name</th>
+                      <th>Nature</th><!--DITO NAMAN IF ACADEMIC, PERSONAL, CRISIS OR CAREER YUNG APPOINTMENT-->
+                      <th>Type</th><!--Dito if walk in or online-->
+                      <th>Date and Time</th>
                       </tr>
                     </thead>
 
@@ -263,8 +285,6 @@ if (!isset($_SESSION['UserEmail'])) {
 
                           <tr>
                             <td>as</td>
-                            <td></td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
