@@ -1160,11 +1160,11 @@
             center: "title",
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
-          validRange: function (nowDate) {
-          return {
-            start: nowDate
-          }
-          },
+          // validRange: function (nowDate) {
+          // return {
+          //   start: nowDate
+          // }
+          // },
           events: mergedObject,
           dateClick: function(info) {
 
