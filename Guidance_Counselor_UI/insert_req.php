@@ -20,6 +20,12 @@ $myid = $_POST['myid'];
 $myname = $_POST['myname'];
 $status = $_POST['status'];
 
+$natureArr = json_decode($_POST['nature'], true);
+  // Join the elements of the array into a single string
+$nature = implode(',', $natureArr);
+
+
+
 $getid = DB::query("SELECT user_id FROM users WHERE id_number='$myid'");
 
 $my_userid = $getid[0]['user_id'];
@@ -42,6 +48,7 @@ DB::query("UPDATE users SET limit_app=%i WHERE user_id=%i", 1, $my_userid);
       'user_type' => $pos,
       'id_number' => $myid,
       'name' => $myname,
+      'nature' => $nature,
       'subject' => $reason,
       'appointment_type' => $type,
       'info' => $information,
@@ -59,6 +66,7 @@ DB::query("UPDATE users SET limit_app=%i WHERE user_id=%i", 1, $my_userid);
       'user_type' => $pos,
       'id_number' => $myid,
       'name' => $myname,
+      'nature' => $nature,
       'subject' => $reason,
       'appointment_type' => $type,
       'info' => $information,

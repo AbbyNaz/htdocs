@@ -90,21 +90,23 @@ function Reminder( $id, $user1, $user2) {
     $infoID = $id;
     $isRead = 0;
 
-    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
+    $notify1 = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
             VALUES ('$user1',
                     '$user2',
                     '$type',
                     '$infoID',
                     '$isRead')";
+    $notified = mysqli_query($GLOBALS['con'], $notify1);
+
 
     // Remind USER2
-    $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
+    $notify2 = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
             VALUES ('$user2',
                     '$user1',
                     '$type',
                     '$infoID',
                     '$isRead')";
-    $notified = mysqli_query($GLOBALS['con'], $notify);
+    $notified = mysqli_query($GLOBALS['con'], $notify2);
 
     return $notified;
 
