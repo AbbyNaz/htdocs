@@ -428,10 +428,10 @@ if (!isset($_SESSION['UserEmail'])) {
 
           <div class="form-group-inner">
             <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <label class="login2 pull-right pull-right-pro"><span class="basic-ds-n">Type</span></label>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right"><span class="basic-ds-n">Type</span></label>
               </div>
-              <div class="col-lg-6 col-md-12 col-sm-9 col-xs-9">
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="form-select-list">
                   <select class="form-control custom-select-value" id="type">
                     <option>Walk-in</option>

@@ -607,7 +607,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <ul class="breadcome-menu">
-                                    <li><a href="#">Home</a> <span class="bread-slash">/</span>
+                                    <li><a href="stud___dashboard.php">Home</a> <span class="bread-slash">/</span>
                                     </li>
                                     <li><span class="bread-blod">Student Profile</span>
                                     </li>
@@ -702,7 +702,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                                                                 <div class="input-field">
                                                                                     <label>Picture</label>
-                                                                                    <input type="file" id="profile" name="profile"></select>
+                                                                                    <input type="file" style="padding-top: 8px;" id="profile" name="profile"></select>
                                                                                 </div>
 
                                                                                 <!-- <div class="input-field" style="margin-right: 20px;">

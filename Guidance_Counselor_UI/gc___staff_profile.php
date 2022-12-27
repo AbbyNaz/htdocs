@@ -124,7 +124,7 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     <!-- Single pro tab review Start-->
     <div class="single-pro-review-area mt-t-30 mg-b-15">
-        <div class="container-fluid">
+        <div class="container-fluid"> 
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="profile-info-inner">
@@ -135,6 +135,25 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <img src="img/users/1.jpg" alt="profile_picture" />
                             <?php } ?>
                         </div>
+
+                        <!-- PROFILE PICTURE SAMPLE -->
+                        <form action="process_profile_picture.php" method="POST" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-left: 30px;">
+                                            <input type="file" name="profile_picture" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <button type="submit" name="SaveImage" class="btn btn-primary btn-md">Save Image</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
                         <div class="profile-details-hr">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
@@ -423,27 +442,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     </div>
                                                 </div>
                                             </form>
-
-                                            <!-- PROFILE PICTURE SAMPLE -->
-                                            <form action="process_profile_picture.php" method="POST" enctype="multipart/form-data">
-                                                <div class="modal-body">
-                                                    <div class="form-group-inner">
-                                                        <div class="row">
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <label class="login2 pull-right">Choose Image:</label>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <input type="file" name="profile_picture" class="form-control">
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                <button type="submit" name="SaveImage" class="btn btn-primary btn-md">Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-
 
                                         </div>
                                     </div>
