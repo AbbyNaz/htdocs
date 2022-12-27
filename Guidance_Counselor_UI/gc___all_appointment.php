@@ -409,7 +409,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <thead>
                                             <tr>
                                                 <th data-field="appoint_stud_name">Student Name</th>
-                                                <th data-field="appoint_reason">Subject</th>
+                                                <th data-field="appoint_reason">Nature</th>
                                                 <!-- <th data-field="appoint_nature">Nature</th> -->
                                                 <th data-field="appoint_ref_reason">Information</th>
                                                 <!-- <th data-field="appoint_concern">Concern</th> -->

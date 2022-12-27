@@ -249,16 +249,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <thead>
                                             <tr>
                                                 <th data-field="appoint_stud_name">Student Name</th>
-                                                <th data-field="appoint_reason">Reason</th>
-                                                <th data-field="appoint_ref_reason">Date_accomplished</th>
-                                                <th data-field="appoint_cancel">Reason for Canceling</th>
-                                                <!-- <th data-field="appoint_date"></th>
-                                                <th data-field="appoint_time">Time</th>
+                                                <th data-field="appoint_reason">Nature</th>
+                                                <th data-field="appoint_ref_reason">Information</th>
+                                                <th data-field="appoint_date">Date and Time</th> <!--dito yung date and time nung mismong appointment-->
                                                 <th data-field="appoint_type">Type</th>
-                                                <th data-field="appoint_link">Meeting Link</th> --> 
+                                                <th data-field="appoint_link">Meeting Link</th>
+                                                <th data-field="appoint_cancel">Reason for Canceling</th>
+                                                <th data-field="appoint_date_accomplished">Date_accomplished</th><!-- dito yung natapos na, either kelan nacancel or natapos appointment-->
                                                 <th data-field="appoint_status">Status</th>
-                                                <!-- <th data-field="appoint_edit">Edit</th>
-                                                <th data-field="appoint_cancel"></th> -->
 
                                             </tr>
                                         </thead>
@@ -271,9 +269,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <tr>
 
                                                         <td><?php echo $row['first_name'] ?> <?php echo $row['last_name'] ?></td>
-                                                        <td><?php echo $row['reason'] ?></td>
-                                                        <td><?php echo $row['updated_at'] ?></td>
+                                                        <!-- <td><?php echo $row['reason'] ?></td> -->
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td><?php echo $row['cancel_reason'] ?></td>
+                                                        <td><?php echo $row['updated_at'] ?></td>
                                                         <td><?php echo $row['status'] ?></td>
                                                         
                                                        
