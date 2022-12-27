@@ -106,6 +106,111 @@ if (!isset($_SESSION['UserEmail'])) {
   <?php include('includes/gc___top-menu-area.php') ?>
   <?php include('includes/gc___mobile_menu.php') ?>
 
+    <!----------------------------------------- view all data for specific referral---------------------------------------------->
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div id="SPEC_OFFENSE" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+              <h4 id="header" class="modal-title"> Offense Info of (NAME NG STUDENT) </h4>
+              <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+              </div>
+            </div>
+
+            <form action="#" method="POST">
+              <div class="modal-body">
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student ID</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="id_number" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student Name</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="name" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Offense Type</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="offense_type" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Description</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="description" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Sanction</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="sanction" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Start Date</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="start_date" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">End Date</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="end_date" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="add_staff_data" class="btn btn-primary btn-md">Upload</button>
+
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   <!-- Mobile Menu end -->
   <div class="breadcome-area">
@@ -497,17 +602,35 @@ if (!isset($_SESSION['UserEmail'])) {
 
         if(id == undefined || studid == undefined) return;
 
-        alert("id: " + id + " student id: " + studid);
+        $.ajax({
+          url: 'get_offense_full_details.php',
+          data: {id: id
+                },
+          success: function(data) {
+            var dt = JSON.parse(data);
+            
+            var id_number = dt.id_number;
+            var name = dt.first_name + " "+dt.last_name;
+            var offense_type = dt.offense_type;
+            var description = dt.description;
+            var sanction = dt.sanction;
+            var start_date = dt.start_date;
+            var end_date = dt.end_date;
 
-        // $.ajax({
-        //   url: 'get_offense_full_details.php',
-        //   data: {id: id
-        //         },
-        //   success: function(data) {
-        //     var Details = JSON.parse(data);
-              
-        //   }
-        // });
+            $('#id_number').val(id_number);
+            $('#name').val(name);
+            $('#offense_type').val(offense_type);
+            $('#description').val(description);
+            $('#sanction').val(sanction);
+            $('#start_date').val(start_date);
+            $('#end_date').val(end_date);
+
+            $('#header').text('Offense Info of '+name);
+
+            $('#SPEC_OFFENSE').modal('show');
+
+          }
+        });
       });
     });
   </script>

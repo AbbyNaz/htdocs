@@ -174,7 +174,7 @@ if (!isset($_SESSION['UserEmail'])) {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title"> Referral Info of (NAME NG STUDENT) </h4>
+              <h4 id="header" class="modal-title"> Referral Info of </h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -189,7 +189,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student ID</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="id_number" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student Name</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="name" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Referral Source</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="source" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -222,7 +222,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Referred By</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="referred_by" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Nature</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="nature" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -244,7 +244,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Reason of Referral</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="reason" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -256,7 +256,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Actions Taken before Referral</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="actions" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -267,7 +267,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Remarks</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="remarks" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -278,7 +278,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Date and Time</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="date" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -364,17 +364,41 @@ if (!isset($_SESSION['UserEmail'])) {
 
           if(id == undefined || studid == undefined) return;
 
-          alert("id: " + id + " student id: " + studid);
+          
 
-          // $.ajax({
-          //   url: 'specific_report_referral.php',
-          //   data: {id: id
-          //         },
-          //   success: function(data) {
-          //     var Details = JSON.parse(data);
-                
-          //   }
-          // });
+          $.ajax({
+            url: 'get_referral_full_datails.php',
+            data: {id: id,
+                  studid: studid
+                  },
+            success: function(data) {
+              var dt = JSON.parse(data);
+
+              var id_number = dt.id_number;
+              var name = dt.first_name + " "+dt.last_name;
+              var source = dt.source;
+              var referred_by = dt.reffered_by;
+              var nature = dt.nature;
+              var reason = dt.reason;
+              var actions = dt.actions;
+              var remarks = dt.remarks;
+              var date = dt.reffered_date;
+              
+              $('#id_number').val(id_number);
+              $('#name').val(name);
+              $('#source').val(source);
+              $('#referred_by').val(referred_by);
+              $('#nature').val(nature);
+              $('#reason').val(reason);
+              $('#actions').val(actions);
+              $('#remarks').val(remarks);
+              $('#date').val(date);
+
+              $('#header').text("Referral Info of "+name);
+
+              $('#SPEC_REFERRAL').modal('show');
+            }
+          });
         });
       });
     </script>
