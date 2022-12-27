@@ -170,11 +170,11 @@ if (!isset($_SESSION['UserEmail'])) {
 
     <!----------------------------------------- view all data for specific referral---------------------------------------------->
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="SPEC_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+      <div id="SPEC_OFFENSE" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title"> Offense Info of (NAME NG STUDENT) </h4>
+              <h4 id="header" class="modal-title"> Offense Info of (NAME NG STUDENT) </h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -189,7 +189,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student ID</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="id_number" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student Name</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="name" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Offense Type</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="offense_type" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -222,7 +222,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Description</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="description" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Sanction</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="sanction" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -244,7 +244,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Start Date</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="start_date" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">End Date</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="end_date" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -346,17 +346,35 @@ if (!isset($_SESSION['UserEmail'])) {
 
         if(id == undefined || studid == undefined) return;
 
-        alert("id: " + id + " student id: " + studid);
+        $.ajax({
+          url: 'get_offense_full_details.php',
+          data: {id: id
+                },
+          success: function(data) {
+            var dt = JSON.parse(data);
+            
+            var id_number = dt.id_number;
+            var name = dt.first_name + " "+dt.last_name;
+            var offense_type = dt.offense_type;
+            var description = dt.description;
+            var sanction = dt.sanction;
+            var start_date = dt.start_date;
+            var end_date = dt.end_date;
 
-        // $.ajax({
-        //   url: 'get_offense_full_details.php',
-        //   data: {id: id
-        //         },
-        //   success: function(data) {
-        //     var Details = JSON.parse(data);
-              
-        //   }
-        // });
+            $('#id_number').val(id_number);
+            $('#name').val(name);
+            $('#offense_type').val(offense_type);
+            $('#description').val(description);
+            $('#sanction').val(sanction);
+            $('#start_date').val(start_date);
+            $('#end_date').val(end_date);
+
+            $('#header').text('Offense Info of '+name);
+
+            $('#SPEC_OFFENSE').modal('show');
+
+          }
+        });
       });
     });
   </script>

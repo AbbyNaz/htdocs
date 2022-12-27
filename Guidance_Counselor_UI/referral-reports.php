@@ -106,6 +106,134 @@ if (!isset($_SESSION['UserEmail'])) {
   <?php include('includes/gc___top-menu-area.php') ?>
   <?php include('includes/gc___mobile_menu.php') ?>
 
+     <!----------------------------------------- view all data for specific referral---------------------------------------------->
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div id="SPEC_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+              <h4 id="header" class="modal-title"> Referral Info of </h4>
+              <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+              </div>
+            </div>
+
+            <form action="#" method="POST">
+              <div class="modal-body">
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student ID</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="id_number" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Student Name</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="name" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Referral Source</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="source" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Referred By</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="referred_by" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Nature</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="nature" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Reason of Referral</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="reason" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Actions Taken before Referral</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="actions" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Remarks</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="remarks" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group-inner">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label class="login2 pull-right">Date and Time</label>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <input id="date" type="text" class="form-control" readonly />
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="add_staff_data" class="btn btn-primary btn-md">Upload</button>
+
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   <!-- Mobile Menu end -->
   <div class="breadcome-area">
@@ -475,17 +603,39 @@ if (!isset($_SESSION['UserEmail'])) {
 
           if(id == undefined || studid == undefined) return;
 
-          alert("id: " + id + " student id: " + studid);
+          $.ajax({
+            url: 'get_referral_full_datails.php',
+            data: {id: id,
+                  studid: studid
+                  },
+            success: function(data) {
+              var dt = JSON.parse(data);
 
-          // $.ajax({
-          //   url: 'specific_report_referral.php',
-          //   data: {id: id
-          //         },
-          //   success: function(data) {
-          //     var Details = JSON.parse(data);
-                
-          //   }
-          // });
+              var id_number = dt.id_number;
+              var name = dt.first_name + " "+dt.last_name;
+              var source = dt.source;
+              var referred_by = dt.reffered_by;
+              var nature = dt.nature;
+              var reason = dt.reason;
+              var actions = dt.actions;
+              var remarks = dt.remarks;
+              var date = dt.reffered_date;
+              
+              $('#id_number').val(id_number);
+              $('#name').val(name);
+              $('#source').val(source);
+              $('#referred_by').val(referred_by);
+              $('#nature').val(nature);
+              $('#reason').val(reason);
+              $('#actions').val(actions);
+              $('#remarks').val(remarks);
+              $('#date').val(date);
+
+              $('#header').text("Referral Info of "+name);
+
+              $('#SPEC_REFERRAL').modal('show');
+            }
+          });
         });
       });
   </script>
