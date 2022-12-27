@@ -1168,33 +1168,40 @@
           events: mergedObject,
           dateClick: function(info) {
 
-            // $("#personal-modal").modal("show");
-            $("#personal-date").val(info.dateStr);
-            $("#date-selected").val(info.dateStr);
-            let userid = $("#store-data").data("id");
-            $("#meeting").hide();
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'center',
-              showConfirmButton: true,
-              confirmButtonText: "Personal",
-              showDenyButton: true,
-              denyButtonText: "School",
-              showCancelButton: true,
-              preConfirm: (e) => {
-                $("#personal-modal").modal("show");
-              },
-              preDeny: (e) => {
-                $("#req-modal").modal("show");
-              }
+            var selectedDate = new Date(info.dateStr);
+            // Create a Date object for the current date
+            var currentDate = new Date();
 
-            })
+            if (selectedDate.getTime() >= currentDate.getTime()) {
 
-            Toast.fire({
-              icon: 'info',
-              title: 'Select type of appointment'
-            })
+              // $("#personal-modal").modal("show");
+              $("#personal-date").val(info.dateStr);
+              $("#date-selected").val(info.dateStr);
+              let userid = $("#store-data").data("id");
+              $("#meeting").hide();
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'center',
+                showConfirmButton: true,
+                confirmButtonText: "Personal",
+                showDenyButton: true,
+                denyButtonText: "School",
+                showCancelButton: true,
+                preConfirm: (e) => {
+                  $("#personal-modal").modal("show");
+                },
+                preDeny: (e) => {
+                  $("#req-modal").modal("show");
+                }
 
+              })
+
+              Toast.fire({
+                icon: 'info',
+                title: 'Select type of appointment'
+              })
+
+            }
 
 
             $.ajax({

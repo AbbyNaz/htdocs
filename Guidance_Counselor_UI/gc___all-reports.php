@@ -214,11 +214,11 @@ if (!isset($_SESSION['UserEmail'])) {
                         <td>
                           <li>Academic</li>
                         </td>
-                        <td><a href="specific_report_counseling.php?nature=Academics&month=8"><?= $row2[8]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php?nature=Academics&month=9"><?= $row2[9]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php?nature=Academics&month=11"><?= $row2[10]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php?nature=Academics&month=12"><?= $row2[11]['row_count']?></a></td>
-                        <td><a href="specific_report_counseling.php?nature=Academics&month=1"><?= $row2[0]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academic&month=8"><?= $row2[8]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academic&month=9"><?= $row2[9]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academic&month=11"><?= $row2[10]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academic&month=12"><?= $row2[11]['row_count']?></a></td>
+                        <td><a href="specific_report_counseling.php?nature=Academic&month=1"><?= $row2[0]['row_count']?></a></td>
                         <!-- <td></td> -->
                       </tr>
 

@@ -10,6 +10,51 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
+  $monthnum = $_GET['month'];
+  $nature = $_GET['nature'];
+
+  switch ($monthnum) {
+    case 1:
+      $month = 'January';
+      break;
+    case 2:
+      $month = 'February';
+      break;
+    case 3:
+      $month = 'March';
+      break;
+    case 4:
+      $month = 'April';
+      break;
+    case 5:
+      $month = 'May';
+      break;
+    case 6:
+      $month = 'June';
+      break;
+    case 7:
+      $month = 'July';
+      break;
+    case 8:
+      $month = 'August';
+      break;
+    case 9:
+      $month = 'September';
+      break;
+    case 10:
+      $month = 'October';
+      break;
+    case 11:
+      $month = 'November';
+      break;
+    case 12:
+      $month = 'December';
+      break;
+    default:
+      $month = 'January';
+      break;
+  }
+
 ?>
   <!doctype html>
   <html class="no-js" lang="en">
@@ -132,7 +177,7 @@ if (!isset($_SESSION['UserEmail'])) {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title"> Counseling Info of (NAME NG STUDENT) </h4>
+              <h4 id="header" class="modal-title"> Counseling Info of (NAME NG STUDENT) </h4>
               <div class="modal-close-area modal-close-df">
                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
               </div>
@@ -147,7 +192,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student ID</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="id_number" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -158,7 +203,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Student Name</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="name" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -169,7 +214,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Level</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="level" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -180,7 +225,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Program</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="program" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -191,7 +236,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Nature</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="nature" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -202,7 +247,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Information</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="info" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -213,7 +258,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Type</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="appointment_type" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -224,7 +269,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Meeting Link</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="meeting_link" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -235,7 +280,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <label class="login2 pull-right">Date and Time</label>
                       </div>
                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly />
+                        <input id="datetime" type="text" class="form-control" readonly />
                       </div>
                     </div>
                 </div>
@@ -263,7 +308,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Counseling /<span class="table-project-n"> Sample Type / </span> Sample Month</h1>
+                  <h1>Counseling /<span class="table-project-n"> <?= $nature ?> / </span>Month of <?= $month ?></h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
@@ -282,14 +327,32 @@ if (!isset($_SESSION['UserEmail'])) {
                     </thead>
 
                     <tbody>
+                    <?php 
+                        
+                        $searchNature = '%'.$nature.'%';
+                        $query = "SELECT *
+                        FROM appointments
+                        WHERE nature LIKE '%$nature%' AND  Month(date) = $monthnum
+                        ORDER BY date DESC";
 
-                          <tr>
-                            <td>as</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        // Execute the query and retrieve the results
+                        $result = mysqli_query($con, $query);
+              
+                        while ($Appointments = mysqli_fetch_assoc($result)) {
+                                             
+                    ?>
+                        <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                            <td><?= $Appointments['id_number'] ?></td>
+                            <td><?= $Appointments['name'] ?></td>
+                            <td><?= $nature ?></td>
+                            <td><?= $Appointments['appointment_type'] ?></td>
+                            <td><?= $Appointments['date'].' ('.$Appointments['timeslot'].' - '.$Appointments['timeslot_end'].')' ?></td>
                           </tr>
+                    <?php 
+                        }
+                    ?>
+
+                          
 
                     </tbody>
                   </table>
@@ -301,7 +364,48 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
     </div>
     <!-- Static Table End -->
+    
+    <script>
+      $(document).ready(function() {
+        $('#table tr').click(function() {
+          var studid = $(this).data('studid');
+          var id = $(this).data('id');
 
+          if(id == undefined || studid == undefined) return;
+
+          $.ajax({
+            url: 'get_counseling_full_details.php',
+            data: {id: id},
+            success: function(data) {
+              var dt = JSON.parse(data);
+              var id_number = dt.id_number;
+              var name = dt.name;
+              var level = dt.level;
+              var program = dt.program;
+              var nature = dt.nature;
+              var info = dt.info;
+              var appointment_type = dt.appointment_type;
+              var meeting_link = dt.meeting_link;
+              var datetime = dt.date+' (' + dt.timeslot + ' - ' + dt.timeslot_end + ')';
+              
+              $('#id_number').val(id_number);
+              $('#name').val(name);
+              $('#level').val(level);
+              $('#program').val(program);
+              $('#nature').val(nature);
+              $('#info').val(info);
+              $('#appointment_type').val(appointment_type);
+              $('#meeting_link').val(meeting_link);
+              $('#datetime').val(datetime);
+
+              $('#header').text("Counseling Info of "+name);
+
+              $('#SPEC_COUNSELING').modal('show');
+            }
+          });
+        });
+      });
+    </script>
 
     <?php
     include('includes/gc___scripts.php');

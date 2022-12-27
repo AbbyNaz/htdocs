@@ -563,9 +563,19 @@ if (!isset($_SESSION['UserEmail'])) {
           },
           events: data,
           dateClick: function (info) {
-            // console.log($("#store-data").data("id"));
-            $("#ADD_APPOINTMENT").modal("show");
-            $("#date-selected").val(info.dateStr);
+
+            var selectedDate = new Date(info.dateStr);
+            // Create a Date object for the current date
+            var currentDate = new Date();
+
+            if (selectedDate.getTime() >= currentDate.getTime()) {
+
+              // console.log($("#store-data").data("id"));
+              $("#ADD_APPOINTMENT").modal("show");
+              $("#date-selected").val(info.dateStr);
+
+            }
+
             let userid = $("#store-data").data("id");
 
 
