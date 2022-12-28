@@ -1169,10 +1169,9 @@
           dateClick: function(info) {
 
             var selectedDate = new Date(info.dateStr);
-            // Create a Date object for the current date
             var currentDate = new Date();
 
-            if (selectedDate.getTime() >= currentDate.getTime()) {
+            
 
               // $("#personal-modal").modal("show");
               $("#personal-date").val(info.dateStr);
@@ -1196,6 +1195,8 @@
 
               })
 
+            // dont show if the date is past the current date
+            if (selectedDate.getDate() >= currentDate.getDate()) { 
               Toast.fire({
                 icon: 'info',
                 title: 'Select type of appointment'

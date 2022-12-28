@@ -415,7 +415,7 @@ include('includes/staff___mobile_menu.php');
             // Create a Date object for the current date
             var currentDate = new Date();
 
-            if (selectedDate.getTime() >= currentDate.getTime()) {
+            if (selectedDate.getDate() > currentDate.getDate()) {
               // console.log($("#store-data").data("id"));
               $("#ADD_APPOINTMENT").modal("show");
               $("#date-selected").val(info.dateStr);
