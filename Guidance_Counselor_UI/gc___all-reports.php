@@ -200,7 +200,12 @@ if (!isset($_SESSION['UserEmail'])) {
                             $row2 = array();
 
                             for ($b=1; $b <= 12; $b++) { 
-                              $query2 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $b AND nature2 = 'Academics'";
+                              $query2 = "SELECT COUNT(app_id) AS row_count 
+                                        FROM appointment_history 
+                                        WHERE app_status LIKE '%Completed%'
+                                        AND MONTH(date_accomplished) = $b 
+                                        AND nature LIKE '%Academic%'
+                                        ORDER BY date_accomplished DESC";
 
                               // Execute the query and retrieve the results
                               $result2 = mysqli_query($con, $query2);
@@ -228,7 +233,12 @@ if (!isset($_SESSION['UserEmail'])) {
                             $row3 = array();
 
                             for ($c=1; $c <= 12; $c++) { 
-                              $query3 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $c AND nature2 = 'Career'";
+                              $query3 = "SELECT COUNT(app_id) AS row_count 
+                                        FROM appointment_history 
+                                        WHERE app_status LIKE '%Completed%'
+                                        AND MONTH(date_accomplished) = $c
+                                        AND nature LIKE '%Career%'
+                                        ORDER BY date_accomplished DESC";
 
                               // Execute the query and retrieve the results
                               $result3 = mysqli_query($con, $query3);
@@ -255,7 +265,12 @@ if (!isset($_SESSION['UserEmail'])) {
                             $row4 = array();
 
                             for ($d=1; $d <= 12; $d++) { 
-                              $query4 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $d AND nature2 = 'Personal'";
+                              $query4 = "SELECT COUNT(app_id) AS row_count 
+                                        FROM appointment_history 
+                                        WHERE app_status LIKE '%Completed%'
+                                        AND MONTH(date_accomplished) = $d
+                                        AND nature LIKE '%Personal%'
+                                        ORDER BY date_accomplished DESC";
 
                               // Execute the query and retrieve the results
                               $result4 = mysqli_query($con, $query4);
@@ -283,7 +298,12 @@ if (!isset($_SESSION['UserEmail'])) {
                             $row5 = array();
 
                             for ($e=1; $e <= 12; $e++) { 
-                              $query5 = "SELECT COUNT(nature2) AS row_count FROM refferals_nature WHERE MONTH(reffered_date2) = $e AND nature2 = 'Crisis'";
+                              $query5 = "SELECT COUNT(app_id) AS row_count 
+                                          FROM appointment_history 
+                                          WHERE app_status LIKE '%Completed%'
+                                          AND MONTH(date_accomplished) = $e
+                                          AND nature LIKE '%Crisis%'
+                                          ORDER BY date_accomplished DESC";
 
                               // Execute the query and retrieve the results
                               $result5 = mysqli_query($con, $query5);
