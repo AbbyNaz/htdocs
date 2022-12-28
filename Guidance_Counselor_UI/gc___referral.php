@@ -223,8 +223,8 @@ if(!isset($_SESSION['UserEmail'])) {
                                     </div>
                                 </div>
                                 <div class="form-group-inner">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="row"> 
+                                       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                             <label class="login2 pull-right">First Name</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">

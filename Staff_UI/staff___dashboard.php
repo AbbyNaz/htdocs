@@ -256,7 +256,7 @@ include('includes/staff___mobile_menu.php');
             </div>
           </div> -->
 
-          <div class="form-group-inner">
+          <!-- <div class="form-group-inner">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <label class="login2 pull-right">Subject</label>
@@ -272,7 +272,55 @@ include('includes/staff___mobile_menu.php');
                 </div>
               </div>
             </div>
+          </div> -->
+
+                    <!--------------- inserted nature in appointment instead of subject --------------------->
+                    <div class="form-group-inner">
+              <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                      <label class="login2 pull-right pull-right-pro">Nature </label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                      <div class="bt-df-checkbox pull-left">
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                  </div>
+                              </div>
+                            </div>
+                          <div class="row"> 
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="nature" type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
           </div>
+
           <div class="form-group-inner">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -311,21 +359,6 @@ include('includes/staff___mobile_menu.php');
               </div>
             </div>
           </div>
-          
-          <!-- <div class="form-group-inner">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <label class="login2 pull-right">Concern</label>
-              </div>
-              <div class="col-lg-4 col-md-9 col-sm-9 col-xs-9">
-                <div class="bt-df-checkbox">
-                  <label>
-                    <input class="pull-left radio-checked" type="checkbox"> Urgent
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div> -->
 
           <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
@@ -333,10 +366,10 @@ include('includes/staff___mobile_menu.php');
                 <label class="login2 pull-right" style="font-weight: bold;">Date</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="date-selected" class="form-control" disabled />
+                <input type="text" id="date-selected" class="form-control" readonly />
               </div>
             </div>
-          </div>
+          </div> 
 
           <div class="form-group-inner">
             <div class="row">

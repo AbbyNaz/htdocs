@@ -143,7 +143,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <ul class="breadcome-menu">
                                     <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">Referral Table</span>
+                                    <li><span class="bread-blod">Referral History</span>
                                     </li>
                                 </ul>
                             </div>
@@ -155,244 +155,6 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div id="ADD_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header header-color-modal bg-color-1">
-                        <h4 class="modal-title">Refer a Student / Staff</h4>
-                        <div class="modal-close-area modal-close-df">
-                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                        </div>
-                    </div>
-
-                    <form id="ReferralForm" action="add_referral.php" method="POST">
-                        <div class="modal-body">
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">User Type</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <div class="form-select-list">
-                                            <select id="mySelect" class="form-control custom-select-value"
-                                                name="account" onchange="changeDropdown(this.value);">
-                                                <option selected disabled>Select the user's position you wanted to
-                                                    refer... </option>
-                                                <option value="student">Student</option>
-                                                <!-- <<option value="staff">Staff</option> -->
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Student ID</label>
-                                    </div>
-                                    <div class="col-lg-6 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" placeholder="Enter Student ID" />
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Search</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" placeholder="Search Student Profile"
-                                            name="searchstudent" id="searchstudent" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STUD_NAME" style="display: none;">
-                                <div class=" row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Student Name</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="form-group-inner" id="STUD_PROGRAM" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Program</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Student Program"
-                                            id="stud_program" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group-inner" id="STUD_LEVEL" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Level</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Student Level"
-                                            id="stud_level" />
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Search</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" placeholder="Search Staff Profile"
-                                            name="searchstaff" id="searchstaff" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_NAME" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Staff Name</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Enter Staff Name"
-                                            id="staff_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_DEPARTMENT" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right"> Department</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control"
-                                            placeholder="Enter Staff Department" id="staff_department" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_POSITION" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Position</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Staff Position"
-                                            id="staff_position" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <label class="login2 pull-right pull-right-pro">Nature </label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <div class="bt-df-checkbox pull-left">
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="i-checks pull-left">
-                                                        <label>
-                                                            <input type="checkbox" name="nature[]" value="Academic">
-                                                            <i></i> Academic </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="i-checks pull-left">
-                                                        <label>
-                                                            <input type="checkbox" name="nature[]" value="Career">
-                                                            <i></i> Career </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="i-checks pull-left">
-                                                        <label>
-                                                            <input type="checkbox" name="nature[]" value="Personal">
-                                                            <i></i> Personal </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="i-checks pull-left">
-                                                        <label>
-                                                            <input type="checkbox" name="nature[]" value="Crisis">
-                                                            <i></i> Crisis </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Reason</label>
-                                    </div>
-                                    <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <textarea name="description" placeholder="Description"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Action/s</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" name="actions" class="form-control"
-                                            placeholder="Action/s Taken before Referral" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Remarks</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" name="remarks" class="form-control"
-                                            placeholder="Enter Remarks" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <input type="hidden" name="studentid" id="stud_id">
-                            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="add_refferal" class="btn btn-primary btn-md">Add Referral</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
         <div class="container-fluid">
@@ -401,17 +163,16 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="sparkline13-list">
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
-                                <h1>Referral<span class="table-project-n"> Table</span> </h1>
+                                <h1>Referral<span class="table-project-n"> History Table</span> </h1>
                             </div>
                         </div>
                         <div class="sparkline13-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#ADD_REFERRAL">
                                         Add New
-                                    </button><br>
-
+                                    </button><br> -->
                                 </div>
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
@@ -429,7 +190,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th data-field="pri" data-editable="false">Remarks</th>
                                             <th data-field="task" data-editable="false">Date</th>
                                             <th data-field="status">Status</th>
-                                            <th data-field="cancel">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -481,14 +241,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 <?php
                                                 }
                                                                     ?>
-                                            </td>
-                                            <td>
-                                                
-                                                    <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-
-                                                    <a class="btn btn-danger" style="margin-left: 10px; color: white;"
-                                                        href="staff___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a>
-                                             
                                             </td>
                                         </tr>
                                         <?php } while ($row = $get_referral->fetch_assoc());
@@ -548,57 +300,7 @@ if (!isset($_SESSION['UserEmail'])) {
         }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#searchstudent').keyup(function () {
-                var search = $(this).val();
-                if (search != '') {
-                    jQuery.ajax({
-                        type: "POST",
-                        url: 'get_specific_studentprofile.php',
-                        data: { search: search },
-
-                        success: function (response) {
-                            console.log(response);
-                            userData = jQuery.parseJSON(response);
-
-                            $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
-
-                            $('#stud_id').val(userData[0].id);
-                            $('#stud_name').val(userData[0].first_name + " " + userData[0].last_name);
-                            $('#stud_program').val(userData[0].program);
-                            $('#stud_level').val(userData[0].level);
-                        }
-
-                    });
-                }
-            });
-        });
-
-
-        $(document).ready(function () {
-            $('#searchstaff').keyup(function () {
-                var search = $(this).val();
-                if (search != '') {
-                    jQuery.ajax({
-                        type: "POST",
-                        url: 'get_specific_studentprofile.php',
-                        data: { search: search },
-
-                        success: function (response) {
-                            console.log(response);
-                            userData = jQuery.parseJSON(response)
-                            $('#stud_id').val(userData[0].id);
-                            $('#staff_name').val(userData[0].first_name + " " + userData[0].last_name);
-                            $('#staff_department').val(userData[0].department);
-                            $('#staff_position').val(userData[0].position);
-                        }
-
-                    });
-                }
-            });
-        });
-    </script>
+    
 
     <!-- jquery
 		============================================ -->

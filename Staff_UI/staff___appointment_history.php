@@ -6,7 +6,7 @@ include_once("../connections/connection.php");
 
 if (!isset($_SESSION['UserEmail'])) {
     echo "<script>window.open('../loginForm.php','_self')</script>";
-} else {
+} else { 
 
     $con = connection();
 
@@ -259,17 +259,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                     <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                         <thead>
                                             <tr>
-                                                <th data-field="appoint_stud_name">Name</th>
-                                                <th data-field="appoint_reason">Reason</th>
-                                                <th data-field="appoint_ref_reason">Date_accomplished</th>
-                                                <!-- <th data-field="appoint_concern">Concern</th>
-                                                <th data-field="appoint_date"></th>
-                                                <th data-field="appoint_time">Time</th>
+                                                <th data-field="appoint_reason">Nature</th>
+                                                <th data-field="appoint_ref_reason">Information</th>
+                                                <th data-field="appoint_date">Date and Time</th> <!--dito yung date and time nung mismong appointment-->
                                                 <th data-field="appoint_type">Type</th>
-                                                <th data-field="appoint_link">Meeting Link</th> -->
+                                                <th data-field="appoint_link">Meeting Link</th>
+                                                <th data-field="appoint_cancel">Reason for Canceling</th>
+                                                <th data-field="appoint_date_accomplished">Date_accomplished</th><!-- dito yung natapos na, either kelan nacancel or natapos appointment-->
                                                 <th data-field="appoint_status">Status</th>
-                                                <th data-field="appoint_edit">Reason for cancel</th>
-                                                <!-- <th data-field="appoint_cancel"></th> -->
 
                                             </tr>
                                         </thead>
@@ -281,13 +278,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 do { ?>
                                                     <tr>
 
-                                                        <td><?php echo $rowuser['first_name'] ?> <?php echo $rowuser['last_name'] ?></td>
-                                                        <td><?php echo $row['reason'] ?></td>
+                                                    <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><?php echo $row['cancel_reason'] ?></td>
                                                         <td><?php echo $row['updated_at'] ?></td>
                                                         <td><?php echo $row['status'] ?></td>
-                                                        <td><?php echo $row['cancel_reason'] ?></td>
-                                                        
-                                                       
 
                                                     </tr>
                                             <?php } while ($row = $get_app->fetch_assoc());
