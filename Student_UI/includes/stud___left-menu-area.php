@@ -25,9 +25,19 @@
                         </ul>
                     </li> -->
 
-                    <li>
+                    <!-- <li>
                         <a title="Landing Page" href="stud___set_referral.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Referral</span></a>
+                    </li> -->
+
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Referral</span></a>
+                        <ul class="submenu-angle" aria-expanded="false">
+                            <li><a title="View Referrals" href="stud___set_referral.php"><span class="mini-sub-pro">View and Add Referral</span></a></li>
+                            <li><a title="Referrals History" href="stud___referral_history.php"><span class="mini-sub-pro">Referrals History</span></a></li>
+                            <!-- <li><a title="Edit Library" href="gc___calendar.php"><span class="mini-sub-pro">Calendar</span></a></li> -->
+                        </ul>
                     </li>
+
                     <!-- <li>
                         <a title="Landing Page" href="sms.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">SMS</span></a>
                     </li> -->

@@ -158,123 +158,6 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
     </div>
 
-    <!----------------------------------------- THIS IS THE MODAL FORM FOR ADDING APPOINTMENT  ---------------------------------------------->
-    <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-    <div id="ADD_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header header-color-modal bg-color-1">
-            <h4 class="modal-title">Add New Appointment</h4>
-            <div class="modal-close-area modal-close-df">
-              <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-            </div>
-          </div>
-
-          <form action="">
-            <div class="modal-body">
-
-              <div class="form-group-inner">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="login2 pull-right">Subject</label>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <div class="form-select-list">
-                      <select class="form-control custom-select-value" name="account">
-                        <option>Counseling</option>
-                        <option>Academic</option>
-                        <option>Personal</option>
-                        <option>Others</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group-inner">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="login2 pull-right">Reason</label>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Appointment Subject" />
-                  </div>
-                </div>
-              </div> -->
-    <!-- <div class="form-group-inner">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="login2 pull-right">Concern</label>
-                  </div>
-                  <div class="col-lg-4 col-md-9 col-sm-9 col-xs-9">
-                    <div class="bt-df-checkbox">
-                      <label>
-                        <input class="pull-left radio-checked" type="checkbox"> Urgent
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-    <!-- <div class="form-group-inner data-custon-pick" id="data_2">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
-                    <label class="login2 pull-right" style="font-weight: bold;">Date</label>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <div class="input-group date ">
-                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                      <input type="text" class="form-control" value="XX/XX/XXXX">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group-inner">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <label class="login2 pull-right pull-right-pro"><span class="basic-ds-n">Type</span></label>
-                  </div>
-                  <div class="col-lg-6 col-md-12 col-sm-9 col-xs-9">
-                    <div class=" bt-df-checkbox">
-                      <label for="APPOINT_OP1" style="margin-right: 15px;">
-                        <input class="pull-left radio-checked" type="radio" value="Walk-in" id="APPOINT_OP1" name="appoint1">
-                        Walk-In
-                      </label>
-
-                      <label for="APPOINT_OP2">
-                        <input class="pull-left radio-checked" type="radio" value="Online" id="APPOINT_OP2" name="appoint2">
-                        Online
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group-inner">
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <label class="login2 pull-right">Information</label>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Enter Appointment Information" />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </form>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-            <button type="submit" name="save_excel_data" class="btn btn-primary btn-md">Add</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div> -->
-
-
-
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
       <div class="container-fluid">
@@ -305,23 +188,22 @@ if (!isset($_SESSION['UserEmail'])) {
                           </button>
                         </a>
 
-
                       </h5>
                     </div>
                   </div>
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
+
+                    
                       <tr>
-                        <th data-field="appoint_subject">Appointment Subject</th>
-                        <th data-field="appoint_reason">Appointment Reason</th>
-                        <!-- <th data-field="appoint_concern">Concern</th> -->
+                        <th data-field="appoint_reason">Nature</th>
+                        <th data-field="appoint_ref_reason">Information</th>
                         <th data-field="appoint_date">Date</th>
-                        <th data-field="appoint_time">Time Start</th>
-                        <!-- <th data-field="appoint_time">Time End</th> -->
+                        <th data-field="appoint_time">Time</th> <!-- time start - time end -->
                         <th data-field="appoint_type">Type</th>
                         <th data-field="appoint_link">Meeting Link</th>
                         <th data-field="appoint_status">Status</th>
-                        <th data-field="appoint_delete">Action</th>
+                        <th data-field="appoint_cancel">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -333,10 +215,8 @@ if (!isset($_SESSION['UserEmail'])) {
                           <tr>
                             <td><?= $row_app['subject'] ?></td>
                             <td><?= $row_app['info'] ?></td>
-                            <!-- <td><?= $row_app['info'] ?></td> -->
                             <td><?= $row_app['date'] ?></td>
-                            <td><?= $row_app['timeslot'] ?></td>
-                            <!-- <td><?= $row_app['timeslot_end'] ?></td> -->
+                            <td><?= $row_app['timeslot']." - ".$row_app['timeslot_end'] ?></td>
                             <td><?= $row_app['appointment_type'] ?></td>
                             <td><?= $row_app['meeting_link'] ?></td>
                             <td>

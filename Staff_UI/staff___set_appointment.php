@@ -309,16 +309,14 @@ include_once("../connections/connection.php");
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="appoint_subject">Appointment Subject</th>
-                        <th data-field="appoint_reason">Appointment Reason</th>
-                        <!-- <th data-field="appoint_concern">Concern</th> -->
+                      <th data-field="appoint_reason">Nature</th>
+                        <th data-field="appoint_ref_reason">Information</th>
                         <th data-field="appoint_date">Date</th>
-                        <th data-field="appoint_time">Time Start</th>
-                        <!-- <th data-field="appoint_time">Time End</th> -->
+                        <th data-field="appoint_time">Time</th> <!-- time start - time end -->
                         <th data-field="appoint_type">Type</th>
                         <th data-field="appoint_link">Meeting Link</th>
                         <th data-field="appoint_status">Status</th>
-                        <th data-field="appoint_delete">Action</th>
+                        <th data-field="appoint_cancel">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -330,10 +328,8 @@ include_once("../connections/connection.php");
                           <tr>
                             <td><?= $row_app['subject'] ?></td>
                             <td><?= $row_app['info'] ?></td>
-                            <!-- <td><?= $row_app['info'] ?></td> -->
                             <td><?= $row_app['date'] ?></td>
-                            <td><?= $row_app['timeslot'] ?></td>
-                            <!-- <td><?= $row_app['timeslot_end'] ?></td> -->
+                            <td><?= $row_app['timeslot']." - ".$row_app['timeslot_end'] ?></td>
                             <td><?= $row_app['appointment_type'] ?></td>
                             <td><?= $row_app['meeting_link'] ?></td>
                             <td>
