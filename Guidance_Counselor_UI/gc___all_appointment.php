@@ -419,7 +419,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 <th data-field="appoint_link">Meeting Link</th>
                                                 <th data-field="appoint_status">Status</th>
                                                 <!-- <th data-field="appoint_edit">Edit</th> -->
-                                                <th data-field="appoint_cancel"></th>
+                                                <th data-field="appoint_cancel">Action</th>
 
                                             </tr>
                                         </thead>
