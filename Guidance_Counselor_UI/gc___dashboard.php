@@ -850,7 +850,7 @@
             </div>
           </div>
 
-
+          <?php if (!isset($_GET['ref_id'])) { ?>
           <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
@@ -861,6 +861,18 @@
               </div>
             </div>
           </div>
+          <?php }else{ ?>
+          <div class="form-group-inner data-custon-pick" id="data_2">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
+                <label class="login2 pull-right" style="font-weight: bold;">Date</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <input type="date" id="date-selected" class="form-control"/>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
 
           <div class="form-group-inner">
             <div class="row">
@@ -1129,7 +1141,22 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  $(document).ready(function() {
+    var refId = null;
 
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        return results[1] || 0;
+    }
+
+    refId = $.urlParam('ref_id');
+    if (refId != null) {
+      $("#req-modal").modal("show");
+    }
+  });
+  
+</script>
 
 <script type="text/javascript">
   $.ajax({
