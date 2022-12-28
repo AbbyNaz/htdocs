@@ -12,32 +12,72 @@ if(!isset($_SESSION['UserEmail'])){
 
     $con = connection();
 
+    
+
     if(isset($_GET['app_id'])) {
       $app_id = $_GET['app_id'];
     }
 
     if(isset($_POST['cancel_app'])) {
 
-      if ($app_id > 0) {
+      $selectAppointment = "SELECT * FROM appointments WHERE id='$app_id'";
+      $Appointmentdata = $con->query($selectAppointment) or die($con->error);
+      $Appointment = $Appointmentdata->fetch_assoc();
 
-      $reason = $_POST['reason'];
-      $app_status = "Cancelled";
-      $date_cancelled = date("Y-m-d");
-      $query = "UPDATE `appointment_history` SET `cancel_reason` = '$reason' where app_id = '$app_id'";
-      $con->query($query) or die ($con->error);
+      $timeslot = $Appointment['timeslot'];
+      $timeslot_end = $Appointment['timeslot_end'];
+      $date = $Appointment['date'];
+      $user_type = $Appointment['user_type'];
+      $ref_id = $Appointment['ref_id'];
+      $id_number = $Appointment['id_number'];
+      $name = $Appointment['name'];
+      $nature = $Appointment['nature'];
+      $subject = $Appointment['subject'];
+      $appointment_type = $Appointment['appointment_type'];
+      $info = $Appointment['info'];
+      
+      $updated_at = $Appointment['updated_at'];
+      $meeting_link = $Appointment['meeting_link'];
+      $app_by = $Appointment['app_by'];
 
-      $delapp ="DELETE FROM `appointments` where id = '$app_id'";
+      $cancel_reason = $_POST['reason'];
+
+      $updlimit = "UPDATE `users` SET `limit_app`=0 WHERE id_number='$id_number'" ;
+      $con->query($updlimit) or die($con->error);
+
+      if ($ref_id > 0){
+
+        $app_status = 'Cancelled Referral';
+
+        $upd = "UPDATE `refferals` SET `ref_status`='Cancelled referral' WHERE ref_id='$ref_id'";
+        $con->query($upd) or die($con->error);
+
+        $query = "INSERT INTO appointment_history (timeslot,timeslot_end,date,user_type,ref_id,id_number,name,nature,subject,appointment_type,info,app_status,updated_at,meeting_link,app_by,app_id,cancel_reason) 
+                  VALUES('$timeslot','$timeslot_end','$date','$user_type','$ref_id','$id_number','$name','$nature','$subject',
+                          '$appointment_type','$info','$app_status','$updated_at','$meeting_link','$app_by','$app_id','$cancel_reason')";
+        $con->query($query) or die($con->error);
+
+        $delapp ="DELETE FROM `appointments` where id = '$app_id'";
         $con->query($delapp) or die ($con->error);
+
+      }
+      else{
+
+        $app_status = 'Cancelled';
+        
+        $query = "INSERT INTO appointment_history (timeslot,timeslot_end,date,user_type,ref_id,id_number,name,nature,subject,appointment_type,info,app_status,updated_at,meeting_link,app_by,app_id,cancel_reason) 
+                  VALUES('$timeslot','$timeslot_end','$date','$user_type','$ref_id','$id_number','$name','$nature','$subject',
+                          '$appointment_type','$info','$app_status','$updated_at','$meeting_link','$app_by','$app_id','$cancel_reason')";
+        $con->query($query) or die($con->error);
+
+        $delapp ="DELETE FROM `appointments` where id = '$app_id'";
+        $con->query($delapp) or die ($con->error);
+
+      }
 
 
 
       header("Location: gc___all_appointment.php");
-    
-      } else {
-
-        header("Location: 404.php");
-        
-      }
 
     }
     
@@ -136,10 +176,10 @@ if(!isset($_SESSION['UserEmail'])){
 
     <div class="breadcome-area">
         <div class="container-fluid">
-            <div class="row">
+            <div class="Appointment">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="breadcome-list single-page-breadcome">
-                        <div class="row">
+                        <div class="Appointment">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="breadcome-heading">
                                   
@@ -164,7 +204,7 @@ if(!isset($_SESSION['UserEmail'])){
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
         <div class="container-fluid">
-            <div class="row">
+            <div class="Appointment">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="sparkline13-list">
                         <div class="sparkline13-hd">
@@ -180,7 +220,7 @@ if(!isset($_SESSION['UserEmail'])){
                             <br>
                             
                             <div class="form-group-inner">
-                                <div class="row">
+                                <div class="Appointment">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">Reason</label>
                                     </div>

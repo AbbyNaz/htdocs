@@ -475,7 +475,6 @@ if (!isset($_SESSION['UserEmail'])) {
 
         if(id == undefined || studid == undefined) return;
 
-        alert("id: " + id + " student id: " + studid);
 
         // $.ajax({
         //   url: 'get_inventory_full_datails.php',

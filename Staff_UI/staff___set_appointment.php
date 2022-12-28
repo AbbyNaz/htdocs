@@ -22,7 +22,11 @@ include_once("../connections/connection.php");
   $get_app = $con->query($app_query) or die($con->error);
   $row_app = $get_app->fetch_assoc();
 
-  $appby = $row_app['app_by'];
+  if($row_app){
+    $appby = $row_app['app_by'];
+  }else{
+    $appby = 1;
+  }
 
 ?>
 

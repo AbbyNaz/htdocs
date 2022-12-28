@@ -12,9 +12,7 @@ if(!isset($_SESSION['UserEmail'])) {
 } else {
 
     $con = connection();
-    $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.ref_id IS NOT NULL ORDER BY refferals.reffered_date DESC";
-    $get_referral = $con->query($refferal) or die($con->error);
-    $row = $get_referral->fetch_assoc();
+    
   
 ?>
 
@@ -174,35 +172,33 @@ if(!isset($_SESSION['UserEmail'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            <!-- If no Data to display display null -->
-                                            <?php if ($row == 0) {
-                                                echo null;
-                                            } else {
-                                                do { ?>
-                                                <?php
-                                                    $reffered_by = $row['reffered_by'];
-                                                    $refferedBy_query = "SELECT * FROM users WHERE user_id = '$reffered_by'";
-                                                    $get_refferedBy = $con->query($refferedBy_query) or die($con->error);
-                                                    $row_reffered = $get_refferedBy->fetch_assoc();
-                                                ?>
-                                                    <tr>
-                                                        <td><b><?php echo $row['id_number'] ?></b></td>
-                                                        <td><?php echo $row['first_name'] ?></td>
-                                                        <td><?php echo $row['last_name'] ?></td>
-                                                        <td><?php echo $row['source'] ?></td>
-                                                        <!-- <td><?php echo $row['reffered_by'] ?></td> -->
-                                                        <td><?php echo $row_reffered['first_name'] ?> <?php echo $row_reffered['last_name'] ?></td>
-                                                        <td><?php echo $row['reffered_date'] ?></td>
-                                                        <td><?php echo $row['nature'] ?></td>
-                                                        <td><?php echo $row['reason'] ?></td>
-                                                        <td><?php echo $row['actions'] ?></td>
-                                                        <td><?php echo $row['remarks'] ?></td>
-                                                        <td><?php echo $row['ref_status'] ?></td>
-                                                  
-                                                    </tr>
-                                            <?php } while ($row = $get_referral->fetch_assoc());
-                                            } ?>
+                                            <?php
+                                                $query = "SELECT r.*, u.id_number, u.first_name, u.last_name
+                                                            FROM refferals r 
+                                                            JOIN users u 
+                                                            ON r.reffered_user = u.user_id 
+                                                            WHERE ref_status = 'Complete referral' OR ref_status = 'Cancelled referral'
+                                                            ORDER BY reffered_date DESC";
+                                                $result = mysqli_query($con, $query);
+              
+                                                while ($ref = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                             <tr>   
+                                                <td><b><?= $ref['id_number'] ?></b></td>
+                                                <td><?= $ref['first_name']?></td>
+                                                <td><?= $ref['last_name'] ?></td>
+                                                <td><?= $ref['source'] ?></td>
+                                                <td><?= $ref['reffered_by'] ?></td>
+                                                <td><?= $ref['reffered_date'] ?></td>
+                                                <td><?= $ref['nature'] ?></td>
+                                                <td><?= $ref['reason'] ?></td>
+                                                <td><?= $ref['actions'] ?></td>
+                                                <td><?= $ref['remarks'] ?></td>
+                                                <td><?= $ref['ref_status'] ?></td>
+                                            </tr>
+                                            <?php
+                                                }
+                                            ?>
 
                                         </tbody>
                                     </table>
