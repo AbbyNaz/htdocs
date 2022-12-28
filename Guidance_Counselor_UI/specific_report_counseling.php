@@ -329,11 +329,14 @@ if (!isset($_SESSION['UserEmail'])) {
                     <tbody>
                     <?php 
                         
-                        $searchNature = '%'.$nature.'%';
-                        $query = "SELECT *
-                        FROM appointments
-                        WHERE nature LIKE '%$nature%' AND  Month(date) = $monthnum
-                        ORDER BY date DESC";
+                        $query = "SELECT * 
+                                  FROM appointment_history 
+                                  WHERE app_status LIKE '%Completed%'
+                                  AND MONTH(date_accomplished) = $monthnum
+                                  AND nature LIKE '%$nature%'
+                                  ORDER BY date_accomplished DESC";
+
+
 
                         // Execute the query and retrieve the results
                         $result = mysqli_query($con, $query);
@@ -341,7 +344,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         while ($Appointments = mysqli_fetch_assoc($result)) {
                                              
                     ?>
-                        <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                        <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                             <td><?= $Appointments['id_number'] ?></td>
                             <td><?= $Appointments['name'] ?></td>
                             <td><?= $nature ?></td>

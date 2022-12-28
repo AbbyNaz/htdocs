@@ -312,10 +312,11 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tbody>
                                         <?php 
                                             
-                                            $query = "SELECT *
-                                            FROM appointments
-                                            WHERE Month(date) = 9
-                                            ORDER BY date DESC";
+                                            $query = "SELECT * 
+                                                    FROM appointment_history 
+                                                    WHERE app_status LIKE '%Completed%'
+                                                    AND MONTH(date_accomplished) = 9
+                                                    ORDER BY date_accomplished DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
@@ -323,7 +324,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             while ($Appointments = mysqli_fetch_assoc($result)) {
                                                                 
                                         ?>
-                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                            <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                                                 <td><?= $Appointments['id_number'] ?></td>
                                                 <td><?= $Appointments['name'] ?></td>
                                                 <td><?= $Appointments['nature'] ?></td>
@@ -374,10 +375,11 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tbody>
                                         <?php 
                                             
-                                            $query = "SELECT *
-                                            FROM appointments
-                                            WHERE Month(date) = 10
-                                            ORDER BY date DESC";
+                                            $query = "SELECT * 
+                                                    FROM appointment_history 
+                                                    WHERE app_status LIKE '%Completed%'
+                                                    AND MONTH(date_accomplished) = 10
+                                                    ORDER BY date_accomplished DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
@@ -385,7 +387,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             while ($Appointments = mysqli_fetch_assoc($result)) {
                                                                 
                                         ?>
-                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                            <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                                                 <td><?= $Appointments['id_number'] ?></td>
                                                 <td><?= $Appointments['name'] ?></td>
                                                 <td><?= $Appointments['nature'] ?></td>
@@ -436,10 +438,11 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tbody>
                                         <?php 
                                             
-                                            $query = "SELECT *
-                                            FROM appointments
-                                            WHERE Month(date) = 11
-                                            ORDER BY date DESC";
+                                            $query = "SELECT * 
+                                                    FROM appointment_history 
+                                                    WHERE app_status LIKE '%Completed%'
+                                                    AND MONTH(date_accomplished) = 11
+                                                    ORDER BY date_accomplished DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
@@ -447,7 +450,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             while ($Appointments = mysqli_fetch_assoc($result)) {
                                                                 
                                         ?>
-                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                            <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                                                 <td><?= $Appointments['id_number'] ?></td>
                                                 <td><?= $Appointments['name'] ?></td>
                                                 <td><?= $Appointments['nature'] ?></td>
@@ -499,10 +502,11 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tbody>
                                         <?php 
                                             
-                                            $query = "SELECT *
-                                            FROM appointments
-                                            WHERE Month(date) = 12
-                                            ORDER BY date DESC";
+                                            $query = "SELECT * 
+                                                    FROM appointment_history 
+                                                    WHERE app_status LIKE '%Completed%'
+                                                    AND MONTH(date_accomplished) = 12
+                                                    ORDER BY date_accomplished DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
@@ -510,7 +514,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             while ($Appointments = mysqli_fetch_assoc($result)) {
                                                                 
                                         ?>
-                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                            <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                                                 <td><?= $Appointments['id_number'] ?></td>
                                                 <td><?= $Appointments['name'] ?></td>
                                                 <td><?= $Appointments['nature'] ?></td>
@@ -562,10 +566,11 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tbody>
                                         <?php 
                                             
-                                            $query = "SELECT *
-                                            FROM appointments
-                                            WHERE Month(date) = 1
-                                            ORDER BY date DESC";
+                                            $query = "SELECT * 
+                                                    FROM appointment_history 
+                                                    WHERE app_status LIKE '%Completed%'
+                                                    AND MONTH(date_accomplished) = 1
+                                                    ORDER BY date_accomplished DESC";
 
                                             // Execute the query and retrieve the results
                                             $result = mysqli_query($con, $query);
@@ -573,7 +578,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             while ($Appointments = mysqli_fetch_assoc($result)) {
                                                                 
                                         ?>
-                                            <tr  data-id="<?= $Appointments['id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
+                                            <tr  data-id="<?= $Appointments['app_id'] ?>" data-studid="<?= $Appointments['id_number'] ?>" >
                                                 <td><?= $Appointments['id_number'] ?></td>
                                                 <td><?= $Appointments['name'] ?></td>
                                                 <td><?= $Appointments['nature'] ?></td>
@@ -613,12 +618,13 @@ if (!isset($_SESSION['UserEmail'])) {
           var id = $(this).data('id');
 
           if(id == undefined || studid == undefined) return;
-
           $.ajax({
             url: 'get_counseling_full_details.php',
             data: {id: id},
             success: function(data) {
+              
               var dt = JSON.parse(data);
+              console.log('id'+id+" data:"+dt);
               var id_number = dt.id_number;
               var name = dt.name;
               var level = dt.level;

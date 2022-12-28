@@ -21,7 +21,11 @@ $app_query = "SELECT * FROM appointments WHERE id_number = '$id_number'";
 $get_app = $con->query($app_query) or die($con->error);
 $row_app = $get_app->fetch_assoc();
 
- $appby = $row_app['app_by'];
+if($row_app){
+  $appby = $row_app['app_by'];
+}else{
+  $appby = 1;
+}
 
 include('includes/staff___header.php');
 include('includes/staff___left-menu-area.php');

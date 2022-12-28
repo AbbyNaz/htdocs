@@ -89,6 +89,8 @@
         //   }
         // }
 
+        
+
         function build_calendar($month, $year)
         {
           $con = connection();
@@ -1009,9 +1011,8 @@
           </div>
         </div>
 
-
+        <form id="viewForm" action="" method="POST">
         <div class="modal-body">
-
           <div class="form-group-inner data-custon-pick" id="data_2">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
@@ -1103,14 +1104,15 @@
 
 
         <div class="modal-footer">
-                                <button href="gc___appointment_history.php" type="button" id="cancel-app" class="btn btn-danger btn-md" data-dismiss="modal">Cancel Appointment</button>
-                                <button href="gc___appointment_history.php" type="button" id="done-app" class="btn btn-primary btn-md" data-dismiss="modal">Done</button>
+              <button type="submit" name="cancelapp" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
+              <button type="submit" name="doneapp" id="done-app" class="btn btn-primary btn-md">Done</button>
 
           <!-- <a href="gc___appointment_history.php" 
           <button type="button" id="done-app" class="btn btn-info btn-md">Done</button> </a> -->
 
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -1579,8 +1581,7 @@
                   $("#view-name").val(data[0].name);
                   $("#view-url").val(data[0].meeting_link);
 
-                  
-
+                  $('#app_id').val(appid);
 
                 }
               });
@@ -1638,59 +1639,71 @@
               });
             });
 
+            // CHANGE TO cancel_appointment.php
+            // $(document).on("click", "#cancel-app", () => {
+            //   var ref=$("#refid").val();
+            //   $.ajax({
+            //     url: "delete_req.php",
+            //     type: "POST",
+            //     dataType: "json",
+            //     data: {
+            //       appid: events.event._def.publicId,
+            //       myid: $("#view-id").val(),
+            //       ref,
+            //       date: $("#view-date").val(),
+            //     reason: $("#view-reason").val(),
+            //     },
+            //     xhrFields: {
+            //       withCredentials: true,
+            //     },
+            //     crossDomain: true,
+            //     success: (data) => {
+
+            //       $("#VIEW_APPOINTMENT").modal("hide");
+            //       location.reload();
+
+            //     }
+            //   });
+            // }); 
+
             $(document).on("click", "#cancel-app", () => {
-              var ref=$("#refid").val();
-              $.ajax({
-                url: "delete_req.php",
-                type: "POST",
-                dataType: "json",
-                data: {
-                  appid: events.event._def.publicId,
-                  myid: $("#view-id").val(),
-                  ref,
-                  date: $("#view-date").val(),
-                reason: $("#view-reason").val(),
-                },
-                xhrFields: {
-                  withCredentials: true,
-                },
-                crossDomain: true,
-                success: (data) => {
-
-                  $("#VIEW_APPOINTMENT").modal("hide");
-                  location.reload();
-
-                }
-              });
+             var appid = events.event._def.publicId;
+             $('#viewForm').attr("action", "cancel_appointment.php?app_id="+appid);
             }); 
 
-
-          $(document).on("click", "#done-app", () => {
-            var ref=$("#refid").val();
-            $.ajax({
-              url: "done_app.php",
-              type: "POST",
-              dataType: "json",
-              data: {
-                appid: events.event._def.publicId,
-                userid: $("#store-data").data("id"),
-                date: $("#view-date").val(),
-                reason: $("#view-reason").val(),
-                myid: $("#view-id").val(),
-                ref,
-              },
-              xhrFields: {
-                withCredentials: true,
-              },
-              crossDomain: true,
-              success: (data) => {
-
-                $("#VIEW_APPOINTMENT").modal("hide");
-                location.reload();
-
-              }
+            $(document).on("click", "#done-app", () => {
+             var appid = events.event._def.publicId;
+             console.log(appid);
+             $('#viewForm').attr("action", "done_app.php?appid="+appid);
             });
-          });
+
+          // $(document).on("click", "#done-app", () => {
+          //   var ref=$("#refid").val();
+          //   $.ajax({
+          //     url: "done_app.php",
+          //     type: "POST",
+          //     dataType: "json",
+          //     data: {
+          //       appid: events.event._def.publicId,
+          //       userid: $("#store-data").data("id"),
+          //       date: $("#view-date").val(),
+          //       reason: $("#view-reason").val(),
+          //       myid: $("#view-id").val(),
+          //       ref,
+          //     },
+          //     xhrFields: {
+          //       withCredentials: true,
+          //     },
+          //     crossDomain: true,
+          //     success: (data) => {
+
+          //       $("#VIEW_APPOINTMENT").modal("hide");
+          //       location.reload();
+          //       alert('done');
+
+          //     }
+          //   });
+          // });
 
         }
         });
