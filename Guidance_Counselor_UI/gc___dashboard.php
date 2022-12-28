@@ -805,14 +805,13 @@
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="form-select-list">
                   <select id="selectTimeslot" class="form-control custom-select-value" name="timeslot">
-                    
-                    <option id="9:00-am" value="9:00 am">9:00 am</option>
+                    <!-- <option id="9:00-am" value="9:00 am">9:00 am</option>
                     <option id="10:00-am" value="10:00 am">10:00 am</option>
                     <option id="11:00-am" value="11:00 am">11:00 am</option>
                     <option id="1:00-pm" value="1:00 pm">1:00 pm</option>
                     <option id="2:00-pm" value="2:00 pm">2:00 pm</option>
                     <option id="3:00-pm" value="3:00 pm">3:00 pm</option>
-                    <option id="4:00-pm" value="4:00 pm">4:00 pm</option>
+                    <option id="4:00-pm" value="4:00 pm">4:00 pm</option> -->
                   </select>
                 </div>
               </div>
@@ -827,13 +826,13 @@
                 <div class="form-select-list">
                   <select id="selectTimeslot-to" class="form-control custom-select-value" name="timeslot">
 
-                    <option id="10:00-am" value="10:00 am">10:00 am</option>
+                    <!-- <option id="10:00-am" value="10:00 am">10:00 am</option>
                     <option id="11:00-am" value="11:00 am">11:00 am</option>
                     <option id="1:00-pm" value="1:00 pm">1:00 pm</option>
                     <option id="2:00-pm" value="2:00 pm">2:00 pm</option>
                     <option id="3:00-pm" value="3:00 pm">3:00 pm</option>
                     <option id="4:00-pm" value="4:00 pm">4:00 pm</option>
-                    <option id="5:00-pm" value="5:00 pm">5:00 pm</option>
+                    <option id="5:00-pm" value="5:00 pm">5:00 pm</option> -->
                   </select>
                 </div>
               </div>
@@ -1147,6 +1146,7 @@
 
     $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if(!results) return;
         return results[1] || 0;
     }
 
@@ -1200,8 +1200,6 @@
             var selectedDate = new Date(info.dateStr);
             var currentDate = new Date();
 
-            
-
               // $("#personal-modal").modal("show");
               $("#personal-date").val(info.dateStr);
               $("#date-selected").val(info.dateStr);
@@ -1233,190 +1231,179 @@
 
             }
 
-
+            
+            
+            // MANAGE TIME FOR ADD APPOINTMENT MODAL
             $.ajax({
-              url: "get_data.php",
-              type: "POST",
-              dataType: "json",
+              url: "get_today_app_time.php",
               data: {
-                userid: userid,
-                datenow: info.dateStr
+                date: info.dateStr
               },
-              xhrFields: {
-                withCredentials: true,
-              },
-              crossDomain: true,
-              success: (data) => {
-
-
-
-
-                $("#personal-time-to").empty();
-
-                $("#personal-time-to").append(`
-                    
-                    <option id="10:00-am-2" value="10:00 am">10:00 am</option>
-                    <option id="11:00-am-2" value="11:00 am">11:00 am</option>
-                    <option id="1:00-pm-2" value="1:00 pm">1:00 pm</option>
-                    <option id="2:00-pm-2" value="2:00 pm">2:00 pm</option>
-                    <option id="3:00-pm-2" value="3:00 pm">3:00 pm</option>
-                    <option id="4:00-pm-2" value="4:00 pm">4:00 pm</option>
-                    <option id="5:00-pm-2" value="5:00 pm">5:00 pm</option>
-                  `);
-
-
-                $("#personal-time").empty();
-
-                $("#personal-time").append(`
-                    <option id="9:00-am-1" value="9:00 am">9:00 am</option>
-                    <option id="10:00-am-1" value="10:00 am">10:00 am</option>
-                    <option id="11:00-am-1" value="11:00 am">11:00 am</option>
-                    <option id="1:00-pm-1" value="1:00 pm">1:00 pm</option>
-                    <option id="2:00-pm-1" value="2:00 pm">2:00 pm</option>
-                    <option id="3:00-pm-1" value="3:00 pm">3:00 pm</option>
-                    <option id="4:00-pm-1" value="4:00 pm">4:00 pm</option>
-                  `);
-
+              success: function(data) {
+                var Appointments = JSON.parse(data);
+                
                 $("#selectTimeslot").empty();
-
-                $("#selectTimeslot").append(`
-                    <option id="9:00-am" value="9:00 am">9:00 am</option>
-                    <option id="10:00-am" value="10:00 am">10:00 am</option>
-                    <option id="11:00-am" value="11:00 am">11:00 am</option>
-                    <option id="1:00-pm" value="1:00 pm">1:00 pm</option>
-                    <option id="2:00-pm" value="2:00 pm">2:00 pm</option>
-                    <option id="3:00-pm" value="3:00 pm">3:00 pm</option>
-                    <option id="4:00-pm" value="4:00 pm">4:00 pm</option>
-                  `);
-
                 $("#selectTimeslot-to").empty();
 
-                $("#selectTimeslot-to").append(`
-                    
-                    <option id="10:00-am-to" value="10:00 am">10:00 am</option>
-                    <option id="11:00-am-to" value="11:00 am">11:00 am</option>
-                    <option id="1:00-pm-to" value="1:00 pm">1:00 pm</option>
-                    <option id="2:00-pm-to" value="2:00 pm">2:00 pm</option>
-                    <option id="3:00-pm-to" value="3:00 pm">3:00 pm</option>
-                    <option id="4:00-pm-to" value="4:00 pm">4:00 pm</option>
-                    <option id="5:00-pm-to" value="5:00 pm">5:00 pm</option>
-                  `);
+                const start = [9, 10, 11, 1, 2, 3, 4];
+                const end = [10, 11, 12, 2, 3, 4, 5];
+                var index = 0;
 
-
-                $.each(data.time, (indx, time) => {
-
-
-                  new_start = time.hour.replace(" ", "-");
-                  new_end = time.hour_end.replace(" ", "-")
-
-                  let text = "9:00-am 10:00-am 11:00-am 1:00-pm 2:00-pm 3:00-pm 4:00-pm 5:00-pm";
-                  let ret = text.replace(new_start, '{');
-                  let final = ret.replace(new_end, '}');
-                  let final_hours = final.replace(/.*?({.*}).*/, "$1");
-                  let filtered_hour = final_hours.replace(/[\])}[{(]/g, '');
-
-                  let array = filtered_hour.trim().split(' ');
-
-
-
-                  if (array[0] === "") {
-
-                  } else {
-                    for (let i = 0; i < array.length; i++) {
-                      document.getElementById(array[i] + "-2").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-2").style.color = "red";
-
-                      document.getElementById(array[i] + "-1").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-1").style.color = "red";
-
-                      document.getElementById(array[i] + "-to").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-to").style.color = "red";
-
-                      document.getElementById(array[i]).setAttribute("disabled", "");
-                      document.getElementById(array[i]).style.color = "red";
-                    }
+                // REMOVE ALL THE TIMES THAT HAS BEEN APPOINTED
+                Appointments.forEach(Appointment => {
+                  
+                  switch (Appointment['timeslot']) {
+                    case '9:00 am':
+                      index = start.indexOf(9);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '10:00 am':
+                      index = start.indexOf(10);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '11:00 am':
+                      index = start.indexOf(11);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '1:00 pm':
+                      index = start.indexOf(1);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '2:00 pm':
+                      index = start.indexOf(2);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '3:00 pm':
+                      index = start.indexOf(3);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '4:00 pm':
+                      index = start.indexOf(4);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
                   }
-                  // document.getElementById(time.hour.replace(" ","-")+"-to").setAttribute("disabled", "");
-                  // document.getElementById(time.hour.replace(" ","-")+"-to").style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-to").setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-to").style.color = "red";
 
-                  // document.getElementById(time.hour.replace(" ","-")+"-2").setAttribute("disabled", "");
-                  // document.getElementById(time.hour.replace(" ","-")+"-2").style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-2").setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-2").style.color = "red";
-
-
-                  document.getElementById(time.hour.replace(" ", "-") + "-1").setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-") + "-1").style.color = "red";
-                  // document.getElementById(time.hour_end.replace(" ","-")+"-1").setAttribute("disabled", "");
-                  // document.getElementById(time.hour_end.replace(" ","-")+"-1").style.color = "red";
-
-                  document.getElementById(time.hour.replace(" ", "-")).setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-")).style.color = "red";
-                  // document.getElementById(time.hour_end.replace(" ","-")).setAttribute("disabled", "");
-                  // document.getElementById(time.hour_end.replace(" ","-")).style.color = "red";
-
-
-
+                  switch (Appointment['timeslot_end']) {
+                    case '10:00 am':
+                      index = end.indexOf(10);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '11:00 am':
+                      index = end.indexOf(11);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '12:00 pm':
+                      index = end.indexOf(12);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '2:00 pm':
+                      index = end.indexOf(2);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '3:00 pm':
+                      index = end.indexOf(3);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '4:00 pm':
+                      index = end.indexOf(4);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '5:00 pm':
+                      index = end.indexOf(5);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                  }
+                  // END OF switch
                 });
 
-                $.each(data.time2, (indx, time) => {
-
-                  new_start = time.hour.replace(" ", "-");
-                  new_end = time.hour_end.replace(" ", "-")
-
-                  let text = "9:00-am 10:00-am 11:00-am 1:00-pm 2:00-pm 3:00-pm 4:00-pm 5:00-pm";
-                  let ret = text.replace(new_start, '{');
-                  let final = ret.replace(new_end, '}');
-                  let final_hours = final.replace(/.*?({.*}).*/, "$1");
-                  let filtered_hour = final_hours.replace(/[\])}[{(]/g, '');
-
-                  let array = filtered_hour.trim().split(' ');
-
-
-
-                  if (array[0] === "") {
-
-                  } else {
-                    for (let i = 0; i < array.length; i++) {
-                      document.getElementById(array[i] + "-1").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-1").style.color = "red";
-
-                      document.getElementById(array[i] + "-2").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-2").style.color = "red";
-
-                      document.getElementById(array[i] + "-to").setAttribute("disabled", "");
-                      document.getElementById(array[i] + "-to").style.color = "red";
-
-                      document.getElementById(array[i]).setAttribute("disabled", "");
-                      document.getElementById(array[i]).style.color = "red";
-                    }
+                console.log(start);
+                console.log(end);
+                
+                // ADD ALL AVAILABLE START TIME
+                start.forEach(time => {
+                  switch (time) {
+                    case 9:
+                      $("#selectTimeslot").append('<option id="9:00-am" value="9:00 am">9:00 am</option>');
+                      break;
+                    case 10:
+                      $("#selectTimeslot").append('<option id="10:00-am" value="10:00 am">10:00 am</option>');
+                      break;
+                    case 11:
+                      $("#selectTimeslot").append('<option id="11:00-am" value="11:00 am">11:00 am</option>');
+                      break;
+                    case 1:
+                      $("#selectTimeslot").append('<option id="1:00-pm" value="1:00 pm">1:00 pm</option>');
+                      break;
+                    case 2:
+                      $("#selectTimeslot").append('<option id="2:00-pm" value="2:00 pm">2:00 pm</option>');
+                      break;
+                    case 3:
+                      $("#selectTimeslot").append('<option id="3:00-pm" value="3:00 pm">3:00 pm</option>');
+                      break;
+                    case 4:
+                      $("#selectTimeslot").append('<option id="4:00-pm" value="4:00 pm">4:00 pm</option>');
+                      break;
                   }
-                  document.getElementById(time.hour.replace(" ", "-") + "-to").setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-") + "-to").style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-to").setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-to").style.color = "red";
-
-                  document.getElementById(time.hour.replace(" ", "-") + "-2").setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-") + "-2").style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-2").setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-2").style.color = "red";
-
-                  document.getElementById(time.hour.replace(" ", "-") + "-1").setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-") + "-1").style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-1").setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-") + "-1").style.color = "red";
-
-                  document.getElementById(time.hour.replace(" ", "-")).setAttribute("disabled", "");
-                  document.getElementById(time.hour.replace(" ", "-")).style.color = "red";
-                  document.getElementById(time.hour_end.replace(" ", "-")).setAttribute("disabled", "");
-                  document.getElementById(time.hour_end.replace(" ", "-")).style.color = "red";
                 });
-
+                
+                // ADD ALL AVAILABLE END TIME
+                end.forEach(time => {
+                  switch (time) {
+                    case 10:
+                      $("#selectTimeslot-to").append('<option id="10:00-am-to" value="10:00 am">10:00 am</option>');
+                      break;
+                    case 11:
+                      $("#selectTimeslot-to").append('<option id="11:00-am-to" value="11:00 am">11:00 am</option>');
+                      break;
+                    case 12:
+                      $("#selectTimeslot-to").append('<option id="12:00-pm-to" value="12:00 pm">12:00 pm</option>');
+                      break;
+                    case 2:
+                      $("#selectTimeslot-to").append('<option id="2:00-pm-to" value="2:00 pm">2:00 pm</option>');
+                      break;
+                    case 3:
+                      $("#selectTimeslot-to").append('<option id="3:00-pm-to" value="3:00 pm">3:00 pm</option>');
+                      break;
+                    case 4:
+                      $("#selectTimeslot-to").append('<option id="4:00-pm-to" value="4:00 pm">4:00 pm</option>');
+                      break;
+                    case 5:
+                      $("#selectTimeslot-to").append('<option id="5:00-pm-to" value="5:00 pm">5:00 pm</option>');
+                      break;
+                  }
+                });
 
               }
             });
+            
 
 
             $(document).on("click", "#search-user", () => {
