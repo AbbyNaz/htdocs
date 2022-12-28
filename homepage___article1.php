@@ -3,6 +3,14 @@
 
 <style>
     /* =============================MID SECTION (articles)===============================*/
+    .center{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        height: 300px;
+    }
+    
     .about__articles {
         margin-top: 3rem;
     }
@@ -10,7 +18,7 @@
     .about__articles-container {
         display: grid;
         grid-template-columns: 80% 20%;
-        gap: 3rem;
+        gap: 5rem;
     }
 
     .about__articles-right>p {
@@ -94,8 +102,9 @@
     <div class="container about__articles-container">
 
         <div class="about__articles-left">
-            <img src="./images/samplepic_achievements.png" style="width: 100px; height: 100px;">
-            <p>Achievements that we have should be shared</p>
+            <img src="./images/article/dec1.png" class="center"><br>
+            <h2 style="color: black;">Achievements that we should share together</h2>
+            <p align="justify" style="color: black; font-size: 18px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptate qui, voluptatibus aliquam nihil quae amet dolor magnam, atque porro eos cumque dolores enim corrupti quia. Veniam praesentium, maiores nisi exercitationem pariatur, illum natus deleniti animi dolor asperiores eveniet laborum quos aut fugiat dolores accusantium molestias sequi delectus ut magni optio perferendis debitis. Ut quibusdam, quod delectus dolor fuga omnis esse repellendus aperiam vitae, neque facilis quidem rem soluta reiciendis nihil sunt culpa necessitatibus doloribus tempora quae dignissimos exercitationem perferendis officiis quis? Accusamus ipsam labore tenetur dolor voluptate doloremque maxime quia eum eaque ipsa sequi eveniet corporis quo illum necessitatibus perferendis magni commodi, enim esse numquam! Expedita in explicabo quos consequuntur veniam et magni commodi voluptatibus nesciunt possimus error architecto fuga odit, vero iste aliquam voluptates sint modi id placeat vitae deserunt eveniet. Numquam possimus labore debitis laboriosam optio consectetur voluptas atque quas aspernatur ullam est fugit, sit repellendus aut consequuntur voluptatum cum minus vero nesciunt mollitia perferendis! Corporis rem sunt itaque nam deserunt quasi similique labore perferendis fugit consequatur ea molestias, vitae modi ullam adipisci sit cumque veritatis. Soluta, dignissimos quaerat. Non animi fugit dignissimos nobis voluptatibus rerum deleniti laboriosam maiores. Debitis vero explicabo sed? Odit, impedit porro? Nostrum!</p>
         </div>
 
         <div class="about__articles-right">
@@ -124,14 +133,6 @@
                         <br>
                         <a href="homepage___article1.php" class="btn btn-primary">Read More</a>
                     </div>
-                </article>
-
-                <article class="article__card">
-                    <span class="article__icon">
-                        <i class="uil uil-users-alt"></i>
-                    </span>
-                    <h3>800+</h3>
-                    <p>Students</p>
                 </article>
 
             </div>
