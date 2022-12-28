@@ -13,10 +13,10 @@
 </head>
 
 <body>
-    <img class="wave" src="loginForm_images/wave.png">
+    <img class="wave" src="loginForm_images/image.png">
     <div class="container">
         <div class="img">
-            <img src="loginForm_images/bg.svg">
+            <img src="loginForm_images/work.svg">
         </div>
         <div class="login-content">
             <form class="user" action="codeLogin.php" method="POST">
