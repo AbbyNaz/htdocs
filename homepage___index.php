@@ -1,14 +1,59 @@
 <?php
 include('includes/homepage___header.php');
 ?>
+<style>
+* {box-sizing: border-box;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1800px;
+  position: relative;
+  margin: auto;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+</style>
 
 <!--=========================START OF NAVBAR=============================-->
 <nav>
     <div class="container nav__container">
-        <a href="homepage___index.php">
-            <!-- <img src="images/sti_logo.png"/> -->
-            <h4>Guidance and Counseling Office</h4> 
-        </a>
+    <div style="display: flex; align-items: center; justify-content: center">
+  <img src="images/sti_logo.png" style="height: 50px; margin-right: 20px;">
+  <a href="homepage___index.php">
+    <h4 >Guidance and Counseling Office</h4>
+  </a>
+</div>
         <ul class="nav__menu">
             <li><a href="homepage___index.php">Home</a></li>
             <!-- <li><a href="homepage___about.php">About</a></li> -->
@@ -16,7 +61,7 @@ include('includes/homepage___header.php');
             <!-- <li><a href="homepage___FAQS.php">FAQS</a></li> -->
             <!-- <li><a href="individual_inventory_form.php">Registration</a></li> -->
 
-            <li><button class="login-btn"><a href="loginForm.php">Login</a></button></li>
+            <li class="login-btn"><a href="loginForm.php">Login</a></li>
             <!-- data-target="#loginform" data-toggle="modal" -->
         </ul>
         <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
@@ -24,6 +69,59 @@ include('includes/homepage___header.php');
     </div>
 
 </nav>
+
+<section class="faqs">
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <!-- <div class="numbertext">1 / 3</div> -->
+  <img src="images/Doc1.png" style="width:100%; height: 600px;">
+  <!-- <div class="text">Caption Text</div> -->
+</div>
+
+<div class="mySlides fade">
+  <!-- <div class="numbertext">2 / 3</div> -->
+  <img src="images/banner2.jpg" style="width:100%; height: 600px;;">
+  <!-- <div class="text">Caption Two</div> -->
+</div>
+
+<div class="mySlides fade">
+  <!-- <div class="numbertext">3 / 3</div> -->
+  <img src="images/banner3.jpg" style="width:100%; height: 600px;;">
+  <!-- <div class="text">Caption Three</div> -->
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+</section>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 5000); // Change image every 5 seconds
+}
+</script>
 
 <!--=========================START OF HEADERS=============================-->
 <header>
