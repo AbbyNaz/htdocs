@@ -2,9 +2,10 @@
 <footer>
     <div class="container footer__container">
         <div class="footer__1">
-            <a href="homepage___index.php" class="footer__logo">
+            <a href="homepage___index.php" class="footer__logo" style="display: block; margin: 0 auto;">
                 <h4 style="text-align: center;">Guidance and Counseling Office</h4>
             </a>
+            <img src="images/sti_logo.png" style="height: 50px; display: block; margin: 0 auto;">
             <!-- <a href="gc___dashboard.php"><img class="main-logo" src="images/sti_logo.png" /></a> -->
         </div>
 
