@@ -9,7 +9,7 @@ DB::$encoding = 'utf8';
 $group = $_POST['group'];
 
 
-$name = DB::query("SELECT first_name, last_name FROM users WHERE user_id='$group'");
+$name = DB::query("SELECT first_name, last_name, id_number, profile_picture FROM users WHERE user_id='$group'");
 
 $messages = DB::query("SELECT * FROM sms WHERE group_sms='$group' AND delete_status='0'");
 
@@ -22,6 +22,8 @@ $data[] = ["sms" => $row['text_sms'],
 			"sms_id" => $row['id'],
 			"group" => $row['group_sms'],
 		   "sender" => $row['sender'],
+		   "id_number" => $name[0]['id_number'],
+		   "profile_picture" => $name[0]['profile_picture'],
 		   "date" => date("g:i a | F j", strtotime( $row['date_sent'] ))];
 }
 

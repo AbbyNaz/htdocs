@@ -150,14 +150,10 @@
                                                                 while ($Appointment = $result->fetch_assoc()) {
                                                                     Reminder($Appointment["id"], $Appointment["id_number"], $id);
                                                                 }
-
-                                                                // ICONS -- Change the icons
-                                                                $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
-                                                                $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
                                                                 
                                                                 //QUERY
                                                                 
-                                                                $query = "SELECT n.*, u.first_name, u.last_name
+                                                                $query = "SELECT n.*, u.first_name, u.last_name, u.profile_picture
                                                                         FROM notifications n
                                                                         JOIN users u
                                                                         ON n.from_user = u.id_number
@@ -182,17 +178,14 @@
                                                                     switch ($type) {
                                                                         //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
                                                                         case "Reminder": //reminder for appointments
-                                                                            $icon = $appointment_icon;
                                                                             $description = "You have an appointment with ".$name." today";
                                                                             break;
 
                                                                         case "Appointment":
-                                                                            $icon = $appointment_icon;
                                                                             $description = $name." request an appointment";
                                                                             break;
 
                                                                         case "Referral":
-                                                                            $icon = $refferal_icon;
                                                                             $description = $name." send you a new referral";
                                                                             break;
                                                                     }
@@ -225,10 +218,16 @@
                                                                         $style = '';
                                                                     }
 
+                                                                    if($notification["profile_picture"] != null){
+                                                                        $profile = "../Guidance_Counselor_UI/notif_show_profile.php?id=".$from;
+                                                                    }else{
+                                                                        $profile = "../Guidance_Counselor_UI/img/users/1.jpg";
+                                                                    }
+
 
                                                                     echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
-                                                                            <div class="notification-icon">
-                                                                                <i class="'.$icon.'" aria-hidden="true"></i>
+                                                                            <div>
+                                                                                <img class="notification-icon" src="'.$profile.'" alt="User Picture">
                                                                             </div>
                                                                             <div class="notification-content">
                                                                                 <span class="notification-date" >'.$notifStrTime.'</span>
@@ -1104,47 +1103,51 @@ $.ajax({
     crossDomain: true,
     success: (data) => { 
 
-    $("#all-messages").empty();     
-           
-    $.each(data.response, (indx, user)=>{
+        $("#all-messages").empty();     
+            
+        $.each(data.response, (indx, user)=>{
 
-    if ($("#store-data").data("id") == user.sender) {
-    $("#all-messages").append(`
+            var profile = "";
 
-        <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-            <div class="message-img" style="pointer-events: none;">
-                <img src="img/contact/2.png" alt="" class="mCS_img_loaded" style="pointer-events: none;">
-            </div>
-            <div class="message-content" style="pointer-events: none;">
-                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                <h2 style="pointer-events: none;">${user.name}</h2>
-                <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
-            </div>
-        </a>
-        </li>
+            if(user.profile_picture){
+                profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+user.id_number;
+            }else{
+                profile = "../Guidance_Counselor_UI/img/contact/2.png";
+            }
 
-    `); 
-    }else{
-    $("#all-messages").append(`
+            if ($("#store-data").data("id") == user.sender) {
+                $("#all-messages").append(`
+                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                        <div class="message-img" style="pointer-events: none;">
+                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none; border-radius: 50%;">
+                        </div>
+                        <div class="message-content" style="pointer-events: none;">
+                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                            <h2 style="pointer-events: none;">${user.name}</h2>
+                            <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
+                        </div>
+                    </a>
+                    </li>
+                `); 
+            }else{
+                $("#all-messages").append(`
+                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                        <div class="message-img" style="pointer-events: none;">
+                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none;  border-radius: 50%;">
+                        </div>
+                        <div class="message-content" style="pointer-events: none;">
+                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                            <h2 style="pointer-events: none;">${user.name}</h2>
+                            <p style="pointer-events: none;">${user.message}</p>
+                        </div>
+                    </a>
+                    </li>
+                `); 
+            }      
 
-        <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-            <div class="message-img" style="pointer-events: none;">
-                <img src="img/contact/2.png" alt="" class="mCS_img_loaded" style="pointer-events: none;">
-            </div>
-            <div class="message-content" style="pointer-events: none;">
-                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                <h2 style="pointer-events: none;">${user.name}</h2>
-                <p style="pointer-events: none;">${user.message}</p>
-            </div>
-        </a>
-        </li>
-
-    `); 
-    }      
-
-    });    
+        });    
     
     }
     });
@@ -1179,12 +1182,20 @@ $(document).on("click", "#viewsms", (e)=>{
 
         $.each(data.response, (indx, sms)=>{
 
+            var userprofile = "";
+
+            if(sms.profile_picture){
+                userprofile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+sms.id_number;
+            }else{
+                userprofile = "../Guidance_Counselor_UI/img/contact/2.png";
+            }
+
         if (e.target.dataset.group == sms.sender) {
 
         $("#msg_history_1").append(`
         
         <div class="incoming_msg" id="sms-${sms.sms_id}">
-          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+          <div class="incoming_msg_img"> <img  style="border-radius: 50%;" src="${userprofile}" alt="sunil"> </div>
           <div class="received_msg">
             <div class="received_withd_msg">
              

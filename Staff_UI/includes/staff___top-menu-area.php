@@ -86,13 +86,9 @@ $con = connection();
                                                         </div>
                                                         <ul class="notification-menu">
                                                         <?php
-
-                                                            // ICONS
-                                                            $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
-                                                            $rejection_icon = "fa fa-cloud edu-cloud-computing-down";
                                                             
                                                             //QUERY
-                                                            $query = "SELECT n.*, u.first_name, u.last_name
+                                                            $query = "SELECT n.*, u.first_name, u.last_name, u.profile_picture
                                                             FROM notifications n
                                                             JOIN users u
                                                             ON n.from_user = u.id_number
@@ -117,17 +113,14 @@ $con = connection();
                                                                 switch ($type) {
                                                                     //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
                                                                     case "Reminder": //reminder for appointments
-                                                                        $icon = $appointment_icon;
                                                                         $description = "You have an appointment with ".$name." today";
                                                                         break;
 
                                                                     case "Appointment":
-                                                                        $icon = $appointment_icon;
                                                                         $description = "You have new appointment setted by ".$name;
                                                                         break;
 
                                                                     case "Rejection":
-                                                                        $icon = $rejection_icon;
                                                                         $description = $name." rejected your referral";
                                                                         break;
                                                                 }
@@ -160,11 +153,17 @@ $con = connection();
                                                                     $style = '';
                                                                 }
 
+                                                                if($notification["profile_picture"] != null){
+                                                                    $profile = "../Staff_UI/notif_show_profile.php?id=".$from;
+                                                                }else{
+                                                                    $profile = "../Staff_UI/img/profile/prof2.png";
+                                                                }
+
                                                                 
 
                                                                 echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
-                                                                        <div class="notification-icon">
-                                                                            <i class="'.$icon.'" aria-hidden="true"></i>
+                                                                        <div>
+                                                                            <img class="notification-icon" src="'.$profile.'" alt="User Picture">
                                                                         </div>
                                                                         <div class="notification-content">
                                                                             <span class="notification-date">'.$notifStrTime.'</span>
