@@ -150,14 +150,10 @@
                                                                 while ($Appointment = $result->fetch_assoc()) {
                                                                     Reminder($Appointment["id"], $Appointment["id_number"], $id);
                                                                 }
-
-                                                                // ICONS -- Change the icons
-                                                                $appointment_icon = "educate-icon educate-checked edu-checked-pro admin-check-pro";
-                                                                $refferal_icon = "fa fa-cloud edu-cloud-computing-down";
                                                                 
                                                                 //QUERY
                                                                 
-                                                                $query = "SELECT n.*, u.first_name, u.last_name
+                                                                $query = "SELECT n.*, u.first_name, u.last_name, u.profile_picture
                                                                         FROM notifications n
                                                                         JOIN users u
                                                                         ON n.from_user = u.id_number
@@ -182,17 +178,14 @@
                                                                     switch ($type) {
                                                                         //GAWA NG CODE NA MAGSESEND NG NOTIF IF YUNG NAKUHANG APPOINTMENT IS CURRENT DATE NA
                                                                         case "Reminder": //reminder for appointments
-                                                                            $icon = $appointment_icon;
                                                                             $description = "You have an appointment with ".$name." today";
                                                                             break;
 
                                                                         case "Appointment":
-                                                                            $icon = $appointment_icon;
                                                                             $description = $name." request an appointment";
                                                                             break;
 
                                                                         case "Referral":
-                                                                            $icon = $refferal_icon;
                                                                             $description = $name." send you a new referral";
                                                                             break;
                                                                     }
@@ -225,10 +218,16 @@
                                                                         $style = '';
                                                                     }
 
+                                                                    if($notification["profile_picture"] != null){
+                                                                        $profile = "../Guidance_Counselor_UI/notif_show_profile.php?id=".$from;
+                                                                    }else{
+                                                                        $profile = "../Guidance_Counselor_UI/img/users/1.jpg";
+                                                                    }
+
 
                                                                     echo '<li onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
-                                                                            <div class="notification-icon">
-                                                                                <i class="'.$icon.'" aria-hidden="true"></i>
+                                                                            <div>
+                                                                                <img class="notification-icon" src="'.$profile.'" alt="User Picture">
                                                                             </div>
                                                                             <div class="notification-content">
                                                                                 <span class="notification-date" >'.$notifStrTime.'</span>
