@@ -544,7 +544,7 @@ img{ max-width:100%;}
 
         $("#msg_history").append(`
             <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img style="border-radius: 50%;" src="${profile}" alt="sunil"> </div>
+              <div class="incoming_msg_img"> <img style="border-radius: 50%;" src="${profile}" alt="profile"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
                   <p>${sms.text_sms}</p>
