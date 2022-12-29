@@ -159,7 +159,7 @@ if (!isset($_SESSION['UserEmail'])) {
                         <div class="sparkline13-list">
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
-                                    <h1>Referral<span class="table-project-n">History Table</span> </h1>
+                                    <h1>Referral <span class="table-project-n">History Table</span> </h1>
                                 </div>
                             </div>
                             <div class="sparkline13-graph">
