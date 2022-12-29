@@ -180,7 +180,7 @@ $con = connection();
                                                         ?>
                                                         </ul>
                                                         <div class="notification-view">
-                                                            <a href="#">View All Notification</a>
+                                                            <a href="stud___notifications_table.php">View All Notification</a>
                                                         </div>
                                                     </div>
                                                 </li>

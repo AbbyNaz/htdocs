@@ -96,9 +96,9 @@ if (!isset($_SESSION['UserEmail'])) {
 
 <body>
 
-    <?php include('includes/gc___left-menu-area.php') ?>
-    <?php include('includes/gc___top-menu-area.php') ?>
-    <?php include('includes/gc___mobile_menu.php') ?>
+    <?php include('includes/stud___left-menu-area.php') ?>
+    <?php include('includes/stud___top-menu-area.php') ?>
+    <?php include('includes/stud___mobile_menu.php') ?>
 
     <div class="breadcome-area">
         <div class="container-fluid">
@@ -148,12 +148,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <?php
                                               $unreadCount = 0;
 
+                                              //QUERY
                                               $query = "SELECT n.*, u.first_name, u.last_name, u.profile_picture
                                                         FROM notifications n
                                                         JOIN users u
                                                         ON n.from_user = u.id_number
                                                         WHERE n.to_user = '$id'
-                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral' OR n.Type = 'Reminder')
+                                                        AND (n.Type = 'Appointment' OR n.Type = 'Rejection' OR n.Type = 'Offense' OR n.Type = 'Reminder')
                                                         ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                               $connect_query = mysqli_query($con, $query);
 
@@ -176,11 +177,15 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     break;
 
                                                 case "Appointment":
-                                                    $description = $name." request an appointment";
+                                                    $description = "You have new appointment setted by ".$name;
                                                     break;
 
-                                                case "Referral":
-                                                    $description = $name." send you a new referral";
+                                                case "Rejection":
+                                                    $description = $name." rejected your referral";
+                                                    break;
+
+                                                case "Offense":
+                                                    $description = $name." give you an offense";
                                                     break;
                                                 }
 
@@ -231,44 +236,147 @@ if (!isset($_SESSION['UserEmail'])) {
    
     <!-- Static Table End -->
 
-    <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REFERRAL DETAILS MODAL --------------------------------------------->
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE OFFENSE DETAILS MODAL--------------------------------------------->
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div id="NOTIF_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_OFFENSE" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-color-modal bg-color-1">
-                        <h4 class="modal-title">Referral Notification Details</h4>
+                        <h4 class="modal-title">Offense Notification Details</h4>
                         <div class="modal-close-area modal-close-df">
                             <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                         </div>
                     </div>
 
-                    <form id="ReferralForm" action="../Guidance_Counselor_UI/gc___referral.php" method="POST">
+                    <form action="../Student_UI/stud___offense_monitoring.php" method="POST">
                         <div class="modal-body">
 
-                            <!---------------------- DITO NAME NUNG NAGREFER ------------------------->
-                            <div class="form-group-inner" id="STUD_ID">
+                            <div class="form-group-inner" id="STAFF_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Referral From</label>
+                                        <label class="login2 pull-right">Offense Type</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="From-User" type="text" readonly class="form-control"
+                                        <input id="OffenseType" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
                             </div>
 
-                            <!---------------------- DITO DETAILS NUNG NIREFER NA STUDENT ------------------------->
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Description</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input id='Description' type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Sanction</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input id='Sanction' type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Sanction Date</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input id='SanctionDate' type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                           
+                           
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <button type="submit" class="btn btn-secondary btn-md" >View Offenses</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <!--------------------------------------- THIS IS THE MODAL FORM FOR THE REJECTED REFERRAL DETAILS MODAL --------------------------------------------->
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div id="NOTIF_REJECTED_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header header-color-modal bg-color-1">
+                        <h4 class="modal-title">Referral Rejection Details</h4>
+                        <div class="modal-close-area modal-close-df">
+                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+
+                    <form action="../Student_UI/stud___set_referral.php" method="POST">
+                        <div class="modal-body">
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea id="RejReason" name="description" readonly class="form-control"
+                                            placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Rejection Date and Time</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input id="RejDate" type="text" readonly class="form-control" 
+                                            name="description" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Created Date/Time</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <input id="RefDate" type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DITO YUNG NIREFER NYANG STUDENT OR STAFF NAME AND ID -->
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">Student ID</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="Stud-ID" type="text" readonly class="form-control"
+                                        <input id="StudID" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -277,10 +385,10 @@ if (!isset($_SESSION['UserEmail'])) {
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right"> Name</label>
+                                        <label class="login2 pull-right">Student Name</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="Stud-Name" type="text" readonly class="form-control"
+                                        <input id="StudName" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -292,18 +400,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <label class="login2 pull-right"> Reason for Referral</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="Reason" type="text" readonly class="form-control"
+                                        <input id="RefReason" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-md">View Referral Details</button>
-                                <button type="button" id="RejectButton" onclick="showRefModal(this)" class="btn btn-danger btn-md" data-ref-id="" >Reject</button>
-                                <button id="setAppBtn" onclick="setRefAppointment(this)" data-ref-id="" class="btn btn-success btn-md">Set Appointment</button>
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
+                            <button type="submit" class="btn btn-primary btn-md">View Referrals</button>
                         </div>
                     </form>
                 </div>
@@ -312,7 +419,8 @@ if (!isset($_SESSION['UserEmail'])) {
 
     </div>
 
-    <!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
+
+<!--------------------------------------- THIS IS THE MODAL FORM FOR THE APPOINTMENT DETAILS MODAL FOR STUDENT APPOINTMENT--------------------------------------------->
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div id="NOTIF_APPOINTMENT" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
@@ -325,41 +433,16 @@ if (!isset($_SESSION['UserEmail'])) {
                         </div>
                     </div>
 
-                    <form id="AppNotificationForm" action="../Guidance_Counselor_UI/gc___all_appointment.php" method="POST">
+                    <form action="../Student_UI/stud___set_appointment.php" method="POST">
                         <div class="modal-body">
-
-
-                            <div class="form-group-inner" id="STUD_ID">
+                       
+                        <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">User Type</label>
+                                        <label class="login2 pull-right">Appointment Time</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="User-Type" type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">ID</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="User-ID" type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STUD_ID">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Name</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="User-Name"  type="text" readonly class="form-control"
+                                        <input id="Appointment-Time" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
                                     </div>
                                 </div>
@@ -376,60 +459,31 @@ if (!isset($_SESSION['UserEmail'])) {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group-inner">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Appointment Time</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
-                                        <input id="Appointment-Time" type="text" readonly class="form-control"
-                                            placeholder="Enter Student Name" id="stud_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
 
                         <div class="modal-footer">
-                            
+                            <input type="hidden" name="studentid" id="stud_id">
+                            <!-- <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button> -->
                             <button type="submit" class="btn btn-primary btn-md">View Appointments</button>
-                            <button id="CancelAppointment" onclick="cancelAppointment(this)" data-AppID="" class="btn btn-success btn-md">Cancel Appointment</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+
+    </div>  
+
+
+
     <script>
-function setRefAppointment(button){
-    var refID = $(button).data('ref-id');
-
-    $('#ReferralForm').attr("action", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+refID+"");
-}
-
-function cancelAppointment(button){
-    var AppID = $(button).data('AppID');
-    
-    $('#AppNotificationForm').attr("action", "../Guidance_Counselor_UI/cancel_appointment.php?app_id="+AppID+"");
-}
-
-function showRefModal(button){
-    var refID = $(button).data('ref-id');
-
-    $('#RejectForm').attr("action", "RefRejectQuery.php?ref_id="+refID+"");
-
-    $('#REJECTION_FORM').modal('show');
-}
-
 function showModal(tr){
     
     // Get the notification ID from the clicked element
     var id = $(tr).data('id');
     var type = $(tr).data('type');
     var notif_id = $(tr).data('notif');
-
+    
+    
     // Send an AJAX request to the server with the ID
     $.ajax({
         
@@ -444,39 +498,48 @@ function showModal(tr){
                 case 'Appointment':
                 case 'Reminder':
                     var Appointment = JSON.parse(data);
-                    var name = Appointment.name;
-                    var id_number = Appointment.id_number;
-                    var user_type = Appointment.user_type;
                     var Appointment_time = Appointment.date +' ('+Appointment.timeslot+' - '+Appointment.timeslot_end+')';
                     var Appointment_type = Appointment.appointment_type;
-                    
-                    $('#CancelAppointment').data('AppID', id);
-                    
 
-                    $('#User-Type').val(user_type);
-                    $('#User-ID').val(id_number);
-                    $('#User-Name').val(name);
                     $('#Appointment-Type').val(Appointment_type);
                     $('#Appointment-Time').val(Appointment_time);
                     $('#NOTIF_APPOINTMENT').modal('show');
                     break;
-                case 'Referral':
+
+                case 'Rejection':
+                    
                     var Referral = JSON.parse(data);
-                    var from = Referral.referrer_fname+" "+Referral.referrer_lname;
                     var stud_id = Referral.Student_ID;
                     var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
                     var reason = Referral.reason;
 
-                    
-                    $('#setAppointment').attr("href", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+Referral.ref_id+"");
-                    $('#RejectButton').data('ref-id', id);
-                    $('#setAppBtn').data('ref-id', id);
+                    var RefDate = Referral.reffered_date;
+                    var RejDate = Referral.Cancel_Date;
+                    var RejReason = Referral.Cancel_Reason;
 
-                    $('#From-User').val(from);
-                    $('#Stud-ID').val(stud_id);
-                    $('#Stud-Name').val(stud_name);
-                    $('#Reason').val(reason);
-                    $('#NOTIF_REFERRAL').modal('show');
+                    $('#StudID').val(stud_id);
+                    $('#StudName').val(stud_name);
+                    $('#RefReason').val(reason);
+
+                    $('#RefDate').val(RefDate);
+                    $('#RejDate').val(RejDate);
+                    $('#RejReason').val(RejReason);
+
+                    $('#NOTIF_REJECTED_REFERRAL').modal('show');
+                    break;
+                
+                case 'Offense':
+                    var Offense = JSON.parse(data);
+                    var Offtype =  Offense.offense_type;
+                    var description = Offense.description;
+                    var sanction = Offense.sanction;
+                    var sanctiondate = Offense.start_date+" - "+Offense.end_date;
+
+                    $('#OffenseType').val(Offtype);
+                    $('#Description').val(description);
+                    $('#Sanction').val(sanction);
+                    $('#SanctionDate').val(sanctiondate);
+                    $('#NOTIF_OFFENSE').modal('show');
                     break;
             }
             
@@ -487,7 +550,7 @@ function showModal(tr){
 
 
     <?php
-    include('includes/gc___scripts.php');
+    include('includes/stud___scripts.php');
     ?>
 
 
