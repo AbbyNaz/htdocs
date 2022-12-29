@@ -15,16 +15,17 @@ foreach ($users as $row) {
 
 $group = $row['group_sms'];
 
-$users = DB::query("SELECT first_name, last_name FROM  users WHERE user_id='$group'");
+$users = DB::query("SELECT first_name, last_name, id_number, profile_picture FROM  users WHERE user_id='$group'");
 
 $sms = DB::query("SELECT text_sms, sender FROM sms WHERE group_sms='$group' AND delete_status='0' ORDER BY id DESC LIMIT 1");
 
 
 $data[] = ["name" => $users[0]['first_name']." ".$users[0]['last_name'],
+			"id_number" => $users[0]['id_number'],
+			"profile_picture" => $users[0]['profile_picture'],
 			"group" => $group,
 			"sender" => $sms[0]['sender'],
-		   "message" => $sms[0]['text_sms']];	
-
+		   "message" => $sms[0]['text_sms']];
 }
 
 echo json_encode(["response" => $data]);

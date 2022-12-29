@@ -21,6 +21,8 @@ if (!$sms) {
 
 $data[] = ["name" => $row['first_name']." ".$row['last_name'],
 		   "id" => $row['user_id'],
+		   "id_number" => $row['id_number'],
+		   "profile_picture" => $row['profile_picture'],
 		   "status" => $row['active_status'],
 		   "text" => "No message yet..."];
 
@@ -28,6 +30,8 @@ $data[] = ["name" => $row['first_name']." ".$row['last_name'],
 
 $data[] = ["name" => $row['first_name']." ".$row['last_name'],
 		   "id" => $row['user_id'],
+		   "id_number" => $row['id_number'],
+		   "profile_picture" => $row['profile_picture'],
 		   "status" => $row['active_status'],
 		   "text" => $sms[0]['text_sms']];
 

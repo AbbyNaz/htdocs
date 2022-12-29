@@ -1103,47 +1103,51 @@ $.ajax({
     crossDomain: true,
     success: (data) => { 
 
-    $("#all-messages").empty();     
-           
-    $.each(data.response, (indx, user)=>{
+        $("#all-messages").empty();     
+            
+        $.each(data.response, (indx, user)=>{
 
-    if ($("#store-data").data("id") == user.sender) {
-    $("#all-messages").append(`
+            var profile = "";
 
-        <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-            <div class="message-img" style="pointer-events: none;">
-                <img src="img/contact/2.png" alt="" class="mCS_img_loaded" style="pointer-events: none;">
-            </div>
-            <div class="message-content" style="pointer-events: none;">
-                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                <h2 style="pointer-events: none;">${user.name}</h2>
-                <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
-            </div>
-        </a>
-        </li>
+            if(user.profile_picture){
+                profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+user.id_number;
+            }else{
+                profile = "../Guidance_Counselor_UI/img/contact/2.png";
+            }
 
-    `); 
-    }else{
-    $("#all-messages").append(`
+            if ($("#store-data").data("id") == user.sender) {
+                $("#all-messages").append(`
+                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                        <div class="message-img" style="pointer-events: none;">
+                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none; border-radius: 50%;">
+                        </div>
+                        <div class="message-content" style="pointer-events: none;">
+                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                            <h2 style="pointer-events: none;">${user.name}</h2>
+                            <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
+                        </div>
+                    </a>
+                    </li>
+                `); 
+            }else{
+                $("#all-messages").append(`
+                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                        <div class="message-img" style="pointer-events: none;">
+                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none;  border-radius: 50%;">
+                        </div>
+                        <div class="message-content" style="pointer-events: none;">
+                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                            <h2 style="pointer-events: none;">${user.name}</h2>
+                            <p style="pointer-events: none;">${user.message}</p>
+                        </div>
+                    </a>
+                    </li>
+                `); 
+            }      
 
-        <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-            <div class="message-img" style="pointer-events: none;">
-                <img src="img/contact/2.png" alt="" class="mCS_img_loaded" style="pointer-events: none;">
-            </div>
-            <div class="message-content" style="pointer-events: none;">
-                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                <h2 style="pointer-events: none;">${user.name}</h2>
-                <p style="pointer-events: none;">${user.message}</p>
-            </div>
-        </a>
-        </li>
-
-    `); 
-    }      
-
-    });    
+        });    
     
     }
     });
@@ -1178,12 +1182,20 @@ $(document).on("click", "#viewsms", (e)=>{
 
         $.each(data.response, (indx, sms)=>{
 
+            var userprofile = "";
+
+            if(sms.profile_picture){
+                userprofile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+sms.id_number;
+            }else{
+                userprofile = "../Guidance_Counselor_UI/img/contact/2.png";
+            }
+
         if (e.target.dataset.group == sms.sender) {
 
         $("#msg_history_1").append(`
         
         <div class="incoming_msg" id="sms-${sms.sms_id}">
-          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+          <div class="incoming_msg_img"> <img  style="border-radius: 50%;" src="${userprofile}" alt="sunil"> </div>
           <div class="received_msg">
             <div class="received_withd_msg">
              

@@ -475,12 +475,19 @@ img{ max-width:100%;}
         $("#inbox_chat").empty();
           
         $.each(data.response, (index, user)=>{
+            var userprofile = "";
+
+            if(user.profile_picture){
+                userprofile = "../Staff_UI/sms_show_profile.php?id="+user.id_number;
+            }else{
+                userprofile = "../Staff_UI/img/profile/prof2.png";
+            }
 
         $("#inbox_chat").append(`
             <div class="chat_list select-user" id="user-${user.id}" data-id="${user.id}">
               <div class="chat_people" style="pointer-events: none;">
                 <div class="chat_img" style="pointer-events: none;"> 
-                  <img style="pointer-events: none;"  src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> 
+                  <img style="pointer-events: none; border-radius: 50%;"  src="${userprofile}" alt="sunil"> 
                 </div>
                 <div class="chat_ib" style="pointer-events: none;">
                   <h5 style="pointer-events: none;">${user.name} <span style="color: ${(user.status == 1) ? 'green' :'gray'}; font-size: 20px;">●</span> </span></h5>
@@ -525,11 +532,19 @@ img{ max-width:100%;}
         if (data.status == 1) {
         $.each(data.response, (index, sms)=>{
 
+            var profile = "";
+
+            if(sms.profile_picture){
+                profile = "../Staff_UI/sms_show_profile.php?id="+sms.id_number;
+            }else{
+                profile = "../Staff_UI/img/profile/prof2.png";
+            }
+
         if (e.target.dataset.id == sms.sender) {
 
         $("#msg_history").append(`
             <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+              <div class="incoming_msg_img"> <img style="border-radius: 50%;" src="${profile}" alt="sunil"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
                   <p>${sms.text_sms}</p>
