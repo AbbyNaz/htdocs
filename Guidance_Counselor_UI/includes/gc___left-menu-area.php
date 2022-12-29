@@ -99,6 +99,7 @@
                         <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">Manage</span></a>
                         <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
                             <li><a title="Manages Articles" href="gc___manages_acticle.php"><span class="mini-sub-pro">Articles</span></a></li>
+                            <li><a title="Manages Slides" href="gc___manages-slides.php"><span class="mini-sub-pro">Slides</span></a></li>
                             <li><a title="Manages Announcements" href="gc___manages-announcements.php"><span class="mini-sub-pro">Announcements</span></a></li>
                         </ul>
                     </li> 
