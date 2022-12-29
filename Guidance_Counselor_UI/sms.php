@@ -503,6 +503,14 @@ span.deleteicon input {
         $("#inbox_chat").empty();
           
         $.each(data.response, (index, user)=>{
+
+            var userprofile = "";
+
+            if(user.profile_picture){
+                userprofile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+user.id_number;
+            }else{
+                userprofile = "../Guidance_Counselor_UI/img/users/1.jpg";
+            }
  
         if (user.sms == 1) {
 
@@ -510,7 +518,7 @@ span.deleteicon input {
             <div class="chat_list select-user" id="user-${user.id}" data-id="${user.id}">
               <div class="chat_people" style="pointer-events: none;">
                 <div class="chat_img" style="pointer-events: none;"> 
-                  <img style="pointer-events: none;"  src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> 
+                  <img style="pointer-events: none; border-radius: 50%;"  src="${userprofile}" alt="sunil"> 
                 </div>
                 <div class="chat_ib" style="pointer-events: none;">
                   <h5 style="pointer-events: none;">${user.name} <span style="color: ${(user.status == 1) ? 'green' :'gray'}; font-size: 20px;">●</span> </span></h5>
@@ -549,6 +557,8 @@ span.deleteicon input {
         crossDomain: true,
         success: (data) => { 
 
+          
+
         // document.getElementById("user-"+e.target.dataset.id).setAttribute("class", "chat_list select-user active_chat_new");  
 
         $("#send-text").data("rec", e.target.dataset.id);
@@ -558,11 +568,19 @@ span.deleteicon input {
         if (data.status == 1) {
         $.each(data.response, (index, sms)=>{
 
+          var profile = "";
+
+          if(sms.profile_picture){
+              profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+sms.id_number;
+          }else{
+              profile = "../Guidance_Counselor_UI/img/users/1.jpg";
+          }
+
         if (e.target.dataset.id == sms.sender) {
 
         $("#msg_history").append(`
             <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+              <div class="incoming_msg_img"> <img style="border-radius: 50%;" src="${profile}" alt="profile"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
                   <p>${sms.text_sms}</p>
