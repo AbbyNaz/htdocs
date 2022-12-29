@@ -1453,7 +1453,7 @@ function setRefAppointment(button){
 function cancelAppointment(button){
     var AppID = $(button).data('AppID');
     
-    $('#AppNotificationForm').attr("action", "../Guidance_Counselor_UI/gc___all_appointment.php?cancel_id="+AppID+"");
+    $('#AppNotificationForm').attr("action", "../Guidance_Counselor_UI/cancel_appointment.php?app_id="+AppID+"");
 }
 
 function showRefModal(button){
