@@ -795,6 +795,13 @@ if (!isset($_SESSION['UserEmail'])) {
 
 
             $(document).on("click", "#submit-req", () => {
+              $("#submit-req").prop("disabled", true);
+              
+              var natureArr = $('#nature:checked').map(function() {
+                return this.value;
+              }).get();
+
+              var nature = JSON.stringify(natureArr);
 
               $.ajax({
                 url: "insert_req.php",
@@ -815,6 +822,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   reason: $("#reason").val(),
                   selectTimeslot: $("#selectTimeslot").val(),
                   selectTimeslotto: $("#selectTimeslot-to").val(),
+                  nature: nature,
                   subject: $("#subject").val(),
                   pos: $("#pos").val(),
                   myid: $("#myid").val()
@@ -825,6 +833,8 @@ if (!isset($_SESSION['UserEmail'])) {
                 },
                 crossDomain: true,
                 success: (data) => {
+
+                  console.log(data);
 
                   if (data.status == 0) {
                     Swal.fire('You have 1 appointment pending.');
@@ -865,7 +875,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $("#view-type").val(data[0].appointment_type);
                 $("#view-date").val(data[0].date);
                 $("#view-reason").val(data[0].subject);
-                $("#view-time").val(data[0].timeslot + " to " + data[0].timeslot_end);
+                $("#view-time").val(data[0].timeslot + " - " + data[0].timeslot_end);
                 $("#view-id").val(data[0].id_number);
 
 

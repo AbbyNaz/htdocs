@@ -16,6 +16,10 @@ $selectTimeslotto = $_POST['selectTimeslotto'];
 $pos = $_POST['pos'];
 $myid = $_POST['myid'];
 
+$natureArr = json_decode($_POST['nature'], true);
+  // Join the elements of the array into a single string
+$nature = implode(',', $natureArr);
+
 $check = DB::query("SELECT limit_app, first_name, last_name FROM users WHERE user_id='$userid'");
 
 if ($check[0]['limit_app'] == 0) {
@@ -29,6 +33,7 @@ DB::insert('appointments', [
   'user_type' => $pos,
   'id_number' => $myid,
   'name' => $check[0]['first_name']." ".$check[0]['last_name'],
+  'nature' => $nature,
   'subject' => $reason,
   'appointment_type' => $type,
   'info' => $information,

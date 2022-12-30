@@ -12,8 +12,13 @@ $type = $_POST['type'];
 $date = $_POST['date'];
 $reason = $_POST['reason'];
 $selectTimeslot = $_POST['selectTimeslot'];
+$selectTimeslotto = $_POST['selectTimeslotto'];
 $pos = $_POST['pos'];
 $myid = $_POST['myid'];
+
+$natureArr = json_decode($_POST['nature'], true);
+  // Join the elements of the array into a single string
+$nature = implode(',', $natureArr);
 
 $check = DB::query("SELECT limit_app, first_name, last_name FROM users WHERE user_id='$userid'");
 
@@ -23,10 +28,12 @@ DB::query("UPDATE users SET limit_app=%i WHERE user_id=%i", 1, $userid);
  
 DB::insert('appointments', [
   'timeslot' => $selectTimeslot,
+  'timeslot_end' => $selectTimeslotto,
   'date' => $date,
   'user_type' => $pos,
   'id_number' => $myid,
   'name' => $check[0]['first_name']." ".$check[0]['last_name'],
+  'nature' => $nature,
   'subject' => $reason,
   'appointment_type' => $type,
   'info' => $information,
