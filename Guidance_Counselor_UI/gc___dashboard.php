@@ -10,6 +10,39 @@
 
         $con = connection();
 
+
+        // REMOVE ALL APPOINTMENTS REQUEST THAT PASS THE DATE
+        $app_query = "SELECT * FROM appointments WHERE app_status = 'In Review' AND date < CURDATE();";
+        $app_con = $con->query($app_query) or die($con->error);
+        while ($Appointment = $app_con->fetch_assoc()) {
+          $app_id = $Appointment['id'];
+          $timeslot = $Appointment['timeslot'];
+          $timeslot_end = $Appointment['timeslot_end'];
+          $date = $Appointment['date'];
+          $user_type = $Appointment['user_type'];
+          $ref_id = $Appointment['ref_id'];
+          $id_number = $Appointment['id_number'];
+          $name = $Appointment['name'];
+          $nature = $Appointment['nature'];
+          $subject = $Appointment['subject'];
+          $appointment_type = $Appointment['appointment_type'];
+          $info = $Appointment['info'];
+
+          $updatelimit = "UPDATE `users` SET `limit_app`= 0 WHERE id_number='$id_number'" ;
+          $con->query($updatelimit) or die($con->error);
+
+          $app_status = 'No Response';
+        
+          $InsertHistoryquery = "INSERT INTO appointment_history (timeslot,timeslot_end,date,user_type,ref_id,id_number,name,nature,subject,appointment_type,info,app_status,app_id) 
+                    VALUES('$timeslot','$timeslot_end','$date','$user_type','$ref_id','$id_number','$name','$nature','$subject',
+                            '$appointment_type','$info','$app_status','$app_id')";
+          $con->query($InsertHistoryquery) or die($con->error);
+
+          $delapppointment ="DELETE FROM `appointments` where id = '$app_id'";
+          $con->query($delapppointment) or die ($con->error);
+
+        }
+
         if (isset($_GET['ref_id'])) {
           $ref_id = $_GET['ref_id'];
 

@@ -17,10 +17,23 @@ if (!isset($_SESSION['UserEmail'])) {
 
     if (isset($_GET['appointment_id'])) {
         $cancel_id = $_GET['appointment_id'];
+        if(isset($_GET['type']) && $_GET['type'] == "Online"){
+            header("Location: gc___all_appointment.php?appID=$cancel_id");
+        }else{
+            $app_status = "for appointment";
+            $cancel_appointment = "UPDATE `appointments` SET `app_status`='$app_status' WHERE id = '$cancel_id'";
+            $con->query($cancel_appointment) or die($con->error);
+            header("Location: gc___all_appointment.php");
+        } 
+    }
+
+    if(isset($_POST['AddLink'])){
+        $App_id = $_POST['AppID'];
         $app_status = "for appointment";
-        $cancel_appointment = "UPDATE `appointments` SET `app_status`='$app_status' WHERE id = '$cancel_id'";
+        $link = $_POST['meetlink'];
+        $cancel_appointment = "UPDATE `appointments` SET `app_status`='$app_status', meeting_link = '$link' WHERE id = '$App_id'";
         $con->query($cancel_appointment) or die($con->error);
-        header("Location: gc___all_appointment.php");
+        header("Location: gc___all_appointment.php?".$link.$App_id);
     }
 
     // For Done/Success button
@@ -176,6 +189,222 @@ if (!isset($_SESSION['UserEmail'])) {
         <?php include('includes/gc___left-menu-area.php') ?>
         <?php include('includes/gc___top-menu-area.php') ?>
         <?php include('includes/gc___mobile_menu.php')  ?>
+
+<!-- Modal -->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div id="req-modal" class="modal modal-edu-general default-popup-PrimaryModal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+  <div class="modal-dialog" style="overflow-y: scroll; max-height:90%;  margin-top: 50px; margin-bottom:70px;" >
+      <div class="modal-content">
+        <div class="modal-header header-color-modal bg-color-1">
+          <h4 class="modal-title">Add Meeting Link</h4>
+          <div class="modal-close-area modal-close-df">
+            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+          </div>
+        </div>
+        <div class="modal-body">
+            <form action="gc___all_appointment.php" method="post">
+            <div class="form-group-inner" id="STUD_ID">
+              <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                  <label class="login2 pull-right pull-right-pro">Name</label>
+                </div>
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="student_name" readonly />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-inner data-custon-pick" id="data_2">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
+                  <label class="login2 pull-right" style="font-weight: bold;">ID</label>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" id="myid" class="form-control" readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-inner data-custon-pick" id="data_2">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
+                  <label class="login2 pull-right" style="font-weight: bold;">Position</label>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" id="pos" class="form-control" readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-inner">
+              <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                      <label class="login2 pull-right pull-right-pro">Nature </label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                      <div class="bt-df-checkbox pull-left">
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="Academic" type="checkbox" name="nature[]" value="Academic" disabled> <i></i> Academic </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="Career" type="checkbox" name="nature[]" value="Career" disabled> <i></i> Career </label>
+                                  </div>
+                              </div>
+                            </div>
+                          <div class="row"> 
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="Personal" type="checkbox" name="nature[]" value="Personal" disabled> <i></i> Personal </label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="i-checks pull-left">
+                                      <label>
+                                          <input id="Crisis" type="checkbox" name="nature[]" value="Crisis" disabled> <i></i> Crisis </label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group-inner">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right">Time From</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="form-select-list">
+                  <select id="selectTimeslot" class="form-control custom-select-value" name="timeslot" disabled >
+                    <option id="9:00-am" value="9:00 am">9:00 am</option>
+                    <option id="10:00-am" value="10:00 am">10:00 am</option>
+                    <option id="11:00-am" value="11:00 am">11:00 am</option>
+                    <option id="1:00-pm" value="1:00 pm">1:00 pm</option>
+                    <option id="2:00-pm" value="2:00 pm">2:00 pm</option>
+                    <option id="3:00-pm" value="3:00 pm">3:00 pm</option>
+                    <option id="4:00-pm" value="4:00 pm">4:00 pm</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-inner">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right">Time To</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="form-select-list">
+                  <select id="selectTimeslot-to" class="form-control custom-select-value" name="timeslot" disabled>
+
+                    <option id="10:00-am" value="10:00 am">10:00 am</option>
+                    <option id="11:00-am" value="11:00 am">11:00 am</option>
+                    <option id="12:00-pm" value="12:00 pm">12:00 pm</option>
+                    <option id="2:00-pm" value="2:00 pm">2:00 pm</option>
+                    <option id="3:00-pm" value="3:00 pm">3:00 pm</option>
+                    <option id="4:00-pm" value="4:00 pm">4:00 pm</option>
+                    <option id="5:00-pm" value="5:00 pm">5:00 pm</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-inner">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right">Reason</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <input type="text" id="reason" class="form-control" placeholder="Enter Appointment Subject" readonly />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-inner data-custon-pick" id="data_2">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
+                <label class="login2 pull-right" style="font-weight: bold;">Date</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <input type="text" id="date-selected" class="form-control" readonly />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-inner">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right">Type</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="form-select-list">
+                  <select class="form-control custom-select-value" id="type" readonly>
+                    <option>Online</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-group-inner" id="meeting">
+            <div class="row">
+              <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <label class="login2 pull-right pull-right-pro">Meeting Link</label>
+              </div>
+              <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group">
+                  <input name="meetlink" type="text" class="form-control" id="meetinglink" placeholder="Input Meeting Link">
+                  <div class="input-group-btn">
+                    <!-- <a href="gc___search-students.php"><button tabindex="-1" class="btn btn-primary btn-md" type="button" >Search</button></a> -->
+                    <a href="https://teams.microsoft.com/_?lm=deeplink&lmsrc=NeutralHomePageWeb&cmpid=WebSignIn&culture=en-us&country=us#/scheduling-form/?opener=1&navCtx=navigateHybridContentRoute" style="cursor: pointer;" target="blank"><button tabindex="-1" id="search-meetinglink" class="btn btn-primary btn-md" type="button">Link</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            
+          <div class="form-group-inner">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <label class="login2 pull-right">Information</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <input type="text" id="information" class="form-control" placeholder="Enter Appointment Information" readonly/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+<!-- ADD APPOINTMENT -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+          <button type="submit" name="AddLink"  data-status="0" class="btn btn-primary btn-md">Add</button>
+          <input type="hidden" name="AppID" id="appID" class="form-control"/>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
         <div class="breadcome-area">
@@ -435,7 +664,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                             <?php } elseif ($row['app_status'] == "in review" || $row['app_status'] == "In Review") { ?>
                                                                 <div style="display: flex; justify-content: center;">
                                                                     <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="cancel_appointment.php?app_id=<?= $row['id'] ?>">Cancel</a>
-                                                                    <a class="btn btn-info" style="margin-left: 10px; color: white;" href="gc___all_appointment.php?appointment_id=<?= $row['id'] ?>">For Appointment</a>
+                                                                    <a class="btn btn-info" style="margin-left: 10px; color: white;" href="gc___all_appointment.php?appointment_id=<?= $row['id'] ?>&type=<?= $row['appointment_type'] ?>">For Appointment</a>
                                                                     <!-- <a class="btn btn-success" style="margin-left: 10px; color: white;" href="gc___all_appointment.php?success_id=<?= $row['id'] ?>">Done</a> -->
                                                                 </div>
                                                             <?php } elseif ($row['app_status'] == "cancelled" || $row['app_status'] == "Cancelled") {
@@ -461,7 +690,70 @@ if (!isset($_SESSION['UserEmail'])) {
         <!-- Static Table End -->
 
         </div>
+<script>
+  $(document).ready(function() {
+    var refId = null;
 
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if(!results) return;
+        return results[1] || 0;
+    }
+
+    AppID = $.urlParam('appID');
+    if (AppID != null) {
+        $.ajax({
+              url: "get_Appointment.php",
+              data: {AppID: AppID},
+              success: function(data) {
+                var Appointment = JSON.parse(data);
+
+                var name = Appointment.name;
+                var id = Appointment.id_number;
+                var position = Appointment.position;
+                var natures = Appointment.nature;
+                var start = Appointment.timeslot;
+                var end = Appointment.timeslot_end;
+                var reason = Appointment.subject;
+                var date = Appointment.date;
+                var type = Appointment.appointment_type;
+                var link = Appointment.meeting_link;
+                var information = Appointment.info;
+
+                console.log(natures);
+                if (natures.includes("Academic")) {
+                    $('#Academic').attr('checked', 'checked');
+                }
+                if (natures.includes("Career")) {
+                    $('#Career').attr('checked', 'checked');
+                }
+                if (natures.includes("Personal")) {
+                    $('#Personal').attr('checked', 'checked');
+                }
+                if (natures.includes("Crisis")) {
+                    $('#Crisis').attr('checked', 'checked');
+                }
+
+                $('#student_name').val(name);
+                $('#myid').val(id);
+                $('#pos').val(position);
+                $('#selectTimeslot').val(start);
+                $('#selectTimeslot-to').val(end);
+                $('#reason').val(reason);
+                $('#date-selected').val(date);
+                $('#information').val(information);
+                
+                $('#appID').val(AppID);
+                $("#req-modal").modal("show");
+              }
+            });
+            
+    
+      
+    }
+  });
+  
+</script>
 
         <?php include('includes/gc___scripts.php'); ?>
 
