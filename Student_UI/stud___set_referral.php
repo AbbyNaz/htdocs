@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_SESSION['UserId'])) {
         $UserId = $_SESSION['UserId'];
         $UserEmail = $_SESSION['UserEmail'];
-        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE 'Cancelled%' ORDER BY users.last_name ASC";
+        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status LIKE 'Cancelled%' OR 'Complete Referral%' OR 'Cancelled Referral%' ORDER BY users.last_name ASC";
         $get_referral = $con->query($refferal) or die($con->error);
         $row = $get_referral->fetch_assoc();
 
@@ -380,6 +380,175 @@ if (!isset($_SESSION['UserEmail'])) {
 
         </div>
 
+<!------------------------------------------- EDIT REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="EDIT_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Edit Referral</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="ReferralForm" action="add_referral.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">User ID</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Username</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <label class="login2 pull-right pull-right-pro">Nature </label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                            <div class="bt-df-checkbox pull-left">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                <div class="row"> 
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Action/s</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" name="actions" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Remarks</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" name="remarks" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer" style="margin-bottom: 15px;">
+                                <input type="hidden" name="studentid" id="stud_id">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="edit_refferal" class="btn btn-primary btn-md">Edit Referral</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+<!-------------------------------------------REASON FOR CANCELLING REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="CANCEL_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Reason for Cancelling</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Referral"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+
 
         <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
@@ -403,13 +572,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <thead>
 
                                             <tr>
-                                                <th data-field="name" data-editable="false">Student ID</th>
-                                                <th data-field="L_email" data-editable="false">Student Name</th>
+                                            <th data-field="name" data-editable="false">User ID</th>
+                                                <th data-field="L_email" data-editable="false">Username</th>
                                                 <th data-field="date" data-editable="false">Nature</th>
                                                 <th data-field="price" data-editable="false">Reason</th>
                                                 <th data-field="pric" data-editable="false">Action Taken</th>
                                                 <th data-field="pri" data-editable="false">Remarks</th>
-                                                <th data-field="task" data-editable="false">Date</th>
+                                                <th data-field="task" data-editable="false">Referral Date</th>
                                                 <th data-field="status">Status</th>
                                                 <th data-field="cancel">Actions</th>
                                             </tr>
@@ -448,15 +617,12 @@ if (!isset($_SESSION['UserEmail'])) {
                                                             </button> -->
                                                         </td>
                                                         <td>
-                                                            <div style="display: flex;">
-                                                                <?php if ($row['ref_status'] == "completed" || $row['ref_status'] == "Completed" || $row['ref_status'] == "done" || $row['ref_status'] == "Done") {
-                                                                    echo null;
-                                                                } else { ?>
-                                                                    <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                                                    <!-- <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#studentModal" data-id="<?= $row['user_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> -->
+                                                            <div style="display: flex; justify-content: center;">
+                                                                    <!-- <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a> -->
+                                                                    <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#EDIT_REFERRAL" data-id="<?= $row['user_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
-                                                                    <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="stud___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a>
-                                                                <?php } ?>
+                                                                    <!-- <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="stud___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a> -->
+                                                                    <button title="Cancel" class="btn btn-danger" data-toggle="modal" data-target="#CANCEL_FORM"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>

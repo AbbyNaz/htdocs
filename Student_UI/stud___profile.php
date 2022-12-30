@@ -549,17 +549,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <div class="chat-discussion" style="height: auto">
                                             <div class="chat-message bordered">
                                                 <div class="message">
-                                                <?php
-    $om = "SELECT * FROM offense_monitoring WHERE student_id = '" . $row['id_number'] . "' ORDER BY id DESC LIMIT 5";
-    $getdata = $con->query($om) or die($con->error);
-    $offense = $getdata->fetch_assoc();
+                                                <?php 
+                                                    $om = "SELECT * FROM offense_monitoring WHERE student_id = '" . $row['id_number'] . "'  AND status = 'Active' ORDER BY id DESC LIMIT 5";
+                                                    $getdata = $con->query($om) or die($con->error);
+                                                    $offense = $getdata->fetch_assoc();
 
-    if ($offense == 0) {
+                                                    if ($offense == 0) {
                                                 ?>
                                                             <p>There was no offense at this time!</p>
                                                         <?php
-    } else {
-        do {
+                                                    } else {
+                                                        do {
                                                         ?>
                                                 
 
@@ -568,7 +568,8 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                 <span class="message-date"><?php echo $offense['date_created']; ?></span>
                                                                 <span class="message-content"><?php echo $offense['description']; ?></span>
                                                             <a class="btn btn-s btn-danger"><i></i> Sanction: <?php echo $offense['sanction']; ?></a>
-                                                                    
+                                                            <br>
+                                                            <br>     
 
                                                             <?php
 
