@@ -18,7 +18,7 @@ if (!isset($_SESSION['UserEmail'])) {
         // $slide_picture = $_POST['slide_picture'];
         $slide_status = "Active";
 
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
 
         if(isset($_FILES['slide_picture'])){
             // Save the uploaded image file to a designated folder on the server
@@ -79,7 +79,7 @@ if (!isset($_SESSION['UserEmail'])) {
         // $slide_picture = $_POST['edit_slide_picture'];
         $slide_status = $_POST['slide_edit_status'];
 
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
 
         if(isset($_FILES['slide_picture']) && is_uploaded_file($_FILES['slide_picture']['tmp_name'])){
             // Save the uploaded image file to a designated folder on the server
