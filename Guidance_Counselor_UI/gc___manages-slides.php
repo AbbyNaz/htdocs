@@ -216,18 +216,19 @@ if (!isset($_SESSION['UserEmail'])) {
 
                         if (mysqli_num_rows($query_run) > 0) {
                         foreach ($query_run as $row) {
+                          
                     ?>
 
                         <td><?= $row['slide_title'] ?></td>
-                        <td><?= $row['slide_picture'] ?></td>
+                        <td><img src="show_slide_image.php?SID=<?= $row['id']?>" style="width: 30%; margin-top: 5px; margin-bottom: 5px;" alt="Slide Image"></td>
                         <td><?= $row['slide_status'] ?></td>
 
                         <td>
                             <div style="display: flex; justify-content: center;">
 
-                                <button onclick="ShowModal(this)" title="Edit" class="pd-setting-ed" data-type="edit" data-id="<?= $row['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                <button onclick="ShowModal(this)" id="btn" title="Edit" class="pd-setting-ed" data-type="edit" data-id="<?= $row['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
-                                <button onclick="ShowModal(this)" title="Delete" class="pd-setting-ed" data-type="delete" data-id="<?= $row['id'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                <button onclick="ShowModal(this)" id="btn" title="Delete" class="pd-setting-ed" data-type="delete" data-id="<?= $row['id'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
                             </div>
                         </td>
@@ -269,7 +270,7 @@ if (!isset($_SESSION['UserEmail'])) {
               <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
             </div>
           </div>
-
+          
           <form id="editForm" action="thecodeslide.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               <div class="form-group-inner">
@@ -284,12 +285,23 @@ if (!isset($_SESSION['UserEmail'])) {
               </div>
 
               <div class="form-group-inner">
-                  <div class="row">
+                <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                       <label class="login2 pull-right">Picture</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input id="slide_edit_picture" type="file" name="slide_edit_picture" class="form-control" style="margin-bottom: 30px;" required />
+                      <img id="Eimg" src="show_slide_image.php?SID" style="width: 50%; margin-top: 5px; margin-bottom: 5px;" alt="Slide Image">
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group-inner">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                      <label class="login2 pull-right"></label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input id="slide_edit_picture" type="file" name="slide_picture" class="form-control" style="margin-bottom: 30px;" />
                     </div>
                   </div>
                 </div>
@@ -354,7 +366,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Picture</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input id="slide_delete_picture" type="file" name="delete_picture" class="form-control" style="margin-bottom: 30px;" required />
+                      <img id="Dimg" src="show_slide_image.php?SID" style="width: 50%; margin-top: 5px; margin-bottom: 5px;" alt="Slide Image">
                     </div>
                   </div>
                 </div>
@@ -389,6 +401,45 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
   </div>
 
+  <script>
+    function ShowModal(button){
+      var id = $(button).data("id");
+      var type = $(button).data("type");
+
+      $.ajax({
+        url: 'get_slide_data.php',
+        data: {id: id},
+        success: function (data) {
+          var Slide = JSON.parse(data);
+          var title = Slide.slide_title;
+          var picture = Slide.slide_picture;
+          var status = Slide.slide_status;
+
+          if(type == "edit"){
+            $('#slide_edit_title').val(title);
+            // $('#slide_edit_picture').val(picture);
+            $('#slide_edit_status').val(status);
+            $('#editForm').attr('action', 'thecodeslide.php?id='+id);
+            $('#Eimg').attr('src', 'show_slide_image.php?SID='+id);
+
+            $('#Edit_Slide').modal('show');
+            
+
+          }else if(type == "delete"){
+            $('#slide_delete_title').val(title);
+            // $('#slide_delete_picture').val(picture);
+            $('#slide_delete_status').val(status);
+            $('#deleteForm').attr('action', 'thecodeslide.php?id='+id);
+            $('#Dimg').attr('src', 'show_slide_image.php?SID='+id);
+
+            $('#Delete_Slide').modal('show');
+
+          }
+        }
+
+      });
+    }
+  </script>
 
   <?php
   include('includes/gc___scripts.php');
