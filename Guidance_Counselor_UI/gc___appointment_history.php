@@ -269,15 +269,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <tr>
 
                                                         <td><?php echo $row['first_name'] ?> <?php echo $row['last_name'] ?></td>
-                                                        <!-- <td><?php echo $row['reason'] ?></td> -->
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $row['nature'] ?></td>
+                                                        <td><?= $row['info'] ?></td>
+                                                        <td><?= $row['date']." (".$row['timeslot']." - ".$row['timeslot_end'].")" ?></td>
+                                                        <td><?= $row['appointment_type'] ?></td>
+                                                        <td><?= $row['meeting_link'] ?></td>
                                                         <td><?php echo $row['cancel_reason'] ?></td>
                                                         <td><?php echo $row['updated_at'] ?></td>
-                                                        <td><?php echo $row['status'] ?></td>
+                                                        <td><?php echo $row['app_status'] ?></td>
                                                         
                                                        
 
