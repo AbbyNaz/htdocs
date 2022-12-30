@@ -542,7 +542,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                                     <div class="message">
                                                 <?php
-                                                    $om = "SELECT * FROM offense_monitoring WHERE student_id = '".$row['id_number']."' ORDER BY id DESC LIMIT 5";
+                                                    $om = "SELECT * FROM offense_monitoring WHERE student_id = '".$row['id_number']."' AND status = 'Active' ORDER BY id DESC LIMIT 5";
                                                     $getdata = $con->query($om) or die($con->error);
                                                     $offense = $getdata->fetch_assoc();
 
