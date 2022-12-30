@@ -187,6 +187,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th data-field="price" data-editable="false">Reason</th>
                                             <th data-field="pric" data-editable="false">Action Taken</th>
                                             <th data-field="pri" data-editable="false">Remarks</th>
+                                            <th data-field="pris" data-editable="false">Reason for Cancelling</th>
                                             <th data-field="task" data-editable="false">Date</th>
                                             <th data-field="status">Status</th>
                                         </tr>
@@ -206,6 +207,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <td><?php echo $row['reason'] ?></td>
                                             <td><?php echo $row['actions'] ?></td>
                                             <td><?php echo $row['remarks'] ?></td>
+                                            <td><?php echo $row['Cancel_Reason'] ?></td>
                                             <td><?php echo $row['reffered_date'] ?></td>
                                             <td>
                                                 <?php
