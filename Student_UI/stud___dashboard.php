@@ -473,7 +473,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                         </div>
 
-                        <form id="RejectForm" action="" method="POST">
+                        <form id="RejectForm" action="CancelAppointment.php" method="POST">
                             <div class="modal-body">
                                 <div class="form-group-inner">
                                     <div class="row">
@@ -481,14 +481,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
+                                            <textarea name="reason" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="button"  class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
                                 <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
                             </div>
                         </form>
@@ -497,7 +497,6 @@ if (!isset($_SESSION['UserEmail'])) {
             </div>
 
         </div>
-
 
 
 <!-- ANNOUNCEMENT -->
@@ -878,7 +877,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $("#view-time").val(data[0].timeslot + " - " + data[0].timeslot_end);
                 $("#view-id").val(data[0].id_number);
 
-
+                $('#RejectForm').attr('action', 'CancelAppointment.php?id='+events.event._def.publicId);
               }
             });
 
