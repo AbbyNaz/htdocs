@@ -13,7 +13,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
   $con = connection();
 
-  
+  // UPDATE SANCTION STATUS AND INFO
   $Active_offense = "UPDATE offense_monitoring
                       SET status = 'Active', sanction_info = 
                                 CASE
@@ -119,6 +119,7 @@ if (!isset($_SESSION['UserEmail'])) {
     $description = $_POST['edit_offensedescription'];
     $dateToday = date("Y-m-d");
     $sanction = $_POST['edit_sanction'];
+    $studentID = $_POST['student_id'];
 
     $s_date = $_POST['edit_start_date'];
     $e_date = $_POST['edit_end_date'];
@@ -142,7 +143,7 @@ if (!isset($_SESSION['UserEmail'])) {
       header('Location: gc___offense_monitoring.php');
 
       $current_date_time = date("Y-m-d H:i:s");
-      $action_made = "Updated the offense of [ ID = " . $stud_id . "] " . $f_name . " " . $l_name;
+      $action_made = "Updated the offense of [ ID = " . $studentID . "] " . $f_name . " " . $l_name;
       $IDNUMBER = "1001";
       $user_position = "Admin";
       $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
@@ -155,7 +156,7 @@ if (!isset($_SESSION['UserEmail'])) {
       header('Location: gc___offense_monitoring.php');
 
       $current_date_time = date("Y-m-d H:i:s");
-      $action_made = "Error: Attemptedt to update the offense of [ ID = " . $stud_id . "] " . $f_name . " " . $l_name ;
+      $action_made = "Error: Attemptedt to update the offense of [ ID = " . $studentID . "] " . $f_name . " " . $l_name ;
       $IDNUMBER = "1001";
             $user_position = "Admin";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
@@ -494,9 +495,6 @@ if (!isset($_SESSION['UserEmail'])) {
                             <td><?php echo $row['status'] ?></td>
                             <td>
                               <div style="display: flex; justify-content: center;">
-
-                                <!-- <button id="showEditStaffModal" class="btn btn-warning" style="margin-left: 10px; margin-right: 20px; color: white;" data-toggle="modal" data-target="#Edit_Offense" data-id="<?= $row['id'] ?>">Edit</button> -->
-
                                 <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#Edit_Offense" data-id="<?= $row['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                 <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#Delete_Offense" data-id="<?= $row['id'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
@@ -613,6 +611,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 </div>
               <div class="modal-footer">
                 <input type="hidden" name="id" id="id">
+                <input type="hidden" name="studID" id="studID">
                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
                 <button type="submit" name="update_offense" class="btn btn-primary btn-md">Update</button>
               </div>
