@@ -226,7 +226,7 @@ function showSlides() {
                     <div class="article__info">
                         <h4><?= $row['TITLE'] ?></h4>
                         <p><?= $row['DESCRIPTION'] ?></p>
-                        <a href="homepage___articles.php" class="btn btn-primary">Read More</a>
+                        <a href="homepage___article1.php" class="btn btn-primary">Read More</a>
                     </div>
                 </article>
             <?php
