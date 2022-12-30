@@ -443,7 +443,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Staff ID</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_id" id="edit_staff_id" class="form-control" placeholder="Enter Staff ID" readonly />
+                      <input type="number" name="edit_staff_id" id="edit_staff_id" class="form-control" placeholder="Enter Staff ID" readonly />
                     </div>
                   </div>
                 </div>
@@ -498,7 +498,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Contact No.</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_contact" id="edit_staff_contact" class="form-control" placeholder="Enter Contact Number" />
+                      <input type="number" name="edit_staff_contact" id="edit_staff_contact" class="form-control" placeholder="Enter Contact Number" />
                     </div>
                   </div>
                 </div>

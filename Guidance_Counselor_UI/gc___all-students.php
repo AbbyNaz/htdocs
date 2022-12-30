@@ -144,7 +144,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Student ID</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" name="stud_id" class="form-control" placeholder="Enter Student ID" required />
+                    <input type="number" name="stud_id" class="form-control" placeholder="Enter Student ID" required />
                   </div>
                 </div>
               </div>
@@ -201,7 +201,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <label class="login2 pull-right">Contact No.</label>
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" name="stud_contact" class="form-control" placeholder="Enter Contact Number"
+                    <input type="number"  id="phone-number" name="stud_contact" class="form-control" placeholder="Enter Contact Number"
                       required />
                   </div>
                 </div>
@@ -718,6 +718,16 @@ if (!isset($_SESSION['UserEmail'])) {
   <?php
   include('includes/gc___scripts.php');
     ?>
+    
+    <script>
+      $(document).ready(function() {
+        $('#phone-number').keyup(function() {
+          if (this.value.length > 11) {
+            this.value = this.value.slice(0, 11);
+          }
+        });
+      });
+    </script>
 
   <script>
     $(document).on('show.bs.modal', '#studentModal', function (e) {

@@ -560,6 +560,8 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                 <span class="message-date"><?php echo $offense['date_created']; ?></span>
                                                                 <span class="message-content"><?php echo $offense['description']; ?></span>
                                                             <a class="btn btn-s btn-danger"><i></i> Sanction: <?php echo $offense['sanction']; ?></a>
+                                                            <br>
+                                                            <br>
                                                                     
 
                                                             <?php

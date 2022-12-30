@@ -64,7 +64,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
             // echo "Not saved";
-            $_SESSION['status'] = "Profile Not Added " . mysqli_error($con);
+            $_SESSION['status'] = "Profile Not Added: " . mysqli_error($con);
             $_SESSION['status_code'] = "error";
             header('Location: gc___all-staff.php');
 

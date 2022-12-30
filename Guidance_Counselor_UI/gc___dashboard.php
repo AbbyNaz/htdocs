@@ -867,7 +867,7 @@
                 <label class="login2 pull-right" style="font-weight: bold;">Date</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="date" id="date-selected" class="form-control"/>
+                <input type="date" id="dateselected" class="form-control"/>
               </div>
             </div>
           </div>
@@ -881,8 +881,8 @@
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="form-select-list">
                   <select class="form-control custom-select-value" id="type">
-                    <option>Walk-in</option>
                     <option>Online</option>
+                    <option>Walk-in</option>
                   </select>
                 </div>
               </div>
@@ -1140,6 +1140,196 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // FOR MANAGING ADD MEETING LINK ON ADD APPOINTMENT
+  $('#type').change(function() {
+      if ($(this).val() === 'Online') {
+        $('#meeting').show();
+      } else {
+        $('#meeting').hide();
+      }
+  });
+
+  // FOR THE TIME FORM OF ADD APPOINTMENT FROM REFERRALS
+  // MANAGE TIME FOR ADD APPOINTMENT MODAL
+  $('#dateselected').change(function() {
+    var selectedDate = $(this).val();
+
+    $.ajax({
+              url: "get_today_app_time.php",
+              data: {
+                date: selectedDate
+              },
+              success: function(data) {
+                var Appointments = JSON.parse(data);
+                
+                $("#selectTimeslot").empty();
+                $("#selectTimeslot-to").empty();
+
+                const start = [9, 10, 11, 1, 2, 3, 4];
+                const end = [10, 11, 12, 2, 3, 4, 5];
+                var index = 0;
+
+                // REMOVE ALL THE TIMES THAT HAS BEEN APPOINTED
+                Appointments.forEach(Appointment => {
+                  
+                  switch (Appointment['timeslot']) {
+                    case '9:00 am':
+                      index = start.indexOf(9);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '10:00 am':
+                      index = start.indexOf(10);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '11:00 am':
+                      index = start.indexOf(11);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '1:00 pm':
+                      index = start.indexOf(1);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '2:00 pm':
+                      index = start.indexOf(2);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '3:00 pm':
+                      index = start.indexOf(3);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                    case '4:00 pm':
+                      index = start.indexOf(4);
+                      if (index > -1) {
+                        start.splice(index, 1);
+                      }
+                      break;
+                  }
+
+                  switch (Appointment['timeslot_end']) {
+                    case '10:00 am':
+                      index = end.indexOf(10);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '11:00 am':
+                      index = end.indexOf(11);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '12:00 pm':
+                      index = end.indexOf(12);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '2:00 pm':
+                      index = end.indexOf(2);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '3:00 pm':
+                      index = end.indexOf(3);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '4:00 pm':
+                      index = end.indexOf(4);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                    case '5:00 pm':
+                      index = end.indexOf(5);
+                      if (index > -1) {
+                        end.splice(index, 1);
+                      }
+                      break;
+                  }
+                  // END OF switch
+                });
+
+                console.log(start);
+                console.log(end);
+                
+                // ADD ALL AVAILABLE START TIME
+                start.forEach(time => {
+                  switch (time) {
+                    case 9:
+                      $("#selectTimeslot").append('<option id="9:00-am" value="9:00 am">9:00 am</option>');
+                      break;
+                    case 10:
+                      $("#selectTimeslot").append('<option id="10:00-am" value="10:00 am">10:00 am</option>');
+                      break;
+                    case 11:
+                      $("#selectTimeslot").append('<option id="11:00-am" value="11:00 am">11:00 am</option>');
+                      break;
+                    case 1:
+                      $("#selectTimeslot").append('<option id="1:00-pm" value="1:00 pm">1:00 pm</option>');
+                      break;
+                    case 2:
+                      $("#selectTimeslot").append('<option id="2:00-pm" value="2:00 pm">2:00 pm</option>');
+                      break;
+                    case 3:
+                      $("#selectTimeslot").append('<option id="3:00-pm" value="3:00 pm">3:00 pm</option>');
+                      break;
+                    case 4:
+                      $("#selectTimeslot").append('<option id="4:00-pm" value="4:00 pm">4:00 pm</option>');
+                      break;
+                  }
+                });
+                
+                // ADD ALL AVAILABLE END TIME
+                end.forEach(time => {
+                  switch (time) {
+                    case 10:
+                      $("#selectTimeslot-to").append('<option id="10:00-am-to" value="10:00 am">10:00 am</option>');
+                      break;
+                    case 11:
+                      $("#selectTimeslot-to").append('<option id="11:00-am-to" value="11:00 am">11:00 am</option>');
+                      break;
+                    case 12:
+                      $("#selectTimeslot-to").append('<option id="12:00-pm-to" value="12:00 pm">12:00 pm</option>');
+                      break;
+                    case 2:
+                      $("#selectTimeslot-to").append('<option id="2:00-pm-to" value="2:00 pm">2:00 pm</option>');
+                      break;
+                    case 3:
+                      $("#selectTimeslot-to").append('<option id="3:00-pm-to" value="3:00 pm">3:00 pm</option>');
+                      break;
+                    case 4:
+                      $("#selectTimeslot-to").append('<option id="4:00-pm-to" value="4:00 pm">4:00 pm</option>');
+                      break;
+                    case 5:
+                      $("#selectTimeslot-to").append('<option id="5:00-pm-to" value="5:00 pm">5:00 pm</option>');
+                      break;
+                  }
+                });
+
+              }
+            });
+  });
+  
+</script>
+
+
 <script>
   $(document).ready(function() {
     var refId = null;
@@ -1197,8 +1387,18 @@
           events: mergedObject,
           dateClick: function(info) {
 
+           
+
+            var dateParts = info.dateStr.split('-');
+            var year = dateParts[0];
+            var month = dateParts[1] + 1; // JavaScript months are 0-based
+            var day = dateParts[2];
+
             var selectedDate = new Date(info.dateStr);
             var currentDate = new Date();
+            currentDate.setHours(8, 0, 0, 0);
+
+            // alert(selectedDate+"\n "+currentDate);
 
               // $("#personal-modal").modal("show");
               $("#personal-date").val(info.dateStr);
@@ -1223,7 +1423,7 @@
               })
 
             // dont show if the date is past the current date
-            if (selectedDate.getDate() >= currentDate.getDate()) { 
+            if (selectedDate >= currentDate) { 
               Toast.fire({
                 icon: 'info',
                 title: 'Select type of appointment'

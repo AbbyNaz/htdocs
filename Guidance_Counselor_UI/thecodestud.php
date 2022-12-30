@@ -37,9 +37,12 @@ if (!isset($_SESSION['UserEmail'])) {
         $status = "Active";
         $role = "3";
 
-        $add_student = "INSERT INTO users (`id_number`, `last_name`, `first_name`, `middle_name`, `address`, `contact`, `program`, `level`, `position`, `status`, `email`, `password`, `role`) VALUES ('$stud_id','$last_name','$first_name','$middle_name','$address','$contact','$program','$level','$position','$status','$email','$password','$role')";
-        $query_run = $con->query($add_student) or die($con->error);
+        try{
+            $add_student = "INSERT INTO users (`id_number`, `last_name`, `first_name`, `middle_name`, `address`, `contact`, `program`, `level`, `position`, `status`, `email`, `password`, `role`) VALUES ('$stud_id','$last_name','$first_name','$middle_name','$address','$contact','$program','$level','$position','$status','$email','$password','$role')";
+            $query_run = $con->query($add_student) or die($con->error);
 
+        } catch (Exception $e) {
+        }
 
         if ($query_run) {
             // echo "Saved";
@@ -58,7 +61,7 @@ if (!isset($_SESSION['UserEmail'])) {
             // $error = mysqli_error($con);
             // echo "Error: " . $error;
 
-            $_SESSION['status'] = "Profile Not Added";
+            $_SESSION['status'] = "Profile Not Added: ". mysqli_error($con);
             $_SESSION['status_code'] = "error";
             header('Location: gc___all-students.php');
 
