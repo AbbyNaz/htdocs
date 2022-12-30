@@ -6,9 +6,15 @@ include_once("../connections/connection.php");
 
 $con = connection();
 
+if(isset($_GET['id_number'])){
+    $id = $_GET['id_number'];
+}else{
+    $id = $_SESSION['UserNumber'];
+}
+
 // Retrieve the user's profile picture file path from the database
 $stmt = $con->prepare("SELECT profile_picture FROM users WHERE id_number = ?");
-$stmt->bind_param("i", $_SESSION['UserNumber']);
+$stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->bind_result($profile_picture);
 $stmt->fetch();

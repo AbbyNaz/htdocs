@@ -14,10 +14,25 @@ if (!isset($_SESSION['UserEmail'])) {
     $id_number = $_SESSION['UserNumber'];
 
     if ($id_number != null) {
-        
-        $query = "SELECT * FROM users WHERE id_number = '$id_number'";
-        $get_user = $con->query($query) or die($con->error);
-        $row = $get_user->fetch_assoc();
+
+        if (isset($_GET['id'])) { // CHECK IF VIEW STAFF PROFILE FIRST
+            $id = $_GET['id'];
+            $query = "SELECT * FROM users WHERE user_id = '$id'";
+            $get_user = $con->query($query) or die($con->error);
+            $row = $get_user->fetch_assoc();
+
+            if($id == 1){
+                $isGuidance = true;
+            }else{
+                $isGuidance = false;
+            }
+        }else{
+            $query = "SELECT * FROM users WHERE id_number = '$id_number'";
+            $get_user = $con->query($query) or die($con->error);
+            $row = $get_user->fetch_assoc();
+
+            $isGuidance = true;
+        }
     }
 
     if (isset($_POST['update_details'])) {
@@ -56,6 +71,8 @@ if (!isset($_SESSION['UserEmail'])) {
         // }
 
     }
+
+    
     
 ?>
 
@@ -130,7 +147,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="profile-info-inner">
                         <div class="profile-img">
                             <?php if ($row['profile_picture'] != null) { ?>
-                                <img src="show_profile_picture.php" alt="profile_picture" />
+                                <img src="show_profile_picture.php?id_number=<?=$row['id_number']?>" alt="profile_picture" />
                             <?php } else { ?>
                                 <img src="img/users/1.jpg" alt="profile_picture" />
                             <?php } ?>
@@ -437,7 +454,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="payment-adress mg-t-15">
+                                                            <?php 
+                                                                if($isGuidance){ //ONLY EDIT IF THE PROFILE IS GUIDANCE
+                                                            ?>
                                                             <button type="submit" name="update_details" class="btn btn-primary waves-effect waves-light mg-b-15">Submit</button>
+                                                            <?php 
+                                                                }
+                                                            ?>
                                                         </div>
                                                     </div>
                                                 </div>
