@@ -69,23 +69,23 @@ if (!isset($_SESSION['UserEmail'])) {
                         <?php } ?>
                     </div>
                     <!-- PROFILE PICTURE SAMPLE -->
-                                            <div class="profile-img">
-                                                <form action="process_profile_picture.php" method="POST" enctype="multipart/form-data">
-                                                    <div class="modal-body">
-                                                        <div class="form-group-inner">
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <input type="file" name="profile_picture" class="form-control">
-                                                                </div>
-                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                    <button type="submit" name="SaveImage" class="btn btn-primary btn-md">Save Image</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                    <div class="profile-img">
+                        <form action="process_profile_picture.php" method="POST" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="profile_picture" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <button type="submit" name="SaveImage" class="btn btn-primary btn-md">Save Image</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                    </div>
-                                                </form>
-                                            </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <div class="profile-details-hr">
                         <div class="row">
@@ -109,14 +109,14 @@ if (!isset($_SESSION['UserEmail'])) {
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                 <div class="address-hr">
                                     <p><b>Department</b><br />
-                                        <?= $row['program'] ?>
+                                        <?= $row['department'] ?>
                                     </p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                 <div class="address-hr tb-sm-res-d-n dps-tb-ntn">
                                     <p><b>Position</b><br />
-                                        <?= $row['level'] ?>
+                                        <?= $row['dep_position'] ?>
                                     </p>
                                 </div>
                             </div>
