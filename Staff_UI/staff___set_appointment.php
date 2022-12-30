@@ -349,7 +349,7 @@ include_once("../connections/connection.php");
                               <?php 
                               }else{
                                 ?>
-                                <button type="submit" id="delete_btn" class="btn btn-danger btn-md">cancel</button>
+                                <button onclick="showRejection(this)" type="button" id="CancelApp" data-id="<?php echo $row_app['id']; ?>" class="btn btn-danger btn-md">cancel</button>
                                 <?php } ?>
                                 </form>
                               <?php } ?>
@@ -414,6 +414,54 @@ include_once("../connections/connection.php");
     <!-- Static Table End -->
 
     </div>
+
+    <!-------------------------------------------REASON FOR CANCELLING REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="CANCEL_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Reason for Cancelling</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="reason" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"  class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+      <script>
+        function showRejection(button) {
+          var id = $(button).data("id");
+          console.log(id);
+
+          $('#RejectForm').attr('action', 'CancelAppointment.php?id='+id);
+
+          $('#CANCEL_FORM').modal('show');
+        }
+      </script> 
 
     <!-- jquery
 		============================================ -->

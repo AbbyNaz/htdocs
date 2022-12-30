@@ -185,7 +185,7 @@ include('includes/staff___mobile_menu.php');
               ?>
             <!-- <button type="button" id="cancel-app" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel Appointment</button> -->
 
-            <button type="button" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel Appointment</button>
+            <button  type="button" id="CancelApp" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel Appointment</button>
             
               <?php } ?>
             
@@ -376,7 +376,7 @@ include('includes/staff___mobile_menu.php');
                             </div>
                         </div>
 
-                        <form id="RejectForm" action="" method="POST">
+                        <form id="RejectForm" action="CancelAppointment.php" method="POST">
                             <div class="modal-body">
                                 <div class="form-group-inner">
                                     <div class="row">
@@ -384,14 +384,14 @@ include('includes/staff___mobile_menu.php');
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
+                                            <textarea name="reason" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="button"  class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
                                 <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
                             </div>
                         </form>
@@ -409,6 +409,10 @@ include('includes/staff___mobile_menu.php');
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
+
+
+
+
   $.ajax({
     url: "get_calendar_events.php",
     type: "POST",
@@ -705,6 +709,8 @@ include('includes/staff___mobile_menu.php');
               crossDomain: true,
               success: (data) => {
 
+                alert(events.event._def.publicId);
+
                 $("#VIEW_APPOINTMENT").modal("show");
 
                 $("#view-information").val(data[0].info);
@@ -714,6 +720,8 @@ include('includes/staff___mobile_menu.php');
                 $("#view-time").val(data[0].timeslot+" - "+data[0].timeslot_end);
                 $("#view-id").val(data[0].id_number);
 
+                // $('#CancelApp').data("id", events.event._def.publicId);
+                $('#RejectForm').attr('action', 'CancelAppointment.php?id='+events.event._def.publicId);
 
               }
             });
