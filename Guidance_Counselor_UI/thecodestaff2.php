@@ -43,10 +43,13 @@ if (!isset($_SESSION['UserEmail'])) {
         $status = "Active";
         $role = "2";
 
-        $add_staff = "INSERT INTO users (`id_number`, `last_name`, `first_name`, `middle_name`, `address`, `contact`, `department`, `dep_position`, `position`,`status`, `email`, `password`, `role`) 
-        VALUES ('$staff_id','$last_name','$first_name','$middle_name','$address','$contact','$department','$dep_position', '$position','$status','$email','$password','$role')";
-        $query_run = $con->query($add_staff) or die($con->error);
 
+        try{
+            $add_staff = "INSERT INTO users (`id_number`, `last_name`, `first_name`, `middle_name`, `address`, `contact`, `department`, `dep_position`, `position`,`status`, `email`, `password`, `role`) 
+            VALUES ('$staff_id','$last_name','$first_name','$middle_name','$address','$contact','$department','$dep_position', '$position','$status','$email','$password','$role')";
+            $query_run = $con->query($add_staff) or die($con->error);
+        } catch (Exception $e) {
+        }
         if ($query_run) {
             // echo "Saved";
             $_SESSION['status'] = "Profile Added";
@@ -61,7 +64,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
             // echo "Not saved";
-            $_SESSION['status'] = "Profile Not Added";
+            $_SESSION['status'] = "Profile Not Added: " . mysqli_error($con);
             $_SESSION['status_code'] = "error";
             header('Location: gc___all-staff.php');
 
@@ -82,7 +85,13 @@ if (!isset($_SESSION['UserEmail'])) {
         $address = $_POST['edit_staff_address'];
         $contact = $_POST['edit_staff_contact'];
         $department = $_POST['edit_staff_department'];
-        $dep_position = $_POST['edit_staff_position'];
+        
+
+        if($department == "Academics"){
+            $dep_position = $_POST['edit_staff_positionAC'];
+        }else if($department == "Administrative"){
+            $dep_position = $_POST['edit_staff_positionAD'];
+        }
 
 
         // $gender = $_POST['gender'];
@@ -130,7 +139,11 @@ if (!isset($_SESSION['UserEmail'])) {
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         }
-    } else if (isset($_POST['delete_staff'])) {
+    }
+    
+    
+    
+    else if (isset($_POST['delete_staff'])) {
         $staff_id = $_POST['delete_staff_id'];
         $first_name = $_POST['delete_staff_first_name'];
         $middle_name = $_POST['delete_staff_middle_name'];

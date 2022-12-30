@@ -145,7 +145,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Staff ID</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="staff_id" class="form-control" placeholder="Enter Staff ID" required />
+                      <input type="number" name="staff_id" class="form-control" placeholder="Enter Staff ID" required />
                     </div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Contact No.</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="staff_contact" class="form-control" placeholder="Enter Contact Number" />
+                      <input type="number" id="phone-number" maxlength="11" name="staff_contact" class="form-control" placeholder="Enter Contact Number" />
                     </div>
                   </div>
                 </div>
@@ -443,7 +443,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Staff ID</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_id" id="edit_staff_id" class="form-control" placeholder="Enter Staff ID" readonly />
+                      <input type="number" name="edit_staff_id" id="edit_staff_id" class="form-control" placeholder="Enter Staff ID" readonly />
                     </div>
                   </div>
                 </div>
@@ -498,7 +498,7 @@ if (!isset($_SESSION['UserEmail'])) {
                       <label class="login2 pull-right">Contact No.</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" name="edit_staff_contact" id="edit_staff_contact" class="form-control" placeholder="Enter Contact Number" />
+                      <input type="number" name="edit_staff_contact" id="edit_staff_contact" class="form-control" placeholder="Enter Contact Number" />
                     </div>
                   </div>
                 </div>
@@ -527,7 +527,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_positionAC">
+                        <select class="form-control custom-select-value" name="edit_staff_positionAC" id="edit_staff_positionAC">
                           <option value="Lab Custodian">Lab Custodian</option>
                           <option value="Kitchen Custodian">Kitchen Custodian</option>
                           <option value="Instructor">Instructor</option>
@@ -544,7 +544,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="edit_staff_position" id="edit_staff_positionAD">  
+                        <select class="form-control custom-select-value" name="edit_staff_positionAD" id="edit_staff_positionAD">  
                           <option value="Registrar">Registrar</option>
                           <option value="Record">Record</option>
                           <option value="Administrative Officer">Administrative Officer</option>
@@ -650,6 +650,16 @@ if (!isset($_SESSION['UserEmail'])) {
     <?php
     include('includes/gc___scripts.php');
     ?>
+
+    <script>
+      $(document).ready(function() {
+        $('#phone-number').keyup(function() {
+          if (this.value.length > 11) {
+            this.value = this.value.slice(0, 11);
+          }
+        });
+      });
+    </script>
 
     <script>
       function changeDropdown() {

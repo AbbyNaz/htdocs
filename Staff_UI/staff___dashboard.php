@@ -449,10 +449,10 @@ include('includes/staff___mobile_menu.php');
           dateClick: function(info) {
 
             var selectedDate = new Date(info.dateStr);
-            // Create a Date object for the current date
             var currentDate = new Date();
+            currentDate.setHours(8, 0, 0, 0);
 
-            if (selectedDate.getDate() >= currentDate.getDate()) {
+            if (selectedDate >= currentDate) {
               // console.log($("#store-data").data("id"));
               $("#ADD_APPOINTMENT").modal("show");
               $("#date-selected").val(info.dateStr);
