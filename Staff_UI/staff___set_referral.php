@@ -160,7 +160,7 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header header-color-modal bg-color-1">
-                        <h4 class="modal-title">Refer a Student / Staff</h4>
+                        <h4 class="modal-title">Refer a Student</h4>
                         <div class="modal-close-area modal-close-df">
                             <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                         </div>
@@ -168,7 +168,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                     <form id="ReferralForm" action="add_referral.php" method="POST">
                         <div class="modal-body">
-                            <div class="form-group-inner">
+                            <!-- <div class="form-group-inner">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">User Type</label>
@@ -180,12 +180,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 <option selected disabled>Select the user's position you wanted to
                                                     refer... </option>
                                                 <option value="student">Student</option>
-                                                <!-- <<option value="staff">Staff</option> -->
+                                                <option value="staff">Staff</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <option type="hidden" value="student"></option>
 
                             <!-- <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
@@ -210,7 +211,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 </div>
                             </div>
 
-                            <div class="form-group-inner" id="STUD_NAME" style="display: none;">
+                            <div class="form-group-inner" id="STUD_NAME">
                                 <div class=" row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">Student Name</label>
@@ -222,7 +223,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                 </div>
                             </div>
-                            <div class="form-group-inner" id="STUD_PROGRAM" style="display: none;">
+                            <div class="form-group-inner" id="STUD_PROGRAM">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">Program</label>
@@ -233,7 +234,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group-inner" id="STUD_LEVEL" style="display: none;">
+                            <div class="form-group-inner" id="STUD_LEVEL">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label class="login2 pull-right">Level</label>
@@ -245,54 +246,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                 </div>
                             </div>
 
-
-                            <div class="form-group-inner" id="STAFF_ID" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Search</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" placeholder="Search Staff Profile"
-                                            name="searchstaff" id="searchstaff" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_NAME" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Staff Name</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Enter Staff Name"
-                                            id="staff_name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_DEPARTMENT" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right"> Department</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control"
-                                            placeholder="Enter Staff Department" id="staff_department" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-inner" id="STAFF_POSITION" style="display: none;">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Position</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" readonly class="form-control" placeholder="Staff Position"
-                                            id="staff_position" />
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group-inner">
                                 <div class="row">
@@ -392,6 +345,197 @@ if (!isset($_SESSION['UserEmail'])) {
 
     </div>
 
+     <!------------------------------------------- EDIT REFERRAL FORM --------------------------------------------------------->
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="EDIT_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Edit Referral</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="ReferralForm" action="add_referral.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Student ID</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Student Name</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Program</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Level</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <label class="login2 pull-right pull-right-pro">Nature </label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                            <div class="bt-df-checkbox pull-left">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                <div class="row"> 
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label>
+                                                                <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Action/s</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" name="actions" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Remarks</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" name="remarks" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer" style="margin-bottom: 15px;">
+                                <input type="hidden" name="studentid" id="stud_id">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="edit_refferal" class="btn btn-primary btn-md">Edit Referral</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+<!-------------------------------------------REASON FOR CANCELLING REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="CANCEL_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Reason for Cancelling</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Referral"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
 
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
@@ -423,6 +567,8 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tr>
                                             <th data-field="name" data-editable="false">Student ID</th>
                                             <th data-field="L_email" data-editable="false">Student Name</th>
+                                            <th data-field="level" data-editable="false">Level</th>
+                                            <th data-field="program" data-editable="false">Program</th>
                                             <th data-field="date" data-editable="false">Nature</th>
                                             <th data-field="price" data-editable="false">Reason</th>
                                             <th data-field="pric" data-editable="false">Action Taken</th>
@@ -443,51 +589,26 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <tr>
                                             <td><b><?php echo $row['id_number'] ?></b></td>
                                             <td><?php echo $row['first_name']." ".$row['last_name'] ?></td>
+                                            <td><?php echo $row['level'] ?></td>
+                                            <td><?php echo $row['program'] ?></td>
                                             <td><?php echo $row['nature'] ?></td>
                                             <td><?php echo $row['reason'] ?></td>
                                             <td><?php echo $row['actions'] ?></td>
                                             <td><?php echo $row['remarks'] ?></td>
                                             <td><?php echo $row['reffered_date'] ?></td>
                                             <td>
-                                                <?php
-                                                if ($row['ref_status'] == "pending" || $row['ref_status'] == "Pending") {  ?>
-                                                <small style="background-color: gray; color: white; padding: 3px;">
-                                                    Pending
-                                                </small>
-                                                <?php 
-                                                } elseif ($row['ref_status'] == "For Approval" || $row['ref_status'] == "for approval") {
-                                                                    ?>
-                                                <small style="background-color: orange; color: white; padding: 3px;">
-                                                    For Approval
-                                                </small>
-                                                <?php
-                                                 } elseif ($row['ref_status'] == "Cancelled" || $row['ref_status'] == "cancelled") {
-                                                                    ?>
-                                                <small style="background-color: darkred; color: white; padding: 3px;">
-                                                    Cancelled
-                                                </small>
-                                                <?php
-                                                 } elseif ($row['ref_status'] == "Disapproved" || $row['ref_status'] == "disapproved") {
-                                                                    ?>
-                                                <small style="background-color: maroon; color: white; padding: 3px;">
-                                                    Disapproved
-                                                </small>
-                                                <?php
-                                                 } else {
-                                                                    ?>
-                                                <small style="background-color: green; color: white; padding: 3px;">
-                                                    <?php echo $row['ref_status']; ?>
-                                                </small>
-                                                <?php
-                                                }
-                                                                    ?>
+                                                <?php echo $row['ref_status']; ?>
                                             </td>
                                             <td>
-                                                
-                                                    <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                                <div style="display: flex; justify-content: center;">
 
-                                                    <a class="btn btn-danger" style="margin-left: 10px; color: white;"
-                                                        href="staff___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a>
+                                                    <!-- <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a> -->
+                                                    <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#EDIT_REFERRAL" data-id="<?= $row['user_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+
+                                                    <!-- <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="staff___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a> -->
+                                                    <button title="Cancel" class="btn btn-danger" data-toggle="modal" data-target="#CANCEL_FORM"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
+                                                </div>
                                              
                                             </td>
                                         </tr>
@@ -517,32 +638,14 @@ if (!isset($_SESSION['UserEmail'])) {
                 document.getElementById("STUD_PROGRAM").style.display = "block";
                 document.getElementById("STUD_LEVEL").style.display = "block";
 
-                document.getElementById("STAFF_ID").style.display = "none";
-                document.getElementById("STAFF_NAME").style.display = "none";
-                document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                document.getElementById("STAFF_POSITION").style.display = "none";
-
-            } else if (state == "staff") {
+             
+            }  else {
                 document.getElementById("STUD_ID").style.display = "none";
                 document.getElementById("STUD_NAME").style.display = "none";
                 document.getElementById("STUD_PROGRAM").style.display = "none";
                 document.getElementById("STUD_LEVEL").style.display = "none";
 
-                document.getElementById("STAFF_ID").style.display = "block";
-                document.getElementById("STAFF_NAME").style.display = "block";
-                document.getElementById("STAFF_DEPARTMENT").style.display = "block";
-                document.getElementById("STAFF_POSITION").style.display = "block";
-
-            } else {
-                document.getElementById("STUD_ID").style.display = "none";
-                document.getElementById("STUD_NAME").style.display = "none";
-                document.getElementById("STUD_PROGRAM").style.display = "none";
-                document.getElementById("STUD_LEVEL").style.display = "none";
-
-                document.getElementById("STAFF_ID").style.display = "none";
-                document.getElementById("STAFF_NAME").style.display = "none";
-                document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                document.getElementById("STAFF_POSITION").style.display = "none";
+              
 
             }
         }

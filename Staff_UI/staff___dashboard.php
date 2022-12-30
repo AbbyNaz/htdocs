@@ -183,7 +183,10 @@ include('includes/staff___mobile_menu.php');
             <?php 
             }else{
               ?>
-               <button type="button" id="cancel-app" class="btn btn-danger btn-md">Cancel Appointment</button>
+            <!-- <button type="button" id="cancel-app" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel Appointment</button> -->
+
+            <button type="button" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel Appointment</button>
+            
               <?php } ?>
             
             <?php
@@ -192,7 +195,7 @@ include('includes/staff___mobile_menu.php');
             <?php 
             }else{
               ?>
-               <button type="button" id="done-app" class="btn btn-info btn-md">Done Appointment</button>
+               <!-- <button type="button" id="done-app" class="btn btn-info btn-md">Done Appointment</button> -->
               <?php } ?>
           <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
         </div>
@@ -201,7 +204,6 @@ include('includes/staff___mobile_menu.php');
   </div>
 
 </div>
-
 
 
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -222,57 +224,6 @@ include('includes/staff___mobile_menu.php');
         <input type="hidden" id="fullname" class="form-control" disabled />
         <input type="hidden" id="pos" class="form-control" disabled />
 
-
-          <!-- <div class="form-group-inner data-custon-pick" id="data_2">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
-                <label class="login2 pull-right" style="font-weight: bold;">ID</label>
-              </div>
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="hidden" id="myid" class="form-control"  />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group-inner data-custon-pick" id="data_2">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
-                <label class="login2 pull-right" style="font-weight: bold;">Name</label>
-              </div>
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="fullname" class="form-control" disabled />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group-inner data-custon-pick" id="data_2">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-9">
-                <label class="login2 pull-right" style="font-weight: bold;">Position</label>
-              </div>
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="pos" class="form-control" disabled />
-              </div>
-            </div>
-          </div> -->
-
-          <!-- <div class="form-group-inner">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <label class="login2 pull-right">Subject</label>
-              </div>
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <div class="form-select-list">
-                  <select class="form-control custom-select-value" name="subject">
-                    <option>Counseling</option>
-                    <option>Academic</option>
-                    <option>Personal</option>
-                    <option>Others</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div> -->
 
                     <!--------------- inserted nature in appointment instead of subject --------------------->
                     <div class="form-group-inner">
@@ -409,6 +360,46 @@ include('includes/staff___mobile_menu.php');
   </div>
 
 </div>
+
+
+
+        
+<!-------------------------------------------REASON FOR CANCELLING REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="CANCEL_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Reason for Cancelling</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

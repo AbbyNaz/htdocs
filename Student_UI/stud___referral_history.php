@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_SESSION['UserId'])) {
         $UserId = $_SESSION['UserId'];
         $UserEmail = $_SESSION['UserEmail'];
-        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE 'Cancelled%' ORDER BY users.last_name ASC";
+        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status LIKE 'Cancelled%' OR 'Complete Referral%' OR 'Cancelled Referral%' ORDER BY users.last_name ASC";
         $get_referral = $con->query($refferal) or die($con->error);
         $row = $get_referral->fetch_assoc();
 
@@ -173,13 +173,13 @@ if (!isset($_SESSION['UserEmail'])) {
                                         <thead>
 
                                             <tr>
-                                                <th data-field="name" data-editable="false">Student ID</th>
-                                                <th data-field="L_email" data-editable="false">Student Name</th>
+                                            <th data-field="name" data-editable="false">User ID</th>
+                                                <th data-field="L_email" data-editable="false">Username</th>
                                                 <th data-field="date" data-editable="false">Nature</th>
                                                 <th data-field="price" data-editable="false">Reason</th>
                                                 <th data-field="pric" data-editable="false">Action Taken</th>
                                                 <th data-field="pri" data-editable="false">Remarks</th>
-                                                <th data-field="task" data-editable="false">Date</th>
+                                                <th data-field="task" data-editable="false">Referral Date</th>
                                                 <th data-field="status">Status</th>
                                             </tr>
                                         </thead>

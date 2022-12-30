@@ -158,6 +158,45 @@ if (!isset($_SESSION['UserEmail'])) {
       </div>
     </div>
 
+           
+<!-------------------------------------------REASON FOR CANCELLING REFERRAL FORM --------------------------------------------------------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id="CANCEL_FORM" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header header-color-modal bg-color-1">
+                            <h4 class="modal-title">Reason for Cancelling</h4>
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+
+                        <form id="RejectForm" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group-inner">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label class="login2 pull-right">Reason</label>
+                                        </div>
+                                        <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <textarea name="description" placeholder="Enter the Reason for Cancelling Appointment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
+                                <button type="submit" name="submit_cancel" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
       <div class="container-fluid">
@@ -224,21 +263,24 @@ if (!isset($_SESSION['UserEmail'])) {
                             </td>
 
                             <td>
-                              <?php if ($row_app['app_status'] == "completed" || $row_app['app_status'] == "Completed") {
-                                      echo null;
-                                    } else { ?>
-                                      <form action="thecode.php" method="post">
-                                        <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
-                                        <?php
-                                    if($appby == 1){
-                              ?>
-                              <?php 
-                                    }else{
-                              ?>
-                                    <button type="submit" id="delete_btn" class="btn btn-danger btn-md">cancel</button>
-                              <?php } ?>
-                                </form>
-                              <?php } ?>
+                              <div style="display: flex; justify-content: center;">
+                                  <?php if ($row_app['app_status'] == "completed" || $row_app['app_status'] == "Completed") {
+                                          echo null;
+                                        } else { ?>
+                                          <form action="thecode.php" method="post">
+                                            <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
+                                            <?php
+                                        if($appby == 1){
+                                  ?>
+                                  <?php 
+                                        }else{
+                                  ?>
+                                        <button type="submit" id="delete_btn" data-toggle="modal" data-target="#CANCEL_FORM" class="btn btn-danger btn-md">Cancel</button>
+                                        
+                                  <?php } ?>
+                                    </form>
+                                  <?php } ?>
+                              </div>
                             </td>
 
                           </tr>
@@ -246,47 +288,6 @@ if (!isset($_SESSION['UserEmail'])) {
                       <?php } while ($row_app = $get_app->fetch_assoc());
                       } ?>
 
-                      <!-- <tr>
-
-                      <td>Bullying</td>
-                      <td>Urgent</td>
-                      <td>September 5, 2022</td>
-                      <td>5:00pm</td>
-                      <td>Online-Meeting</td>
-                      <td>https://meetinglink101.com</td>
-                      <td>
-                        <button class="btn btn-xs btn-success">Approved</button>
-                      </td>
-
-                      <td>
-                        <form action="thecode.php" method="post">
-                          <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
-                          <button type="submit" name="delete_btn" class="btn btn-danger">Cancel</button>
-                        </form>
-                      </td>
-
-                    </tr> -->
-
-                      <!-- <tr>
-
-                      <td>Bullying</td>
-                      <td></td>
-                      <td>September 5, 2022</td>
-                      <td>5:00pm</td>
-                      <td>Walk-in</td>
-                      <td></td>
-                      <td>
-                        <button class="btn btn-xs btn-warning">To be Approved</button>
-                      </td>
-
-                      <td>
-                        <form action="thecode.php" method="post">
-                          <input type="hidden" name="delete_username_id" value="<?php echo $row['GC_USER_ID']; ?>">
-                          <button type="submit" name="delete_btn" class="btn btn-danger">Cancel</button>
-                        </form>
-                      </td>
-
-                    </tr> -->
 
                     </tbody>
                   </table>
