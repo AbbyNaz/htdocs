@@ -118,10 +118,10 @@ if (!isset($_SESSION['UserEmail'])) {
     $offense_type = $_POST['edit_offense_type'];
     $description = $_POST['edit_offensedescription'];
     $dateToday = date("Y-m-d");
-    $sanction = $_POST['sanction'];
+    $sanction = $_POST['edit_sanction'];
 
-    $s_date = $_POST['start_date'];
-    $e_date = $_POST['end_date'];
+    $s_date = $_POST['edit_start_date'];
+    $e_date = $_POST['edit_end_date'];
 
     date_default_timezone_set('Asia/Manila');
     $date_start = strtotime($s_date);
@@ -611,27 +611,6 @@ if (!isset($_SESSION['UserEmail'])) {
                     </div>
                   </div>
                 </div>
-
-               
-
-                <!-- <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Status</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="status" id="offensestatus">
-                          <option>Active</option>
-                          <option>Completed</option>
-                          <option>Cancelled</option>
-                          <option>Paused</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
               <div class="modal-footer">
                 <input type="hidden" name="id" id="id">
                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>

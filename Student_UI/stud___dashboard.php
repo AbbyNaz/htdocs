@@ -149,6 +149,9 @@ if (!isset($_SESSION['UserEmail'])) {
                                 while ($Announcements = mysqli_fetch_assoc($query_run)){
                                   echo '<li  onclick="viewAnnouncement(this)" id="AnnouncementTitle" data-id = "'.$Announcements['id'].'" class="list-inline two-part-sp">'.$Announcements['title'].'</li><hr>';
                                 }
+                                if (mysqli_num_rows($query_run) == 0){
+                                  echo '<li class="list-inline two-part-sp">No announcement at this time!</li><hr>';
+                                }
                               ?>
                           
                             </ul>
