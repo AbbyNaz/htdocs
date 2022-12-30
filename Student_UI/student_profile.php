@@ -705,18 +705,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                     <input type="file" style="padding-top: 8px;" id="profile" name="profile"></select>
                                                                                 </div>
 
-                                                                                <!-- <div class="input-field" style="margin-right: 20px;">
-                                                                                    <label>Senior High (Quarter)</label>
-                                                                                    <select name="quarter" required>
-                                                                                        <option disabled>Select Quarter</option>
-                                                                                        <option selected>1st Quarter</option>
-                                                                                        <option>2nd Quarter</option>
-                                                                                        <option>3rd Quarter</option>
-                                                                                        <option>4th Quarter</option>
-                                                                                        <option>Summer</option>
-                                                                                    </select>
-                                                                                </div> -->
-
                                                                                 <div>
                                                                                     <fieldset>
                                                                                         <legend><span class="title">Personal Details</span></legend>
@@ -724,17 +712,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                             <div class="fields">
                                                                                                 <div class="input-field">
                                                                                                     <label>First Name</label>
-                                                                                                    <input type="text" name="fname" placeholder="Enter your first name" value="<?php echo $row['first_name']; ?>" required>
+                                                                                                    <input type="text" name="fname" placeholder="Enter your first name" value="<?php echo $row['first_name']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
                                                                                                     <label>Middle Name</label>
-                                                                                                    <input type="text" name="mname" placeholder="Enter your middle name" value="<?php echo $row['middle_name']; ?>">
+                                                                                                    <input type="text" name="mname" placeholder="Enter your middle name" value="<?php echo $row['middle_name']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
                                                                                                     <label>Last Name</label>
-                                                                                                    <input type="text" name="lname" placeholder="Enter your last name" value="<?php echo $row['last_name']; ?>" required>
+                                                                                                    <input type="text" name="lname" placeholder="Enter your last name" value="<?php echo $row['last_name']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
@@ -747,15 +735,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                                     <label>Year Level</label>
                                                                                                     <input type="level" name="level" placeholder="Year Level" value="<?php echo $row['level']; ?>" readonly>
 
-                                                                                                    <!-- <select name="yearlevel" required value="<?php echo $row['level']; ?>">
-                                                                                                        <option disabled selected>Select Year Level</option>
-                                                                                                        <option>Grade 11</option>
-                                                                                                        <option>Grade 12</option>
-                                                                                                        <option>First Year</option>
-                                                                                                        <option>Second Year</option>
-                                                                                                        <option>Third Year</option>
-                                                                                                        <option>Fourth Year</option>
-                                                                                                    </select> -->
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
