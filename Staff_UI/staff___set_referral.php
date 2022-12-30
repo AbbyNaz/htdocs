@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_SESSION['UserId'])) {
         $UserId = $_SESSION['UserId'];
         $UserEmail = $_SESSION['UserEmail'];
-        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE 'Cancelled%'  ORDER BY users.last_name ASC";
+        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status NOT LIKE '%Cancelled%' AND refferals.ref_status NOT LIKE '%Completed%'  ORDER BY users.last_name ASC";
         $get_referral = $con->query($refferal) or die($con->error);
         $row = $get_referral->fetch_assoc();
 
@@ -366,7 +366,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Student ID</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="id_number" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +377,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Student Name</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="name" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -388,7 +388,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Program</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="program" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -399,7 +399,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Level</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="level" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -415,7 +415,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                                                <input id="Academic" type="checkbox" name="nature[]" value="Academic" disabled> <i></i> Academic </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -423,7 +423,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                                                <input id="Career" type="checkbox" name="nature[]" value="Career" disabled> <i></i> Career </label>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -431,7 +431,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                                                <input id="Personal" type="checkbox" name="nature[]" value="Personal" disabled> <i></i> Personal </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -439,7 +439,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                                                <input id="Crisis" type="checkbox" name="nature[]" value="Crisis" disabled> <i></i> Crisis </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,7 +456,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description"></textarea>
+                                            <textarea id="reason" name="description"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -467,7 +467,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Action/s</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" name="actions" class="form-control" />
+                                            <input id="action" type="text" name="actions" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -477,7 +477,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Remarks</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" name="remarks" class="form-control" />
+                                            <input id="remarks" type="text" name="remarks" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -605,18 +605,15 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 <div style="display: flex; justify-content: center;">
 
                                                     <!-- <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a> -->
-                                                    <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#EDIT_REFERRAL" data-id="<?= $row['user_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                    <button onclick="ShowEditForm(this)" id="EditRef" type="button" title="Edit" class="pd-setting-ed" data-id="<?= $row['ref_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
                                                     <!-- <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="staff___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a> -->
-                                                    <button title="Cancel" class="btn btn-danger" data-toggle="modal" data-target="#CANCEL_FORM"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-
+                                                    <button onclick="showCancel(this)" data-id="<?= $row['ref_id'] ?>" type="button" title="Cancel" class="btn btn-danger" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                 </div>
-                                             
                                             </td>
                                         </tr>
                                         <?php } while ($row = $get_referral->fetch_assoc());
                                          } ?>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -629,8 +626,65 @@ if (!isset($_SESSION['UserEmail'])) {
     <!-- Static Table End -->
 
     </div>
+    <script>
+        function showCancel(button) {
+          var ref_id = $(button).data("id");
+          console.log(ref_id);
+
+          $('#RejectForm').attr('action', 'CancelReferral.php?id='+ref_id);
+
+          $('#CANCEL_FORM').modal('show');
+        }
+    </script> 
 
     <script>
+        function ShowEditForm(button){
+            var ref_id = $('#EditRef').data('id');
+            console.log(ref_id);
+            $.ajax({
+                url: 'get_referral_info.php',
+                data: { ref_id: ref_id },
+                success: function (response) {
+                    var ref = JSON.parse(response);
+
+                    console.log(ref);
+                    var id_number = ref.id_number;
+                    var name = ref.first_name+" "+ref.last_name;
+                    var program = ref.program;
+                    var level = ref.level;
+                    var natures = ref.nature;
+                    var reason = ref.reason;
+                    var action = ref.actions;
+                    var remarks = ref.remarks;
+
+                    $('#id_number').val(id_number);
+                    $('#name').val(name);
+                    $('#program').val(program);
+                    $('#level').val(level);
+                    $('#reason').val(reason);
+                    $('#action').val(action);
+                    $('#remarks').val(remarks);
+
+                    if (natures.includes('Academic')) {
+                        $("#Academic").attr("checked", "checked");
+                    }
+                    if (natures.includes('Career')) {
+                        $("#Career").attr("checked", "checked");
+                    }
+                    if (natures.includes('Personal')) {
+                        $("#Personal").attr("checked", "checked");
+                    }
+                    if (natures.includes('Crisis')) {
+                        $("#Crisis").attr("checked", "checked");
+                    }
+                    
+                    $('#EDIT_REFERRAL').modal('show');
+                }
+
+            });
+        }
+
+
         function changeDropdown() {
             var state = document.getElementById("mySelect").value;
             // alert(state);
@@ -639,16 +693,11 @@ if (!isset($_SESSION['UserEmail'])) {
                 document.getElementById("STUD_NAME").style.display = "block";
                 document.getElementById("STUD_PROGRAM").style.display = "block";
                 document.getElementById("STUD_LEVEL").style.display = "block";
-
-             
             }  else {
                 document.getElementById("STUD_ID").style.display = "none";
                 document.getElementById("STUD_NAME").style.display = "none";
                 document.getElementById("STUD_PROGRAM").style.display = "none";
                 document.getElementById("STUD_LEVEL").style.display = "none";
-
-              
-
             }
         }
     </script>
