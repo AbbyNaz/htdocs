@@ -1,5 +1,9 @@
 <?php
 include('includes/homepage___header.php');
+
+include_once("connections/connection.php");
+
+$con = connection();
 ?>
 <style>
 * {box-sizing: border-box;}
@@ -72,24 +76,21 @@ img {vertical-align: middle;}
 
 <section class="faqs">
 <div class="slideshow-container">
+    <?php
+        $GetSlides = "SELECT id FROM slides WHERE slide_status = 'Active'";
+        $Slides = $con->query($GetSlides) or die($con->error);
+        
+        while ($id = $Slides->fetch_assoc()) {
+            
+        
+    ?>
+    <div class="mySlides fade">
+        <img src="show_slide_image.php?SID=<?= $id['id'] ?>" style="width:100%; height: 600px;">
+    </div>
 
-<div class="mySlides fade">
-  <!-- <div class="numbertext">1 / 3</div> -->
-  <img src="images/Doc1.png" style="width:100%; height: 600px;">
-  <!-- <div class="text">Caption Text</div> -->
-</div>
-
-<div class="mySlides fade">
-  <!-- <div class="numbertext">2 / 3</div> -->
-  <img src="images/banner2.jpg" style="width:100%; height: 600px;;">
-  <!-- <div class="text">Caption Two</div> -->
-</div>
-
-<div class="mySlides fade">
-  <!-- <div class="numbertext">3 / 3</div> -->
-  <img src="images/banner3.jpg" style="width:100%; height: 600px;;">
-  <!-- <div class="text">Caption Three</div> -->
-</div>
+    <?php
+        }
+    ?>
 
 </div>
 <br>
