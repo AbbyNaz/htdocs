@@ -18,7 +18,7 @@ if (!isset($_SESSION['UserEmail'])) {
         // $slide_picture = $_POST['slide_picture'];
         $slide_status = "Active";
 
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
 
         if(isset($_FILES['slide_picture'])){
             // Save the uploaded image file to a designated folder on the server
@@ -50,7 +50,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Added a new slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             } else {
@@ -62,7 +62,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Error: Attempted to add a new slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             }
@@ -79,7 +79,7 @@ if (!isset($_SESSION['UserEmail'])) {
         // $slide_picture = $_POST['edit_slide_picture'];
         $slide_status = $_POST['slide_edit_status'];
 
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images');
 
         if(isset($_FILES['slide_picture']) && is_uploaded_file($_FILES['slide_picture']['tmp_name'])){
             // Save the uploaded image file to a designated folder on the server
@@ -110,7 +110,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Updated a slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             } else {
@@ -122,7 +122,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Error: Attempted to update a slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             }
@@ -140,7 +140,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Updated a slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             } else {
@@ -152,7 +152,7 @@ if (!isset($_SESSION['UserEmail'])) {
                 $current_date_time = date("Y-m-d H:i:s");
                 $action_made = "Error: Attempted to update a slide";
                 $IDNUMBER = "1001";
-                $user_position = "Admin";
+                $user_position = "Guidance";
                 $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
                 $query_runs = $con->query($add_logs) or die($con->error);
             }
@@ -179,7 +179,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Deleted a Slide";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
@@ -191,7 +191,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Error: Attempted to delete a slide";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         }

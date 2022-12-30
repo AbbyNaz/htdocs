@@ -734,21 +734,8 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                 <div class="input-field">
                                                                                     <label>Picture</label>
                                                                                     <input type="file" style="padding-top: 8px;" name="files[]" class="form-control" accept="image/*"
-                                                                                             required />
+                                                                                              />
                                                                                 </div>
-
-                                                                                <!-- <div class="input-field">
-                                                                                    <label>Senior High (Quarter)</label>
-                                                                                    <select name="quarter" required>
-                                                                                        <option selected><?php echo $row['QUARTER']; ?></option>
-                                                                                        <option disabled>Select Quarter</option>
-                                                                                        <option>1st Quarter</option>
-                                                                                        <option>2nd Quarter</option>
-                                                                                        <option>3rd Quarter</option>
-                                                                                        <option>4th Quarter</option>
-                                                                                        <option>Summer</option>
-                                                                                    </select>
-                                                                                </div> -->
 
                                                                                 <div>
                                                                                     <fieldset>
@@ -757,17 +744,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                             <div class="fields">
                                                                                                 <div class="input-field">
                                                                                                     <label>First Name</label>
-                                                                                                    <input type="text" name="fname" placeholder="Enter your first name" value="<?php echo $row['FIRST']; ?>" required>
+                                                                                                    <input type="text" name="fname" placeholder="Enter your first name" value="<?php echo $row['FIRST']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
                                                                                                     <label>Middle Name</label>
-                                                                                                    <input type="text" name="mname" placeholder="Enter your middle name" value="<?php echo $row['MIDDLE']; ?>">
+                                                                                                    <input type="text" name="mname" placeholder="Enter your middle name" value="<?php echo $row['MIDDLE']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
                                                                                                     <label>Last Name</label>
-                                                                                                    <input type="text" name="lname" placeholder="Enter your last name" value="<?php echo $row['LAST']; ?>" required>
+                                                                                                    <input type="text" name="lname" placeholder="Enter your last name" value="<?php echo $row['LAST']; ?>" readonly>
                                                                                                 </div>
 
                                                                                                 <div class="input-field">
@@ -777,7 +764,9 @@ if (!isset($_SESSION['UserEmail'])) {
 
                                                                                                 <div class="input-field">
                                                                                                     <label>Year Level</label>
-                                                                                                    <select name="yearlevel" required>
+                                                                                                    <input type="level" name="yearlevel" value="<?php echo $row['YEARLEVEL']; ?>" readonly>
+
+                                                                                                    <!-- <select name="yearlevel" required>
                                                                                                         <option selected><?php echo $row['YEARLEVEL']; ?></option>
                                                                                                         <option disabled>Select Year Level</option>
                                                                                                         <option>Grade 11</option>
@@ -786,7 +775,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                                         <option>Second Year</option>
                                                                                                         <option>Third Year</option>
                                                                                                         <option>Fourth Year</option>
-                                                                                                    </select>
+                                                                                                    </select> -->
                                                                                                 </div>
 
                                                                                                 <div class="input-field">

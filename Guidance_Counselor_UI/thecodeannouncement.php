@@ -31,7 +31,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Added a new announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
@@ -46,7 +46,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Error: Attempted to add a new announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         }
@@ -92,7 +92,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Updated an announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
@@ -107,7 +107,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Error: Attempted to update an announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         }
@@ -133,7 +133,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Deleted an announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         } else {
@@ -148,7 +148,7 @@ if (!isset($_SESSION['UserEmail'])) {
             $current_date_time = date("Y-m-d H:i:s");
             $action_made = "Error: Attempted to delete an announcement";
             $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
         }

@@ -199,7 +199,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                         <td><?php echo $row['reason'] ?></td>
                                                         <td><?php echo $row['actions'] ?></td>
                                                         <td><?php echo $row['remarks'] ?></td>
-                                                        <td></td>
+                                                        <td><?php echo $row['Cancel_Reason'] ?></td>
                                                         <td><?php echo $row['reffered_date'] ?></td>
                                                         <td>
                                                             <?php echo $row['ref_status'] ?>

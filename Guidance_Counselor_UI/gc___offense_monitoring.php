@@ -92,7 +92,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $current_date_time = date("Y-m-d H:i:s");
         $action_made = "Added a new offense on [ ID = " . $stud_id . "] " . $f_name . " " . $l_name . " to the offense list";
         $IDNUMBER = "1001";
-        $user_position = "Admin";
+        $user_position = "Guidance";
         $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
         $query_runs = $con->query($add_logs) or die($con->error);
 
@@ -107,7 +107,7 @@ if (!isset($_SESSION['UserEmail'])) {
         $current_date_time = date("Y-m-d H:i:s");
         $action_made = "Error: Attempted to add a new offense on [ ID = " . $stud_id . "] " . $f_name . " " . $l_name . " to the offense list";
         $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
 
@@ -145,7 +145,7 @@ if (!isset($_SESSION['UserEmail'])) {
       $current_date_time = date("Y-m-d H:i:s");
       $action_made = "Updated the offense of [ ID = " . $studentID . "] " . $f_name . " " . $l_name;
       $IDNUMBER = "1001";
-      $user_position = "Admin";
+      $user_position = "Guidance";
       $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
       $query_runs = $con->query($add_logs) or die($con->error);
       // echo "Not saved";
@@ -158,7 +158,7 @@ if (!isset($_SESSION['UserEmail'])) {
       $current_date_time = date("Y-m-d H:i:s");
       $action_made = "Error: Attemptedt to update the offense of [ ID = " . $studentID . "] " . $f_name . " " . $l_name ;
       $IDNUMBER = "1001";
-            $user_position = "Admin";
+            $user_position = "Guidance";
             $add_logs = "INSERT INTO logs (`user_id`,`user`,  `action_made`, `date_created`) VALUES ('$IDNUMBER',' $user_position', '$action_made', '$current_date_time')";
             $query_runs = $con->query($add_logs) or die($con->error);
     }
