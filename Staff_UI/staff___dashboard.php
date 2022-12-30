@@ -634,6 +634,12 @@ include('includes/staff___mobile_menu.php');
 
 
             $(document).on("click", "#submit-req", () => {
+              
+              var natureArr = $('#nature:checked').map(function() {
+                return this.value;
+              }).get();
+
+              var nature = JSON.stringify(natureArr);
 
               $.ajax({
                 url: "insert_req.php",
@@ -654,7 +660,7 @@ include('includes/staff___mobile_menu.php');
                   reason: $("#reason").val(),
                   selectTimeslot: $("#selectTimeslot").val(),
                   selectTimeslotto: $("#selectTimeslot-to").val(),
-                  subject: $("#subject").val(),
+                  nature: nature,
                   pos: $("#pos").val(),
                   myid: $("#myid").val()
 
@@ -667,7 +673,8 @@ include('includes/staff___mobile_menu.php');
 
                   if (data.status == 0) {
                     Swal.fire('You have 1 appointment pending.');
-                  } else if (data.status == 1) {
+                  } 
+                  else if (data.status == 1) {
                     calendar.addEventSource(data);
                     // calendar.refetchEvents();
 
@@ -704,7 +711,7 @@ include('includes/staff___mobile_menu.php');
                 $("#view-type").val(data[0].appointment_type);
                 $("#view-date").val(data[0].date);
                 $("#view-reason").val(data[0].subject);
-                $("#view-time").val(data[0].timeslot);
+                $("#view-time").val(data[0].timeslot+" - "+data[0].timeslot_end);
                 $("#view-id").val(data[0].id_number);
 
 
