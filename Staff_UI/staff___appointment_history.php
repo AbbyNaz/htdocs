@@ -278,14 +278,14 @@ if (!isset($_SESSION['UserEmail'])) {
                                                 do { ?>
                                                     <tr>
 
-                                                    <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?php echo $row['nature'] ?></td>
+                                                        <td><?php echo $row['info'] ?></td>
+                                                        <td><?php echo $row['date'] ?></td>
+                                                        <td><?php echo $row['appointment_type'] ?></td>
+                                                        <td><?php echo $row['meeting_link'] ?></td>
                                                         <td><?php echo $row['cancel_reason'] ?></td>
                                                         <td><?php echo $row['updated_at'] ?></td>
-                                                        <td><?php echo $row['status'] ?></td>
+                                                        <td><?php echo $row['app_status'] ?></td>
 
                                                     </tr>
                                             <?php } while ($row = $get_app->fetch_assoc());
