@@ -25,7 +25,6 @@ function Notify($Type, $id) {
 
             return $notified;
 
-            break;
         case 'Rejection':
             $from = $_SESSION['id_number'];
             $type = $Type;
@@ -42,7 +41,6 @@ function Notify($Type, $id) {
 
             return $notified;
 
-            break;
         case 'Appointment':
             $from = $_SESSION['id_number'];
             $type = $Type;
@@ -60,8 +58,7 @@ function Notify($Type, $id) {
             return $notified;
 
 
-            break;
-            case 'Offense':
+        case 'Offense':
                 $from = $_SESSION['id_number'];
                 $type = $Type;
                 $infoID = $id;
@@ -76,9 +73,22 @@ function Notify($Type, $id) {
                 $notified = mysqli_query($GLOBALS['con'], $notify);
     
                 return $notified;
-    
-    
-                break;
+        
+        case 'Cancelled': // for cancelled refferal
+            $from = $_SESSION['id_number'];
+            $type = $Type;
+            $infoID = $id;
+            $isRead = 0;
+
+            $notify = "INSERT INTO `notifications`(`from_user`, `to_user`, `Type`, `info_ID`, `isRead`)
+                    VALUES ('$from',
+                            (SELECT id_number FROM users WHERE position = 'Guidance'),
+                            '$type',
+                            '$infoID',
+                            '$isRead')";
+            $notified = mysqli_query($GLOBALS['con'], $notify);
+
+            return $notified;
             
     }
         
