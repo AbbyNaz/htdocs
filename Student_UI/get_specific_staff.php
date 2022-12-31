@@ -15,7 +15,7 @@ if(!isset($_POST['search'])){
 }else{
 
     $search = trim($_POST['search']);
-    $fetchData = DB::query("SELECT * FROM users WHERE position = 'staff' AND CONCAT(last_name LIKE '%".$search."%' OR first_name LIKE '%".$search."%' OR middle_name LIKE '%".$search."%' OR id_number LIKE '%".$search."%')");
+    $fetchData = DB::query("SELECT * FROM users WHERE position = 'Staff' AND CONCAT(last_name LIKE '%".$search."%' OR first_name LIKE '%".$search."%' OR middle_name LIKE '%".$search."%' OR id_number LIKE '%".$search."%')");
 }
     
 $data = array();

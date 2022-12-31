@@ -207,14 +207,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                          </div>
                                     </div>
                                 </div>
-
+<!-- STUDENT -->
                                 <div class="form-group-inner" id="STUD_ID">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                             <label class="login2 pull-right">Search</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
+                                            <input style="display: none;" type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input style="display: none;" type="text" class="form-control" placeholder="Search Staff Profile" name="searchstaff" id="searchstaff" />
                                         </div>
                                     </div>
                                 </div>
@@ -250,17 +253,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group-inner" id="STAFF_ID" style="display: none;">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Search</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Search Staff Profile" name="searchstaff" id="searchstaff" />
-                                        </div>
-                                    </div>
-                                </div>
+<!-- STAFFF -->
 
                                 <div class="form-group-inner" id="STAFF_NAME" style="display: none;">
                                     <div class="row">
@@ -406,7 +399,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
         </div>
 
-<!------------------------------------------- EDIT REFERRAL FORM --------------------------------------------------------->
+<!------------------------------------------- EDIT REFERRAL FORM  --------------------------------------------------------->
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div id="EDIT_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
                 <div class="modal-dialog">
@@ -424,7 +417,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <div class="form-group-inner" id="STAFF_NAME">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Student ID</label>
+                                            <label id="idlabel" class="login2 pull-right">Student ID</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                             <input id="id_number" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
@@ -435,7 +428,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <div class="form-group-inner" id="STAFF_NAME">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Student Name</label>
+                                            <label id="namelabel" class="login2 pull-right">Student Name</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                             <input id="name" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
@@ -443,10 +436,10 @@ if (!isset($_SESSION['UserEmail'])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group-inner" id="STAFF_NAME">
+                                <div class="form-group-inner" id="ProgramGour">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Program</label>
+                                            <label id="programlabel" class="login2 pull-right">Program</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                             <input id="program" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
@@ -457,10 +450,10 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <div class="form-group-inner" id="STAFF_NAME">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Level</label>
+                                            <label id="levellabel" class="login2 pull-right">Level</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input id="level" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
+                                            <input  id="level" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -701,8 +694,8 @@ if (!isset($_SESSION['UserEmail'])) {
         }
 
         function ShowEditForm(button){
-            var ref_id = $('#EditRef').data('id');
-            console.log(ref_id);
+            var ref_id = $(button).data('id');
+
             $.ajax({
                 url: 'get_referral_info.php',
                 data: { ref_id: ref_id },
@@ -719,13 +712,32 @@ if (!isset($_SESSION['UserEmail'])) {
                     var action = ref.actions;
                     var remarks = ref.remarks;
 
+                    var position = ref.position;
+                    var department = ref.department;
+                    var dep_position = ref.dep_position;
+
                     $('#id_number').val(id_number);
                     $('#name').val(name);
-                    $('#program').val(program);
-                    $('#level').val(level);
+                    
                     $('#reason').val(reason);
                     $('#action').val(action);
                     $('#remarks').val(remarks);
+
+                    if(position == 'Staff'){
+                        $('#idlabel').text('Staff ID');
+                        $('#namelabel').text('Staff Name');
+                        $('#programlabel').text('Department');
+                        $('#levellabel').text('Position');
+                        $('#program').val(department);
+                        $('#level').val(dep_position);
+                    }else{
+                        $('#idlabel').text('Student ID');
+                        $('#namelabel').text('Student Name');
+                        $('#programlabel').text('Program');
+                        $('#levellabel').text('Level');
+                        $('#program').val(program);
+                        $('#level').val(level);
+                    }
 
                     if (natures.includes('Academic')) {
                         $("#Academic").attr("checked", "checked");
@@ -764,7 +776,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             },
 
                             success: function(response) {
-                                userData = jQuery.parseJSON(response);
+                                var userData = jQuery.parseJSON(response);
                                 
                                 $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
                                 
@@ -781,13 +793,15 @@ if (!isset($_SESSION['UserEmail'])) {
                         });
                     }
                 });
-            });
 
 
-            $(document).ready(function() {
                 $('#searchstaff').keyup(function() {
                     var search = $(this).val();
+
+                    console.log(search);
+
                     if (search != '') {
+                        console.log(search);
                         jQuery.ajax({
                             type: "POST",
                             url: 'get_specific_staff.php',
@@ -796,12 +810,16 @@ if (!isset($_SESSION['UserEmail'])) {
                             },
 
                             success: function(response) {
-                                console.log(response);
-                                userData = jQuery.parseJSON(response)
-                                $('#stud_id').val(userData[0].id);
-                                $('#staff_name').val(userData[0].first_name + " " + userData[0].last_name);
-                                $('#staff_department').val(userData[0].department);
-                                $('#staff_position').val(userData[0].position);
+                                
+                                var userData2 = jQuery.parseJSON(response);
+
+                                $('#ReferralForm').attr("action", "add_referral.php?id="+userData2[0].id+"");
+
+                                console.log(userData2);
+                                $('#stud_id').val(userData2[0].id);
+                                $('#staff_name').val(userData2[0].first_name + " " + userData2[0].last_name);
+                                $('#staff_department').val(userData2[0].department);
+                                $('#staff_position').val(userData2[0].position);
                             }
 
                         });
@@ -812,40 +830,41 @@ if (!isset($_SESSION['UserEmail'])) {
 
         <script>
             function changeDropdown() {
-                var state = document.getElementById("mySelect").value;
-                // alert(state);
+                var state = $("#mySelect").val();
+                
                 if (state == "student") {
-                    document.getElementById("STUD_ID").style.display = "block";
-                    document.getElementById("STUD_NAME").style.display = "block";
-                    document.getElementById("STUD_PROGRAM").style.display = "block";
-                    document.getElementById("STUD_LEVEL").style.display = "block";
+                    
+                    $("#searchstudent").show();
+                    $("#STUD_NAME").show();
+                    $("#STUD_PROGRAM").show();
+                    $("#STUD_LEVEL").show();
 
-                    document.getElementById("STAFF_ID").style.display = "none";
-                    document.getElementById("STAFF_NAME").style.display = "none";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                    document.getElementById("STAFF_POSITION").style.display = "none";
+                    $("#searchstaff").hide();
+                    $("#STAFF_NAME").hide();
+                    $("#STAFF_DEPARTMENT").hide();
+                    $("#STAFF_POSITION").hide();
 
                 } else if (state == "staff") {
-                    document.getElementById("STUD_ID").style.display = "none";
-                    document.getElementById("STUD_NAME").style.display = "none";
-                    document.getElementById("STUD_PROGRAM").style.display = "none";
-                    document.getElementById("STUD_LEVEL").style.display = "none";
+                    $("#searchstudent").hide();
+                    $("#STUD_NAME").hide();
+                    $("#STUD_PROGRAM").hide();
+                    $("#STUD_LEVEL").hide();
 
-                    document.getElementById("STAFF_ID").style.display = "block";
-                    document.getElementById("STAFF_NAME").style.display = "block";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "block";
-                    document.getElementById("STAFF_POSITION").style.display = "block";
+                    $("#searchstaff").show();
+                    $("#STAFF_NAME").show();
+                    $("#STAFF_DEPARTMENT").show();
+                    $("#STAFF_POSITION").show();
 
                 } else {
-                    document.getElementById("STUD_ID").style.display = "none";
-                    document.getElementById("STUD_NAME").style.display = "none";
-                    document.getElementById("STUD_PROGRAM").style.display = "none";
-                    document.getElementById("STUD_LEVEL").style.display = "none";
+                    $("#searchstudent").hide();
+                    $("#STUD_NAME").hide();
+                    $("#STUD_PROGRAM").hide();
+                    $("#STUD_LEVEL").hide();
 
-                    document.getElementById("STAFF_ID").style.display = "none";
-                    document.getElementById("STAFF_NAME").style.display = "none";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                    document.getElementById("STAFF_POSITION").style.display = "none";
+                    $("#searchstaff").hide();
+                    $("#STAFF_NAME").hide();
+                    $("#STAFF_DEPARTMENT").hide();
+                    $("#STAFF_POSITION").hide();
 
                 }
             }
