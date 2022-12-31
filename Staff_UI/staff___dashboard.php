@@ -708,9 +708,6 @@ include('includes/staff___mobile_menu.php');
               },
               crossDomain: true,
               success: (data) => {
-
-                alert(events.event._def.publicId);
-
                 $("#VIEW_APPOINTMENT").modal("show");
 
                 $("#view-information").val(data[0].info);
