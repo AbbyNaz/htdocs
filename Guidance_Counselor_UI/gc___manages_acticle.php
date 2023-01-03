@@ -31,7 +31,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_FILES['Article_picture'])) {
 
         // IMAGE DIRECTORY
-        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
+        define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
 
         // Save the uploaded image file to a designated folder on the server
         $target_dir = BACKUP_FOLDER;
@@ -79,7 +79,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
     if (isset($_FILES['update_image']) && !empty($_FILES['update_image']['name'])) {
           // IMAGE DIRECTORY
-          define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp2'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
+          define('BACKUP_FOLDER', 'C:'.DIRECTORY_SEPARATOR.'xampp'.DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'articles');
 
           // Save the uploaded image file to a designated folder on the server
           $target_dir = BACKUP_FOLDER;
@@ -457,7 +457,10 @@ if (!isset($_SESSION['UserEmail'])) {
 
               <div class="form-group-inner">
                 <div class="row">
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" >
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <label class="login2 pull-right"></label>
+                  </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <img id="art_picture" src="show_article_image.php" style="width: 100%; margin: auto;" alt="Article Image">
                   </div>
                 </div>
