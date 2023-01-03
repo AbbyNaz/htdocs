@@ -34,7 +34,7 @@ if (!isset($_SESSION['UserEmail'])) {
   $con->query($Inactive_offense) or die($con->error);
 
 
-  $offense = "SELECT * FROM offense_monitoring WHERE status ='Active'";
+  $offense = "SELECT * FROM offense_monitoring WHERE status= 'Inactive'";
   $get_offense = $con->query($offense) or die($con->error);
   $row = $get_offense->fetch_assoc();
 
@@ -272,7 +272,7 @@ if (!isset($_SESSION['UserEmail'])) {
                   <ul class="breadcome-menu">
                     <li><a href="#">Home</a> <span class="bread-slash">/</span>
                     </li>
-                    <li><span class="bread-blod">Offense Monitoring</span>
+                    <li><span class="bread-blod">Offense History</span>
                     </li>
                   </ul>
                 </div>
@@ -284,151 +284,6 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     </div>
 
-    <!-- ADD STUDENT OFFENSE -->
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="Add_New_Offense" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Add New Student with Offense</h4>
-              <div class="modal-close-area modal-close-df">
-                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-              </div>
-            </div>
-
-            <form action="" method="post">
-              <div class="modal-body">
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Search</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Student ID</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student ID" name="id_number" id="id_number" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Last Name</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student Last Name" name="l_name" id="l_name" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">First Name</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student First Name" name="f_name" id="f_name" readonly />
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="form-group-inner" id ="OFFENSE_TYPE">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Offense Type</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select id="SelectOffenseType" class="form-control custom-select-value" name="offense_type">
-                          <option value="" disabled>Offense Type</option>
-                          <option> Minor </option>
-                          <option>Major</option>
-                          <option></option>
-                          <option>Offense D</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-                <div class="form-group-inner" id="MAJOR_OFFENSE">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Offense Type</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select  id="SelectMajorOffense" class="form-control custom-select-value" name="offense_type">
-                          <option selected disabled>Choose Offense Type</option>
-                          <option value="Minor Offense">Minor Offense</option>
-                          <option value="Major Offense A">Major Offense A</option>
-                          <option value="Major Offense B">Major Offense B</option>
-                          <option value="Major Offense C">Major Offense C</option>
-                          <option value="Major Offense D">Major Offense D</option>
-
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Description</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Offense Description" name="description" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Sanction</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" name="sanction" placeholder="Enter Saction" />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner data-custon-pick data-custom-mg" id="data_5">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right" style="font-weight: bold;">Sanction Info</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="form-control" name="start_date" id="start_date" value="<?= date("m-d-Y") ?>" />
-                        <span class="input-group-addon">to</span>
-                        <input type="text" class="form-control" name="end_date" id="end_date" value="<?= date("m-d-Y") ?>" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="add_offense" class="btn btn-primary btn-md">Submit</button>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
       <div class="container-fluid">
@@ -437,15 +292,15 @@ if (!isset($_SESSION['UserEmail'])) {
             <div class="sparkline13-list">
               <div class="sparkline13-hd">
                 <div class="main-sparkline13-hd">
-                  <h1>Offense <span class="table-project-n">Monitoring</span> Table</h1>
+                  <h1>Offense <span class="table-project-n">Monitoring</span> History</h1>
                 </div>
               </div>
               <div class="sparkline13-graph">
                 <div class="datatable-dashv1-list custom-datatable-overright">
                   <div id="toolbar">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_New_Offense">
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Add_New_Offense">
                       Add New
-                    </button>
+                    </button> -->
                   </div>
                   <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
@@ -500,203 +355,6 @@ if (!isset($_SESSION['UserEmail'])) {
     </div>
     <!-- Static Table End -->
     </div>
-
-
-    <!-- MODAL FOR EDITING -->
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="Edit_Offense" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Edit Offense</h4>
-              <div class="modal-close-area modal-close-df">
-                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-              </div>
-            </div>
-
-            <form action="" method="post">
-              <div class="modal-body">
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Student ID</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student ID" name="student_id" id="student_id" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Student Name</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student Name" name="stud_name" id="stud_name" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Offense Type</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="edit_offense_type" id="edit_offense_type">
-                          <option selected disabled>Choose Offense Type</option>
-                          <option value="Minor Offense">Minor Offense</option>
-                          <option value="Major Offense A">Major Offense A</option>
-                          <option value="Major Offense B">Major Offense B</option>
-                          <option value="Major Offense C">Major Offense C</option>
-                          <option value="Major Offense D">Major Offense D</option>
-
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Description</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Offense Description" name="edit_offensedescription" id="edit_offensedescription" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Sanction</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" name="edit_sanction" placeholder="Enter Saction" id="edit_sanction" />
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="form-group-inner data-custon-pick data-custom-mg" id="data_5">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right" style="font-weight: bold;">Sanction Info</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="form-control" name="edit_start_date" id="edit_start_date" value="<?= date("m-d-Y") ?>" />
-                        <span class="input-group-addon">to</span>
-                        <input type="text" class="form-control" name="edit_end_date" id="edit_end_date" value="<?= date("m-d-Y") ?>" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <div class="modal-footer">
-                <input type="hidden" name="id" id="id">
-                <input type="hidden" name="studID" id="studID">
-                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="update_offense" class="btn btn-primary btn-md">Update</button>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- MODAL FOR DELETING -->
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <div id="Delete_Offense" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-              <h4 class="modal-title">Are you sure you wanted to delete the following ?</h4>
-              <div class="modal-close-area modal-close-df">
-                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-              </div>
-            </div>
-
-            <form id="OffDeleteForm" action="offense_monitoring_code.php" method="post">
-
-              <div class="modal-body">
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Student ID</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student ID" name="delete_student_id" id="delete_student_id" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Student Name</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Student Name" name="delete_stud_name" id="delete_stud_name" readonly />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right pull-right-pro">Offense Type</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="form-select-list">
-                        <select class="form-control custom-select-value" name="delete_offense_type" id="delete_offense_type" readonly>
-                          <option value="" disabled>Offense Type</option>
-                          <option>Offense A</option>
-                          <option>Offense B</option>
-                          <option>Offense C</option>
-                          <option>Offense D</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Description</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" placeholder="Enter Offense Description" name="delete_offense_description" id="delete_offense_description" readonly />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group-inner">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                      <label class="login2 pull-right">Sanction</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" name="delete_sanction" placeholder="Enter Saction" id="delete_sanction" readonly />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="modal-footer">
-                <input type="hidden" name="id" id="id">
-                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
-                <button type="submit" name="delete_offense" class="btn btn-primary btn-md">Delete</button>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-
 
 
     <?php
