@@ -90,10 +90,19 @@
                     <li><a title="Semestral Reports" href="gc___all-reports.php" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Reports</span></a></li>
 
                     <!-- <li><a title="Edit Library" href="gc___all-reports.php"><span class="mini-sub-pro">Reports</span></a></li> -->
-
+                    <!-- 
                     <li>
                         <a title="Offense Monitoring" href="gc___offense_monitoring.php" aria-expanded="false"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span> <span class="mini-click-non">Offense Monitoring</span></a>
-                    </li>
+                    </li> -->
+
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Offenses</span></a>
+                        <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
+                            <li><a title="Offense Monitoring" href="gc___offense_monitoring.php"><span class="mini-sub-pro">Active Offenses</span></a></li>
+                            <li><a title="Offense History" href="gc___offense_history.php"><span class="mini-sub-pro">Offense History</span></a></li>
+                        </ul>
+                    </li> 
+
 
                     <li>
                         <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-interface icon-wrap"></span> <span class="mini-click-non">Manage</span></a>

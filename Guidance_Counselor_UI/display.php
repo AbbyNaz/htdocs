@@ -8,7 +8,7 @@
         if($_SERVER['REQUEST_METHOD']=='POST'){
 
             $Search = $_POST['query']; // from AJAX
-            $sql = "SELECT * FROM users WHERE first_name || last_name || id_number LIKE '%".$Search."%'";  
+            $sql = "SELECT * FROM users WHERE first_name  LIKE '%".$Search."%'";  
             $result = mysqli_query($connect, $sql); 
                 //DECLARING FOR HTML INNER
             $output = '<table class="table table-striped" border="3">
