@@ -158,7 +158,7 @@
                                                                         JOIN users u
                                                                         ON n.from_user = u.id_number
                                                                         WHERE n.to_user = '$id'
-                                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral' OR n.Type = 'Reminder')
+                                                                        AND (n.Type = 'Appointment' OR n.Type = 'Referral' OR n.Type = 'Reminder' OR n.Type = 'Cancelled')
                                                                         ORDER BY isRead ASC"; //CREate join para makuha name ng user
                                                                 $connect_query = mysqli_query($con, $query);
 
@@ -187,6 +187,10 @@
 
                                                                         case "Referral":
                                                                             $description = $name." send you a new referral";
+                                                                            break;
+
+                                                                        case "Cancelled":
+                                                                            $description = $name." cancelled submitted referral";
                                                                             break;
                                                                     }
 
@@ -376,7 +380,7 @@
                             <div class="form-group-inner" id="STUD_ID">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <label class="login2 pull-right">Student ID</label>
+                                        <label class="login2 pull-right">ID</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input id="Stud-ID" type="text" readonly class="form-control"
@@ -405,6 +409,18 @@
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
                                         <input id="Reason" type="text" readonly class="form-control"
                                             placeholder="Enter Student Name" id="stud_name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="cancelGroup" class="form-group-inner" id="STUD_ID">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right">Cancel Reason</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                                        <textarea id="cancelreason" type="text" readonly class="form-control"
+                                            placeholder="Enter Student Name" id="stud_name" ></textarea> 
                                     </div>
                                 </div>
                             </div>
@@ -1502,11 +1518,15 @@ function showModal(li){
                     $('#NOTIF_APPOINTMENT').modal('show');
                     break;
                 case 'Referral':
+                case 'Cancelled':
                     var Referral = JSON.parse(data);
                     var from = Referral.referrer_fname+" "+Referral.referrer_lname;
                     var stud_id = Referral.Student_ID;
                     var stud_name = Referral.Student_fname+" "+Referral.Student_lname;
                     var reason = Referral.reason;
+                    var cancelreason = Referral.Cancel_Reason;
+
+                    var status = Referral.ref_status;
 
                     
                     $('#setAppointment').attr("href", "../Guidance_Counselor_UI/gc___dashboard.php?ref_id="+Referral.ref_id+"");
@@ -1517,6 +1537,20 @@ function showModal(li){
                     $('#Stud-ID').val(stud_id);
                     $('#Stud-Name').val(stud_name);
                     $('#Reason').val(reason);
+
+                    $('#cancelreason').val(cancelreason);
+                    $("#cancelGroup").hide();
+
+                    if(status.includes('Cancelled') || status.includes('Complete') ){
+                        $("#RejectButton").hide();
+                        $("#setAppBtn").hide();
+                        
+                    }
+                    if(type == 'Cancelled'){
+                        $("#cancelGroup").show();
+                    }
+                    
+
                     $('#NOTIF_REFERRAL').modal('show');
                     break;
             }

@@ -13,6 +13,7 @@ $ref_id = $_GET['id'];
 $reason = $_POST['description'];
 
 
+
 if (isset($_GET['id'])) {
     $updlimit = "UPDATE refferals SET ref_status = 'Cancelled', Cancel_Reason = '$reason', Cancel_Date = NOW() WHERE ref_id ='$ref_id'" ;
     $isSuccess = $con->query($updlimit) or die($con->error);
@@ -21,7 +22,9 @@ if (isset($_GET['id'])) {
     if($isSuccess){
         Notify('Cancelled', $ref_id);
     }
-    header("Location: staff___set_referral.php?Success");
+	
+
+    header("Location: stud___set_referral.php?Success");
 }else{
-    header("Location: staff___set_referral.php?noID");
+    header("Location: stud___set_referral.php?noID");
 }

@@ -766,16 +766,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                                                                                     <label>Year Level</label>
                                                                                                     <input type="level" name="yearlevel" value="<?php echo $row['YEARLEVEL']; ?>" readonly>
 
-                                                                                                    <!-- <select name="yearlevel" required>
-                                                                                                        <option selected><?php echo $row['YEARLEVEL']; ?></option>
-                                                                                                        <option disabled>Select Year Level</option>
-                                                                                                        <option>Grade 11</option>
-                                                                                                        <option>Grade 12</option>
-                                                                                                        <option>First Year</option>
-                                                                                                        <option>Second Year</option>
-                                                                                                        <option>Third Year</option>
-                                                                                                        <option>Fourth Year</option>
-                                                                                                    </select> -->
                                                                                                 </div>
 
                                                                                                 <div class="input-field">

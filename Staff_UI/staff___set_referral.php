@@ -34,6 +34,33 @@ if (!isset($_SESSION['UserEmail'])) {
         echo header("Location: staff___set_referral.php");
     }
 
+
+    if(isset($_POST['edit_refferal'])) {
+
+        if (isset($_POST['ref_id']) && isset($_POST['reason']) && isset($_POST['action']) && isset($_POST['remarks'])) {
+            $ref_id = $_POST['ref_id'];
+            $reason = $_POST['reason'];
+            $actions = $_POST['action'];
+            $remarks = $_POST['remarks'];
+            // $status = "$_POST['ref_status']";
+            $status = "Pending";
+            
+            $update_query = "UPDATE `refferals` 
+                                SET `reason`='$reason',`actions`='$actions',`remarks`='$remarks'
+                                WHERE ref_id = '$ref_id' AND `ref_status`='$status'";
+            $isUpdated = $con->query($update_query) or die ($con->error);
+
+            if($isUpdated){
+                header("Location: staff___set_referral.php?Success");
+            }else{
+                header("Location: staff___set_referral.php?NotPendingReferral&noSuchReferral");
+            }
+    
+        } else {
+            header("Location: staff___set_referral.php?NoID");
+        }
+      }
+
 ?>
 
 <!doctype html>
@@ -357,7 +384,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                         </div>
 
-                        <form id="ReferralForm" action="add_referral.php" method="POST">
+                        <form id="ReferralForm" action="" method="POST">
                             <div class="modal-body">
 
                                 <div class="form-group-inner" id="STAFF_NAME">
@@ -456,7 +483,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea id="reason" name="description"></textarea>
+                                            <textarea id="reason" name="reason"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -467,7 +494,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Action/s</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input id="action" type="text" name="actions" class="form-control" />
+                                            <input id="action" type="text" name="action" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -488,6 +515,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <input type="hidden" name="studentid" id="stud_id">
                                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
                                 <button type="submit" name="edit_refferal" class="btn btn-primary btn-md">Edit Referral</button>
+                                <input id="ref-id" type="hidden" name="ref_id" class="form-control" />
                             </div>
                         </form>
                     </div>
@@ -573,7 +601,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <th data-field="price" data-editable="false">Reason</th>
                                             <th data-field="pric" data-editable="false">Action Taken</th>
                                             <th data-field="pri" data-editable="false">Remarks</th>
-                                            <th data-field="pri" data-editable="false">Reason for Cancelling</th>
                                             <th data-field="task" data-editable="false">Date</th>
                                             <th data-field="status">Status</th>
                                             <th data-field="cancel">Actions</th>
@@ -596,7 +623,6 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <td><?php echo $row['reason'] ?></td>
                                             <td><?php echo $row['actions'] ?></td>
                                             <td><?php echo $row['remarks'] ?></td>
-                                            <td></td>
                                             <td><?php echo $row['reffered_date'] ?></td>
                                             <td>
                                                 <?php echo $row['ref_status']; ?>
@@ -677,6 +703,8 @@ if (!isset($_SESSION['UserEmail'])) {
                     if (natures.includes('Crisis')) {
                         $("#Crisis").attr("checked", "checked");
                     }
+
+                    $('#ref-id').val(ref_id);
                     
                     $('#EDIT_REFERRAL').modal('show');
                 }

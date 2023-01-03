@@ -22,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
       
         echo json_encode($Appointment);
         
-    }else if($_GET['type'] == "Referral" || $_GET['type'] == "Rejection"){
+    }else if($_GET['type'] == "Referral" || $_GET['type'] == "Rejection" || $_GET['type'] == "Cancelled"){
         $id = mysqli_real_escape_string($con, $_GET['id']);
         //get name of referrer from users tables using reffered_by_id from refferals table
         //get the id and name of the student that is referred from users table using reffered_user_id from refferals table

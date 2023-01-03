@@ -14,7 +14,7 @@ if (!isset($_SESSION['UserEmail'])) {
     if (isset($_SESSION['UserId'])) {
         $UserId = $_SESSION['UserId'];
         $UserEmail = $_SESSION['UserEmail'];
-        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId' AND refferals.ref_status LIKE 'Cancelled%' OR 'Complete Referral%' OR 'Cancelled Referral%' ORDER BY users.last_name ASC";
+        $refferal = "SELECT * FROM users LEFT JOIN refferals ON refferals.reffered_user = users.user_id WHERE refferals.reffered_by = '$UserId'  AND refferals.ref_status NOT LIKE '%Cancelled%' AND refferals.ref_status NOT LIKE '%Completed%'  ORDER BY users.last_name ASC";
         $get_referral = $con->query($refferal) or die($con->error);
         $row = $get_referral->fetch_assoc();
 
@@ -30,6 +30,32 @@ if (!isset($_SESSION['UserEmail'])) {
         $cancel_refferal = "UPDATE `refferals` SET `ref_status`='$status' WHERE ref_id = '$ref_id'";
         $con->query($cancel_refferal) or die($con->error);
         header("Location: stud___set_referral.php");
+    }
+
+    if(isset($_POST['edit_refferal'])) {
+
+        if (isset($_POST['ref_id']) && isset($_POST['reason']) && isset($_POST['action']) && isset($_POST['remarks'])) {
+            $ref_id = $_POST['ref_id'];
+            $reason = $_POST['reason'];
+            $actions = $_POST['action'];
+            $remarks = $_POST['remarks'];
+            // $status = "$_POST['ref_status']";
+            $status = "Pending";
+            
+            $update_query = "UPDATE `refferals` 
+                                SET `reason`='$reason',`actions`='$actions',`remarks`='$remarks'
+                                WHERE ref_id = '$ref_id' AND `ref_status`='$status'";
+            $isUpdated = $con->query($update_query) or die ($con->error);
+
+            if($isUpdated){
+                header("Location: stud___set_referral.php?Success");
+            }else{
+                header("Location: stud___set_referral.php?NotPendingReferral&noSuchReferral");
+            }
+    
+        } else {
+            header("Location: stud___set_referral.php?NoID");
+        }
     }
 
 ?>
@@ -181,14 +207,17 @@ if (!isset($_SESSION['UserEmail'])) {
                                          </div>
                                     </div>
                                 </div>
-
+<!-- STUDENT -->
                                 <div class="form-group-inner" id="STUD_ID">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                             <label class="login2 pull-right">Search</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
+                                            <input style="display: none;" type="text" class="form-control" placeholder="Search Student Profile" name="searchstudent" id="searchstudent" />
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input style="display: none;" type="text" class="form-control" placeholder="Search Staff Profile" name="searchstaff" id="searchstaff" />
                                         </div>
                                     </div>
                                 </div>
@@ -224,17 +253,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group-inner" id="STAFF_ID" style="display: none;">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Search</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" placeholder="Search Staff Profile" name="searchstaff" id="searchstaff" />
-                                        </div>
-                                    </div>
-                                </div>
+<!-- STAFFF -->
 
                                 <div class="form-group-inner" id="STAFF_NAME" style="display: none;">
                                     <div class="row">
@@ -380,7 +399,7 @@ if (!isset($_SESSION['UserEmail'])) {
 
         </div>
 
-<!------------------------------------------- EDIT REFERRAL FORM --------------------------------------------------------->
+<!------------------------------------------- EDIT REFERRAL FORM  --------------------------------------------------------->
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div id="EDIT_REFERRAL" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
                 <div class="modal-dialog">
@@ -392,16 +411,16 @@ if (!isset($_SESSION['UserEmail'])) {
                             </div>
                         </div>
 
-                        <form id="ReferralForm" action="add_referral.php" method="POST">
+                        <form id="ReferralForm" action="" method="POST">
                             <div class="modal-body">
 
                                 <div class="form-group-inner" id="STAFF_NAME">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">User ID</label>
+                                            <label id="idlabel" class="login2 pull-right">Student ID</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="id_number" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -409,10 +428,32 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <div class="form-group-inner" id="STAFF_NAME">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <label class="login2 pull-right">Username</label>
+                                            <label id="namelabel" class="login2 pull-right">Student Name</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" readonly class="form-control" name="staff_name" id="staff_name" />
+                                            <input id="name" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="ProgramGour">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label id="programlabel" class="login2 pull-right">Program</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input id="program" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-inner" id="STAFF_NAME">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <label id="levellabel" class="login2 pull-right">Level</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                            <input  id="level" type="text" readonly class="form-control" name="staff_name" id="staff_name" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +469,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Academic"> <i></i> Academic </label>
+                                                                <input id="Academic" type="checkbox" name="nature[]" value="Academic" disabled> <i></i> Academic </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -436,7 +477,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Career"> <i></i> Career </label>
+                                                                <input id="Career" type="checkbox" name="nature[]" value="Career" disabled> <i></i> Career </label>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -444,7 +485,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Personal"> <i></i> Personal </label>
+                                                                <input id="Personal" type="checkbox" name="nature[]" value="Personal" disabled> <i></i> Personal </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -452,7 +493,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label>
-                                                                <input type="checkbox" name="nature[]" value="Crisis"> <i></i> Crisis </label>
+                                                                <input id="Crisis" type="checkbox" name="nature[]" value="Crisis" disabled> <i></i> Crisis </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -469,7 +510,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description"></textarea>
+                                            <textarea id="reason" name="reason"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -480,7 +521,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Action/s</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" name="actions" class="form-control" />
+                                            <input id="action" type="text" name="action" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +531,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Remarks</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" name="remarks" class="form-control" />
+                                            <input id="remarks" type="text" name="remarks" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -501,6 +542,7 @@ if (!isset($_SESSION['UserEmail'])) {
                                 <input type="hidden" name="studentid" id="stud_id">
                                 <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Cancel</button>
                                 <button type="submit" name="edit_refferal" class="btn btn-primary btn-md">Edit Referral</button>
+                                <input id="ref-id" type="hidden" name="ref_id" class="form-control" />
                             </div>
                         </form>
                     </div>
@@ -619,10 +661,10 @@ if (!isset($_SESSION['UserEmail'])) {
                                                         <td>
                                                             <div style="display: flex; justify-content: center;">
                                                                     <!-- <a href="edit_refferal.php?id=<?= $row['ref_id'] ?>"><button title="Edit Referral" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a> -->
-                                                                    <button title="Edit" class="pd-setting-ed" data-toggle="modal" data-target="#EDIT_REFERRAL" data-id="<?= $row['user_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                                    <button onclick="ShowEditForm(this)" id="EditRef" type="button" title="Edit" class="pd-setting-ed" data-id="<?= $row['ref_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
                                                                     <!-- <a class="btn btn-danger" style="margin-left: 10px; color: white;" href="stud___set_referral.php?id=<?= $row['ref_id'] ?>">Cancel</a> -->
-                                                                    <button title="Cancel" class="btn btn-danger" data-toggle="modal" data-target="#CANCEL_FORM"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                    <button onclick="showCancel(this)" data-id="<?= $row['ref_id'] ?>" type="button" title="Cancel" class="btn btn-danger" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -641,6 +683,83 @@ if (!isset($_SESSION['UserEmail'])) {
         <!-- Static Table End -->
 
         </div>
+        <script>
+        function showCancel(button) {
+          var ref_id = $(button).data("id");
+          console.log(ref_id);
+
+          $('#RejectForm').attr('action', 'CancelReferral.php?id='+ref_id);
+
+          $('#CANCEL_FORM').modal('show');
+        }
+
+        function ShowEditForm(button){
+            var ref_id = $(button).data('id');
+
+            $.ajax({
+                url: 'get_referral_info.php',
+                data: { ref_id: ref_id },
+                success: function (response) {
+                    var ref = JSON.parse(response);
+
+                    console.log(ref);
+                    var id_number = ref.id_number;
+                    var name = ref.first_name+" "+ref.last_name;
+                    var program = ref.program;
+                    var level = ref.level;
+                    var natures = ref.nature;
+                    var reason = ref.reason;
+                    var action = ref.actions;
+                    var remarks = ref.remarks;
+
+                    var position = ref.position;
+                    var department = ref.department;
+                    var dep_position = ref.dep_position;
+
+                    $('#id_number').val(id_number);
+                    $('#name').val(name);
+                    
+                    $('#reason').val(reason);
+                    $('#action').val(action);
+                    $('#remarks').val(remarks);
+
+                    if(position == 'Staff'){
+                        $('#idlabel').text('Staff ID');
+                        $('#namelabel').text('Staff Name');
+                        $('#programlabel').text('Department');
+                        $('#levellabel').text('Position');
+                        $('#program').val(department);
+                        $('#level').val(dep_position);
+                    }else{
+                        $('#idlabel').text('Student ID');
+                        $('#namelabel').text('Student Name');
+                        $('#programlabel').text('Program');
+                        $('#levellabel').text('Level');
+                        $('#program').val(program);
+                        $('#level').val(level);
+                    }
+
+                    if (natures.includes('Academic')) {
+                        $("#Academic").attr("checked", "checked");
+                    }
+                    if (natures.includes('Career')) {
+                        $("#Career").attr("checked", "checked");
+                    }
+                    if (natures.includes('Personal')) {
+                        $("#Personal").attr("checked", "checked");
+                    }
+                    if (natures.includes('Crisis')) {
+                        $("#Crisis").attr("checked", "checked");
+                    }
+
+                    $('#ref-id').val(ref_id);
+                    
+                    $('#EDIT_REFERRAL').modal('show');
+                }
+
+            });
+        }
+        </script> 
 
         <?php include('includes/stud___scripts.php') ?>
 
@@ -657,7 +776,7 @@ if (!isset($_SESSION['UserEmail'])) {
                             },
 
                             success: function(response) {
-                                userData = jQuery.parseJSON(response);
+                                var userData = jQuery.parseJSON(response);
                                 
                                 $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
                                 
@@ -674,13 +793,15 @@ if (!isset($_SESSION['UserEmail'])) {
                         });
                     }
                 });
-            });
 
 
-            $(document).ready(function() {
                 $('#searchstaff').keyup(function() {
                     var search = $(this).val();
+
+                    console.log(search);
+
                     if (search != '') {
+                        console.log(search);
                         jQuery.ajax({
                             type: "POST",
                             url: 'get_specific_staff.php',
@@ -689,12 +810,16 @@ if (!isset($_SESSION['UserEmail'])) {
                             },
 
                             success: function(response) {
-                                console.log(response);
-                                userData = jQuery.parseJSON(response)
-                                $('#stud_id').val(userData[0].id);
-                                $('#staff_name').val(userData[0].first_name + " " + userData[0].last_name);
-                                $('#staff_department').val(userData[0].department);
-                                $('#staff_position').val(userData[0].position);
+                                
+                                var userData2 = jQuery.parseJSON(response);
+
+                                $('#ReferralForm').attr("action", "add_referral.php?id="+userData2[0].id+"");
+
+                                console.log(userData2);
+                                $('#stud_id').val(userData2[0].id);
+                                $('#staff_name').val(userData2[0].first_name + " " + userData2[0].last_name);
+                                $('#staff_department').val(userData2[0].department);
+                                $('#staff_position').val(userData2[0].position);
                             }
 
                         });
@@ -705,40 +830,41 @@ if (!isset($_SESSION['UserEmail'])) {
 
         <script>
             function changeDropdown() {
-                var state = document.getElementById("mySelect").value;
-                // alert(state);
+                var state = $("#mySelect").val();
+                
                 if (state == "student") {
-                    document.getElementById("STUD_ID").style.display = "block";
-                    document.getElementById("STUD_NAME").style.display = "block";
-                    document.getElementById("STUD_PROGRAM").style.display = "block";
-                    document.getElementById("STUD_LEVEL").style.display = "block";
+                    
+                    $("#searchstudent").show();
+                    $("#STUD_NAME").show();
+                    $("#STUD_PROGRAM").show();
+                    $("#STUD_LEVEL").show();
 
-                    document.getElementById("STAFF_ID").style.display = "none";
-                    document.getElementById("STAFF_NAME").style.display = "none";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                    document.getElementById("STAFF_POSITION").style.display = "none";
+                    $("#searchstaff").hide();
+                    $("#STAFF_NAME").hide();
+                    $("#STAFF_DEPARTMENT").hide();
+                    $("#STAFF_POSITION").hide();
 
                 } else if (state == "staff") {
-                    document.getElementById("STUD_ID").style.display = "none";
-                    document.getElementById("STUD_NAME").style.display = "none";
-                    document.getElementById("STUD_PROGRAM").style.display = "none";
-                    document.getElementById("STUD_LEVEL").style.display = "none";
+                    $("#searchstudent").hide();
+                    $("#STUD_NAME").hide();
+                    $("#STUD_PROGRAM").hide();
+                    $("#STUD_LEVEL").hide();
 
-                    document.getElementById("STAFF_ID").style.display = "block";
-                    document.getElementById("STAFF_NAME").style.display = "block";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "block";
-                    document.getElementById("STAFF_POSITION").style.display = "block";
+                    $("#searchstaff").show();
+                    $("#STAFF_NAME").show();
+                    $("#STAFF_DEPARTMENT").show();
+                    $("#STAFF_POSITION").show();
 
                 } else {
-                    document.getElementById("STUD_ID").style.display = "none";
-                    document.getElementById("STUD_NAME").style.display = "none";
-                    document.getElementById("STUD_PROGRAM").style.display = "none";
-                    document.getElementById("STUD_LEVEL").style.display = "none";
+                    $("#searchstudent").hide();
+                    $("#STUD_NAME").hide();
+                    $("#STUD_PROGRAM").hide();
+                    $("#STUD_LEVEL").hide();
 
-                    document.getElementById("STAFF_ID").style.display = "none";
-                    document.getElementById("STAFF_NAME").style.display = "none";
-                    document.getElementById("STAFF_DEPARTMENT").style.display = "none";
-                    document.getElementById("STAFF_POSITION").style.display = "none";
+                    $("#searchstaff").hide();
+                    $("#STAFF_NAME").hide();
+                    $("#STAFF_DEPARTMENT").hide();
+                    $("#STAFF_POSITION").hide();
 
                 }
             }
