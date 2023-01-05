@@ -3,7 +3,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header header-color-modal bg-color-1">
-                            <h4 class="modal-title">Rejection Form </h4>
+                            <h4 class="modal-title">Reject Referral </h4>
                             <div class="modal-close-area modal-close-df">
                                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                             </div>
@@ -17,7 +17,7 @@
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" placeholder="Description"></textarea>
+                                            <textarea name="description" placeholder="Enter the Rejection Referral Reason"></textarea>
                                         </div>
                                     </div>
                                 </div>

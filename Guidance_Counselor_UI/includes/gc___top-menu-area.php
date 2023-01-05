@@ -14,8 +14,6 @@
 
 ?>
 
-
-
 <!-- Start Welcome area -->
     <div class="all-content-wrapper" id="store-data" data-id="<?php echo $_SESSION['UserId'] ?>">
         <div class="container-fluid">
@@ -128,7 +126,7 @@
                                                             $getCount = mysqli_query($con, $Checkquery);
                                                             $Unread = mysqli_fetch_assoc($getCount);
                                                             if($Unread['unread'] > 0){
-                                                                echo '<span class="indicator-nt"></span>';
+                                                                echo '<small>'.$Unread['unread'].'</small>';
                                                             }
                                                         ?>
                                                         
@@ -255,7 +253,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                             <?php if ($row_user['profile_picture'] != null) { ?>
-                                                                <img src="../Guidance_Counselor_UI/show_profile_picture.php" alt="" />
+                                                                <img style="object-fit: cover; height: 30px; width: 30px;" src="../Guidance_Counselor_UI/show_profile_picture.php" alt="" />
                                                             <?php } else { ?>
                                                                 <img src="img/users/1.jpg" alt="profile_picture" />
                                                             <?php } ?>
