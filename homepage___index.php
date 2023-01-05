@@ -222,7 +222,7 @@ function showSlides() {
 
                 <article class="article">
                     <div class="article__image">
-                        <img src="<?php echo $row['PICTURE']; ?>">
+                        <img src="../Guidance_Counselor_UI/show_article_image.php?AID=<?php echo $row['ID']; ?>">
                     </div>
                     <div class="article__info">
                         <h4><?= $row['TITLE'] ?></h4>

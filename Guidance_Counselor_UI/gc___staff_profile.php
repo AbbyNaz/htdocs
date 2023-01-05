@@ -147,7 +147,7 @@ if (!isset($_SESSION['UserEmail'])) {
                     <div class="profile-info-inner">
                         <div class="profile-img">
                             <?php if ($row['profile_picture'] != null) { ?>
-                                <img src="show_profile_picture.php?id_number=<?=$row['id_number']?>" alt="profile_picture" />
+                                <img style="object-fit: cover; height: 400px; width: 400px; " src="show_profile_picture.php?id_number=<?=$row['id_number']?>" alt="profile_picture" />
                             <?php } else { ?>
                                 <img src="img/users/1.jpg" alt="profile_picture" />
                             <?php } ?>

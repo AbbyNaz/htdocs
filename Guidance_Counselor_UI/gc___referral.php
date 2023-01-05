@@ -415,23 +415,6 @@ if(!isset($_SESSION['UserEmail'])) {
                                                         <td><?php echo $row['remarks'] ?></td>
                                                         <td><?php echo $row['ref_status'] ?></td>
 
-                                                        <!-- <td>
-                                                            <p class="btn btn-xs <?php if ($row['ref_status'] == "For Approval" || $row['ref_status'] == "for approval") {
-                                                                                            echo "btn-warning";
-                                                                                        } elseif ($row['ref_status'] == "Cancelled" || $row['ref_status'] == "cancelled") {
-                                                                                            echo "btn-danger";
-                                                                                        } elseif ($row['ref_status'] == "In Review" || $row['ref_status'] == "in review") {
-                                                                                            echo "btn-primary";
-                                                                                        } elseif ($row['ref_status'] == "Done" || $row['ref_status'] == "done") {
-                                                                                            echo "btn-info";
-                                                                                        } elseif ($row['ref_status'] == "Pending Feedback" || $row['ref_status'] == "pending feedback") {
-                                                                                            echo "btn-warning";
-                                                                                        } elseif ($row['ref_status'] == "Completed" || $row['ref_status'] == "completed") {
-                                                                                            echo "btn-success";
-                                                                                        } else {
-                                                                                            echo "btn-secondary";
-                                                                                        } ?>"><?php echo $row['ref_status'] ?></p>
-                                                        </td> -->
                                                         <td>
                                                             <?php if ($row['ref_status'] == "For Approval" || $row['ref_status'] == "for approval" || $row['ref_status'] == "Pending" || $row['ref_status'] == "pending") {
                                                                 echo "<div style='display: flex; text-align: center; align-items: center;'>" ?>
@@ -473,7 +456,7 @@ if(!isset($_SESSION['UserEmail'])) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header header-color-modal bg-color-1">
-                            <h4 class="modal-title">Rejection Form </h4>
+                            <h4 class="modal-title">Reject Referral </h4>
                             <div class="modal-close-area modal-close-df">
                                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                             </div>
@@ -487,7 +470,7 @@ if(!isset($_SESSION['UserEmail'])) {
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" placeholder="Description"></textarea>
+                                            <textarea name="description" placeholder="Enter the Reject Referral Reason"></textarea>
                                         </div>
                                     </div>
                                 </div>
