@@ -11,6 +11,7 @@ include_once("./Guidance_Counselor_UI/backup_function_AUTO.php");
 
 $con = connection();
 
+
 if (isset($_POST['login_btn'])) {
     $login_email = $_POST['user_email'];
     $login_password = $_POST['user_password'];
@@ -26,6 +27,8 @@ if (isset($_POST['login_btn'])) {
         $_SESSION['UserRole'] = $row['role'];
         $_SESSION['UserPosition'] = $row['position'];
         $_SESSION['UserNumber'] = $row['id_number'];
+
+        setcookie("logged_in", $row['id_number'], time() + (86400 * 30), "/");
        
         header('Location: ./Guidance_Counselor_UI/gc___dashboard.php');
 
@@ -51,6 +54,7 @@ if (isset($_POST['login_btn'])) {
         $_SESSION['UserNumber'] = $row['id_number'];
         $_SESSION['UserPosition'] = $row['position'];
 
+        setcookie("logged_in", $row['id_number'], time() + (86400 * 30), "/");
 
         header('Location: ./Staff_UI/staff___dashboard.php');
 
@@ -67,6 +71,7 @@ if (isset($_POST['login_btn'])) {
             $_SESSION['UserId'] = $row['user_id'];
             $_SESSION['UserRole'] = $row['role'];
             
+            setcookie("logged_in", $row['id_number'], time() + (86400 * 30), "/");
 
             header('Location: ./Student_UI/student_profile.php');
 
@@ -74,7 +79,10 @@ if (isset($_POST['login_btn'])) {
             $_SESSION['UserEmail'] = $row['email'];
             $_SESSION['UserId'] = $row['user_id'];
             $_SESSION['UserRole'] = $row['role'];
-            header('Location: ./Student_UI/stud___dashboard.php?'.$_SESSION['Stud_id'].'');
+
+            setcookie("logged_in", "'".$row['id_number']."'", time() + (86400 * 30), "/");
+
+            header('Location: ./Student_UI/stud___dashboard.php?');
         }
         $action_made = "Logged in the system";
         $USERPOSITION = $_SESSION['UserPosition'];
@@ -89,6 +97,7 @@ if (isset($_POST['login_btn'])) {
         $_SESSION['UserNumber'] = $row['id_number'];
         $_SESSION['UserPosition'] = $row['position'];
  
+        setcookie("logged_in", $row['id_number'], time() + (86400 * 30), "/");
 
         header('Location: ./Guidance_Counselor_UI/gc___dashboard.php');
 

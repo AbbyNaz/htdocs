@@ -1,9 +1,40 @@
-<?php session_start() ?>
+<?php session_start();
+include_once("connections/connection.php");
+
+$con = connection();
+
+if (isset($_COOKIE['logged_in'])){
+
+    $id_number = $_COOKIE['logged_in'];
+    // header('Location: ./Guidance_Counselor_UI/gc___dashboard.php?'.$id_number);
+
+    
+    $query = "SELECT * FROM users WHERE id_number = $id_number";
+    $query_run = mysqli_query($con, $query);
+    $row= mysqli_fetch_assoc($query_run);
+
+    $_SESSION['UserEmail'] = $row['email'];
+    $_SESSION['UserId'] = $row['user_id'];
+    $_SESSION['UserRole'] = $row['role'];
+    $_SESSION['UserPosition'] = $row['position'];
+    $_SESSION['UserNumber'] = $row['id_number'];
+    $_SESSION['Stud_id'] = $row['id_number'];
+
+    if ($row['role'] == 1) {
+        header('Location: ./Guidance_Counselor_UI/gc___dashboard.php?'.$id_number);
+    } elseif ($row["role"] == 2) {
+        header('Location: ./Staff_UI/staff___dashboard.php?'.$id_number);
+    } elseif ($row["role"] == 3) {
+        header('Location: ./Student_UI/stud___dashboard.php?'.$id_number);
+    } elseif ($row["role"] == 4) {
+        header('Location: ./Guidance_Counselor_UI/gc___dashboard.php?'.$id_number);
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    
     <title>Guidance and Counseling Office - Login Form</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/sti_logo.png">
     <link rel="stylesheet" type="text/css" href="loginForm_css/style2.css">
