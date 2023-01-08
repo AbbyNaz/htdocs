@@ -1360,6 +1360,70 @@
             });
   });
   
+
+
+  // $(document).ready(function() {
+  //               $('#searchstudent').keyup(function() {
+  //                   var search = $(this).val();
+  //                   if (search != '') {
+  //                       jQuery.ajax({
+  //                           type: "POST",
+  //                           url: 'get_specific_student.php',
+  //                           data: {
+  //                               search: search
+  //                           },
+
+  //                           success: function(response) {
+  //                               var userData = jQuery.parseJSON(response);
+                                
+  //                               // $('#ReferralForm').attr("action", "add_referral.php?id="+userData[0].id+"");
+                                
+  //                               // $('#stud_id').val(userData[0].id);
+  //                               // $('#stud_name').val(userData[0].first_name + " " + userData[0].last_name);
+  //                               // $('#stud_program').val(userData[0].program);
+  //                               // $('#stud_level').val(userData[0].level);
+                                
+                                
+                                
+  //                           }
+                            
+
+  //                       });
+  //                   }
+  //               });
+
+  //               $('#searchstaff').keyup(function() {
+  //                   var search = $(this).val();
+
+  //                   console.log(search);
+
+  //                   if (search != '') {
+  //                       console.log(search);
+  //                       jQuery.ajax({
+  //                           type: "POST",
+  //                           url: 'get_specific_staff.php',
+  //                           data: {
+  //                               search: search
+  //                           },
+
+  //                           success: function(response) {
+                                
+  //                               var userData2 = jQuery.parseJSON(response);
+
+  //                               // $('#ReferralForm').attr("action", "add_referral.php?id="+userData2[0].id+"");
+
+  //                               // console.log(userData2);
+  //                               // $('#stud_id').val(userData2[0].id);
+  //                               // $('#staff_name').val(userData2[0].first_name + " " + userData2[0].last_name);
+  //                               // $('#staff_department').val(userData2[0].department);
+  //                               // $('#staff_position').val(userData2[0].position);
+  //                           }
+
+  //                       });
+  //                   }
+  //               });
+  //           });
+
 </script>
 
 
@@ -1639,81 +1703,27 @@
             
 
 
-            $(document).on("click", "#search-user", () => {
+            $(document).on("click", "#search-user", () => { //SHOW SEARCH USER
 
               $("#req-modal").modal("hide");
               $("#search-modal").modal("show");
               $("#modal-title").text('Search for "' + $("#student_name").val() + '"');
+              $('#search-form').val($("#student_name").val());
             });
 
-            $(document).on("click", "#selected-pos", () => {
+            $(document).on("change", "#selected-pos", () => {
 
-              $.ajax({
-                url: "search_user.php",
-                type: "POST",
-                dataType: "json",
-                data: {
-                  search: $("#student_name").val(),
-                  pos: $("#selected-pos").val()
-                },
-                xhrFields: {
-                  withCredentials: true,
-                },
-                crossDomain: true,
-                success: (data) => {
+              // console.log($("#selected-pos").val());
 
-                  calendar.addEventSource(data);
-                  // calendar.refetchEvents();
-                  $("#search-result").empty();
+              if ($("#search-form").val() != "") {
+                
 
-                  if (data.users.length == 0) {
-                    $("#search-result").empty();
-                  } else {
-                    $.each(data.users, (indx, users) => {
-
-                      $("#search-result").append(`                        
-                        <tr>
-                          <th>${users.text}</th>
-                          <td>${users.studid}</td>
-                          <td>${users.position}</td>
-                          // <td>${users.program} ${users.department}</td>
-                          // 
-                          <td><button class="btn btn-primary btn-sm" id="get-selected" data-name="${users.text}" data-studid="${users.studid}" data-pos="${users.position}" data-id="${users.id}">Select</td>
-                        </tr>
-                        `)
-
-                    });
-                  }
-
-
-
-                  console.log(data);
-
-                }
-              });
-
-            });
-
-
-            $(document).on("click", "#get-selected", (e) => {
-
-              $("#req-modal").modal("show");
-              $("#search-modal").modal("hide");
-              $("#student_name").val(e.target.dataset.name);
-              $("#myid").val(e.target.dataset.studid);
-              $("#pos").val(e.target.dataset.pos);
-
-            });
-
-            $("#search-form").keyup(function() {
-
-              if ($("#search-form").val() === "") {
                 $.ajax({
                   url: "search_user.php",
                   type: "POST",
                   dataType: "json",
                   data: {
-                    // search: $("#student_name").val(),
+                    search: $("#search-form").val(),
                     pos: $("#selected-pos").val()
                   },
                   xhrFields: {
@@ -1747,9 +1757,67 @@
 
                   }
                 });
-              } else {
+              }
+
+              // $.ajax({
+              //   url: "search_user.php",
+              //   type: "POST",
+              //   dataType: "json",
+              //   data: {
+              //     search: $("#student_name").val(),
+              //     pos: $("#selected-pos").val()
+              //   },
+              //   xhrFields: {
+              //     withCredentials: true,
+              //   },
+              //   crossDomain: true,
+              //   success: (data) => {
+
+              //     calendar.addEventSource(data);
+              //     // calendar.refetchEvents();
+              //     $("#search-result").empty();
+
+              //     if (data.users.length == 0) {
+              //       $("#search-result").empty();
+              //     } else {
+              //       $.each(data.users, (indx, users) => {
+
+              //         $("#search-result").append(`                        
+              //           <tr>
+              //             <th>${users.text}</th>
+              //             <td>${users.studid}</td>
+              //             <td>${users.position}</td>
+              //             // <td>${users.program} ${users.department}</td>
+              //             // 
+              //             <td><button class="btn btn-primary btn-sm" id="get-selected" data-name="${users.text}" data-studid="${users.studid}" data-pos="${users.position}" data-id="${users.id}">Select</td>
+              //           </tr>
+              //           `)
+
+              //       });
+              //     }
+
+              //   }
+              // });
+
+            });
+
+
+            $(document).on("click", "#get-selected", (e) => {
+
+              $("#req-modal").modal("show");
+              $("#search-modal").modal("hide");
+              $("#student_name").val(e.target.dataset.name);
+              $("#myid").val(e.target.dataset.studid);
+              $("#pos").val(e.target.dataset.pos);
+
+            });
+
+            $("#search-form").keyup(function() {
+
+              $("#search-result").empty();
+
                 $.ajax({
-                  url: "search.php",
+                  url: "search_user.php",
                   type: "POST",
                   dataType: "json",
                   data: {
@@ -1781,8 +1849,6 @@
 
                   }
                 });
-
-              }
 
 
             });
