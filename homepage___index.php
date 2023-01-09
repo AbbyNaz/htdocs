@@ -48,14 +48,6 @@ img {vertical-align: middle;}
   .text {font-size: 11px}
 }
 </style>
-
-<script>
-    $(document).ready(function() {
-    // Hide the rest of the paragraph when the page loads
-    $("#fade").fadeOut(1000);
-    });
-</script>
-
 <!--=========================START OF NAVBAR=============================-->
 <nav>
     <div class="container nav__container">

@@ -77,7 +77,7 @@ if(!isset($_SESSION['UserEmail'])){
 			$query_runs = $con->query($add_logs) or die($con->error);
 
 //NOTIFY USER-------------->>
-			$getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reffered_by = '$UserId'";
+			$getRefID = "SELECT ref_id FROM refferals WHERE reffered_user = '$reffered_user' AND reason = '$reason'";
 			$QueryID = mysqli_query($con, $getRefID);
 			$Ref = mysqli_fetch_assoc($QueryID);
 			$RefID = $Ref['ref_id'];
