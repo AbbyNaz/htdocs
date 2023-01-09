@@ -1,5 +1,14 @@
 <?php include('includes/homepage___header.php'); ?>
-<?php include('includes/homepage___navbar.php'); ?>
+<?php include('includes/homepage___navbar.php');
+$ArtID = $_GET['id'];
+include_once("connections/connection.php");
+
+$con = connection();
+
+$query = "SELECT * FROM articles WHERE ID = $ArtID";
+$query_run = mysqli_query($con, $query);
+$article = mysqli_fetch_assoc($query_run);
+?>
 
 <style>
     /* =============================MID SECTION (articles)===============================*/
@@ -102,9 +111,9 @@
     <div class="container about__articles-container">
 
         <div class="about__articles-left">
-            <img src="./images/article/dec1.png" class="center"><br>
-            <h2 style="color: black;">Achievements that we should share together</h2>
-            <p align="justify" style="color: black; font-size: 18px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptate qui, voluptatibus aliquam nihil quae amet dolor magnam, atque porro eos cumque dolores enim corrupti quia. Veniam praesentium, maiores nisi exercitationem pariatur, illum natus deleniti animi dolor asperiores eveniet laborum quos aut fugiat dolores accusantium molestias sequi delectus ut magni optio perferendis debitis. Ut quibusdam, quod delectus dolor fuga omnis esse repellendus aperiam vitae, neque facilis quidem rem soluta reiciendis nihil sunt culpa necessitatibus doloribus tempora quae dignissimos exercitationem perferendis officiis quis? Accusamus ipsam labore tenetur dolor voluptate doloremque maxime quia eum eaque ipsa sequi eveniet corporis quo illum necessitatibus perferendis magni commodi, enim esse numquam! Expedita in explicabo quos consequuntur veniam et magni commodi voluptatibus nesciunt possimus error architecto fuga odit, vero iste aliquam voluptates sint modi id placeat vitae deserunt eveniet. Numquam possimus labore debitis laboriosam optio consectetur voluptas atque quas aspernatur ullam est fugit, sit repellendus aut consequuntur voluptatum cum minus vero nesciunt mollitia perferendis! Corporis rem sunt itaque nam deserunt quasi similique labore perferendis fugit consequatur ea molestias, vitae modi ullam adipisci sit cumque veritatis. Soluta, dignissimos quaerat. Non animi fugit dignissimos nobis voluptatibus rerum deleniti laboriosam maiores. Debitis vero explicabo sed? Odit, impedit porro? Nostrum!</p>
+            <img src="../Guidance_Counselor_UI/show_article_image.php?AID=<?= $article['ID'] ?>" class="center"><br>
+            <h2 style="color: black;"><?= $article['TITLE'] ?></h2>
+            <p align="justify" style="color: black; font-size: 18px;"><?= $article['DESCRIPTION'] ?></p>
         </div>
 
         <div class="about__articles-right">
@@ -112,28 +121,39 @@
             <br>
 
             <div class="articles__cards">
+            <?php
+            
+            $month = date("F");
+            $getOtherArt = "SELECT * FROM articles WHERE DURATION = '$month' AND ART_STATUS = 'ACTIVE' AND ID NOT LIKE '%$ArtID%' LIMIT 2 ";
+            $getArt = mysqli_query($con, $getOtherArt);
+
+            
+
+
+            if (mysqli_num_rows($getArt) > 0) {
+                foreach ($getArt as $row) {
+                    $description = explode(".", $row['DESCRIPTION']);
+            ?>
 
                 <article class="article__card">
                     <div class="article__image">
-                        <img src="images/article/dec1.png" style="width:100%; margin-top: 20px; margin-bottom: 20px;">
+                        <img src="../Guidance_Counselor_UI/show_article_image.php?AID=<?php echo $row['ID']; ?>" style="width:100%; margin-top: 20px; margin-bottom: 20px;">
                     </div>
                     <div class="article__info">
-                        <h4>Growth Mindset</h4>
+                        <h4><?= $row['TITLE'] ?></h4>
                         <br>
-                        <a href="homepage___article1.php" class="btn btn-primary">Read More</a>
+                        <a href="homepage___article1.php?id=<?= $row['ID'] ?>" class="btn btn-primary">Read More</a>
                     </div>
                 </article>
+            <?php
 
-                <article class="article__card">
-                    <div class="article__image">
-                        <img src="images/article/dec1.png" style="width:100%; margin-top: 20px; margin-bottom: 20px;">
-                    </div>
-                    <div class="article__info">
-                        <h4>Growth Mindset</h4>
-                        <br>
-                        <a href="homepage___article1.php" class="btn btn-primary">Read More</a>
-                    </div>
-                </article>
+            }
+        } else {
+            ?>
+            <p>There was no articles at this time.</p>
+        <?php
+        }
+        ?>
 
             </div>
 
@@ -141,6 +161,8 @@
 
     </div>
 </section>
+
+
 <!--=========================END OF MID SECTION 1=============================-->
 
 
