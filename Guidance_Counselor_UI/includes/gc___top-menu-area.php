@@ -60,7 +60,77 @@
                                                             <h1>Message</h1>
                                                         </div>
                                                         <ul class="message-menu" id="all-messages">
-                                                            <li>
+                                                        <?php
+                                                            $Messages = [];
+
+                                                            $getSMSGroups = "SELECT DISTINCT group_sms FROM sms";
+                                                            $connect_group = mysqli_query($con, $getSMSGroups);
+
+                                                            
+                                                            while ($Groups = mysqli_fetch_assoc($connect_group)) {
+                                                                $group = $Groups['group_sms'];
+
+                                                                $Getusers = "SELECT first_name, last_name, id_number, profile_picture FROM  users WHERE user_id='$group'";
+                                                                $connect_users = mysqli_query($con, $Getusers);
+                                                                $users = $connect_users->fetch_assoc();
+
+                                                                $getsms = "SELECT text_sms, sender FROM sms WHERE group_sms='$group' AND delete_status='0' ORDER BY id DESC LIMIT 1";
+                                                                $connect_sms = mysqli_query($con, $getsms);
+                                                                $sms = $connect_sms->fetch_assoc();
+
+                                                                $Messages[] = ["name" => $users['first_name']." ".$users['last_name'],
+                                                                                "id_number" => $users['id_number'],
+                                                                                "profile_picture" => $users['profile_picture'],
+                                                                                "group" => $group,
+                                                                                "sender" => $sms['sender'],
+                                                                                "message" => $sms['text_sms']];
+                                                        
+                                                            }
+
+                                                            foreach ($Messages as $row) {
+                                                                $profile = "";
+
+                                                                if($row['profile_picture']){
+                                                                    $profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+$row['id_number'];
+                                                                }else{
+                                                                    $profile = "../Guidance_Counselor_UI/img/contact/2.png";
+                                                                }
+
+                                                                if ($_SESSION['UserId'] == $row['sender']) {
+                                                                    echo '<li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="'.$row['group'].'">
+                                                                            <a style="pointer-events: none;" href="'.$row['group'].'" id="toggle-sms">
+                                                                                <div class="message-img" >
+                                                                                    <img src="'.$profile.'" alt="" class="mCS_img_loaded" style=" border-radius: 50%;">
+                                                                                </div>
+                                                                                <div class="message-content">
+                                                                                    <span class="message-date" >16 Sept</span>
+                                                                                    <h2 >'.$row['name'].'</h2>
+                                                                                    <p ><i>You:</i>'.$row['message'].'</p>
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>'; 
+                                                                }else{
+                                                                    echo '<li style="width: 100%; cursor: pointer; " id="viewsms"  data-group="'.$row['group'].'">
+                                                                            <a style="pointer-events: none;" href="'.$row['group'].'" id="toggle-sms">
+                                                                                <div class="message-img">
+                                                                                    <img src="'.$profile.'" alt="" class="mCS_img_loaded" style=" border-radius: 50%;">
+                                                                                </div>
+                                                                                <div class="message-content">
+                                                                                    <span class="message-date">16 Sept</span>
+                                                                                    <h2 >'.$row['name'].'</h2>
+                                                                                    <p >'.$row['message'].'</p>
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>'; 
+                                                                }  
+
+                                                            }
+
+
+                                             
+                                                        ?>
+
+                                                            <!-- <li>
                                                                 <a >
                                                                     <div class="message-img">
                                                                         <img src="img/contact/1.jpg" alt="">
@@ -119,7 +189,7 @@
                                                                         <p>Please send your monthly reports as soon possible.</p>
                                                                     </div>
                                                                 </a>
-                                                            </li>
+                                                            </li> -->
 
                                                         </ul>
                                                         <div class="message-view">
@@ -1112,72 +1182,71 @@ $.ajax({
     }, 2000);
 
 
-$(document).on("click", "#show-messages", (e)=>{
-$.ajax({
-    url: "my_messages.php",
-    type: "POST",
-    dataType: "json",
-    data: {
-       userid: $("#store-data").data("id"),
-    },
-    xhrFields: {
-        withCredentials: true,
-    },
-    crossDomain: true,
-    success: (data) => { 
+// $(document).on("click", "#show-messages", (e)=>{
+// $.ajax({
+//     url: "my_messages.php",
+//     type: "POST",
+//     dataType: "json",
+//     data: {
+//        userid: $("#store-data").data("id"),
+//     },
+//     xhrFields: {
+//         withCredentials: true,
+//     },
+//     crossDomain: true,
+//     success: (data) => { 
 
-        $("#all-messages").empty();     
+//         $("#all-messages").empty();     
             
-        $.each(data.response, (indx, user)=>{
+//         $.each(data.response, (indx, user)=>{
 
-            var profile = "";
+//             var profile = "";
 
-            if(user.profile_picture){
-                profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+user.id_number;
-            }else{
-                profile = "../Guidance_Counselor_UI/img/contact/2.png";
-            }
+//             if(user.profile_picture){
+//                 profile = "../Guidance_Counselor_UI/sms_show_profile.php?id="+user.id_number;
+//             }else{
+//                 profile = "../Guidance_Counselor_UI/img/contact/2.png";
+//             }
 
-            if ($("#store-data").data("id") == user.sender) {
-                $("#all-messages").append(`
-                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-                        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-                            <div class="message-img" style="pointer-events: none;">
-                                <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none; border-radius: 50%;">
-                            </div>
-                            <div class="message-content" style="pointer-events: none;">
-                                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                                <h2 style="pointer-events: none;">${user.name}</h2>
-                                <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
-                            </div>
-                        </a>
-                    </li>
-                `); 
-            }else{
-                $("#all-messages").append(`
-                    <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-                        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-                            <div class="message-img" style="pointer-events: none;">
-                                <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none;  border-radius: 50%;">
-                            </div>
-                            <div class="message-content" style="pointer-events: none;">
-                                <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                                <h2 style="pointer-events: none;">${user.name}</h2>
-                                <p style="pointer-events: none;">${user.message}</p>
-                            </div>
-                        </a>
-                    </li>
-                `); 
-            }      
+//             if ($("#store-data").data("id") == user.sender) {
+//                 $("#all-messages").append(`
+//                     <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+//                         <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+//                             <div class="message-img" >
+//                                 <img src="${profile}" alt="" class="mCS_img_loaded" style="border-radius: 50%;">
+//                             </div>
+//                             <div class="message-content" >
+//                                 <span class="message-date" >16 Sept</span>
+//                                 <h2 >${user.name}</h2>
+//                                 <p ><i>You:</i> ${user.message}</p>
+//                             </div>
+//                         </a>
+//                     </li>
+//                 `); 
+//             }else{
+//                 $("#all-messages").append(`
+//                     <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
+//                         <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+//                             <div class="message-img" >
+//                                 <img src="${profile}" alt="" class="mCS_img_loaded" style="border-radius: 50%;">
+//                             </div>
+//                             <div class="message-content" >
+//                                 <span class="message-date" >16 Sept</span>
+//                                 <h2 >${user.name}</h2>
+//                                 <p >${user.message}</p>
+//                             </div>
+//                         </a>
+//                     </li>
+//                 `); 
+//             }      
 
-        });    
+//         });    
     
-    }
-    });
-});
+//     }
+//     });
+// });
 
 $(document).on("click", "#viewsms", (e)=>{
-
 
 
     $.ajax({
