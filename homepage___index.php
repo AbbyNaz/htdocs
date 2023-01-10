@@ -48,7 +48,6 @@ img {vertical-align: middle;}
   .text {font-size: 11px}
 }
 </style>
-
 <!--=========================START OF NAVBAR=============================-->
 <nav>
     <div class="container nav__container">
@@ -216,8 +215,12 @@ function showSlides() {
         $query = "SELECT * FROM articles WHERE DURATION = '$month' AND ART_STATUS = 'ACTIVE' LIMIT 3 ";
         $query_run = mysqli_query($con, $query);
 
+        
+
+
         if (mysqli_num_rows($query_run) > 0) {
             foreach ($query_run as $row) {
+                $description = explode(".", $row['DESCRIPTION']);
         ?>
 
                 <article class="article">
@@ -226,8 +229,8 @@ function showSlides() {
                     </div>
                     <div class="article__info">
                         <h4><?= $row['TITLE'] ?></h4>
-                        <p><?= $row['DESCRIPTION'] ?></p>
-                        <a href="homepage___article1.php" class="btn btn-primary">Read More</a>
+                        <p id ='fade'><?= $description[0] ?>.</p>
+                        <a href="homepage___article1.php?id=<?= $row['ID'] ?>" class="btn btn-primary">Read More</a>
                     </div>
                 </article>
             <?php

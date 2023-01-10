@@ -57,13 +57,9 @@
                                                     </a>
                                                     <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
                                                         <div class="message-single-top">
-                                                            
                                                             <h1>Message</h1>
                                                         </div>
                                                         <ul class="message-menu" id="all-messages">
-
-
-
                                                             <li>
                                                                 <a >
                                                                     <div class="message-img">
@@ -77,41 +73,54 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <a >
                                                                     <div class="message-img">
                                                                         <img src="img/contact/1.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
                                                                         <h2>Louie Ruiz</h2>
-                                                                        <p>Thank you Miss Faith, Have a nice day.</p>
+                                                                        <p>Please send your monthly reports as soon possible.</p>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <a >
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img src="img/contact/1.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
-                                                                        <h2>Victor Jara</h2>
-                                                                        <p>I would like to resched my appointment.</p>
+                                                                        <h2>Louie Ruiz</h2>
+                                                                        <p>Please send your monthly reports as soon possible.</p>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">
+                                                                <a >
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.png" alt="">
+                                                                        <img src="img/contact/1.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
-                                                                        <h2>Juan dela cruz</h2>
-                                                                        <p>Goodmorning, I would like to have an appointment this afternoon</p>
+                                                                        <h2>Louie Ruiz</h2>
+                                                                        <p>Please send your monthly reports as soon possible.</p>
                                                                     </div>
                                                                 </a>
                                                             </li>
+                                                            <li>
+                                                                <a >
+                                                                    <div class="message-img">
+                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="message-content">
+                                                                        <span class="message-date">16 Sept</span>
+                                                                        <h2>Louie Ruiz</h2>
+                                                                        <p>Please send your monthly reports as soon possible.</p>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+
                                                         </ul>
                                                         <div class="message-view">
                                                             <a href="sms.php">View All Messages</a>
@@ -313,7 +322,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header header-color-modal bg-color-1">
-                            <h4 class="modal-title">Rejection Form </h4>
+                            <h4 class="modal-title">Reject Referral</h4>
                             <div class="modal-close-area modal-close-df">
                                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                             </div>
@@ -327,7 +336,7 @@
                                             <label class="login2 pull-right">Reason</label>
                                         </div>
                                         <div class="form-group res-mg-t-15 col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                            <textarea name="description" placeholder="Description"></textarea>
+                                            <textarea name="description" placeholder="Enter Reason For Rejection"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -427,7 +436,7 @@
 
                         <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary btn-md">View Referral Details</button>
-                                <button type="button" id="RejectButton" onclick="showRefModal(this)" class="btn btn-danger btn-md" data-ref-id="" >Reject</button>
+                                <button type="button" id="RejectButton" onclick="showRefModalTop(this)" class="btn btn-danger btn-md" data-ref-id="" >Reject</button>
                                 <button id="setAppBtn" onclick="setRefAppointment(this)" data-ref-id="" class="btn btn-success btn-md">Set Appointment</button>
                         </div>
                     </form>
@@ -1132,31 +1141,31 @@ $.ajax({
             if ($("#store-data").data("id") == user.sender) {
                 $("#all-messages").append(`
                     <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-                        <div class="message-img" style="pointer-events: none;">
-                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none; border-radius: 50%;">
-                        </div>
-                        <div class="message-content" style="pointer-events: none;">
-                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                            <h2 style="pointer-events: none;">${user.name}</h2>
-                            <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
-                        </div>
-                    </a>
+                        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                            <div class="message-img" style="pointer-events: none;">
+                                <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none; border-radius: 50%;">
+                            </div>
+                            <div class="message-content" style="pointer-events: none;">
+                                <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                                <h2 style="pointer-events: none;">${user.name}</h2>
+                                <p style="pointer-events: none;"><i>You:</i> ${user.message}</p>
+                            </div>
+                        </a>
                     </li>
                 `); 
             }else{
                 $("#all-messages").append(`
                     <li style="width: 100%; cursor: pointer;" id="viewsms"  data-group="${user.group}">
-                    <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
-                        <div class="message-img" style="pointer-events: none;">
-                            <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none;  border-radius: 50%;">
-                        </div>
-                        <div class="message-content" style="pointer-events: none;">
-                            <span class="message-date" style="pointer-events: none;">16 Sept</span>
-                            <h2 style="pointer-events: none;">${user.name}</h2>
-                            <p style="pointer-events: none;">${user.message}</p>
-                        </div>
-                    </a>
+                        <a style="pointer-events: none;" href="${user.group}" id="toggle-sms">
+                            <div class="message-img" style="pointer-events: none;">
+                                <img src="${profile}" alt="" class="mCS_img_loaded" style="pointer-events: none;  border-radius: 50%;">
+                            </div>
+                            <div class="message-content" style="pointer-events: none;">
+                                <span class="message-date" style="pointer-events: none;">16 Sept</span>
+                                <h2 style="pointer-events: none;">${user.name}</h2>
+                                <p style="pointer-events: none;">${user.message}</p>
+                            </div>
+                        </a>
                     </li>
                 `); 
             }      
@@ -1470,12 +1479,13 @@ function cancelAppointment(button){
     $('#AppNotificationForm').attr("action", "../Guidance_Counselor_UI/cancel_appointment.php?app_id="+AppID+"");
 }
 
-function showRefModal(button){
+function showRefModalTop(button){
     var refID = $(button).data('ref-id');
 
-    $('#RejectForm').attr("action", "RefRejectQuery.php?ref_id="+refID+"");
+    $('#RejectForm').attr("action", "../Guidance_Counselor_UI/RefRejectQuery.php?ref_id="+refID+"");
 
     $('#REJECTION_FORM').modal('show');
+    
 }
 
 function showModal(li){
@@ -1542,7 +1552,6 @@ function showModal(li){
                     if(status.includes('Cancelled') || status.includes('Complete') ){
                         $("#RejectButton").hide();
                         $("#setAppBtn").hide();
-                        
                     }
                     if(type == 'Cancelled'){
                         $("#cancelGroup").show();

@@ -26,7 +26,9 @@ if (isset($_SESSION['UserEmail'])) {
     unset($_SESSION['UserId']);
     unset($_SESSION['UserRole']);
 
-    echo header("Location: homepage___index.php");
+    setcookie("logged_in", "", time() - 3600, "/");
+
+    echo header("Location: homepage___index.php?".$_COOKIE['logged_in']);
 }
 
 ?>

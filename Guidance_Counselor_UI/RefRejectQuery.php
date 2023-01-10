@@ -17,7 +17,7 @@ if(!isset($_POST["description"])){
     $cancel_refferal = "UPDATE `refferals` SET ref_status='Cancelled', Cancel_Reason='$desciption', Cancel_Date ='$currentDate' WHERE ref_id = '$ref_id'";
     $isSuccess = mysqli_query($con, $cancel_refferal);
 
-    if($isSuccess){
+    if($isSuccess && mysqli_affected_rows($con) > 0){
         $type = 'Rejection';
 
         $notified = Notify($type, $ref_id);
@@ -26,6 +26,8 @@ if(!isset($_POST["description"])){
             header("Location: gc___referral.php?RejectionSuccess=true");
         }
 
+    }else{
+        header("Location: gc___referral.php?RejectionSuccess=false");
     }
     
 }
