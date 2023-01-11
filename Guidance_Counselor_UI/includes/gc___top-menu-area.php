@@ -255,7 +255,7 @@
                                                                     }
 
 
-                                                                    echo '<li  style="width: 100%;" onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
+                                                                    echo '<li  style="width: 90%;" onclick="showModal(this)" data-notif = "'.$notif_id.'" data-id = "'.$infoID.'" data-type="'.$type.'" '.$style.'>
                                                                             
                                                                             <div class="notification-icon">
                                                                                 <img src="'.$profile.'" alt="User Picture">

@@ -34,7 +34,7 @@ if (!isset($_SESSION['UserEmail'])) {
   $con->query($Inactive_offense) or die($con->error);
 
 
-  $offense = "SELECT * FROM offense_monitoring WHERE status ='Active'";
+  $offense = "SELECT * FROM offense_monitoring WHERE sanction_info !='Sanction Ended'";
   $get_offense = $con->query($offense) or die($con->error);
   $row = $get_offense->fetch_assoc();
 
